@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
-import android.os.StrictMode;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,30 +13,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.conn.util.InetAddressUtils;
 import org.ksoap2.serialization.SoapObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.InetAddress;
-import java.net.MalformedURLException;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Enumeration;
-
-import static org.helloworld.Global.MessageTag.MSG_FINISH;
 
 
 public class LogIn extends Activity
 {
 	private ProgressBar pbLogInBar;
-	public android.os.Handler handler;
-
 	public class SignInTask extends AsyncTask<Void, Void, Boolean>
 	{
 		public String Username;
@@ -96,13 +76,6 @@ public class LogIn extends Activity
 				task.execute();
 			}
 		});
-		handler = new android.os.Handler()
-		{
-			@Override
-			public void handleMessage(Message msg)
-			{
-			}
-		};
 
 	}
 	@Override
