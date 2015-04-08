@@ -34,7 +34,9 @@
 		android:id="@+id/btnLogin"
 		android:layout_below="@+id/etPassword"
 		android:layout_alignParentLeft="true"
-		android:layout_alignParentStart="true"/>
+		android:layout_alignParentStart="true"
+		android:layout_alignRight="@+id/tvToRegister"
+		android:layout_alignEnd="@+id/tvToRegister"/>
 
 	<TextView
 		android:layout_width="wrap_content"
