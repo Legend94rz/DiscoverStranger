@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +15,7 @@ import android.widget.Toast;
 import org.ksoap2.serialization.SoapObject;
 
 
-public class LogIn extends Activity
+public class LogInAct extends Activity
 {
 	private ProgressBar pbLogInBar;
 	public class SignInTask extends AsyncTask<Void, Void, Boolean>
@@ -34,8 +33,16 @@ public class LogIn extends Activity
 		{
 			WebService login=new WebService("SignIn");
 			login.addProperty("name",Username).addProperty("pass",Password);
-			SoapObject result=login.call();
-			return Boolean.parseBoolean(result.getProperty(0).toString());
+			try
+			{
+				SoapObject result = login.call();
+				return Boolean.parseBoolean(result.getProperty(0).toString());
+			}
+			catch (NullPointerException e)
+			{
+				e.printStackTrace();
+			}
+			return false;
 		}
 		@Override
 		protected void onPostExecute(Boolean aBoolean)
@@ -43,16 +50,16 @@ public class LogIn extends Activity
 			pbLogInBar.setVisibility(View.INVISIBLE);
 			if(aBoolean)
 			{
-				Toast.makeText(LogIn.this,"登录成功",Toast.LENGTH_SHORT).show();
+				Toast.makeText(LogInAct.this,"登录成功",Toast.LENGTH_SHORT).show();
 				Global.mySelf.username=Username;
 				Global.mySelf.password=Password;
-				Intent i=new Intent(LogIn.this,MainActivity.class);
+				Intent i=new Intent(LogInAct.this,MainActivity.class);
 				startActivity(i);
 				finish();
 			}
 			else
 			{
-				Toast.makeText(LogIn.this,"登录失败",Toast.LENGTH_SHORT).show();
+				Toast.makeText(LogInAct.this,"登录失败",Toast.LENGTH_SHORT).show();
 			}
 		}
 	}

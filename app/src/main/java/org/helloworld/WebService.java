@@ -32,7 +32,9 @@ public class WebService
 		so.addProperty(name, value);
 		return this;
 	}
-
+	/**
+	 * NOTE:为尽量避免程序运行时崩溃，调用此方法必须try-catch NullPointerException
+	 * */
 	public SoapObject call()
 	{
 		try

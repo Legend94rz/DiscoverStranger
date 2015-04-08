@@ -1,20 +1,18 @@
 package org.helloworld;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.style.BulletSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,44 +23,60 @@ import org.json.JSONObject;
 import org.ksoap2.serialization.SoapObject;
 import org.w3c.dom.Text;
 
-import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.jar.Manifest;
 
 
 public class MainActivity extends Activity
 {
-	android.os.Handler handler;
-	ExpandableListView elvFriends;
-	public class Task extends AsyncTask<Object,Void,SoapObject>
-	{
-		int when_complete;
-		public Task(int when_complete)
-		{
-			this.when_complete = when_complete;
-		}
-		/**
-		 * @param objects [0]为调用函数名;[1]为参数个数;[2]及以后表示参数
-		 * @return true表示请求发送成功;false表示发送失败
-		 * */
-		@Override
-		protected SoapObject doInBackground(Object... objects)
-		{
-			WebService service=new WebService((String)objects[0]);
-			for (int i=2;i<2+(Integer)(objects[1])*2;i+=2)
-			{
-				service.addProperty((String)objects[i],objects[i+1]);
-			}
-			return service.call();
-		}
+	public static android.os.Handler handler;
+	private ListView elvFriends;
+	public static int updateCount=0;
+	static BaseAdapter adapter = null;
 
-		@Override
-		protected void onPostExecute(SoapObject soapObject)
+	public class parserWithExtraAsync extends AsyncTask<JSONObject, Void, Void>
+	{
+		private ArrayList<UserInfo> list;
+		private int index;
+
+		public parserWithExtraAsync(ArrayList<UserInfo> list, int index)
 		{
-			android.os.Message soapMsg=new android.os.Message();
-			soapMsg.what=when_complete;
-			soapMsg.obj=soapObject;
-			handler.sendMessage(soapMsg);
+			this.list = list;
+			this.index = index;
+		}
+		@Override
+		protected Void doInBackground(JSONObject... jsons)
+		{
+			WebService getUser=new WebService("GetUser");
+			try
+			{
+				SoapObject result = getUser.addProperty("name", jsons[0].getString("name")).call();
+				list.set(index,UserInfo.parse(result));
+			}
+			catch (NullPointerException ignored){}
+			catch (JSONException e)
+			{
+				e.printStackTrace();
+			}
+			/*Todo 下载图片、补全额外信息*/
+			try
+			{
+				list.get(index).Ex_remark=jsons[0].getString("remark");
+			}
+			catch (JSONException ignored){list.get(index).Ex_remark=null;}
+			synchronized ((Object)updateCount)
+			{
+				updateCount++;
+				if(updateCount>=list.size())
+				{
+					updateCount=0;
+					android.os.Message message=new android.os.Message();
+					message.what=Global.MSG_WHAT.W_REFRESH;
+					handler.sendMessage(message);
+				}
+			}
+			return null;
 		}
 	}
 	/**
@@ -70,6 +84,7 @@ public class MainActivity extends Activity
 	 * */
 	 public class MsgPuller implements Runnable
 	{
+		boolean isError;
 		@Override
 		public void run()
 		{
@@ -77,26 +92,38 @@ public class MainActivity extends Activity
 			pullMsg.addProperty("name", Global.mySelf.username);
 			while (true)
 			{
-				SoapObject messages = pullMsg.call();
-				SoapObject result= (SoapObject) messages.getProperty(0);
-				int T=result.getPropertyCount();
-				for (int i = 0; i < T; i++)
-				{
-					org.helloworld.Message msg = org.helloworld.Message.parse((SoapObject)result.getProperty(i));
-					android.os.Message newMessageHint=new android.os.Message();
-					Bundle data=new Bundle();
-					data.putString("content",msg.Text);
-					newMessageHint.what=2;
-					newMessageHint.setData(data);
-					handler.sendMessage(newMessageHint);
-				}
 				try
 				{
+					SoapObject messages = pullMsg.call();
+					SoapObject result= (SoapObject) messages.getProperty(0);
+					int T=result.getPropertyCount();
+					for (int i = 0; i < T; i++)
+					{
+						org.helloworld.Message msg = org.helloworld.Message.parse((SoapObject)result.getProperty(i));
+						android.os.Message newMessageHint=new android.os.Message();
+						Bundle data=new Bundle();
+						data.putString("content",msg.Text);
+						newMessageHint.what=2;
+						newMessageHint.setData(data);
+						handler.sendMessage(newMessageHint);
+					}
 					Thread.sleep(5000);
+					isError=false;
 				}
 				catch (InterruptedException e)
 				{
 					e.printStackTrace();
+				}
+				catch (NullPointerException e)
+				{
+					e.printStackTrace();
+					if(!isError)
+					{
+						android.os.Message M=new android.os.Message();
+						M.what=Global.MSG_WHAT.W_ERROR_NETWORK;
+						MainActivity.handler.sendMessage(M);
+						isError=true;
+					}
 				}
 			}
 		}
@@ -109,132 +136,107 @@ public class MainActivity extends Activity
 		setContentView(R.layout.activity_main);
 		TabHost tabHost=(TabHost)findViewById(R.id.tabHost);
 		tabHost.setup();
+
 		TabHost.TabSpec tabSpec=tabHost.newTabSpec("tab1").setIndicator("最近").setContent(R.id.tab1);
 		TabHost.TabSpec tabSpec1=tabHost.newTabSpec("tab2").setIndicator("所有").setContent(R.id.tab2);
 		tabHost.addTab(tabSpec);
 		tabHost.addTab(tabSpec1);
-		elvFriends= (ExpandableListView) findViewById(R.id.elvFriends);
+		elvFriends= (ListView) findViewById(R.id.elvFriends);
 		handler = new android.os.Handler()
 		{
 			@Override
 			public void handleMessage(android.os.Message msg)
 			{
-				if(msg.what==Global.MSG_WHAT.RECEIVED_A_NEW_MSG)
+				switch (msg.what)
 				{
-					Toast.makeText(MainActivity.this, msg.getData().getString("content"), Toast.LENGTH_SHORT).show();
-				}
-				else if(msg.what==Global.MSG_WHAT.GOT_FRIENDS_LIST)
-				{
-					SoapObject obj= (SoapObject) (msg.obj);
-					try
-					{
-						final JSONObject json = new JSONObject(obj.getProperty(0).toString());
-						final JSONArray array=json.getJSONArray("List");
-						ExpandableListAdapter adp = new BaseExpandableListAdapter()
+					case Global.MSG_WHAT.W_RECEIVED_A_NEW_MSG:
+						Toast.makeText(MainActivity.this, msg.getData().getString("content"), Toast.LENGTH_SHORT).show();
+						break;
+					case Global.MSG_WHAT.W_GOT_FRIENDS_LIST:
+						final ArrayList<UserInfo> list = new ArrayList<UserInfo>();
+						try
 						{
-							@Override
-							public int getGroupCount()
+							SoapObject obj = (SoapObject) (msg.obj);
+							JSONObject json = new JSONObject(obj.getProperty(0).toString());
+							JSONArray array = json.getJSONArray("friends");
+							for (int i = 0; i < array.length(); i++)
 							{
-								return array.length();
+								JSONObject userInfo = array.getJSONObject(i);
+								UserInfo friend = new UserInfo(userInfo.getString("name"));
+								list.add(friend);
+								new parserWithExtraAsync(list, i).execute(userInfo);
 							}
-							@Override
-							public int getChildrenCount(int i)
+							adapter = new BaseAdapter()
 							{
-								try
+								@Override
+								public int getCount()
 								{
-									JSONObject temp = array.getJSONObject(i);
-									String groupname = temp.keys().next().toString();
-									JSONObject group=temp.getJSONObject(groupname);
-									return group.getJSONArray("friends").length();
+									return list.size();
 								}
-								catch (JSONException e)
+
+								@Override
+								public Object getItem(int i)
 								{
-									e.printStackTrace();
+									return list.get(i);
 								}
-								return 0;
-							}
-							@Override
-							public Object getGroup(int i)
-							{
-								try
+
+								@Override
+								public long getItemId(int i)
 								{
-									return array.getJSONObject(i).keys().next().toString();
+									return i;
 								}
-								catch (JSONException e)
+
+								@Override
+								public View getView(int i, View view, ViewGroup viewGroup)
 								{
-									e.printStackTrace();
+									LinearLayout l1 = new LinearLayout(MainActivity.this);
+									LinearLayout l2=new LinearLayout(MainActivity.this);
+									l1.setOrientation(LinearLayout.HORIZONTAL);
+									l2.setOrientation(LinearLayout.VERTICAL);
+									ImageView img = new ImageView(MainActivity.this);
+									LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(64, 64);
+									lp.setMargins(25, 15, 15, 15);
+									img.setLayoutParams(lp);
+									img.setScaleType(ImageView.ScaleType.FIT_XY);
+									img.setImageResource(R.drawable.nohead);
+									l1.addView(img);
+									TextView tv = new TextView(MainActivity.this);
+									tv.setText(list.get(i).username);
+									tv.setTextSize(20);
+									l2.addView(tv);
+									TextView tv2=new TextView(MainActivity.this);
+									tv2.setText("备注："+list.get(i).Ex_remark);
+									l2.addView(tv2);
+									l1.addView(l2);
+									return l1;
 								}
-								return null;
-							}
-							@Override
-							public Object getChild(int i, int i2)
-							{
-								try
-								{
-									JSONObject temp = array.getJSONObject(i);
-									String groupname = temp.keys().next().toString();
-									JSONObject group=temp.getJSONObject(groupname);
-									JSONObject friend=group.getJSONArray("friends").getJSONObject(i2);
-									return friend.getString("name");
-								}
-								catch (JSONException e)
-								{
-									e.printStackTrace();
-								}
-								return "";
-							}
-							@Override
-							public long getGroupId(int i)
-							{
-								return i;
-							}
-							@Override
-							public long getChildId(int i, int i2)
-							{
-								return i2;
-							}
-							@Override
-							public boolean hasStableIds()
-							{
-								return true;
-							}
-							@Override
-							public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup)
-							{
-								LinearLayout ll=new LinearLayout(MainActivity.this);
-								TextView tv=new TextView(MainActivity.this);
-								tv.setText((String)getGroup(i));
-								ll.addView(tv);
-								return ll;
-							}
-							@Override
-							public View getChildView(int i, int i2, boolean b, View view, ViewGroup viewGroup)
-							{
-								LinearLayout ll=new LinearLayout(MainActivity.this);
-								TextView tv=new TextView(MainActivity.this);
-								tv.setText((String)getChild(i,i2));
-								ll.addView(tv);
-								return ll;
-							}
-							@Override
-							public boolean isChildSelectable(int i, int i2)
-							{
-								return true;
-							}
-						};
-						elvFriends.setAdapter(adp);
-					}
-					catch (JSONException e)
-					{
-						e.printStackTrace();
-					}
+							};
+							adapter.notifyDataSetChanged();
+							elvFriends.setAdapter(adapter);
+						}
+						catch (JSONException e)
+						{
+							e.printStackTrace();
+						}
+						catch (NullPointerException ignored){}
+						break;
+					case Global.MSG_WHAT.W_ERROR_NETWORK:
+						Toast.makeText(MainActivity.this,Global.ERROR_HINT.HINT_ERROR_NETWORD,Toast.LENGTH_SHORT).show();
+						break;
+					case Global.MSG_WHAT.W_REFRESH:
+						if(adapter!=null)adapter.notifyDataSetChanged();
+						break;
 				}
 			}
 		};
-		new Task(Global.MSG_WHAT.GOT_FRIENDS_LIST).execute("getFriends",1,"name",Global.mySelf.username);
+		FlushFriendsList();
 		new Thread(new MsgPuller()).start();
 	}
-
+	void FlushFriendsList()
+	{
+		updateCount=0;
+		new Task(Global.MSG_WHAT.W_GOT_FRIENDS_LIST).execute("getFriends",1,"name",Global.mySelf.username);
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -253,9 +255,14 @@ public class MainActivity extends Activity
 		int id = item.getItemId();
 
 		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_settings)
+		switch (id)
 		{
-			return true;
+			case R.id.action_settings:
+				return true;
+			case R.id.meuFlush:
+				FlushFriendsList();
+				Toast.makeText(MainActivity.this,"正在刷新",Toast.LENGTH_SHORT).show();
+				break;
 		}
 
 		return super.onOptionsItemSelected(item);
