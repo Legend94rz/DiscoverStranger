@@ -2,8 +2,8 @@
 	  xmlns:tools="http://schemas.android.com/tools"
 	  tools:context="org.helloworld.MainActivity">
 	<item
-		android:showAsAction="always"
-		android:title="· · ·">
+		android:showAsAction="always|withText"
+		android:title="菜单">
 		<menu>
 			<group>
 				<item android:title="@string/menu_Add_Friends" android:id="@+id/meuAdd"/>

@@ -1,7 +1,6 @@
 package org.helloworld;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -21,11 +19,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.ksoap2.serialization.SoapObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.jar.Manifest;
 
 
 public class MainActivity extends Activity
@@ -134,13 +129,7 @@ public class MainActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		TabHost tabHost=(TabHost)findViewById(R.id.tabHost);
-		tabHost.setup();
-
-		TabHost.TabSpec tabSpec=tabHost.newTabSpec("tab1").setIndicator("最近").setContent(R.id.tab1);
-		TabHost.TabSpec tabSpec1=tabHost.newTabSpec("tab2").setIndicator("所有").setContent(R.id.tab2);
-		tabHost.addTab(tabSpec);
-		tabHost.addTab(tabSpec1);
+	/*
 		elvFriends= (ListView) findViewById(R.id.elvFriends);
 		handler = new android.os.Handler()
 		{
@@ -194,8 +183,8 @@ public class MainActivity extends Activity
 									l1.setOrientation(LinearLayout.HORIZONTAL);
 									l2.setOrientation(LinearLayout.VERTICAL);
 									ImageView img = new ImageView(MainActivity.this);
-									LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(64, 64);
-									lp.setMargins(25, 15, 15, 15);
+									LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(50, 50);
+									lp.setMargins(15, 15, 15, 15);
 									img.setLayoutParams(lp);
 									img.setScaleType(ImageView.ScaleType.FIT_XY);
 									img.setImageResource(R.drawable.nohead);
@@ -231,6 +220,7 @@ public class MainActivity extends Activity
 		};
 		FlushFriendsList();
 		new Thread(new MsgPuller()).start();
+		*/
 	}
 	void FlushFriendsList()
 	{
