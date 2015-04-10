@@ -30,6 +30,7 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 {
 	public static android.os.Handler handler;
 	private ListView lvFriends;
+	private ListView lvHistory;
 	public static int updateCount=0;
 	ContactAdapter adapter;
 	myViewPagerAdapter pagerAdapter;
@@ -247,9 +248,10 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 		viewPager= (ViewPager) findViewById(R.id.viewpager);
 		LayoutInflater mInflater = LayoutInflater.from(this);
 		View v1=mInflater.inflate(R.layout.page1,null);
-		lvFriends= (ListView) v1.findViewById(R.id.listView);
 		View v2=mInflater.inflate(R.layout.faxian,null);
 		View v3=mInflater.inflate(R.layout.page3,null);
+		lvFriends= (ListView) v3.findViewById(R.id.listView);
+		lvHistory= (ListView) v1.findViewById(R.id.listView);
 		pages=new ArrayList<View>();
 		pages.add(v1);pages.add(v2);pages.add(v3);
 		pagerAdapter = new myViewPagerAdapter(this,pages);
