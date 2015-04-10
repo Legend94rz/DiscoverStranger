@@ -2,7 +2,11 @@ package org.helloworld;
 
 import android.os.AsyncTask;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.ksoap2.serialization.SoapObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2015/3/2.

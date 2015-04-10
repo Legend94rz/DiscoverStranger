@@ -12,9 +12,9 @@ import java.util.ArrayList;
 
 public class ContactAdapter extends BaseAdapter {
 	private Context context;
-	private ArrayList<UserInfo> list = new ArrayList<UserInfo>();
+	private ArrayList<UserInfo> list;
 	
-	public ContactAdapter(Context context,ArrayList<UserInfo> list){
+	public ContactAdapter(Context context, ArrayList<UserInfo> list){
 		this.context = context;
 		this.list = list;
 	}
@@ -26,19 +26,18 @@ public class ContactAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return list.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	public View getView(int position, View view, ViewGroup parent) {
 		UserInfo hh = list.get(position);
+		System.out.println("GetView-------------------"+position);
 		H h = null;
 		if(view==null){
 			h = new H();
@@ -51,8 +50,11 @@ public class ContactAdapter extends BaseAdapter {
 			h = (H)view.getTag();
 		}
 		//Todo 修改显示文字及图片
-		h.pic.setImageResource(R.drawable.nohead);
-		h.name.setText(hh.username);
+		h.pic.setImageResource(R.drawable.icon);
+		if(hh.Ex_remark==null)
+			h.name.setText(hh.username);
+		else
+			h.name.setText(hh.Ex_remark);
 		
 		return view;
 	}

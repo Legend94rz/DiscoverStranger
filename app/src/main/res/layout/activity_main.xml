@@ -1,25 +1,25 @@
-<GridLayout	android:layout_height="match_parent"
-				android:layout_width="fill_parent"
-				xmlns:android="http://schemas.android.com/apk/res/android"
-				android:orientation="vertical">
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@color/white"
+	xmlns:android="http://schemas.android.com/apk/res/android">
 
-
-	<include
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		layout="@layout/top1"/>
-
-	<include
+	<LinearLayout
+		android:id="@+id/llayout"
+		android:orientation="vertical"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		layout="@layout/top2"/>
+		android:layout_alignParentTop="true"
+		>
+		<include layout="@layout/top1"/>
+		<include layout="@layout/top2"/>
 
-	<view
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		class="org.helloworld.MyScrollLayout"
-		android:id="@+id/view"
-		android:layout_row="2"
-		android:layout_column="0"/>
+		<android.support.v4.view.ViewPager
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:id="@+id/viewpager">
+		</android.support.v4.view.ViewPager>
+	</LinearLayout>
+</RelativeLayout>
 
-</GridLayout>
