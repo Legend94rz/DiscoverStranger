@@ -37,7 +37,6 @@ public class ContactAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View view, ViewGroup parent) {
 		UserInfo hh = list.get(position);
-		System.out.println("GetView-------------------"+position);
 		H h = null;
 		if(view==null){
 			h = new H();

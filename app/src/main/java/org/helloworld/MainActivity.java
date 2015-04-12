@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,7 +24,9 @@ import org.json.JSONObject;
 import org.ksoap2.serialization.SoapObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class MainActivity extends Activity implements  View.OnClickListener,ViewPager.OnPageChangeListener
@@ -42,6 +45,8 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 	private TextView faxian;
 	private TextView tongxunlu;
 	ArrayList<UserInfo> list;
+	ArrayList<History> list2;
+	Map<String,History> map;
 	ViewPager viewPager;
 	List<View> pages;
 	@Override
@@ -112,14 +117,14 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 					SoapObject messages = pullMsg.call();
 					SoapObject result= (SoapObject) messages.getProperty(0);
 					int T=result.getPropertyCount();
-					for (int i = 0; i < T; i++)
+					if(T>0)
 					{
-						org.helloworld.Message msg = org.helloworld.Message.parse((SoapObject)result.getProperty(i));
-						android.os.Message newMessageHint=new android.os.Message();
-						Bundle data=new Bundle();
-						data.putString("content",msg.Text);
-						newMessageHint.what=2;
-						newMessageHint.setData(data);
+						ArrayList<Message> listOfMsg = new ArrayList<Message>();
+						android.os.Message newMessageHint = new android.os.Message();
+						newMessageHint.what = Global.MSG_WHAT.W_RECEIVED_A_NEW_MSG;
+						for (int i = 0; i < T; i++)
+							listOfMsg.add(org.helloworld.Message.parse((SoapObject) result.getProperty(i)));
+						newMessageHint.obj = listOfMsg;
 						handler.sendMessage(newMessageHint);
 					}
 					Thread.sleep(5000);
@@ -199,7 +204,34 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 				switch (msg.what)
 				{
 					case Global.MSG_WHAT.W_RECEIVED_A_NEW_MSG:
-						Toast.makeText(MainActivity.this, msg.getData().getString("content"), Toast.LENGTH_SHORT).show();
+						ArrayList<Message> received= (ArrayList<Message>) msg.obj;
+						/*Todo 解析一个Message 添加到ListView*/
+						for (Message m : received)
+						{
+							History h;
+							boolean f=map.containsKey(m.FromId);
+							if(f)
+							{
+								h=map.get(m.FromId);
+							}
+							else
+								h=new History();
+							h.count=String.valueOf(Integer.parseInt(h.count)+1);
+							h.fromName=m.FromId;
+							h.imgPath="xx";			//从userinfo里获取
+							h.lastMsg=m.Text;
+							h.SendTime=m.SendTime;
+							map.put(m.FromId,h);
+							if(!list2.contains(h))
+								list2.add(h);
+							if(hisAdapter==null)
+							{
+								hisAdapter=new HistoryAdapter(list2,MainActivity.this);
+								lvHistory.setAdapter(hisAdapter);
+							}
+							else
+								hisAdapter.notifyDataSetChanged();
+						}
 						break;
 					case Global.MSG_WHAT.W_GOT_FRIENDS_LIST:
 						try
@@ -215,7 +247,7 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 									list.add(friend);
 								else
 									list.set(i,friend);
-								//new parserWithExtraAsync(i).execute(userInfo);
+								new parserWithExtraAsync(i).execute(userInfo);
 							}
 							BindAdapter(list);
 						}
@@ -229,7 +261,8 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 						Toast.makeText(MainActivity.this,Global.ERROR_HINT.HINT_ERROR_NETWORD,Toast.LENGTH_SHORT).show();
 						break;
 					case Global.MSG_WHAT.W_REFRESH:
-						if(adapter!=null)adapter.notifyDataSetChanged();
+						if(adapter!=null)
+							adapter.notifyDataSetChanged();
 						break;
 				}
 			}
@@ -240,7 +273,7 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 
 	private void init()
 	{
-		list=new ArrayList<UserInfo>();
+		list=new ArrayList<UserInfo>();list2=new ArrayList<History>();map=new HashMap<String, History>();
 		liaotian = (TextView)findViewById(R.id.tvLiaotian);
 		faxian = (TextView)findViewById(R.id.tvFaxian);
 		tongxunlu = (TextView)findViewById(R.id.tvTongxunlu);
@@ -270,7 +303,6 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 		}
 		mCurSel = 0;
 		mImageViews[mCurSel].setEnabled(false);
-
 	}
 
 	void BindAdapter(ArrayList<UserInfo> list)

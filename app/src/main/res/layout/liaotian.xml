@@ -9,73 +9,81 @@
 	              android:layout_height="wrap_content"
 		          >
 		          <ImageView
-		              android:id="@+id/l1"
+		              android:id="@+id/imgHead"
 		              android:layout_alignParentLeft="true" 
 		              android:layout_width="50dip"
 	              	  android:layout_height="50dip"
 	              	  android:src="@drawable/icon"
 	              	  android:scaleType="fitCenter"
 		              />
-		          <LinearLayout 
+		          <GridLayout
 		              android:id="@+id/l2"
 		              android:layout_alignParentRight="true" 
 			          android:orientation="vertical" 
 			          android:layout_width="wrap_content"
 		              android:layout_height="wrap_content"
-		          >
-			          <TextView
-			              android:id="@+id/time"
-			              android:layout_width="wrap_content"
+					  android:layout_alignBottom="@+id/linearLayout"
+					  android:columnCount="2"
+					  android:rowCount="2">
+
+					  <TextView
+							android:id="@+id/tvTime"
+						  	android:layout_width="wrap_content"
+							android:layout_height="fill_parent"
+							android:padding="2dip"
+							android:layout_marginLeft="6dp"
+							android:text="下午 16:45"
+							android:textSize="15sp"
+							android:gravity="center"
+							android:singleLine="true"
+							android:textColor="@color/gray"
+						  	android:layout_column="0"
+						  	android:layout_row="0"
+						  	android:layout_columnSpan="2"/>
+
+					  <TextView
+			              android:id="@+id/tvCount"
+			              android:layout_width="28dp"
 		              	  android:layout_height="fill_parent"
+						  android:layout_marginLeft="6dp"
 		              	  android:padding="2dip"
-		              	  android:layout_weight="1"
-		              	  android:layout_marginLeft="6dp"
-		              	  android:text="下午 16:45"
-		              	  android:textSize="15dip"
-		              	  android:gravity="center"
+		              	  android:textSize="14sp"
 		              	  android:singleLine="true"
-		              	  android:textColor="@color/gray"
-			              />
-			          <TextView
-			              android:id="@+id/bz"
-			              android:layout_width="wrap_content"
-		              	  android:layout_height="fill_parent"
-		              	  android:layout_weight="1"
-		              	  android:layout_marginLeft="6dp"
-		              	  android:padding="2dip"
-		              	  android:textSize="14dip"
-		              	  android:singleLine="true"
-		              	  android:gravity="center"
-		              	  android:textColor="@color/gray"
-			              />
-		          </LinearLayout>
+						  android:textColor="#ffffffff"
+						  android:layout_column="1"
+						  android:layout_row="1"
+						  android:background="#ffff0000"
+						  android:text="1"
+						  android:layout_gravity="center_horizontal"
+						  android:gravity="center"/>
+		          </GridLayout>
 		          <LinearLayout 
-			          android:orientation="vertical" 
+			          android:orientation="vertical"
 			          android:layout_toLeftOf="@id/l2"
-			          android:layout_toRightOf="@id/l1"
+			          android:layout_toRightOf="@id/imgHead"
 			          android:paddingLeft="8dip"
 			          android:layout_width="match_parent"
 		              android:layout_height="wrap_content"
-		          >
+					  android:id="@+id/linearLayout">
 			          <TextView
-			              android:id="@+id/name"
+			              android:id="@+id/tvName"
 			              android:layout_width="wrap_content"
 		              	  android:layout_height="fill_parent"
 		              	  android:layout_weight="1"
 		              	  android:text="肖秀"
 		              	  android:padding="2dip"
-		              	  android:textSize="15dip"
+		              	  android:textSize="15sp"
 		              	  android:singleLine="true"
 		              	  android:gravity="center"
 		              	  android:textColor="@color/black"
 			              />
 			          <TextView
-			              android:id="@+id/lastmsg"
+			              android:id="@+id/tvLastmsg"
 			              android:layout_width="wrap_content"
 		              	  android:layout_height="fill_parent"
 		              	  android:padding="2dip"
 		              	  android:text="这是唯一一个正常的朋友"
-		              	  android:textSize="14dip"
+		              	  android:textSize="14sp"
 		              	  android:layout_weight="1"
 		              	  android:singleLine="true"
 		              	  android:gravity="center"
