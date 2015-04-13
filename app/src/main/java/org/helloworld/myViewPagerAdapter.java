@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2015/4/10.
+ * 此文件用于主页的分页显示
  */
 public class myViewPagerAdapter extends PagerAdapter
 {

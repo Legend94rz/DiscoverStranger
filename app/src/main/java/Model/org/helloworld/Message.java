@@ -26,7 +26,7 @@ public class Message
 		model.FromId=s.getProperty("FromId").toString();
 		model.Text=s.getProperty("Text").toString();
 		model.ToId=s.getProperty("ToId").toString();
-		String dateString=s.getProperty("SendTime").toString().replace('T',' ');
+		String dateString=s.getProperty("SendTime").toString().replace('T',' ');		//C# 服务端返回的Time里含有一个'T'要去掉才行
 		try
 		{
 			model.SendTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateString);

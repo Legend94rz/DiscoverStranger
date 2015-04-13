@@ -1,18 +1,16 @@
 package org.helloworld;
 
 import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.BaseAdapter;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -49,15 +47,19 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 	Map<String,History> map;
 	ViewPager viewPager;
 	List<View> pages;
+	/**
+	 * 处理导航标签的点击事件
+	 * */
 	@Override
 	public void onClick(View v)
 	{
-		//Todo V.getTag(). tag的数据从哪来的？？
 		int pos = (Integer)(v.getTag());
 		viewPager.setCurrentItem(pos,true);
 		setCurPoint(pos);
 	}
-
+	/**
+	 * 导航标签指示器
+	 * */
 	private void setCurPoint(int index)
 	{
 		if (index < 0 || index > mViewCount - 1 || mCurSel == index){
@@ -86,19 +88,15 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
 	{
 	}
-
 	@Override
 	public void onPageSelected(int position)
 	{
-		Toast.makeText(this,String.valueOf(position),Toast.LENGTH_SHORT).show();
 		setCurPoint(position);
-		//View v=viewPager.getChildAt(position);
 	}
 	@Override
 	public void onPageScrollStateChanged(int state)
 	{
 	}
-
 	/**
 	 * 不断从服务器拉取新消息
 	 * */
@@ -205,7 +203,6 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 				{
 					case Global.MSG_WHAT.W_RECEIVED_A_NEW_MSG:
 						ArrayList<Message> received= (ArrayList<Message>) msg.obj;
-						/*Todo 解析一个Message 添加到ListView*/
 						for (Message m : received)
 						{
 							History h;
@@ -216,9 +213,9 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 							}
 							else
 								h=new History();
-							h.count=String.valueOf(Integer.parseInt(h.count)+1);
+							h.count=String.valueOf(Integer.parseInt(h.count) + 1);
 							h.fromName=m.FromId;
-							h.imgPath="xx";			//从userinfo里获取
+							h.imgPath="xx";			//Todo 从userinfo里获取
 							h.lastMsg=m.Text;
 							h.SendTime=m.SendTime;
 							map.put(m.FromId,h);
@@ -284,6 +281,16 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 		View v2=mInflater.inflate(R.layout.faxian,null);
 		View v3=mInflater.inflate(R.layout.page3,null);
 		lvFriends= (ListView) v3.findViewById(R.id.listView);
+		lvFriends.setOnItemClickListener(new AdapterView.OnItemClickListener()
+		{
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+			{
+				Intent chat=new Intent(MainActivity.this,chatAct.class);
+				chat.putExtra("chatTo",list.get(i).username);		//Todo 验证i与l是否相同。(在没有foot与head的时候)
+				startActivity(chat);
+			}
+		});
 		lvHistory= (ListView) v1.findViewById(R.id.listView);
 		pages=new ArrayList<View>();
 		pages.add(v1);pages.add(v2);pages.add(v3);
@@ -314,24 +321,6 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 		}
 		adapter.notifyDataSetChanged();
 		Toast.makeText(this,"已更新",Toast.LENGTH_SHORT).show();
-	}
-
-	private ArrayList<UserInfo> getContact(){
-		ArrayList<UserInfo> hcList = new ArrayList<UserInfo>();
-
-		UserInfo c0 = new UserInfo();
-		c0.username="23423";
-
-		UserInfo c1 = new UserInfo();
-		c1.username="23";
-
-		UserInfo c2 = new UserInfo();
-		c2.username="2";
-
-		hcList.add(c0);
-		hcList.add(c1);
-
-		return hcList;
 	}
 
 	void FlushFriendsList()
