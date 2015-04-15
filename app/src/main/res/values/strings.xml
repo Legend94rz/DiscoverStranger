@@ -9,5 +9,5 @@
 	<string name="title_activity_nearby_stranger">NearbyStranger</string>
 	<string name="menu_Add_Friends">添加朋友</string>
 	<string name="menu_Flush_Friends">刷新</string>
-	<string name="title_activity_chat">chatAct</string>
+	<string name="title_activity_chat">ChatActivity</string>
 </resources>

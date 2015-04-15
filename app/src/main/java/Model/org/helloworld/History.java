@@ -1,5 +1,7 @@
 package org.helloworld;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -7,17 +9,23 @@ import java.util.Date;
  */
 public class History
 {
+	/**
+	 * 当主动与好友联系时，这一项也指示对方
+	 * */
 	public String fromName;
-	public String lastMsg;
-	public String count;
 	public String imgPath;
-	public Date SendTime;
-
+	public ArrayList<Message> historyMsg;
+	public int unreadCount;
 	public History()
 	{
 		this.fromName = "";
-		this.lastMsg = "";
-		this.count = "0";
 		this.imgPath = "";
+		unreadCount=0;
+		historyMsg=new ArrayList<Message>();
+	}
+	public String getLastDateWithFormat(String patten)
+	{
+		SimpleDateFormat format=new SimpleDateFormat(patten);
+		return format.format(historyMsg.get(historyMsg.size()-1).SendTime);
 	}
 }

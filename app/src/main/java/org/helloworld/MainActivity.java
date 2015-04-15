@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.telephony.gsm.GsmCellLocation;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,9 +45,9 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 	private TextView tongxunlu;
 	ArrayList<UserInfo> list;
 	ArrayList<History> list2;
-	Map<String,History> map;
 	ViewPager viewPager;
 	List<View> pages;
+	Map<String,History> map;
 	/**
 	 * 处理导航标签的点击事件
 	 * */
@@ -189,11 +190,43 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 	}
 
 	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		for (History h : Global.map.values())
+		{
+			int i;
+			for (i = 0; i < list2.size(); i++)
+			{
+				if (list2.get(i).fromName.equals(h.fromName))
+					break;
+			}
+			if (i == list2.size()) list2.add(h);
+		}
+		if (hisAdapter != null)
+			hisAdapter.notifyDataSetChanged();
+		else
+		{
+			hisAdapter=new HistoryAdapter(list2,MainActivity.this);
+			lvHistory.setAdapter(hisAdapter);
+		}
+	}
+
+	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		init();
+
+		//Todo 放在载入界面里
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				FaceConversionUtil.getInstace().getFileText(getApplication());
+			}
+		}).start();
+
 		handler = new android.os.Handler()
 		{
 			@Override
@@ -206,6 +239,7 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 						for (Message m : received)
 						{
 							History h;
+							m.msgType=Global.MSG_TYPE.T_RECEIVE_MSG & (~Global.MSG_TYPE.T_SEND_MSG);
 							boolean f=map.containsKey(m.FromId);
 							if(f)
 							{
@@ -213,22 +247,21 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 							}
 							else
 								h=new History();
-							h.count=String.valueOf(Integer.parseInt(h.count) + 1);
 							h.fromName=m.FromId;
 							h.imgPath="xx";			//Todo 从userinfo里获取
-							h.lastMsg=m.Text;
-							h.SendTime=m.SendTime;
+							h.historyMsg.add(m);
+							h.unreadCount++;
 							map.put(m.FromId,h);
 							if(!list2.contains(h))
 								list2.add(h);
-							if(hisAdapter==null)
-							{
-								hisAdapter=new HistoryAdapter(list2,MainActivity.this);
-								lvHistory.setAdapter(hisAdapter);
-							}
-							else
-								hisAdapter.notifyDataSetChanged();
 						}
+						if(hisAdapter==null)
+						{
+							hisAdapter=new HistoryAdapter(list2,MainActivity.this);
+							lvHistory.setAdapter(hisAdapter);
+						}
+						else
+							hisAdapter.notifyDataSetChanged();
 						break;
 					case Global.MSG_WHAT.W_GOT_FRIENDS_LIST:
 						try
@@ -270,7 +303,7 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 
 	private void init()
 	{
-		list=new ArrayList<UserInfo>();list2=new ArrayList<History>();map=new HashMap<String, History>();
+		list=new ArrayList<UserInfo>();list2=new ArrayList<History>();Global.map=new HashMap<String, History>();this.map=Global.map;
 		liaotian = (TextView)findViewById(R.id.tvLiaotian);
 		faxian = (TextView)findViewById(R.id.tvFaxian);
 		tongxunlu = (TextView)findViewById(R.id.tvTongxunlu);
@@ -286,8 +319,9 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
 			{
-				Intent chat=new Intent(MainActivity.this,chatAct.class);
-				chat.putExtra("chatTo",list.get(i).username);		//Todo 验证i与l是否相同。(在没有foot与head的时候)
+				Intent chat=new Intent(MainActivity.this,ChatActivity.class);
+				String to=list.get(i).username;
+				chat.putExtra("chatTo", to);
 				startActivity(chat);
 			}
 		});

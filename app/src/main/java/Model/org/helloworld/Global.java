@@ -1,13 +1,15 @@
 package org.helloworld;
 
 import java.io.DataInput;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2015/3/2.
  */
 public class Global
 {
-	public static UserInfo mySelf=new UserInfo();
+	public static UserInfo mySelf = new UserInfo();
+	public static Map<String,History> map;
 	public class MSG_WHAT
 	{
 		public static final int W_RECEIVED_A_NEW_MSG = 2;
@@ -15,8 +17,17 @@ public class Global
 		public static final int W_ERROR_NETWORK = 4;
 		public static final int W_REFRESH = 5;
 	}
+
 	public class ERROR_HINT
 	{
-		public static final String HINT_ERROR_NETWORD="网络连接失败";
+		public static final String HINT_ERROR_NETWORD = "网络连接失败";
+	}
+
+	public class MSG_TYPE
+	{
+		public static final byte T_SEND_MSG=1;
+		public static final byte T_RECEIVE_MSG=2;
+		public static final byte T_TEXT_MSG=4;
+		public static final byte T_VOICE_MSG=8;
 	}
 }

@@ -63,18 +63,17 @@ public class HistoryAdapter extends BaseAdapter
 		h= (H) view.getTag();
 		h.pic.setImageResource(R.drawable.icon);
 		h.name.setText(history.fromName);
-		h.newMsg.setText(history.lastMsg);
-		if(history.count.equals("0"))
+		h.newMsg.setText(history.historyMsg.get(history.historyMsg.size()-1).Text);
+		if(history.unreadCount==0)
 		{
 			h.MsgCount.setVisibility(View.INVISIBLE);
 		}
 		else
 		{
-			h.MsgCount.setText(history.count);
+			h.MsgCount.setText(String.valueOf( history.unreadCount ));
 			h.MsgCount.setVisibility(View.VISIBLE);
 		}
-		SimpleDateFormat format=new SimpleDateFormat("HH:mm");
-		h.Time.setText(format.format(history.SendTime));
+		h.Time.setText(history.getLastDateWithFormat("HH:mm"));
 		return view;
 	}
 	class H

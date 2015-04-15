@@ -36,7 +36,7 @@
             android:label="@string/title_activity_nearby_stranger" >
         </activity>
         <activity
-            android:name=".chatAct"
+            android:name=".ChatActivity"
             android:label="@string/title_activity_chat" >
         </activity>
     </application>

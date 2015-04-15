@@ -18,6 +18,7 @@ public class Message
 	public String Text;
 	public Date SendTime;
 	public byte flag;
+	public byte msgType;
 	public static Message parse(SoapObject s)
 	{
 		Message model=new Message();
@@ -37,5 +38,10 @@ public class Message
 			model.SendTime=new Date(System.currentTimeMillis());
 		}
 		return model;
+	}
+	public String getDateWithFormat(String patten)
+	{
+		SimpleDateFormat format=new SimpleDateFormat(patten);
+		return format.format(SendTime);
 	}
 }
