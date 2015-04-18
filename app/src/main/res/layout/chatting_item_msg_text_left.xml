@@ -42,8 +42,10 @@
 			android:layout_alignBottom="@+id/iv_userhead"
 			android:layout_toRightOf="@+id/iv_userhead"
 			android:layout_alignTop="@+id/iv_userhead"
-			android:paddingLeft="15dp"
-			android:paddingRight="15dp"/>
+			android:paddingLeft="21dp"
+			android:paddingRight="15dp"
+			android:lineSpacingExtra="2dp"
+			android:minHeight="50dp"/>
 
 		<ProgressBar
 			style="?android:attr/progressBarStyleSmall"

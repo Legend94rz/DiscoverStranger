@@ -23,7 +23,6 @@ import java.util.List;
 /**
  * *****************************************
  *
- * @author 廖乃波
  * @文件名称    : ChatActivity.java
  * @创建时间    : 2013-1-27 下午02:33:53
  * @文件描述    : 聊天界面
@@ -63,7 +62,7 @@ public class ChatActivity extends Activity implements OnClickListener
 		protected Boolean doInBackground(Void... voids)
 		{
 			WebService send=new WebService("pushMsg");
-			send.addProperty("from",message.FromId).addProperty("to",message.ToId).addProperty("msg",message.Text);
+			send.addProperty("from",message.FromId).addProperty("to",message.ToId).addProperty("msg",message.Text).addProperty("time",message.getDateWithFormat("yyyy-MM-dd HH:mm:ss"));
 			try
 			{
 				SoapObject s = send.call();
@@ -119,7 +118,7 @@ public class ChatActivity extends Activity implements OnClickListener
 		mBtnSend.setOnClickListener(this);
 		mEditTextContent = (EditText) findViewById(R.id.etSendmessage);
 		recordRelativeLayout= (RecordRelativeLayout) findViewById(R.id.recordView);
-		faceRelativeLayout= (View) findViewById(R.id.ll_facechoose);
+		faceRelativeLayout= findViewById(R.id.ll_facechoose);
 		mEditTextContent.addTextChangedListener(new TextWatcher()
 		{
 			@Override

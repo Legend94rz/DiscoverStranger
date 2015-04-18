@@ -91,57 +91,7 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 	}
 	@Override
 	public void onPageScrollStateChanged(int state){}
-	/**
-	 * 不断从服务器拉取新消息
-	 * */
-/*
- 	 public class MsgPuller implements Runnable
-	{
-		boolean isError;
-		@Override
-		public void run()
-		{
-			WebService pullMsg = new WebService("pullMsg");
-			pullMsg.addProperty("name", Global.mySelf.username);
-			while (true)
-			{
-				try
-				{
-					SoapObject messages = pullMsg.call();
-					SoapObject result= (SoapObject) messages.getProperty(0);
-					int T=result.getPropertyCount();
-					if(T>0)
-					{
-						ArrayList<Message> listOfMsg = new ArrayList<Message>();
-						android.os.Message newMessageHint = new android.os.Message();
-						newMessageHint.what = Global.MSG_WHAT.W_RECEIVED_NEW_MSG;
-						for (int i = 0; i < T; i++)
-							listOfMsg.add(org.helloworld.Message.parse((SoapObject) result.getProperty(i)));
-						newMessageHint.obj = listOfMsg;
-						handler.sendMessage(newMessageHint);
-					}
-					Thread.sleep(5000);
-					isError=false;
-				}
-				catch (InterruptedException e)
-				{
-					e.printStackTrace();
-				}
-				catch (NullPointerException e)
-				{
-					e.printStackTrace();
-					if(!isError)
-					{
-						android.os.Message M=new android.os.Message();
-						M.what=Global.MSG_WHAT.W_ERROR_NETWORK;
-						MainActivity.handler.sendMessage(M);
-						isError=true;
-					}
-				}
-			}
-		}
-	}
-*/
+
 	public class parserWithExtraAsync extends AsyncTask<JSONObject, Void, Void>
 	{
 		private int index;
@@ -302,7 +252,6 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 			}
 		};
 		FlushFriendsList();
-		//new Thread(new MsgPuller()).start();
 		Intent I=new Intent(this,MsgPullService.class);
 		startService(I);
 	}
