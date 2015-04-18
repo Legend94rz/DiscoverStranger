@@ -19,6 +19,7 @@ public class Message
 	public Date SendTime;
 	public byte flag;
 	public byte msgType;
+	public byte sendState;		//发送状态:0-正常;1-发送中;2-发送失败
 	public static Message parse(SoapObject s)
 	{
 		Message model=new Message();

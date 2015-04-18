@@ -14,8 +14,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -24,88 +26,117 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
- ******************************************
- * @文件名称	:  FaceRelativeLayout.java
- * @创建时间	: 2013-1-27 下午02:34:17
- * @文件描述	: 带表情的自定义输入框
- ******************************************
+ * *****************************************
+ *
+ * @文件名称 : FaceRelativeLayout.java
+ * @创建时间 : 2013-1-27 下午02:34:17
+ * @文件描述 : 带表情的自定义输入框
+ * *****************************************
  */
 public class FaceRelativeLayout extends RelativeLayout implements
-		OnItemClickListener, OnClickListener {
+	OnItemClickListener, OnClickListener
+{
 
 	private Context context;
 
-	/** 表情页的监听事件 */
+	/**
+	 * 表情页的监听事件
+	 */
 	private OnCorpusSelectedListener mListener;
 
-	/** 显示表情页的viewpager */
+	/**
+	 * 显示表情页的viewpager
+	 */
 	private ViewPager vp_face;
 
-	/** 表情页界面集合 */
+	/**
+	 * 表情页界面集合
+	 */
 	private ArrayList<View> pageViews;
 
-	/** 游标显示布局 */
+	/**
+	 * 游标显示布局
+	 */
 	private LinearLayout layout_point;
 
-	/** 游标点集合 */
+	/**
+	 * 游标点集合
+	 */
 	private ArrayList<ImageView> pointViews;
 
-	/** 表情集合 */
+	/**
+	 * 表情集合
+	 */
 	private List<List<ChatEmoji>> emojis;
 
-	/** 表情区域 */
+	/**
+	 * 表情区域
+	 */
 	private View view;
 
-	/** 输入框 */
+	/**
+	 * 输入框
+	 */
 	private EditText et_sendmessage;
 
-	/** 表情数据填充器 */
+	/**
+	 * 表情数据填充器
+	 */
 	private List<FaceAdapter> faceAdapters;
 
-	/** 当前表情页 */
+	/**
+	 * 当前表情页
+	 */
 	private int current = 0;
-
-	public FaceRelativeLayout(Context context) {
+	private Button btnSend;
+	private ImageButton btnFace;
+	private View recordLayout;
+	public FaceRelativeLayout(Context context)
+	{
 		super(context);
 		this.context = context;
 	}
 
-	public FaceRelativeLayout(Context context, AttributeSet attrs) {
+	public FaceRelativeLayout(Context context, AttributeSet attrs)
+	{
 		super(context, attrs);
 		this.context = context;
 	}
 
-	public FaceRelativeLayout(Context context, AttributeSet attrs, int defStyle) {
+	public FaceRelativeLayout(Context context, AttributeSet attrs, int defStyle)
+	{
 		super(context, attrs, defStyle);
 		this.context = context;
 	}
 
-	public void setOnCorpusSelectedListener(OnCorpusSelectedListener listener) {
+	public void setOnCorpusSelectedListener(OnCorpusSelectedListener listener)
+	{
 		mListener = listener;
 	}
 
 	/**
 	 * 表情选择监听
-	 * 
+	 *
 	 * @author naibo-liao
 	 * @时间： 2013-1-15下午04:32:54
 	 */
-	public interface OnCorpusSelectedListener {
+	public interface OnCorpusSelectedListener
+	{
 
 		void onCorpusSelected(ChatEmoji emoji);
-
 		void onCorpusDeleted();
 	}
 
 	@Override
-	protected void onFinishInflate() {
+	protected void onFinishInflate()
+	{
 		super.onFinishInflate();
 		emojis = FaceConversionUtil.getInstace().emojiLists;
 		onCreate();
 	}
 
-	private void onCreate() {
+	private void onCreate()
+	{
 		Init_View();
 		Init_viewPager();
 		Init_Point();
@@ -113,32 +144,32 @@ public class FaceRelativeLayout extends RelativeLayout implements
 	}
 
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.btnFace:
-			// 隐藏表情选择框
-			if (view.getVisibility() == View.VISIBLE) {
-				view.setVisibility(View.GONE);
-			} else {
-				view.setVisibility(View.VISIBLE);
-			}
-			break;
-		case R.id.etSendmessage:
-			// 隐藏表情选择框
-			if (view.getVisibility() == View.VISIBLE) {
-				view.setVisibility(View.GONE);
-			}
-			break;
-
+	public void onClick(View v)
+	{
+		switch (v.getId())
+		{
+			case R.id.btnFace:
+				recordLayout.setVisibility(GONE);
+				// 隐藏表情选择框
+				if (view.getVisibility() == View.VISIBLE)
+				{
+					view.setVisibility(View.GONE);
+				} else
+				{
+					view.setVisibility(View.VISIBLE);
+				}
+				break;
 		}
 	}
 
 	/**
 	 * 隐藏表情选择框
 	 */
-	public boolean hideFaceView() {
+	public boolean hideFaceView()
+	{
 		// 隐藏表情选择框
-		if (view.getVisibility() == View.VISIBLE) {
+		if (view.getVisibility() == View.VISIBLE)
+		{
 			view.setVisibility(View.GONE);
 			return true;
 		}
@@ -148,20 +179,25 @@ public class FaceRelativeLayout extends RelativeLayout implements
 	/**
 	 * 初始化控件
 	 */
-	private void Init_View() {
+	private void Init_View()
+	{
 		vp_face = (ViewPager) findViewById(R.id.vp_contains);
 		et_sendmessage = (EditText) findViewById(R.id.etSendmessage);
 		layout_point = (LinearLayout) findViewById(R.id.iv_image);
 		et_sendmessage.setOnClickListener(this);
-		findViewById(R.id.btnFace).setOnClickListener(this);
+		btnFace = (ImageButton) findViewById(R.id.btnFace);
+		btnFace.setOnClickListener(this);
 		view = findViewById(R.id.ll_facechoose);
-
+		recordLayout = findViewById(R.id.recordView);
+		btnSend = (Button) findViewById(R.id.btnSend);
+		btnSend.setOnClickListener(this);
 	}
 
 	/**
 	 * 初始化显示表情的viewpager
 	 */
-	private void Init_viewPager() {
+	private void Init_viewPager()
+	{
 		pageViews = new ArrayList<View>();
 		// 左侧添加空页
 		View nullView1 = new View(context);
@@ -172,7 +208,8 @@ public class FaceRelativeLayout extends RelativeLayout implements
 		// 中间添加表情页
 
 		faceAdapters = new ArrayList<FaceAdapter>();
-		for (int i = 0; i < emojis.size(); i++) {
+		for (int i = 0; i < emojis.size(); i++)
+		{
 			GridView view = new GridView(context);
 			FaceAdapter adapter = new FaceAdapter(context, emojis.get(i));
 			view.setAdapter(adapter);
@@ -187,7 +224,7 @@ public class FaceRelativeLayout extends RelativeLayout implements
 			view.setPadding(5, 0, 5, 0);
 			view.setSelector(new ColorDrawable(Color.TRANSPARENT));
 			view.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
-					LayoutParams.WRAP_CONTENT));
+													 LayoutParams.WRAP_CONTENT));
 			view.setGravity(Gravity.CENTER);
 			pageViews.add(view);
 		}
@@ -202,25 +239,27 @@ public class FaceRelativeLayout extends RelativeLayout implements
 	/**
 	 * 初始化游标
 	 */
-	private void Init_Point() {
+	private void Init_Point()
+	{
 
 		pointViews = new ArrayList<ImageView>();
 		ImageView imageView;
-		for (int i = 0; i < pageViews.size(); i++) {
+		for (int i = 0; i < pageViews.size(); i++)
+		{
 			imageView = new ImageView(context);
 			imageView.setBackgroundResource(R.drawable.d1);
-			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-					new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT,
-							LayoutParams.WRAP_CONTENT));
+			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
 			layoutParams.leftMargin = 10;
 			layoutParams.rightMargin = 10;
 			layoutParams.width = 8;
 			layoutParams.height = 8;
 			layout_point.addView(imageView, layoutParams);
-			if (i == 0 || i == pageViews.size() - 1) {
+			if (i == 0 || i == pageViews.size() - 1)
+			{
 				imageView.setVisibility(View.GONE);
 			}
-			if (i == 1) {
+			if (i == 1)
+			{
 				imageView.setBackgroundResource(R.drawable.d2);
 			}
 			pointViews.add(imageView);
@@ -231,38 +270,46 @@ public class FaceRelativeLayout extends RelativeLayout implements
 	/**
 	 * 填充数据
 	 */
-	private void Init_Data() {
+	private void Init_Data()
+	{
 		vp_face.setAdapter(new emojiAdapter(pageViews));
 
 		vp_face.setCurrentItem(1);
 		current = 0;
-		vp_face.setOnPageChangeListener(new OnPageChangeListener() {
+		vp_face.setOnPageChangeListener(new OnPageChangeListener()
+		{
 
 			@Override
-			public void onPageSelected(int arg0) {
+			public void onPageSelected(int arg0)
+			{
 				current = arg0 - 1;
 				// 描绘分页点
 				draw_Point(arg0);
 				// 如果是第一屏或者是最后一屏禁止滑动，其实这里实现的是如果滑动的是第一屏则跳转至第二屏，如果是最后一屏则跳转到倒数第二屏.
-				if (arg0 == pointViews.size() - 1 || arg0 == 0) {
-					if (arg0 == 0) {
+				if (arg0 == pointViews.size() - 1 || arg0 == 0)
+				{
+					if (arg0 == 0)
+					{
 						vp_face.setCurrentItem(arg0 + 1);// 第二屏 会再次实现该回调方法实现跳转.
 						pointViews.get(1).setBackgroundResource(R.drawable.d2);
-					} else {
+					} else
+					{
 						vp_face.setCurrentItem(arg0 - 1);// 倒数第二屏
 						pointViews.get(arg0 - 1).setBackgroundResource(
-								R.drawable.d2);
+																		  R.drawable.d2);
 					}
 				}
 			}
 
 			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
+			public void onPageScrolled(int arg0, float arg1, int arg2)
+			{
 
 			}
 
 			@Override
-			public void onPageScrollStateChanged(int arg0) {
+			public void onPageScrollStateChanged(int arg0)
+			{
 
 			}
 		});
@@ -272,25 +319,33 @@ public class FaceRelativeLayout extends RelativeLayout implements
 	/**
 	 * 绘制游标背景
 	 */
-	public void draw_Point(int index) {
-		for (int i = 1; i < pointViews.size(); i++) {
-			if (index == i) {
+	public void draw_Point(int index)
+	{
+		for (int i = 1; i < pointViews.size(); i++)
+		{
+			if (index == i)
+			{
 				pointViews.get(i).setBackgroundResource(R.drawable.d2);
-			} else {
+			} else
+			{
 				pointViews.get(i).setBackgroundResource(R.drawable.d1);
 			}
 		}
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
+	{
 		ChatEmoji emoji = (ChatEmoji) faceAdapters.get(current).getItem(arg2);
-		if (emoji.getId() == R.drawable.face_del_icon) {
+		if (emoji.getId() == R.drawable.face_del_icon)
+		{
 			int selection = et_sendmessage.getSelectionStart();
 			String text = et_sendmessage.getText().toString();
-			if (selection > 0) {
+			if (selection > 0)
+			{
 				String text2 = text.substring(selection - 1);
-				if ("]".equals(text2)) {
+				if ("]".equals(text2))
+				{
 					int start = text.lastIndexOf("[");
 					int end = selection;
 					et_sendmessage.getText().delete(start, end);
@@ -299,11 +354,12 @@ public class FaceRelativeLayout extends RelativeLayout implements
 				et_sendmessage.getText().delete(selection - 1, selection);
 			}
 		}
-		if (!TextUtils.isEmpty(emoji.getCharacter())) {
+		if (!TextUtils.isEmpty(emoji.getCharacter()))
+		{
 			if (mListener != null)
 				mListener.onCorpusSelected(emoji);
 			SpannableString spannableString = FaceConversionUtil.getInstace()
-					.addFace(getContext(), emoji.getId(), emoji.getCharacter());
+												  .addFace(getContext(), emoji.getId(), emoji.getCharacter());
 			et_sendmessage.append(spannableString);
 		}
 

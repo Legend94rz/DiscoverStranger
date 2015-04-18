@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -19,6 +18,7 @@ public class HistoryAdapter extends BaseAdapter
 {
 	private ArrayList<History> list;
 	private Context context;
+
 	public HistoryAdapter(ArrayList<History> list, Context context)
 	{
 		this.list = list;
@@ -46,36 +46,35 @@ public class HistoryAdapter extends BaseAdapter
 	@Override
 	public View getView(int i, View view, ViewGroup viewGroup)
 	{
-		History history=list.get(i);
-		H h=null;
-		if(view==null)
+		History history = list.get(i);
+		H h = null;
+		if (view == null)
 		{
-			h=new H();
-			view= LayoutInflater.from(context).inflate(R.layout.liaotian,viewGroup,false);
-			h.pic= (ImageView) view.findViewById(R.id.imgHead);
-			h.Time= (TextView) view.findViewById(R.id.tvTime);
-			h.name= (TextView) view.findViewById(R.id.tvName);
-			h.MsgCount= (TextView) view.findViewById(R.id.tvCount);
-			h.newMsg= (TextView) view.findViewById(R.id.tvLastmsg);
+			h = new H();
+			view = LayoutInflater.from(context).inflate(R.layout.liaotian, viewGroup, false);
+			h.pic = (ImageView) view.findViewById(R.id.imgHead);
+			h.Time = (TextView) view.findViewById(R.id.tvTime);
+			h.name = (TextView) view.findViewById(R.id.tvName);
+			h.MsgCount = (TextView) view.findViewById(R.id.tvCount);
+			h.newMsg = (TextView) view.findViewById(R.id.tvLastmsg);
 			view.setTag(h);
-		}
-		else
-		h= (H) view.getTag();
+		} else
+			h = (H) view.getTag();
 		h.pic.setImageResource(R.drawable.icon);
 		h.name.setText(history.fromName);
-		h.newMsg.setText(history.historyMsg.get(history.historyMsg.size()-1).Text);
-		if(history.unreadCount==0)
+		h.newMsg.setText(history.historyMsg.get(history.historyMsg.size() - 1).Text);
+		if (history.unreadCount == 0)
 		{
 			h.MsgCount.setVisibility(View.INVISIBLE);
-		}
-		else
+		} else
 		{
-			h.MsgCount.setText(String.valueOf( history.unreadCount ));
+			h.MsgCount.setText(String.valueOf(history.unreadCount));
 			h.MsgCount.setVisibility(View.VISIBLE);
 		}
 		h.Time.setText(history.getLastDateWithFormat("HH:mm"));
 		return view;
 	}
+
 	class H
 	{
 		ImageView pic;

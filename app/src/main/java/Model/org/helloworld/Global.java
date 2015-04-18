@@ -1,6 +1,8 @@
 package org.helloworld;
 
 import java.io.DataInput;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -9,10 +11,11 @@ import java.util.Map;
 public class Global
 {
 	public static UserInfo mySelf = new UserInfo();
-	public static Map<String,History> map;
+	public final static Map<String,History> map=new HashMap<String, History>();		//存储历史消息
+	public final static ArrayList<History> list2=new ArrayList<History>();
 	public class MSG_WHAT
 	{
-		public static final int W_RECEIVED_A_NEW_MSG = 2;
+		public static final int W_RECEIVED_NEW_MSG = 2;
 		public static final int W_GOT_FRIENDS_LIST = 3;
 		public static final int W_ERROR_NETWORK = 4;
 		public static final int W_REFRESH = 5;

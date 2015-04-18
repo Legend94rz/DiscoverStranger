@@ -18,6 +18,8 @@ import org.ksoap2.serialization.SoapObject;
 public class LogInAct extends Activity
 {
 	private ProgressBar pbLogInBar;
+	private Button btnLogIn;
+
 	public class SignInTask extends AsyncTask<Void, Void, Boolean>
 	{
 		public String Username;
@@ -48,6 +50,7 @@ public class LogInAct extends Activity
 		protected void onPostExecute(Boolean aBoolean)
 		{
 			pbLogInBar.setVisibility(View.INVISIBLE);
+			btnLogIn.setEnabled(true);
 			if(aBoolean)
 			{
 				Toast.makeText(LogInAct.this,"登录成功",Toast.LENGTH_SHORT).show();
@@ -69,7 +72,7 @@ public class LogInAct extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_log_in);
-		Button btnLogIn = (Button) findViewById(R.id.btnLogin);
+		btnLogIn = (Button) findViewById(R.id.btnLogin);
 		pbLogInBar = (ProgressBar) findViewById(R.id.pbLoginProgress);
 		btnLogIn.setOnClickListener(new View.OnClickListener()
 		{
@@ -80,6 +83,7 @@ public class LogInAct extends Activity
 				String password = ((TextView) findViewById(R.id.etPassword)).getText().toString();
 				SignInTask task = new SignInTask(username, password);
 				pbLogInBar.setVisibility(View.VISIBLE);
+				btnLogIn.setEnabled(false);
 				task.execute();
 			}
 		});

@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.telephony.gsm.GsmCellLocation;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +22,6 @@ import org.json.JSONObject;
 import org.ksoap2.serialization.SoapObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,10 +42,9 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 	private TextView faxian;
 	private TextView tongxunlu;
 	ArrayList<UserInfo> list;
-	ArrayList<History> list2;
+
 	ViewPager viewPager;
 	List<View> pages;
-	Map<String,History> map;
 	/**
 	 * 处理导航标签的点击事件
 	 * */
@@ -86,22 +83,19 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 	}
 
 	@Override
-	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
-	{
-	}
+	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels){}
 	@Override
 	public void onPageSelected(int position)
 	{
 		setCurPoint(position);
 	}
 	@Override
-	public void onPageScrollStateChanged(int state)
-	{
-	}
+	public void onPageScrollStateChanged(int state){}
 	/**
 	 * 不断从服务器拉取新消息
 	 * */
-	 public class MsgPuller implements Runnable
+/*
+ 	 public class MsgPuller implements Runnable
 	{
 		boolean isError;
 		@Override
@@ -120,7 +114,7 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 					{
 						ArrayList<Message> listOfMsg = new ArrayList<Message>();
 						android.os.Message newMessageHint = new android.os.Message();
-						newMessageHint.what = Global.MSG_WHAT.W_RECEIVED_A_NEW_MSG;
+						newMessageHint.what = Global.MSG_WHAT.W_RECEIVED_NEW_MSG;
 						for (int i = 0; i < T; i++)
 							listOfMsg.add(org.helloworld.Message.parse((SoapObject) result.getProperty(i)));
 						newMessageHint.obj = listOfMsg;
@@ -147,6 +141,7 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 			}
 		}
 	}
+*/
 	public class parserWithExtraAsync extends AsyncTask<JSONObject, Void, Void>
 	{
 		private int index;
@@ -190,24 +185,27 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 	}
 
 	@Override
+	/**
+	 * 这个activity再次回到前台时，历史消息很可能发生变化，要更新
+	 * */
 	protected void onResume()
 	{
 		super.onResume();
 		for (History h : Global.map.values())
 		{
 			int i;
-			for (i = 0; i < list2.size(); i++)
+			for (i = 0; i < Global.list2.size(); i++)
 			{
-				if (list2.get(i).fromName.equals(h.fromName))
+				if (Global.list2.get(i).fromName.equals(h.fromName))
 					break;
 			}
-			if (i == list2.size()) list2.add(h);
+			if (i == Global.list2.size()) Global.list2.add(h);
 		}
 		if (hisAdapter != null)
 			hisAdapter.notifyDataSetChanged();
 		else
 		{
-			hisAdapter=new HistoryAdapter(list2,MainActivity.this);
+			hisAdapter=new HistoryAdapter(Global.list2,MainActivity.this);
 			lvHistory.setAdapter(hisAdapter);
 		}
 	}
@@ -219,7 +217,7 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 		setContentView(R.layout.activity_main);
 		init();
 
-		//Todo 放在载入界面里
+		//Todo 异步加载表情图片放在载入界面里
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -234,30 +232,36 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 			{
 				switch (msg.what)
 				{
-					case Global.MSG_WHAT.W_RECEIVED_A_NEW_MSG:
+					case Global.MSG_WHAT.W_RECEIVED_NEW_MSG:
 						ArrayList<Message> received= (ArrayList<Message>) msg.obj;
 						for (Message m : received)
 						{
 							History h;
 							m.msgType=Global.MSG_TYPE.T_RECEIVE_MSG & (~Global.MSG_TYPE.T_SEND_MSG);
-							boolean f=map.containsKey(m.FromId);
-							if(f)
-							{
-								h=map.get(m.FromId);
-							}
-							else
+							h=Global.map.get(m.FromId);
+							if(h==null)
 								h=new History();
 							h.fromName=m.FromId;
 							h.imgPath="xx";			//Todo 从userinfo里获取
 							h.historyMsg.add(m);
 							h.unreadCount++;
-							map.put(m.FromId,h);
-							if(!list2.contains(h))
-								list2.add(h);
+							if(ChatActivity.handler!=null)			//如果当前有活动的聊天界面则直接转发给ChatActivity
+							{
+								android.os.Message message=new android.os.Message();
+								message.what=Global.MSG_WHAT.W_RECEIVED_NEW_MSG;
+								message.obj=m;
+								ChatActivity.handler.sendMessage(message);
+							}
+							else
+							{
+								Global.map.put(m.FromId, h);
+								if (!Global.list2.contains(h))
+									Global.list2.add(h);
+							}
 						}
 						if(hisAdapter==null)
 						{
-							hisAdapter=new HistoryAdapter(list2,MainActivity.this);
+							hisAdapter=new HistoryAdapter(Global.list2,MainActivity.this);
 							lvHistory.setAdapter(hisAdapter);
 						}
 						else
@@ -298,12 +302,14 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 			}
 		};
 		FlushFriendsList();
-		new Thread(new MsgPuller()).start();
+		//new Thread(new MsgPuller()).start();
+		Intent I=new Intent(this,MsgPullService.class);
+		startService(I);
 	}
 
 	private void init()
 	{
-		list=new ArrayList<UserInfo>();list2=new ArrayList<History>();Global.map=new HashMap<String, History>();this.map=Global.map;
+		list=new ArrayList<UserInfo>();
 		liaotian = (TextView)findViewById(R.id.tvLiaotian);
 		faxian = (TextView)findViewById(R.id.tvFaxian);
 		tongxunlu = (TextView)findViewById(R.id.tvTongxunlu);

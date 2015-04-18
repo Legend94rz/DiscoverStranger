@@ -20,9 +20,9 @@
 			android:background="@drawable/brand_default_head"
 			android:clickable="true"
 			android:onClick="head_user_each"
-			android:layout_alignParentTop="true"
-			android:layout_alignParentLeft="true"
-			android:scaleType="fitCenter"/>
+			android:scaleType="fitCenter"
+			android:layout_below="@+id/tv_sendtime"
+			android:layout_alignParentLeft="true"/>
 
 		<TextView
 			android:id="@+id/tv_sendtime"
@@ -37,12 +37,33 @@
 			style="@style/chat_content_date_style"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="5dip"
-			android:layout_below="@+id/tv_sendtime"
-			android:layout_marginLeft="10dp"
-			android:layout_toRightOf="@id/iv_userhead"
+			android:layout_marginLeft="13dp"
 			android:background="@drawable/chatfrom_bg"
-			/>
+			android:layout_alignBottom="@+id/iv_userhead"
+			android:layout_toRightOf="@+id/iv_userhead"
+			android:layout_alignTop="@+id/iv_userhead"
+			android:paddingLeft="15dp"
+			android:paddingRight="15dp"/>
+
+		<ProgressBar
+			style="?android:attr/progressBarStyleSmall"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/pbSendbar"
+			android:indeterminate="false"
+			android:layout_alignBottom="@+id/iv_userhead"
+			android:layout_toRightOf="@+id/tv_chatcontent"/>
+
+		<ImageButton
+			android:layout_width="25dp"
+			android:layout_height="25dp"
+			android:id="@+id/ibResendbtn"
+			android:layout_alignBottom="@+id/tv_chatcontent"
+			android:src="@drawable/emoji_210"
+			android:scaleType="fitCenter"
+			android:background="#00806946"
+			android:layout_alignTop="@+id/pbSendbar"
+			android:layout_toRightOf="@+id/pbSendbar"/>
 	</RelativeLayout>
 
 </LinearLayout>

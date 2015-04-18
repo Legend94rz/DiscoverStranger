@@ -1,82 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<org.helloworld.FaceRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-								   xmlns:tools="http://schemas.android.com/tools"
-								   android:id="@+id/FaceRelativeLayout"
-										 android:layout_width="fill_parent"
-										 android:layout_height="wrap_content"
+<org.helloworld.FaceRelativeLayout
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/FaceRelativeLayout"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
 	>
 
-	<RelativeLayout
-		android:id="@+id/rl_input"
-		android:layout_width="fill_parent"
-		android:layout_height="50dp"
-		android:background="@drawable/chat_footer_bg"
-		>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
 
-		<ImageButton
-			android:id="@+id/btnFace"
-			android:layout_width="40dp"
-			android:layout_height="40dp"
-			android:background="@drawable/chat_send_btn"
-			android:src="@drawable/ib_face"
-			android:layout_alignParentTop="false"
-			android:layout_alignParentLeft="true"
-			android:layout_centerVertical="true"
-			android:scaleType="fitXY"
-			android:padding="8dp"/>
+		<RelativeLayout
+			android:id="@+id/rl_input"
+			android:layout_width="fill_parent"
+			android:layout_height="50dp"
+			android:background="@drawable/chat_footer_bg"
+			>
 
-		<Button
-			android:id="@+id/btnSend"
-			android:layout_width="60dp"
-			android:layout_height="40dp"
-			android:background="@drawable/chat_send_btn"
-			android:text="发送"
-			android:layout_centerVertical="true"
-			android:layout_alignParentRight="true"/>
+			<ImageButton
+				android:id="@+id/btnFace"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentTop="false"
+				android:layout_centerVertical="true"
+				android:background="@drawable/chat_send_btn"
+				android:padding="8dp"
+				android:scaleType="fitXY"
+				android:src="@drawable/ib_face"/>
 
-		<EditText
-			android:id="@+id/etSendmessage"
-			android:layout_width="40dp"
-			android:layout_height="40dp"
-			android:background="@drawable/login_edit_normal"
-			android:singleLine="true"
-			android:textSize="18sp"
-			android:layout_centerVertical="true"
-			android:layout_toLeftOf="@+id/btnSend"
-			android:layout_toRightOf="@+id/imageButton"
-			android:layout_marginRight="5dp"/>
+			<Button
+				android:id="@+id/btnSend"
+				android:layout_width="60dp"
+				android:layout_height="40dp"
+				android:layout_alignParentRight="true"
+				android:layout_centerVertical="true"
+				android:background="@drawable/chat_send_btn"
+				android:text="语音"/>
 
-		<ImageButton
-			android:layout_width="45dp"
-			android:layout_height="45dp"
-			android:id="@+id/imageButton"
-			android:layout_alignParentBottom="true"
-			android:layout_toRightOf="@+id/btnFace"/>
-	</RelativeLayout>
+			<EditText
+				android:id="@+id/etSendmessage"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				android:layout_centerVertical="true"
+				android:layout_marginRight="5dp"
+				android:layout_toLeftOf="@+id/btnSend"
+				android:layout_toRightOf="@+id/imageButton"
+				android:background="@drawable/login_edit_normal"
+				android:singleLine="true"
+				android:textSize="18sp"/>
 
-	<RelativeLayout
-		android:id="@+id/ll_facechoose"
-		android:layout_width="fill_parent"
-		android:layout_height="124dip"
-		android:layout_below="@id/rl_input"
-		android:background="#f6f5f5"
-		android:visibility="gone" >
+			<ImageButton
+				android:id="@+id/imageButton"
+				android:layout_width="45dp"
+				android:layout_height="45dp"
+				android:layout_alignParentBottom="true"
+				android:layout_toRightOf="@+id/btnFace"/>
+		</RelativeLayout>
 
-		<android.support.v4.view.ViewPager
-			android:id="@+id/vp_contains"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent" >
-		</android.support.v4.view.ViewPager>
+		<RelativeLayout
+			android:id="@+id/ll_facechoose"
+			android:layout_width="fill_parent"
+			android:layout_height="124dip"
+			android:background="#f6f5f5"
+			android:visibility="gone">
 
-		<LinearLayout
-			android:id="@+id/iv_image"
-			android:layout_width="match_parent"
+			<android.support.v4.view.ViewPager
+				android:id="@+id/vp_contains"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentTop="true">
+			</android.support.v4.view.ViewPager>
+
+			<LinearLayout
+				android:id="@+id/iv_image"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_alignParentBottom="true"
+				android:layout_marginBottom="6dip"
+				android:gravity="center"
+				android:orientation="horizontal">
+			</LinearLayout>
+
+
+		</RelativeLayout>
+
+		<view
+			android:id="@+id/recordView"
+			class="org.helloworld.RecordRelativeLayout"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true"
-			android:layout_marginBottom="6dip"
-			android:gravity="center"
-			android:orientation="horizontal" >
-		</LinearLayout>
-	</RelativeLayout>
+			android:visibility="gone">
 
+			<include
+				layout="@layout/layout_include_record"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"/>
+		</view>
+	</LinearLayout>
 </org.helloworld.FaceRelativeLayout>
