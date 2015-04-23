@@ -236,6 +236,7 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 							BindAdapter(list);
 						}
 						catch (NullPointerException ignored){}
+						catch (ArrayIndexOutOfBoundsException ignored){}
 						catch (JSONException e)
 						{
 							e.printStackTrace();
@@ -346,5 +347,16 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+	///以下是 发现 页的几个监听，触发方式写在xml里
+	public void llShack_Click(View view)
+	{
+		Intent I=new Intent(this,ShakeActivity.class);
+		startActivity(I);
+	}
+	public void llNearStranger_Click(View view)
+	{
+		Intent I =new Intent(this,NearbyStrangerAct.class);
+		startActivity(I);
 	}
 }

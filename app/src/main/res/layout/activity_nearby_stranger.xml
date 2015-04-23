@@ -1,16 +1,14 @@
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
 				xmlns:tools="http://schemas.android.com/tools"
 				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
+				android:layout_height="fill_parent"
 				tools:context="org.helloworld.NearbyStrangerAct"
-				android:columnCount="1"
+				android:columnCount="2"
 				android:rowCount="2">
 
-	<ListView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/lvStrangers"
-		android:choiceMode="singleChoice"
-		/>
-
+	<com.baidu.mapapi.map.MapView
+		android:id="@+id/bmapView"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:clickable="true" />
 </GridLayout>

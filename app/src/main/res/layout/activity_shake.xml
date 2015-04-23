@@ -1,0 +1,87 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				xmlns:tools="http://schemas.android.com/tools"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				tools:context="org.helloworld.ShakeActivity">
+
+	<RelativeLayout
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_centerHorizontal="true"
+		android:layout_below="@+id/relativeLayout">
+
+		<ImageView
+			android:id="@+id/shakeBg"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:layout_centerInParent="true"
+			android:src="@drawable/shakehideimg_man2"
+			android:scaleType="fitCenter"/>
+
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="match_parent"
+			android:layout_centerInParent="true"
+			android:orientation="vertical">
+
+			<RelativeLayout
+				android:id="@+id/shakeImgUp"
+				android:layout_width="fill_parent"
+				android:layout_height="190dp"
+				android:background="#111"
+				android:layout_weight="1">
+
+				<ImageView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentBottom="true"
+					android:layout_centerHorizontal="true"
+					android:src="@drawable/shake_logo_up"/>
+			</RelativeLayout>
+
+			<RelativeLayout
+				android:id="@+id/shakeImgDown"
+				android:layout_width="fill_parent"
+				android:layout_height="190dp"
+				android:background="#111"
+				android:layout_weight="1">
+
+				<ImageView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerHorizontal="true"
+					android:src="@drawable/shake_logo_down"/>
+			</RelativeLayout>
+		</LinearLayout>
+	</RelativeLayout>
+
+	<RelativeLayout
+		android:id="@+id/relativeLayout"
+		android:layout_width="fill_parent"
+		android:layout_height="55dp"
+		android:background="@drawable/abc_ab_bottom_solid_dark_holo"
+		android:gravity="center_vertical"
+		android:layout_alignParentLeft="true">
+
+		<Button
+			android:layout_width="80dp"
+			android:layout_height="wrap_content"
+			android:text="返回"
+			android:textColor="#fff"
+			android:onClick="goback"
+			android:background="@drawable/title_btn_back"
+			android:textSize="13dp"
+			android:layout_alignParentBottom="true"
+			android:layout_marginTop="5dp"
+			android:layout_marginBottom="5dp"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="摇一摇"
+			android:layout_centerInParent="true"
+			android:textSize="20sp"
+			android:textColor="#ffffff"/>
+
+	</RelativeLayout>
+</RelativeLayout>

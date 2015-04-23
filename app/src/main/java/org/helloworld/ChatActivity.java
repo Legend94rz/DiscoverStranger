@@ -13,16 +13,14 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.ksoap2.serialization.SoapObject;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * *****************************************
- *
  * @文件名称    : ChatActivity.java
  * @创建时间    : 2013-1-27 下午02:33:53
  * @文件描述    : 聊天界面
@@ -41,7 +39,7 @@ public class ChatActivity extends Activity implements OnClickListener
 	private ChatMsgAdapter mAdapter;
 	private RecordRelativeLayout recordRelativeLayout;
 	private View faceRelativeLayout;
-
+	private TextView tvChatTitle;
 	public static Handler handler;
 	@Override
 	protected void onPause()
@@ -87,7 +85,7 @@ public class ChatActivity extends Activity implements OnClickListener
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.layout_chat);
+		setContentView(R.layout.activity_chat);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		initView();
 		initData();
@@ -119,6 +117,7 @@ public class ChatActivity extends Activity implements OnClickListener
 		mEditTextContent = (EditText) findViewById(R.id.etSendmessage);
 		recordRelativeLayout= (RecordRelativeLayout) findViewById(R.id.recordView);
 		faceRelativeLayout= findViewById(R.id.ll_facechoose);
+		tvChatTitle= (TextView) findViewById(R.id.tvToId);
 		mEditTextContent.addTextChangedListener(new TextWatcher()
 		{
 			@Override
@@ -134,9 +133,9 @@ public class ChatActivity extends Activity implements OnClickListener
 					mBtnSend.setText("语音");
 			}
 		});
-		btnCancel= (Button) findViewById(R.id.btnCancel);btnCancel.setOnClickListener(this);
-		btnRec= (Button) findViewById(R.id.btnRec);		 btnRec.setOnClickListener(this);
-		btnSendVoice=(Button)findViewById(R.id.btnSendVoice);btnSendVoice.setOnClickListener(this);
+		btnCancel= (Button) findViewById(R.id.btnCancel);		btnCancel.setOnClickListener(this);
+		btnRec= (Button) findViewById(R.id.btnRec);		 		btnRec.setOnClickListener(this);
+		btnSendVoice=(Button)findViewById(R.id.btnSendVoice);	btnSendVoice.setOnClickListener(this);
 	}
 
 	public void initData()
@@ -146,6 +145,7 @@ public class ChatActivity extends Activity implements OnClickListener
 		if(history==null){history=new History();history.fromName=chatTo;}else history.unreadCount=0;
 		mAdapter = new ChatMsgAdapter(this, history.historyMsg);
 		mListView.setAdapter(mAdapter);
+		tvChatTitle.setText(chatTo);
 	}
 
 	@Override
@@ -159,16 +159,17 @@ public class ChatActivity extends Activity implements OnClickListener
 				{
 					send();
 				}
-				else
+				else if(mBtnSend.getText().equals("键盘"))
 				{
-					if (recordRelativeLayout.getVisibility() == View.GONE)
-						recordRelativeLayout.setVisibility(View.VISIBLE);
-					else
-						recordRelativeLayout.setVisibility(View.GONE);
-					if(mEditTextContent.getVisibility()==View.VISIBLE)
-						mEditTextContent.setVisibility(View.INVISIBLE);
-					else
-						mEditTextContent.setVisibility(View.VISIBLE);
+					recordRelativeLayout.setVisibility(View.GONE);
+					mEditTextContent.setVisibility(View.VISIBLE);
+					mEditTextContent.setText("");
+				}
+				else	//点击 语音
+				{
+					mBtnSend.setText("键盘");
+					recordRelativeLayout.setVisibility(View.VISIBLE);
+					mEditTextContent.setVisibility(View.INVISIBLE);
 				}
 				break;
 			case R.id.btnSendVoice:
@@ -244,5 +245,8 @@ public class ChatActivity extends Activity implements OnClickListener
 	private Date getDate()
 	{
 		return new Date(System.currentTimeMillis());
+	}
+	public void goback(View v) {     //标题栏 返回按钮
+		this.finish();
 	}
 }

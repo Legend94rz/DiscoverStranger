@@ -20,7 +20,7 @@ public class Task extends AsyncTask<Object,Void,SoapObject>
 	}
 	/**
 	 * @param objects [0]为调用函数名;[1]为参数个数;[2]及以后表示参数
-	 * @return true表示请求发送成功;false表示发送失败
+	 * @return 服务器返回的SoapObject对象
 	 * */
 	@Override
 	protected SoapObject doInBackground(Object... objects)

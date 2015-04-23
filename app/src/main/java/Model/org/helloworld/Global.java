@@ -19,6 +19,7 @@ public class Global
 		public static final int W_GOT_FRIENDS_LIST = 3;
 		public static final int W_ERROR_NETWORK = 4;
 		public static final int W_REFRESH = 5;
+		public static final int W_GOT_STRANGERS = 6;
 	}
 
 	public class ERROR_HINT

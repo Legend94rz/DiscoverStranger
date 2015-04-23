@@ -19,7 +19,9 @@
 		          android:paddingLeft="5dip"
 		          android:layout_width="match_parent"
 	              android:layout_height="wrap_content"
-		          >
+				  android:id="@+id/llShake"
+				  android:clickable="true"
+				  android:onClick="llShack_Click">
 		          <ImageView
 		              android:layout_width="35dp"
 	              	  android:layout_height="35dp"
@@ -31,7 +33,7 @@
 	              	  android:layout_height="fill_parent"
 	              	  android:layout_marginLeft="10dp"
 	              	  android:text="@string/shake"
-	              	  android:textSize="15dip"
+	              	  android:textSize="15sp"
 	              	  android:gravity="center"
 	              	  android:textColor="@color/black"
 		              />
@@ -49,7 +51,10 @@
 		android:paddingBottom="15dip"
 		android:paddingLeft="5dip"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:id="@+id/llNearStanger"
+		android:clickable="true"
+		android:onClick="llNearStranger_Click">
 
 		<ImageView
 			android:layout_width="35dp"
@@ -62,10 +67,9 @@
 			android:layout_height="fill_parent"
 			android:layout_marginLeft="10dp"
 			android:text="@string/nearstranger"
-			android:textSize="15dip"
+			android:textSize="15sp"
 			android:gravity="center"
-			android:textColor="@color/black"
-			android:id="@+id/tvNearStranger"/>
+			android:textColor="@color/black"/>
 	</LinearLayout>
 
 	<TextView
@@ -80,7 +84,8 @@
 		          android:paddingLeft="5dip"
 		          android:layout_width="match_parent"
 	              android:layout_height="wrap_content"
-		          >
+				  android:id="@+id/llGame"
+				  android:clickable="true">
 		          <ImageView
 		              android:layout_width="35dp"
 	              	  android:layout_height="35dp"
@@ -92,7 +97,7 @@
 	              	  android:layout_height="fill_parent"
 	              	  android:layout_marginLeft="10dp"
 	              	  android:text="@string/game"
-	              	  android:textSize="15dip"
+	              	  android:textSize="15sp"
 	              	  android:gravity="center"
 	              	  android:textColor="@color/black"
 		              />
@@ -110,7 +115,9 @@
 		android:paddingBottom="15dip"
 		android:paddingLeft="5dip"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:id="@+id/llSettings"
+		android:clickable="true">
 
 		<ImageView
 			android:layout_width="35dp"
@@ -123,10 +130,9 @@
 			android:layout_height="fill_parent"
 			android:layout_marginLeft="10dp"
 			android:text="@string/settings"
-			android:textSize="15dip"
+			android:textSize="15sp"
 			android:gravity="center"
-			android:textColor="@color/black"
-			android:id="@+id/tvSettings"/>
+			android:textColor="@color/black"/>
 	</LinearLayout>
 
 </LinearLayout>

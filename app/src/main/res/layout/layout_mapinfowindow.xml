@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:orientation="vertical"
+			  android:layout_width="wrap_content"
+			  android:layout_height="wrap_content"
+			  android:background="@drawable/bubule"
+			  android:paddingBottom="15dp"
+				android:paddingRight="5dp"
+				android:paddingLeft="5dp">
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="5dp"
+		android:paddingRight="8dp"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentTop="true"
+		android:id="@+id/linearLayout2"
+		>
+
+		<ImageView
+			android:layout_width="48dp"
+			android:layout_height="48dp"
+			android:id="@+id/imageView"
+			android:src="@drawable/brand_default_head"
+			android:scaleType="fitCenter"/>
+
+		<RelativeLayout
+			android:orientation="vertical"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="5dp">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="New Text"
+				android:id="@+id/tvStrangerName"
+				android:layout_alignParentLeft="true"
+				android:layout_marginLeft="8dp"
+				android:layout_alignParentTop="true"
+				android:layout_marginTop="3dp"
+				android:singleLine="false"
+				/>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="New Text"
+				android:id="@+id/tvDistance"
+				android:layout_below="@+id/tvStrangerName"
+				android:layout_alignParentLeft="true"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="8dp"/>
+		</RelativeLayout>
+
+	</LinearLayout>
+
+	<Button
+		style="?android:attr/buttonStyleSmall"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="打招呼"
+		android:id="@+id/btnPlayWith"
+		android:layout_below="@+id/linearLayout2"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="8dp"
+		android:paddingLeft="20dp"
+		android:paddingRight="20dp"/>
+
+</RelativeLayout>
