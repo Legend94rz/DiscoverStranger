@@ -2,16 +2,24 @@ package org.helloworld;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.*;
+import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
 import org.ksoap2.serialization.SoapObject;
 
 
@@ -19,6 +27,9 @@ public class LogInAct extends Activity
 {
 	private ProgressBar pbLogInBar;
 	private Button btnLogIn;
+	private EditText etName;
+	private ImageView ivHeadImg;
+	private Handler handler;
 
 	public class SignInTask extends AsyncTask<Void, Void, Boolean>
 	{
@@ -66,20 +77,18 @@ public class LogInAct extends Activity
 			}
 		}
 	}
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_log_in);
-		btnLogIn = (Button) findViewById(R.id.btnLogin);
-		pbLogInBar = (ProgressBar) findViewById(R.id.pbLoginProgress);
+		initView();
 		btnLogIn.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View view)
 			{
-				String username = ((TextView) findViewById(R.id.etName)).getText().toString();
+				String username = (etName).getText().toString();
 				String password = ((TextView) findViewById(R.id.etPassword)).getText().toString();
 				SignInTask task = new SignInTask(username, password);
 				pbLogInBar.setVisibility(View.VISIBLE);
@@ -87,8 +96,48 @@ public class LogInAct extends Activity
 				task.execute();
 			}
 		});
-
+		etName.setOnFocusChangeListener(new View.OnFocusChangeListener()
+		{
+			@Override
+			public void onFocusChange(View view, boolean b)
+			{
+				if (!b)
+				{
+					Task downloadTask = new Task(handler, Global.MSG_WHAT.W_DOWNLOADED_A_HAEDIMG);
+					String fileName = etName.getText()+".png";
+					downloadTask.execute("downloadFile", 2, "path", "HeadImg", "fileName", fileName);
+				}
+			}
+		});
+		handler=new Handler(new Handler.Callback()
+		{
+			@Override
+			public boolean handleMessage(Message message)
+			{
+				if(message.what==Global.MSG_WHAT.W_DOWNLOADED_A_HAEDIMG)
+				{
+					try
+					{
+						SoapObject obj = (SoapObject) message.obj;
+						byte[] bytes = Base64.decode(obj.getPropertyAsString(0), Base64.DEFAULT);
+						Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+						ivHeadImg.setImageBitmap(bmp);
+					}
+					catch (NullPointerException ignored){}
+				}
+				return true;
+			}
+		});
 	}
+
+	private void initView()
+	{
+		btnLogIn = (Button) findViewById(R.id.btnLogin);
+		pbLogInBar = (ProgressBar) findViewById(R.id.pbLoginProgress);
+		etName = (EditText) findViewById(R.id.etName);
+		ivHeadImg= (ImageView) findViewById(R.id.ivHeadImg);
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{

@@ -47,7 +47,6 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 	static double latitude;
 	static double longitude;
 
-	static int count=0;
 	//这两个用于控制浮动窗口的显示状态
 	private Marker lastClick=null;
 	private boolean isShow=false;
@@ -60,13 +59,13 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 		map.hideInfoWindow();
 		if(marker==lastClick && isShow){isShow=false;return true;}
 		Bundle extraInfo = marker.getExtraInfo();
-		LatLng pos = new LatLng(marker.getExtraInfo().getDouble("latitude"), marker.getExtraInfo().getDouble("longitude"));
+		LatLng pos = new LatLng(extraInfo.getDouble("latitude"),extraInfo.getDouble("longitude"));
 		LayoutInflater layoutInflater = LayoutInflater.from(NearbyStrangerAct.this);
 		View windowView = layoutInflater.inflate(R.layout.layout_mapinfowindow, null);
 		TextView tvStrangerName = (TextView) windowView.findViewById(R.id.tvStrangerName);
-		tvStrangerName.setText(marker.getExtraInfo().getString("strangerName"));
+		tvStrangerName.setText(extraInfo.getString("strangerName"));
 		TextView tvDistance = (TextView) windowView.findViewById(R.id.tvDistance);
-		tvDistance.setText(marker.getExtraInfo().getString("distance"));
+		tvDistance.setText(extraInfo.getString("distance"));
 		InfoWindow infoWindow = new InfoWindow(windowView, pos, -65);
 		map.showInfoWindow(infoWindow);
 		lastClick=marker;isShow=true;

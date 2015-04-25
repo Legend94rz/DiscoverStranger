@@ -1,6 +1,7 @@
 package org.helloworld;
 
 import android.os.AsyncTask;
+import android.os.Handler;
 
 import org.ksoap2.serialization.SoapObject;
 
@@ -11,11 +12,13 @@ import org.ksoap2.serialization.SoapObject;
 public class Task extends AsyncTask<Object,Void,SoapObject>
 {
 	int when_complete;
+	Handler handler;
 	/**
-	 * 每当此异步任务完成时会向MainActivity的handler发msg_what为when_complete的消息
+	 * 每当此异步任务完成时会向该handler发msg_what为when_complete的消息
 	 * */
-	public Task(int when_complete)
+	public Task(Handler handler, int when_complete)
 	{
+		this.handler = handler;
 		this.when_complete = when_complete;
 	}
 	/**
@@ -39,6 +42,6 @@ public class Task extends AsyncTask<Object,Void,SoapObject>
 		android.os.Message soapMsg=new android.os.Message();
 		soapMsg.what=when_complete;
 		soapMsg.obj=soapObject;
-		MainActivity.handler.sendMessage(soapMsg);
+		handler.sendMessage(soapMsg);
 	}
 }

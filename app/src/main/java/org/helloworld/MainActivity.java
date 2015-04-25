@@ -52,7 +52,7 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 	public void onClick(View v)
 	{
 		int pos = (Integer)(v.getTag());
-		viewPager.setCurrentItem(pos,true);
+		viewPager.setCurrentItem(pos, true);
 		setCurPoint(pos);
 	}
 	/**
@@ -125,9 +125,7 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 				if(updateCount>=list.size())
 				{
 					updateCount=0;
-					android.os.Message message=new android.os.Message();
-					message.what=Global.MSG_WHAT.W_REFRESH;
-					MainActivity.handler.sendMessage(message);
+					MainActivity.handler.sendEmptyMessage(Global.MSG_WHAT.W_REFRESH);
 				}
 			}
 			return null;
@@ -233,7 +231,6 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 									list.set(i,friend);
 								new parserWithExtraAsync(i).execute(userInfo);
 							}
-							BindAdapter(list);
 						}
 						catch (NullPointerException ignored){}
 						catch (ArrayIndexOutOfBoundsException ignored){}
@@ -248,6 +245,7 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 					case Global.MSG_WHAT.W_REFRESH:
 						if(adapter!=null)
 							adapter.notifyDataSetChanged();
+						BindAdapter(list);
 						break;
 				}
 			}
@@ -310,13 +308,18 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 			lvFriends.setAdapter(adapter);
 		}
 		adapter.notifyDataSetChanged();
+		Global.friendList.clear();
+		for(UserInfo u:list)
+		{
+			Global.friendList.put(u.username,u);
+		}
 		Toast.makeText(this,"已更新",Toast.LENGTH_SHORT).show();
 	}
 
 	void FlushFriendsList()
 	{
 		updateCount=0;
-		new Task(Global.MSG_WHAT.W_GOT_FRIENDS_LIST).execute("getFriends", 1, "name", Global.mySelf.username);
+		new Task(MainActivity.handler,Global.MSG_WHAT.W_GOT_FRIENDS_LIST).execute("getFriends", 1, "name", Global.mySelf.username);
 	}
 
 	@Override

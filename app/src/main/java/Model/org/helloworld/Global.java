@@ -11,8 +11,9 @@ import java.util.Map;
 public class Global
 {
 	public static UserInfo mySelf = new UserInfo();
-	public final static Map<String,History> map=new HashMap<String, History>();		//存储历史消息
-	public final static ArrayList<History> list2=new ArrayList<History>();
+	public final static Map<String,History> map=new HashMap<String, History>();			//存储历史消息，方便快速查询
+	public final static ArrayList<History> list2=new ArrayList<History>();				//历史消息列表
+	public final static Map<String,UserInfo> friendList=new HashMap<String, UserInfo>();	//好友列表，为便于快速查询
 	public class MSG_WHAT
 	{
 		public static final int W_RECEIVED_NEW_MSG = 2;
@@ -20,6 +21,7 @@ public class Global
 		public static final int W_ERROR_NETWORK = 4;
 		public static final int W_REFRESH = 5;
 		public static final int W_GOT_STRANGERS = 6;
+		public static final int W_DOWNLOADED_A_HAEDIMG=7;
 	}
 
 	public class ERROR_HINT

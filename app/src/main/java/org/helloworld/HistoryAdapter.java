@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Created by Administrator on 2015/4/9.
@@ -61,7 +60,10 @@ public class HistoryAdapter extends BaseAdapter
 		} else
 			h = (H) view.getTag();
 		h.pic.setImageResource(R.drawable.icon);
-		h.name.setText(history.fromName);
+		UserInfo temp = Global.friendList.get(history.fromName);
+		String showName = temp.Ex_remark;
+		if (showName == null || showName.equals("")) showName = temp.nickName;
+		h.name.setText(showName);
 		h.newMsg.setText(history.historyMsg.get(history.historyMsg.size() - 1).Text);
 		if (history.unreadCount == 0)
 		{

@@ -37,7 +37,7 @@ public class ContactAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View view, ViewGroup parent) {
 		UserInfo hh = list.get(position);
-		H h = null;
+		H h;
 		if(view==null){
 			h = new H();
 			view = LayoutInflater.from(context).inflate(R.layout.tongxunlu, parent, false);
@@ -51,7 +51,7 @@ public class ContactAdapter extends BaseAdapter {
 		//Todo 修改显示文字及图片
 		h.pic.setImageResource(R.drawable.icon);
 		if(hh.Ex_remark==null)
-			h.name.setText(hh.username);
+			h.name.setText(hh.nickName);
 		else
 			h.name.setText(hh.Ex_remark);
 		

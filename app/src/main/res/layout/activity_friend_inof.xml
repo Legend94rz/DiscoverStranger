@@ -1,0 +1,188 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				xmlns:tools="http://schemas.android.com/tools"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				tools:context="org.helloworld.FriendInfoAct"
+				android:background="#ffcecece">
+
+	<RelativeLayout
+		android:id="@+id/relativeLayout3"
+		android:layout_width="fill_parent"
+		android:layout_height="55dp"
+		android:background="@drawable/abc_ab_bottom_solid_dark_holo"
+		android:gravity="center_vertical"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentLeft="true">
+
+		<Button
+			android:layout_width="80dp"
+			android:layout_height="wrap_content"
+			android:text="@string/goback"
+			android:textColor="#fff"
+			android:background="@drawable/title_btn_back"
+			android:textSize="13sp"
+			android:layout_alignParentBottom="true"
+			android:layout_marginTop="5dp"
+			android:layout_marginBottom="5dp"
+			android:onClick="goback"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/Detail"
+			android:layout_centerInParent="true"
+			android:textSize="20sp"
+			android:textColor="#ffffff"/>
+	</RelativeLayout>
+
+	<ImageView
+		android:layout_width="64dp"
+		android:layout_height="64dp"
+		android:id="@+id/imageView2"
+		android:layout_marginTop="15dp"
+		android:src="@drawable/common_signin_btn_icon_pressed_light"
+		android:scaleType="fitCenter"
+		android:layout_below="@+id/relativeLayout3"
+		android:layout_alignParentLeft="true"
+		android:layout_marginLeft="20dp"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="New Text"
+		android:id="@+id/tvRemark"
+		android:layout_alignTop="@+id/imageView2"
+		android:layout_toRightOf="@+id/imageView2"
+		android:layout_marginLeft="20dp"
+		android:layout_marginTop="10dp"
+		android:textSize="18sp"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="New Text"
+		android:id="@+id/tvNickName"
+		android:textColor="#ff808080"
+		android:layout_alignBottom="@+id/imageView2"
+		android:layout_alignLeft="@+id/tvRemark"
+		android:layout_marginBottom="10dp"
+		android:layout_marginLeft="8dp"/>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/imageView2"
+		android:layout_alignParentLeft="true"
+		android:layout_marginTop="20dp"
+		android:background="#ffffffff"
+		android:id="@+id/linearLayout3">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="地区"
+			android:id="@+id/textView2"
+			android:textSize="20dp"
+			android:layout_margin="15dp"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="New Text"
+			android:id="@+id/tvRegion"
+			android:layout_margin="15dp"/>
+	</LinearLayout>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="0.5dp"
+		android:layout_below="@+id/linearLayout3"
+		android:layout_alignLeft="@+id/linearLayout3"
+		android:background="#ff000000"
+		android:id="@+id/linearLayout4">
+	</LinearLayout>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="#ffffffff"
+		android:layout_below="@+id/linearLayout4"
+		android:layout_alignLeft="@+id/linearLayout4"
+		android:id="@+id/linearLayout6">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="性别"
+			android:id="@+id/textView4"
+			android:textSize="20dp"
+			android:layout_margin="15dp"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="New Text"
+			android:id="@+id/tvSex"
+			android:layout_margin="15dp"/>
+	</LinearLayout>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="0.5dp"
+		android:background="#ff000000"
+		android:id="@+id/linearLayout5"
+		android:layout_below="@+id/linearLayout6"
+		android:layout_alignLeft="@+id/linearLayout6"/>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="#ffffffff"
+		android:layout_below="@+id/linearLayout5"
+		android:layout_alignLeft="@+id/linearLayout6"
+		android:id="@+id/linearLayout7">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="年龄"
+			android:id="@+id/textView8"
+			android:textSize="20dp"
+			android:layout_margin="15dp"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="New Text"
+			android:id="@+id/tvAge"
+			android:layout_margin="15dp"/>
+	</LinearLayout>
+
+	<Button
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="删除TA"
+		android:id="@+id/btnDel"
+		android:layout_marginBottom="33dp"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true"
+		android:layout_marginLeft="50dp"
+		android:onClick="onClick"/>
+
+	<Button
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="发消息"
+		android:id="@+id/btnChatWith"
+		android:layout_marginBottom="15dp"
+		android:layout_above="@+id/btnDel"
+		android:layout_alignLeft="@+id/btnDel"
+		android:layout_alignRight="@+id/btnDel"
+		android:onClick="onClick"/>
+
+</RelativeLayout>

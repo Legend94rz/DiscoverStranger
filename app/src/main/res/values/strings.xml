@@ -15,4 +15,7 @@
 	<string name="game">游戏</string>
 	<string name="settings">设置</string>
 	<string name="title_activity_shake">ShakeActivity</string>
+	<string name="title_activity_friend_inof">FriendInofAct</string>
+	<string name="goback">返回</string>
+	<string name="Detail">详细信息</string>
 </resources>

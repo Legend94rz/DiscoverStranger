@@ -80,7 +80,7 @@ public class ChatMsgAdapter extends BaseAdapter
 		Message entity = coll.get(position);
 		boolean isComMsg = (entity.msgType & Global.MSG_TYPE.T_RECEIVE_MSG) > 0;
 
-		ViewHolder viewHolder = null;
+		ViewHolder viewHolder;
 		if (convertView == null)
 		{
 			if (isComMsg)
