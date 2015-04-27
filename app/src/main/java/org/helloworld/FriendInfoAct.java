@@ -1,7 +1,6 @@
 package org.helloworld;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,7 +14,7 @@ public class FriendInfoAct extends Activity implements View.OnClickListener
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_friend_inof);
+		setContentView(R.layout.activity_friend_info);
 	}
 
 	@Override

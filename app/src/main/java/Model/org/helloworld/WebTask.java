@@ -9,14 +9,14 @@ import org.ksoap2.serialization.SoapObject;
  * Created by Administrator on 2015/4/7.
  *
 */
-public class Task extends AsyncTask<Object,Void,SoapObject>
+public class WebTask extends AsyncTask<Object,Void,SoapObject>
 {
 	int when_complete;
 	Handler handler;
 	/**
 	 * 每当此异步任务完成时会向该handler发msg_what为when_complete的消息
 	 * */
-	public Task(Handler handler, int when_complete)
+	public WebTask(Handler handler, int when_complete)
 	{
 		this.handler = handler;
 		this.when_complete = when_complete;

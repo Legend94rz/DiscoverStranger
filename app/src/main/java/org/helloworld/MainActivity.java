@@ -23,7 +23,6 @@ import org.ksoap2.serialization.SoapObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 public class MainActivity extends Activity implements  View.OnClickListener,ViewPager.OnPageChangeListener
@@ -319,7 +318,7 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 	void FlushFriendsList()
 	{
 		updateCount=0;
-		new Task(MainActivity.handler,Global.MSG_WHAT.W_GOT_FRIENDS_LIST).execute("getFriends", 1, "name", Global.mySelf.username);
+		new WebTask(MainActivity.handler,Global.MSG_WHAT.W_GOT_FRIENDS_LIST).execute("getFriends", 1, "name", Global.mySelf.username);
 	}
 
 	@Override

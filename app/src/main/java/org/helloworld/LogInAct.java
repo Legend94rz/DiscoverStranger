@@ -6,8 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.*;
 import android.os.Message;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,7 +17,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONObject;
 import org.ksoap2.serialization.SoapObject;
 
 
@@ -103,7 +100,7 @@ public class LogInAct extends Activity
 			{
 				if (!b)
 				{
-					Task downloadTask = new Task(handler, Global.MSG_WHAT.W_DOWNLOADED_A_HAEDIMG);
+					WebTask downloadTask = new WebTask(handler, Global.MSG_WHAT.W_DOWNLOADED_A_HAEDIMG);
 					String fileName = etName.getText()+".png";
 					downloadTask.execute("downloadFile", 2, "path", "HeadImg", "fileName", fileName);
 				}

@@ -31,7 +31,7 @@ public class UserInfo
 		model.username= rawM.getPropertyAsString("username");
 		model.password= rawM.getPropertyAsString("password");
 		model.state=Integer.parseInt(rawM.getPropertyAsString("state"));
-		model.headImgPath= rawM.getPropertyAsString("headImgPath");
+		//model.headImgPath= rawM.getPropertyAsString("headImgPath");
 		model.sex = Boolean.parseBoolean(rawM.getPropertyAsString("sex"));
 		model.nickName=rawM.getPropertyAsString("nickName");
 		return model;
