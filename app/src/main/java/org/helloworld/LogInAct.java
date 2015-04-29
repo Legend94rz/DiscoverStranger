@@ -2,11 +2,12 @@ package org.helloworld;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.*;
-import android.os.Message;
-import android.util.Base64;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.ksoap2.serialization.SoapObject;
+
+import java.io.File;
 
 
 public class LogInAct extends Activity
@@ -35,14 +38,15 @@ public class LogInAct extends Activity
 
 		public SignInTask(String username, String password)
 		{
-			Username=username;
-			Password=password;
+			Username = username;
+			Password = password;
 		}
+
 		@Override
 		protected Boolean doInBackground(Void... voids)
 		{
-			WebService login=new WebService("SignIn");
-			login.addProperty("name",Username).addProperty("pass",Password);
+			WebService login = new WebService("SignIn");
+			login.addProperty("name", Username).addProperty("pass", Password);
 			try
 			{
 				SoapObject result = login.call();
@@ -54,26 +58,27 @@ public class LogInAct extends Activity
 			}
 			return false;
 		}
+
 		@Override
 		protected void onPostExecute(Boolean aBoolean)
 		{
 			pbLogInBar.setVisibility(View.INVISIBLE);
 			btnLogIn.setEnabled(true);
-			if(aBoolean)
+			if (aBoolean)
 			{
-				Toast.makeText(LogInAct.this,"登录成功",Toast.LENGTH_SHORT).show();
-				Global.mySelf.username=Username;
-				Global.mySelf.password=Password;
-				Intent i=new Intent(LogInAct.this,MainActivity.class);
+				Toast.makeText(LogInAct.this, "登录成功", Toast.LENGTH_SHORT).show();
+				Global.mySelf.username = Username;
+				Global.mySelf.password = Password;
+				Intent i = new Intent(LogInAct.this, MainActivity.class);
 				startActivity(i);
 				finish();
-			}
-			else
+			} else
 			{
-				Toast.makeText(LogInAct.this,"登录失败",Toast.LENGTH_SHORT).show();
+				Toast.makeText(LogInAct.this, "登录失败", Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -93,36 +98,24 @@ public class LogInAct extends Activity
 				task.execute();
 			}
 		});
-		etName.setOnFocusChangeListener(new View.OnFocusChangeListener()
+		etName.addTextChangedListener(new TextWatcher()
 		{
 			@Override
-			public void onFocusChange(View view, boolean b)
-			{
-				if (!b)
-				{
-					WebTask downloadTask = new WebTask(handler, Global.MSG_WHAT.W_DOWNLOADED_A_HAEDIMG);
-					String fileName = etName.getText()+".png";
-					downloadTask.execute("downloadFile", 2, "path", "HeadImg", "fileName", fileName);
-				}
-			}
-		});
-		handler=new Handler(new Handler.Callback()
-		{
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)	{}
 			@Override
-			public boolean handleMessage(Message message)
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2){}
+			@Override
+			public void afterTextChanged(Editable editable)
 			{
-				if(message.what==Global.MSG_WHAT.W_DOWNLOADED_A_HAEDIMG)
+				File f = new File(Global.PATH.HeadImg, editable + ".png");
+				if (f.exists())
 				{
-					try
-					{
-						SoapObject obj = (SoapObject) message.obj;
-						byte[] bytes = Base64.decode(obj.getPropertyAsString(0), Base64.DEFAULT);
-						Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-						ivHeadImg.setImageBitmap(bmp);
-					}
-					catch (NullPointerException ignored){}
+					ivHeadImg.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg + editable + ".png"));
 				}
-				return true;
+				else
+				{
+					ivHeadImg.setImageResource(R.drawable.nohead);
+				}
 			}
 		});
 	}
@@ -132,7 +125,7 @@ public class LogInAct extends Activity
 		btnLogIn = (Button) findViewById(R.id.btnLogin);
 		pbLogInBar = (ProgressBar) findViewById(R.id.pbLoginProgress);
 		etName = (EditText) findViewById(R.id.etName);
-		ivHeadImg= (ImageView) findViewById(R.id.ivHeadImg);
+		ivHeadImg = (ImageView) findViewById(R.id.ivHeadImg);
 	}
 
 	@Override
@@ -142,6 +135,7 @@ public class LogInAct extends Activity
 		getMenuInflater().inflate(R.menu.menu_log_in, menu);
 		return true;
 	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{

@@ -31,7 +31,7 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 	private ListView lvFriends;
 	private ListView lvHistory;
 	public static int updateCount=0;
-	ContactAdapter adapter;
+	private ContactAdapter contactAdapter;
 	myViewPagerAdapter pagerAdapter;
 	HistoryAdapter hisAdapter;
 	private int mViewCount;
@@ -40,7 +40,6 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 	private TextView liaotian;
 	private TextView faxian;
 	private TextView tongxunlu;
-	ArrayList<UserInfo> list;
 
 	ViewPager viewPager;
 	List<View> pages;
@@ -105,7 +104,7 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 			try
 			{
 				SoapObject result = getUser.addProperty("name", jsons[0].getString("name")).call();
-				list.set(index,UserInfo.parse(result));
+				Global.friendList.set(index, UserInfo.parse(result));
 			}
 			catch (NullPointerException ignored){}
 			catch (JSONException e)
@@ -115,13 +114,14 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 			/*Todo 下载图片、补全额外信息*/
 			try
 			{
-				list.get(index).Ex_remark=jsons[0].getString("remark");
+				Global.friendList.get(index).Ex_remark=jsons[0].getString("remark");
 			}
-			catch (JSONException ignored){list.get(index).Ex_remark=null;}
+			catch (JSONException ignored){
+				Global.friendList.get(index).Ex_remark=null;}
 			synchronized ((Object)updateCount)
 			{
 				updateCount++;
-				if(updateCount>=list.size())
+				if(updateCount>= Global.friendList.size())
 				{
 					updateCount=0;
 					MainActivity.handler.sendEmptyMessage(Global.MSG_WHAT.W_REFRESH);
@@ -141,18 +141,18 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 		for (History h : Global.map.values())
 		{
 			int i;
-			for (i = 0; i < Global.list2.size(); i++)
+			for (i = 0; i < Global.historyList.size(); i++)
 			{
-				if (Global.list2.get(i).fromName.equals(h.fromName))
+				if (Global.historyList.get(i).fromName.equals(h.fromName))
 					break;
 			}
-			if (i == Global.list2.size()) Global.list2.add(h);
+			if (i == Global.historyList.size()) Global.historyList.add(h);
 		}
 		if (hisAdapter != null)
 			hisAdapter.notifyDataSetChanged();
 		else
 		{
-			hisAdapter=new HistoryAdapter(Global.list2,MainActivity.this);
+			hisAdapter=new HistoryAdapter(Global.historyList,MainActivity.this);
 			lvHistory.setAdapter(hisAdapter);
 		}
 	}
@@ -202,13 +202,13 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 							else
 							{
 								Global.map.put(m.FromId, h);
-								if (!Global.list2.contains(h))
-									Global.list2.add(h);
+								if (!Global.historyList.contains(h))
+									Global.historyList.add(h);
 							}
 						}
 						if(hisAdapter==null)
 						{
-							hisAdapter=new HistoryAdapter(Global.list2,MainActivity.this);
+							hisAdapter=new HistoryAdapter(Global.historyList,MainActivity.this);
 							lvHistory.setAdapter(hisAdapter);
 						}
 						else
@@ -224,10 +224,10 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 							{
 								JSONObject userInfo = array.getJSONObject(i);
 								UserInfo friend = new UserInfo(userInfo.getString("name"));
-								if(list.size()<array.length())
-									list.add(friend);
+								if(Global.friendList.size()<array.length())
+									Global.friendList.add(friend);
 								else
-									list.set(i,friend);
+									Global.friendList.set(i,friend);
 								new parserWithExtraAsync(i).execute(userInfo);
 							}
 						}
@@ -242,9 +242,9 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 						Toast.makeText(MainActivity.this,Global.ERROR_HINT.HINT_ERROR_NETWORD,Toast.LENGTH_SHORT).show();
 						break;
 					case Global.MSG_WHAT.W_REFRESH:
-						if(adapter!=null)
-							adapter.notifyDataSetChanged();
-						BindAdapter(list);
+						if(contactAdapter !=null)
+							contactAdapter.notifyDataSetChanged();
+						BindAdapter(Global.friendList);
 						break;
 				}
 			}
@@ -256,7 +256,6 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 
 	private void init()
 	{
-		list=new ArrayList<UserInfo>();
 		liaotian = (TextView)findViewById(R.id.tvLiaotian);
 		faxian = (TextView)findViewById(R.id.tvFaxian);
 		tongxunlu = (TextView)findViewById(R.id.tvTongxunlu);
@@ -272,13 +271,24 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
 			{
-				Intent chat=new Intent(MainActivity.this,ChatActivity.class);
-				String to=list.get(i).username;
-				chat.putExtra("chatTo", to);
+				Intent chat=new Intent(MainActivity.this,FriendInfoAct.class);
+				String to= Global.friendList.get(i).username;
+				chat.putExtra("friendName", to);
 				startActivity(chat);
 			}
 		});
 		lvHistory= (ListView) v1.findViewById(R.id.listView);
+		lvHistory.setOnItemClickListener(new AdapterView.OnItemClickListener()
+		{
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+			{
+				Intent chat=new Intent(MainActivity.this,ChatActivity.class);
+				String to=Global.historyList.get(i).fromName;
+				chat.putExtra("chatTo", to);
+				startActivity(chat);
+			}
+		});
 		pages=new ArrayList<View>();
 		pages.add(v1);pages.add(v2);pages.add(v3);
 		pagerAdapter = new myViewPagerAdapter(this,pages);
@@ -301,16 +311,16 @@ public class MainActivity extends Activity implements  View.OnClickListener,View
 
 	void BindAdapter(ArrayList<UserInfo> list)
 	{
-		if(adapter==null)
+		if(contactAdapter ==null)
 		{
-			adapter = new ContactAdapter(this, list);
-			lvFriends.setAdapter(adapter);
+			contactAdapter = new ContactAdapter(this, list);
+			lvFriends.setAdapter(contactAdapter);
 		}
-		adapter.notifyDataSetChanged();
-		Global.friendList.clear();
+		contactAdapter.notifyDataSetChanged();
+		Global.map2Friend.clear();
 		for(UserInfo u:list)
 		{
-			Global.friendList.put(u.username,u);
+			Global.map2Friend.put(u.username,u);
 		}
 		Toast.makeText(this,"已更新",Toast.LENGTH_SHORT).show();
 	}

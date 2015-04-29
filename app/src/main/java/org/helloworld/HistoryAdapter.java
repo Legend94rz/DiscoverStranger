@@ -60,7 +60,7 @@ public class HistoryAdapter extends BaseAdapter
 		} else
 			h = (H) view.getTag();
 		h.pic.setImageResource(R.drawable.icon);
-		UserInfo temp = Global.friendList.get(history.fromName);
+		UserInfo temp = Global.map2Friend.get(history.fromName);
 		String showName = temp.Ex_remark;
 		if (showName == null || showName.equals("")) showName = temp.nickName;
 		h.name.setText(showName);

@@ -2,6 +2,7 @@ package org.helloworld;
 
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 
 import org.ksoap2.serialization.SoapObject;
 
@@ -14,9 +15,9 @@ public class WebTask extends AsyncTask<Object,Void,SoapObject>
 	int when_complete;
 	Handler handler;
 	/**
-	 * 每当此异步任务完成时会向该handler发msg_what为when_complete的消息
+	 * 每当此异步任务完成时会向该handler发msg_what为when_complete的消息.(将handler置null或when_complete置-1表示并不关心返回结果)
 	 * */
-	public WebTask(Handler handler, int when_complete)
+	public WebTask(@Nullable Handler handler, int when_complete)
 	{
 		this.handler = handler;
 		this.when_complete = when_complete;
@@ -39,9 +40,12 @@ public class WebTask extends AsyncTask<Object,Void,SoapObject>
 	@Override
 	protected void onPostExecute(SoapObject soapObject)
 	{
-		android.os.Message soapMsg=new android.os.Message();
-		soapMsg.what=when_complete;
-		soapMsg.obj=soapObject;
-		handler.sendMessage(soapMsg);
+		if(when_complete!=-1 || handler==null)
+		{
+			android.os.Message soapMsg = new android.os.Message();
+			soapMsg.what = when_complete;
+			soapMsg.obj = soapObject;
+			handler.sendMessage(soapMsg);
+		}
 	}
 }
