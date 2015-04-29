@@ -73,6 +73,10 @@
             android:name=".FriendInfoAct"
             android:label="@string/title_activity_friend_inof" >
         </activity>
+        <activity
+            android:name=".RegisterAct"
+            android:label="@string/title_activity_register" >
+        </activity>
     </application>
 
 </manifest>

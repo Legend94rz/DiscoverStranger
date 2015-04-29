@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="150dip"
+        android:layout_height="150dip"
+        android:id="@+id/Avatar"
+
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="填写以下基本信息："
+        android:id="@+id/following"
+        android:padding="10dp"
+        android:layout_below="@+id/Avatar"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/username"
+        android:hint="用户名(字母/数字/下划线)"
+
+        android:layout_below="@+id/following"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/progressBar3" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/password"
+        android:hint="密码(8-32位)"
+        android:layout_below="@+id/username"
+
+        android:layout_alignParentLeft="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/confirmPassword"
+        android:hint="重复密码"
+        android:layout_below="@+id/password"
+        android:layout_alignParentLeft="true" />
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/check_name"
+        android:layout_alignTop="@id/username"
+        android:layout_toRightOf="@+id/username"
+        android:visibility="invisible"
+        />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/check_password"
+        android:layout_alignTop="@id/confirmPassword"
+        android:layout_toRightOf="@+id/confirmPassword"
+        android:visibility="invisible" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/nickname"
+        android:hint="昵称"
+        android:layout_toRightOf="@+id/username"
+        android:layout_below="@id/confirmPassword"
+        android:layout_alignParentLeft="true"/>
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/nickname"
+        android:orientation="horizontal">
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="男"
+        android:id="@+id/maleButton"
+        android:layout_below="@id/nickname"
+        />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="女"
+        android:id="@+id/femaleButton"
+        android:checked="false"
+        android:layout_toRightOf="@+id/maleButton"
+        android:layout_alignTop="@+id/maleButton"
+        />
+    </RadioGroup>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="完成并登录"
+        android:id="@+id/next"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        />
+
+
+</RelativeLayout>

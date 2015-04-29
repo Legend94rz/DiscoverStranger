@@ -18,4 +18,5 @@
 	<string name="title_activity_friend_inof">FriendInofAct</string>
 	<string name="goback">返回</string>
 	<string name="Detail">详细信息</string>
+    <string name="title_activity_register">RegisterAct</string>
 </resources>

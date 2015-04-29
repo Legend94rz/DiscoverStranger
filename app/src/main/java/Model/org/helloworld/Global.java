@@ -28,7 +28,9 @@ public class Global
 	{
 		public static final String HINT_ERROR_NETWORD = "网络连接失败";
 	}
-
+    public static final String OPT_SUCCEED="操作成功";
+    public static final String ERROR_EXISTED_USER="已存在的用户";
+    public static final String ERROR_UNEXCEPT="未知的错误";
 	public class MSG_TYPE
 	{
 		public static final byte T_SEND_MSG=1;

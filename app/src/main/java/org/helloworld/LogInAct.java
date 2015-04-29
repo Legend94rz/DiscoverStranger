@@ -49,6 +49,7 @@ public class LogInAct extends Activity
 			try
 			{
 				SoapObject result = login.call();
+                result.toString();
 				return Boolean.parseBoolean(result.getProperty(0).toString());
 			}
 			catch (NullPointerException e)
@@ -96,6 +97,17 @@ public class LogInAct extends Activity
 				task.execute();
 			}
 		});
+
+        //Jump to Register Activity
+        TextView toRegister=(TextView)findViewById(R.id.tvToRegister);
+        toRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(LogInAct.this,RegisterAct.class);
+                startActivity(intent);
+            }
+        });
+
 		etName.setOnFocusChangeListener(new View.OnFocusChangeListener()
 		{
 			@Override
