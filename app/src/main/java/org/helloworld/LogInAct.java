@@ -50,6 +50,7 @@ public class LogInAct extends Activity
 			try
 			{
 				SoapObject result = login.call();
+                result.toString();
 				return Boolean.parseBoolean(result.getProperty(0).toString());
 			}
 			catch (NullPointerException e)
@@ -64,17 +65,14 @@ public class LogInAct extends Activity
 		{
 			pbLogInBar.setVisibility(View.INVISIBLE);
 			btnLogIn.setEnabled(true);
-			if (aBoolean)
+			if(aBoolean)
 			{
-				Toast.makeText(LogInAct.this, "登录成功", Toast.LENGTH_SHORT).show();
-				Global.mySelf.username = Username;
-				Global.mySelf.password = Password;
-				Intent i = new Intent(LogInAct.this, MainActivity.class);
+				Intent i=new Intent(LogInAct.this,MainActivity.class);
 				startActivity(i);
 				finish();
-			} else
+			else
 			{
-				Toast.makeText(LogInAct.this, "登录失败", Toast.LENGTH_SHORT).show();
+				Toast.makeText(LogInAct.this,"登录失败",Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
@@ -98,21 +96,28 @@ public class LogInAct extends Activity
 				task.execute();
 			}
 		});
-		etName.addTextChangedListener(new TextWatcher()
+
+        //Jump to Register Activity
+        TextView toRegister=(TextView)findViewById(R.id.tvToRegister);
+        toRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(LogInAct.this,RegisterAct.class);
+                startActivity(intent);
+            }
+        });
+
+		etName.setOnFocusChangeListener(new View.OnFocusChangeListener()
 		{
 			@Override
-			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)	{}
-			@Override
-			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2){}
-			@Override
-			public void afterTextChanged(Editable editable)
+			public void onFocusChange(View view, boolean b)
 			{
 				File f = new File(Global.PATH.HeadImg, editable + ".png");
 				if (f.exists())
 				{
 					ivHeadImg.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg + editable + ".png"));
 				}
-				else
+				if(message.what==Global.MSG_WHAT.W_DOWNLOADED_A_HAEDIMG)
 				{
 					ivHeadImg.setImageResource(R.drawable.nohead);
 				}

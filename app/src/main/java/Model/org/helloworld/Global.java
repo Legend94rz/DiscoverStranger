@@ -31,13 +31,12 @@ public class Global
 	{
 		public static final String HINT_ERROR_NETWORD = "网络连接失败";
 	}
-
+    public static final String OPT_SUCCEED="操作成功";
+    public static final String ERROR_EXISTED_USER="已存在的用户";
+    public static final String ERROR_UNEXCEPT="未知的错误";
 	public static class MSG_TYPE
 	{
-		public static final byte T_SEND_MSG = 1;
-		public static final byte T_RECEIVE_MSG = 2;
-		public static final byte T_TEXT_MSG = 4;
-		public static final byte T_VOICE_MSG = 8;
+		public static final byte T_VOICE_MSG=8;
 	}
 
 	/**
