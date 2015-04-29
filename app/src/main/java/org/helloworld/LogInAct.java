@@ -29,7 +29,6 @@ public class LogInAct extends Activity
 	private Button btnLogIn;
 	private EditText etName;
 	private ImageView ivHeadImg;
-	private Handler handler;
 
 	public class SignInTask extends AsyncTask<Void, Void, Boolean>
 	{
@@ -67,9 +66,10 @@ public class LogInAct extends Activity
 			btnLogIn.setEnabled(true);
 			if(aBoolean)
 			{
-				Intent i=new Intent(LogInAct.this,MainActivity.class);
+				Intent i = new Intent(LogInAct.this, MainActivity.class);
 				startActivity(i);
 				finish();
+			}
 			else
 			{
 				Toast.makeText(LogInAct.this,"登录失败",Toast.LENGTH_SHORT).show();
@@ -107,17 +107,21 @@ public class LogInAct extends Activity
             }
         });
 
-		etName.setOnFocusChangeListener(new View.OnFocusChangeListener()
+		etName.addTextChangedListener(new TextWatcher()
 		{
 			@Override
-			public void onFocusChange(View view, boolean b)
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)	{}
+			@Override
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2){}
+			@Override
+			public void afterTextChanged(Editable editable)
 			{
 				File f = new File(Global.PATH.HeadImg, editable + ".png");
 				if (f.exists())
 				{
 					ivHeadImg.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg + editable + ".png"));
 				}
-				if(message.what==Global.MSG_WHAT.W_DOWNLOADED_A_HAEDIMG)
+				else
 				{
 					ivHeadImg.setImageResource(R.drawable.nohead);
 				}

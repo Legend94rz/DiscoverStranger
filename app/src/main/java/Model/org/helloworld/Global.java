@@ -36,7 +36,10 @@ public class Global
     public static final String ERROR_UNEXCEPT="未知的错误";
 	public static class MSG_TYPE
 	{
-		public static final byte T_VOICE_MSG=8;
+		public static final byte T_SEND_MSG = 1;
+		public static final byte T_RECEIVE_MSG = 2;
+		public static final byte T_TEXT_MSG = 4;
+		public static final byte T_VOICE_MSG = 8;
 	}
 
 	/**
