@@ -2,7 +2,6 @@ package org.helloworld;
 
 import android.app.Service;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.IBinder;
 
 import org.ksoap2.serialization.SoapObject;
@@ -33,7 +32,7 @@ public class MsgPullService extends Service
 						android.os.Message newMessageHint = new android.os.Message();
 						newMessageHint.what = Global.MSG_WHAT.W_RECEIVED_NEW_MSG;
 						for (int i = 0; i < T; i++)
-							listOfMsg.add(org.helloworld.Message.parse((SoapObject) result.getProperty(i)));
+							listOfMsg.add(Message.parse((SoapObject) result.getProperty(i)));
 						newMessageHint.obj = listOfMsg;
 						MainActivity.handler.sendMessage(newMessageHint);
 					}
@@ -50,7 +49,7 @@ public class MsgPullService extends Service
 					if(!isError)
 					{
 						android.os.Message M=new android.os.Message();
-						M.what=Global.MSG_WHAT.W_ERROR_NETWORK;
+						M.what= Global.MSG_WHAT.W_ERROR_NETWORK;
 						MainActivity.handler.sendMessage(M);
 						isError=true;
 					}

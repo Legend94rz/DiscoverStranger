@@ -9,17 +9,19 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp" >
+        android:layout_marginTop="5dp"
+		android:background="#00008007">
 
         <ImageView
             android:id="@+id/iv_userhead"
             android:layout_width="48dp"
             android:layout_height="48dp"
-			android:background="@drawable/icon"
-            android:focusable="false"
+			android:focusable="false"
 			android:scaleType="fitCenter"
 			android:layout_below="@+id/tv_sendtime"
-			android:layout_alignParentRight="true"/>
+			android:layout_alignParentRight="true"
+			android:src="@drawable/nohead"
+			/>
 
         <TextView
             android:id="@+id/tv_sendtime"
@@ -30,46 +32,73 @@
 			android:textColor="#ffffff"
             android:textSize="12sp"
 			android:layout_alignParentTop="true"
-			android:layout_centerHorizontal="true"/>
+			android:layout_centerHorizontal="true"
+			android:layout_marginBottom="10dp"
+			android:layout_marginTop="4dp"/>
 
-        <TextView
-            android:id="@+id/tv_chatcontent"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="13dp"
             android:layout_toLeftOf="@id/iv_userhead"
-            android:background="@drawable/chatto_bg"
-            android:layout_below="@+id/tv_sendtime"
+			android:layout_below="@+id/tv_sendtime"
             android:clickable="true"
             android:focusable="true"
             android:gravity="left|center"
 			android:minHeight="50dp"
 			android:textColor="#ff000000"
-			android:paddingLeft="15dp"
-			android:paddingRight="21dp"
+			android:paddingLeft="10dp"
+			android:paddingRight="20dp"
 			android:lineSpacingExtra="2dp"
-			/>
+			android:layout_marginLeft="8dp"
+			android:id="@+id/relativeLayout5"
+			android:background="@drawable/chat_right_bubble">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/tvChatcontent"
+				android:maxWidth="150dp"
+				android:layout_marginTop="5dp"
+				android:layout_marginBottom="5dp"/>
+
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/ivPic"
+				android:scaleType="fitXY"
+				android:adjustViewBounds="true"
+				android:maxHeight="100dp"
+				android:maxWidth="100dp"
+				android:layout_marginTop="10dp"
+				android:layout_marginBottom="10dp"
+				android:clickable="true"
+				android:src="@drawable/nohead"
+				android:visibility="gone"/>
+		</RelativeLayout>
 
 		<ProgressBar
 			style="?android:attr/progressBarStyleSmall"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:id="@+id/pbSendbar"
-			android:layout_alignBottom="@+id/tv_chatcontent"
-			android:layout_toLeftOf="@+id/tv_chatcontent"
-			android:indeterminate="false"/>
+			android:indeterminate="false"
+			android:visibility="visible"
+			android:layout_alignBottom="@+id/relativeLayout5"
+			android:layout_toLeftOf="@+id/relativeLayout5"
+			android:layout_marginBottom="12dp"/>
 
 		<ImageButton
-			android:layout_width="25dp"
-			android:layout_height="25dp"
+			android:layout_width="15dp"
+			android:layout_height="15dp"
 			android:id="@+id/ibResendbtn"
-			android:layout_alignBottom="@+id/pbSendbar"
 			android:layout_toLeftOf="@+id/pbSendbar"
 			android:layout_alignTop="@+id/pbSendbar"
 			android:src="@drawable/emoji_210"
 			android:scaleType="fitCenter"
 			android:background="#00008007"
-			android:visibility="visible"/>
+			android:layout_alignBottom="@+id/relativeLayout5"
+			android:layout_marginBottom="12dp"/>
 
 	</RelativeLayout>
 

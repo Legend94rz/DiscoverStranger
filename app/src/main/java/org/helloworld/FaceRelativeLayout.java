@@ -5,8 +5,10 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.Editable;
 import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -15,12 +17,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +36,8 @@ import java.util.List;
  * @文件描述 : 带表情的自定义输入框
  * *****************************************
  */
-public class FaceRelativeLayout extends RelativeLayout implements
-	OnItemClickListener, OnClickListener
+public class FaceRelativeLayout extends RelativeLayout implements OnItemClickListener, CompoundButton.OnCheckedChangeListener
 {
-
 	private Context context;
 
 	/**
@@ -70,14 +71,9 @@ public class FaceRelativeLayout extends RelativeLayout implements
 	private List<List<ChatEmoji>> emojis;
 
 	/**
-	 * 表情区域
-	 */
-	private View view;
-
-	/**
 	 * 输入框
 	 */
-	private EditText et_sendmessage;
+	private EditText etSendmessage;
 
 	/**
 	 * 表情数据填充器
@@ -88,9 +84,13 @@ public class FaceRelativeLayout extends RelativeLayout implements
 	 * 当前表情页
 	 */
 	private int current = 0;
+	private ToggleButton swiFace;
+	private ToggleButton swiMoreInput;
+	private ToggleButton swiInput;
+	private View vSelFace;					//表情区域
+	private View recordLayout;        //录音界面
+	private GridView gvMoreInput;    //+号 更多输入方式 的界面。目前里面只有发送图片
 	private Button btnSend;
-	private ImageButton btnFace;
-	private View recordLayout;
 	public FaceRelativeLayout(Context context)
 	{
 		super(context);
@@ -114,6 +114,35 @@ public class FaceRelativeLayout extends RelativeLayout implements
 		mListener = listener;
 	}
 
+	@Override
+	public void onCheckedChanged(CompoundButton compoundButton, boolean b)
+	{
+		View v= (View) compoundButton.getTag();
+		if(b)
+		{
+			switch (compoundButton.getId())
+			{
+				case R.id.btnSwitchInput:
+					recordLayout.setVisibility(VISIBLE);
+					vSelFace.setVisibility(GONE);		swiFace.setChecked(false);
+					gvMoreInput.setVisibility(GONE);	swiMoreInput.setChecked(false);
+					break;
+				case R.id.btnFace:
+					recordLayout.setVisibility(GONE);	swiInput.setChecked(false);
+					vSelFace.setVisibility(VISIBLE);
+					gvMoreInput.setVisibility(GONE);	swiMoreInput.setChecked(false);
+					break;
+				case R.id.ibMoreInput:
+					recordLayout.setVisibility(GONE);	swiInput.setChecked(false);
+					vSelFace.setVisibility(GONE);		swiFace.setChecked(false);
+					gvMoreInput.setVisibility(VISIBLE);
+					break;
+			}
+		}
+		else
+			v.setVisibility(GONE);
+	}
+
 	/**
 	 * 表情选择监听
 	 *
@@ -124,6 +153,7 @@ public class FaceRelativeLayout extends RelativeLayout implements
 	{
 
 		void onCorpusSelected(ChatEmoji emoji);
+
 		void onCorpusDeleted();
 	}
 
@@ -142,35 +172,15 @@ public class FaceRelativeLayout extends RelativeLayout implements
 		Init_Point();
 		Init_Data();
 	}
-
-	@Override
-	public void onClick(View v)
-	{
-		switch (v.getId())
-		{
-			case R.id.btnFace:
-				recordLayout.setVisibility(GONE);
-				// 隐藏表情选择框
-				if (view.getVisibility() == View.VISIBLE)
-				{
-					view.setVisibility(View.GONE);
-				} else
-				{
-					view.setVisibility(View.VISIBLE);
-				}
-				break;
-		}
-	}
-
 	/**
 	 * 隐藏表情选择框
 	 */
 	public boolean hideFaceView()
 	{
 		// 隐藏表情选择框
-		if (view.getVisibility() == View.VISIBLE)
+		if (vSelFace.getVisibility() == View.VISIBLE)
 		{
-			view.setVisibility(View.GONE);
+			vSelFace.setVisibility(View.GONE);
 			return true;
 		}
 		return false;
@@ -182,15 +192,56 @@ public class FaceRelativeLayout extends RelativeLayout implements
 	private void Init_View()
 	{
 		vp_face = (ViewPager) findViewById(R.id.vp_contains);
-		et_sendmessage = (EditText) findViewById(R.id.etSendmessage);
+		vp_face.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+		etSendmessage = (EditText) findViewById(R.id.etSendmessage);
 		layout_point = (LinearLayout) findViewById(R.id.iv_image);
-		et_sendmessage.setOnClickListener(this);
-		btnFace = (ImageButton) findViewById(R.id.btnFace);
-		btnFace.setOnClickListener(this);
-		view = findViewById(R.id.ll_facechoose);
+		swiFace = (ToggleButton) findViewById(R.id.btnFace);
+		vSelFace = findViewById(R.id.ll_facechoose);
 		recordLayout = findViewById(R.id.recordView);
-		btnSend = (Button) findViewById(R.id.btnSend);
-		btnSend.setOnClickListener(this);
+		swiMoreInput = (ToggleButton) findViewById(R.id.ibMoreInput);
+		swiInput= (ToggleButton) findViewById(R.id.btnSwitchInput);
+		gvMoreInput = (GridView) findViewById(R.id.gvMoreInput);
+		swiFace.setTag(vSelFace);
+		swiFace.setOnCheckedChangeListener(this);
+		swiMoreInput.setTag(gvMoreInput);
+		swiMoreInput.setOnCheckedChangeListener(this);
+		swiInput.setTag(recordLayout);
+		swiInput.setOnCheckedChangeListener(this);
+		btnSend= (Button) findViewById(R.id.btnSend);
+		etSendmessage.addTextChangedListener(new TextWatcher()
+		{
+			@Override
+			public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3)
+			{
+			}
+			@Override
+			public void onTextChanged(CharSequence charSequence, int i, int i2, int i3)
+			{
+			}
+			@Override
+			public void afterTextChanged(Editable editable)
+			{
+				if (editable.length() > 0)
+				{
+					btnSend.setVisibility(VISIBLE);
+					swiInput.setVisibility(GONE);
+					LayoutParams lp=new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+					lp.addRule(RelativeLayout.LEFT_OF,R.id.btnSend);
+					lp.addRule(RelativeLayout.RIGHT_OF,R.id.ibMoreInput);
+					etSendmessage.setLayoutParams(lp);
+				}
+				else
+				{
+					btnSend.setVisibility(GONE);
+					swiInput.setVisibility(VISIBLE);
+					LayoutParams lp=new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+					lp.addRule(LEFT_OF,R.id.btnSwitchInput);
+					lp.addRule(RelativeLayout.RIGHT_OF,R.id.ibMoreInput);
+					etSendmessage.setLayoutParams(lp);
+				}
+			}
+		});
+
 	}
 
 	/**
@@ -203,6 +254,7 @@ public class FaceRelativeLayout extends RelativeLayout implements
 		View nullView1 = new View(context);
 		// 设置透明背景
 		nullView1.setBackgroundColor(Color.TRANSPARENT);
+		nullView1.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 		pageViews.add(nullView1);
 
 		// 中间添加表情页
@@ -221,10 +273,9 @@ public class FaceRelativeLayout extends RelativeLayout implements
 			view.setVerticalSpacing(1);
 			view.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
 			view.setCacheColorHint(0);
-			view.setPadding(5, 0, 5, 0);
+			view.setPadding(5, 0, 5, 5);
 			view.setSelector(new ColorDrawable(Color.TRANSPARENT));
-			view.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
-													 LayoutParams.WRAP_CONTENT));
+			view.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			view.setGravity(Gravity.CENTER);
 			pageViews.add(view);
 		}
@@ -233,6 +284,7 @@ public class FaceRelativeLayout extends RelativeLayout implements
 		View nullView2 = new View(context);
 		// 设置透明背景
 		nullView2.setBackgroundColor(Color.TRANSPARENT);
+		nullView2.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 		pageViews.add(nullView2);
 	}
 
@@ -248,7 +300,7 @@ public class FaceRelativeLayout extends RelativeLayout implements
 		{
 			imageView = new ImageView(context);
 			imageView.setBackgroundResource(R.drawable.d1);
-			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 			layoutParams.leftMargin = 10;
 			layoutParams.rightMargin = 10;
 			layoutParams.width = 8;
@@ -281,6 +333,7 @@ public class FaceRelativeLayout extends RelativeLayout implements
 
 			@Override
 			public void onPageSelected(int arg0)
+
 			{
 				current = arg0 - 1;
 				// 描绘分页点
@@ -339,8 +392,8 @@ public class FaceRelativeLayout extends RelativeLayout implements
 		ChatEmoji emoji = (ChatEmoji) faceAdapters.get(current).getItem(arg2);
 		if (emoji.getId() == R.drawable.face_del_icon)
 		{
-			int selection = et_sendmessage.getSelectionStart();
-			String text = et_sendmessage.getText().toString();
+			int selection = etSendmessage.getSelectionStart();
+			String text = etSendmessage.getText().toString();
 			if (selection > 0)
 			{
 				String text2 = text.substring(selection - 1);
@@ -348,19 +401,21 @@ public class FaceRelativeLayout extends RelativeLayout implements
 				{
 					int start = text.lastIndexOf("[");
 					int end = selection;
-					et_sendmessage.getText().delete(start, end);
+					etSendmessage.getText().delete(start, end);
 					return;
 				}
-				et_sendmessage.getText().delete(selection - 1, selection);
+				etSendmessage.getText().delete(selection - 1, selection);
 			}
 		}
 		if (!TextUtils.isEmpty(emoji.getCharacter()))
 		{
 			if (mListener != null)
 				mListener.onCorpusSelected(emoji);
-			SpannableString spannableString = FaceConversionUtil.getInstace()
-												  .addFace(getContext(), emoji.getId(), emoji.getCharacter());
-			et_sendmessage.append(spannableString);
+			SpannableString spannableString = FaceConversionUtil.getInstace().addFace(getContext(), emoji.getId(), emoji.getCharacter());
+			Editable content = etSendmessage.getText();
+			int start =etSendmessage.getSelectionStart();
+			content.insert(start,spannableString);
+			etSendmessage.setSelection(start + spannableString.length());
 		}
 
 	}

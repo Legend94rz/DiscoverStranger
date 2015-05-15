@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -66,6 +65,9 @@ public class LogInAct extends Activity
 			btnLogIn.setEnabled(true);
 			if(aBoolean)
 			{
+				Toast.makeText(LogInAct.this, "登录成功", Toast.LENGTH_SHORT).show();
+				Global.mySelf.username = Username;
+				Global.mySelf.password = Password;
 				Intent i = new Intent(LogInAct.this, MainActivity.class);
 				startActivity(i);
 				finish();

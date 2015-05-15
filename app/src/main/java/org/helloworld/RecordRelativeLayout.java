@@ -13,7 +13,6 @@ public class RecordRelativeLayout extends RelativeLayout
 	private Context context;
 	private Button btnSendVoice;
 	private Button btnCancel;
-	private Button btnListen;
 	private Button btnRecord;
 	public boolean isHidden;
 	public RecordRelativeLayout(Context context)
@@ -45,7 +44,6 @@ public class RecordRelativeLayout extends RelativeLayout
 	private void onCreate()
 	{
 		btnCancel= (Button) findViewById(R.id.btnCancel);
-		btnListen= (Button) findViewById(R.id.btnListen);
 		btnRecord= (Button) findViewById(R.id.btnRec);
 		btnSendVoice= (Button) findViewById(R.id.btnSendVoice);
 	}

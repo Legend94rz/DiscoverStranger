@@ -13,10 +13,9 @@ import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.baidu.navisdk.util.common.TaskQueue;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,7 +61,7 @@ public class FriendInfoAct extends Activity implements View.OnClickListener
 						if (bmp.getByteCount() > 0)
 						{
 							ivHeadImg.setImageBitmap(bmp);
-							new File(Global.PATH.HeadImg).mkdir();
+							FileUtils.mkDir(new File(Global.PATH.HeadImg));
 							File headFile = new File(Global.PATH.HeadImg, friendName + ".png");
 							headFile.createNewFile();
 							FileOutputStream fos = new FileOutputStream(headFile);
@@ -110,15 +109,15 @@ public class FriendInfoAct extends Activity implements View.OnClickListener
 		tvNickName.setText(friend.nickName);
 		if (friend.Ex_remark != null && !friend.Ex_remark.equals(""))
 			tvRemark.setText(friend.Ex_remark);
-		else
-			tvRemark.setVisibility(View.GONE);
+/*		else
+			tvRemark.setVisibility(View.GONE);*/
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.menu_friend_inof, menu);
+		getMenuInflater().inflate(R.menu.menu_friend_info, menu);
 		return true;
 	}
 
@@ -163,6 +162,20 @@ public class FriendInfoAct extends Activity implements View.OnClickListener
 
 	private void deleteFriend(final String friendName)
 	{
+		//通知对方将自己从他的列表中删除
+		JSONObject j=new JSONObject();
+		try
+		{
+			j.put("cmdName","delFriend");
+			JSONArray params=new JSONArray();
+			params.put(Global.mySelf.username);
+			j.put("param",params);
+			new WebTask(null,-1).execute("pushMsg", 5, "from", "cmd", "to", friendName, "msg", j.toString(), "time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"), "msgType",String.valueOf(Global.MSG_TYPE.T_TEXT_MSG));
+		}
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
 		AlertDialog.Builder builder = new AlertDialog.Builder(this)
 										  .setTitle("警告")
 										  .setPositiveButton("确定", new DialogInterface.OnClickListener()
@@ -170,33 +183,98 @@ public class FriendInfoAct extends Activity implements View.OnClickListener
 											  @Override
 											  public void onClick(DialogInterface dialogInterface, int i)
 											  {
-												  Global.friendList.remove(Global.map2Friend.get(friendName));
-												  MainActivity.handler.sendEmptyMessage(Global.MSG_WHAT.W_REFRESH);
-												  JSONObject jobj = new JSONObject();
-												  JSONArray jarr = new JSONArray();
-												  try
-												  {
-
-													  for (UserInfo u : Global.friendList)
-													  {
-														  JSONObject jUser = new JSONObject();
-														  jUser.put("name", u.username);
-														  if (u.Ex_remark != null && !u.Ex_remark.equals(""))
-															  jUser.put("remark", u.Ex_remark);
-														  jarr.put(jUser);
-													  }
-													  jobj.put("friends", jarr);
-												  }
-												  catch (JSONException e)
-												  {
-													  e.printStackTrace();
-												  }
-												  new WebTask(null,-1).execute("updateFriendList",2,"name",friendName,"friendList",jobj.toString());
+												  DelFriend(friendName);
 												  finish();
 											  }
 										  })
 										  .setMessage("删除将不可恢复，确定吗？")
 										  .setNegativeButton("取消", null);
 		builder.create().show();
+	}
+
+	public static void DelFriend(String friendName)
+	{
+		UserInfo u = Global.map2Friend.get(friendName);
+		Global.map2Friend.remove(friendName);
+		Global.friendList.remove(u);
+
+		History h= Global.map.get(friendName);
+		Global.map.remove(friendName);
+		Global.historyList.remove(h);
+
+		MainActivity.handler.sendEmptyMessage(Global.MSG_WHAT.W_REFRESH);
+
+		String jobjStr = constructFriends2JSON().toString();
+		new WebTask(null,-1).execute("updateFriendList", 2, "name", Global.mySelf.username, "friendList", jobjStr);
+	}
+
+	public void modifyRemark(View view)
+	{
+		final EditText etRemark=new EditText(this);
+		etRemark.setHint("输入备注");
+		final UserInfo u= Global.map2Friend.get(friendName);
+		if(u.Ex_remark!=null)
+			etRemark.setText(u.Ex_remark);
+		AlertDialog.Builder builder=new AlertDialog.Builder(this)
+									.setTitle("修改备注")
+									.setPositiveButton("确定", new DialogInterface.OnClickListener()
+									{
+										@Override
+										public void onClick(DialogInterface dialogInterface, int i)
+										{
+											u.Ex_remark = etRemark.getText().toString();
+											String jsonStr = constructFriends2JSON().toString();
+											new WebTask(null, -1).execute("updateFriendList", 2, "name", Global.mySelf.username, "friendList", jsonStr);
+											finish();
+										}
+									})
+									.setView(etRemark)
+									.setNegativeButton("取消", null);
+		builder.create().show();
+	}
+
+	public static JSONObject constructFriends2JSON()
+	{
+		JSONObject jobj = new JSONObject();
+		JSONArray jarr = new JSONArray();
+		try
+		{
+
+			for (UserInfo u : Global.friendList)
+			{
+				JSONObject jUser = new JSONObject();
+				jUser.put("name", u.username);
+				if (u.Ex_remark != null && !u.Ex_remark.equals(""))
+					jUser.put("remark", u.Ex_remark);
+				jarr.put(jUser);
+			}
+			jobj.put("friends", jarr);
+		}
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+		return jobj;
+	}
+	public static void AddFriend(String strangerName)
+	{
+		JSONObject fL = FriendInfoAct.constructFriends2JSON();
+		try
+		{
+			JSONArray fA = fL.getJSONArray("friends");
+			for(int i=0;i<fA.length();i++)
+			{
+				if(fA.getJSONObject(i).getString("name").equals(strangerName))
+					return;
+			}
+			JSONObject fnew = new JSONObject();
+			fnew.put("name", strangerName);
+			fA.put(fnew);
+			new WebTask(MainActivity.handler,Global.MSG_WHAT.W_REFRESH_DEEP).execute("updateFriendList",2,"name",Global.mySelf.username,"friendList",fL.toString());
+		}
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

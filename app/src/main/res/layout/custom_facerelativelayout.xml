@@ -3,7 +3,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/FaceRelativeLayout"
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
+	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	>
 
@@ -15,62 +15,106 @@
 		<RelativeLayout
 			android:id="@+id/rl_input"
 			android:layout_width="fill_parent"
-			android:layout_height="50dp"
-			android:background="@drawable/chat_footer_bg"
-			>
+			android:layout_height="wrap_content"
+			android:background="@drawable/input_bar"
+			android:padding="5dp">
 
-			<ImageButton
+			<ToggleButton
 				android:id="@+id/btnFace"
 				android:layout_width="40dp"
 				android:layout_height="40dp"
-				android:layout_alignParentLeft="true"
-				android:layout_alignParentTop="false"
-				android:layout_centerVertical="true"
-				android:background="@drawable/chat_send_btn"
+				android:background="@drawable/face_button"
 				android:padding="8dp"
 				android:scaleType="fitXY"
-				android:src="@drawable/ib_face"/>
+				android:src="@drawable/ib_face"
+				android:layout_alignBottom="@+id/etSendmessage"
+				android:layout_alignParentLeft="true"
+				android:checked="false"
+				android:textOff=" "
+				android:textOn=" "/>
 
-			<Button
-				android:id="@+id/btnSend"
+			<ToggleButton
+				android:id="@+id/btnSwitchInput"
 				android:layout_width="60dp"
 				android:layout_height="40dp"
+				android:background="@drawable/input_button"
+				android:checked="false"
+				android:visibility="visible"
+				android:layout_alignBottom="@+id/etSendmessage"
 				android:layout_alignParentRight="true"
-				android:layout_centerVertical="true"
-				android:background="@drawable/chat_send_btn"
-				android:text="语音"/>
+				android:layout_marginLeft="5dp"
+				android:textOff=" "
+				android:textOn=" "/>
 
 			<EditText
 				android:id="@+id/etSendmessage"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_centerVertical="true"
+				android:layout_toRightOf="@+id/ibMoreInput"
+				android:singleLine="false"
+				android:autoText="false"
+				android:padding="5dp"
+				android:layout_toLeftOf="@+id/btnSwitchInput"
+				android:background="@drawable/msginput"
+				/>
+
+			<ToggleButton
+				android:id="@+id/ibMoreInput"
 				android:layout_width="40dp"
 				android:layout_height="40dp"
-				android:layout_centerVertical="true"
+				android:src="@drawable/app_panel_add_icon"
+				android:scaleType="center"
+				android:layout_alignBottom="@+id/etSendmessage"
+				android:layout_toRightOf="@+id/btnFace"
+				android:checked="false"
+				android:layout_marginLeft="5dp"
 				android:layout_marginRight="5dp"
-				android:layout_toLeftOf="@+id/btnSend"
-				android:layout_toRightOf="@+id/imageButton"
-				android:background="@drawable/login_edit_normal"
-				android:singleLine="true"
-				android:textSize="18sp"/>
+				android:background="@drawable/more_button"
+				android:text=" "
+				android:textOff=" "
+				android:textOn=" "/>
 
-			<ImageButton
-				android:id="@+id/imageButton"
-				android:layout_width="45dp"
-				android:layout_height="45dp"
-				android:layout_alignParentBottom="true"
-				android:layout_toRightOf="@+id/btnFace"/>
+			<Button
+				android:layout_width="60dp"
+				android:layout_height="40dp"
+				android:text="发送"
+				android:id="@+id/btnSend"
+				android:background="@drawable/sendbutton"
+				android:visibility="gone"
+				android:layout_alignBottom="@+id/etSendmessage"
+				android:layout_alignParentRight="true"
+				android:layout_marginLeft="5dp"
+				android:textColor="@color/white"/>
+
 		</RelativeLayout>
+
+		<GridView
+			android:layout_width="fill_parent"
+			android:layout_height="@dimen/PanelHeight"
+			android:id="@+id/gvMoreInput"
+			android:choiceMode="singleChoice"
+			android:visibility="gone"
+			android:numColumns="4"
+			android:horizontalSpacing="1dp"
+			android:verticalSpacing="1dp"
+			android:stretchMode="columnWidth"
+			android:stackFromBottom="false"
+			android:scrollingCache="true"
+			android:minHeight="200dp"
+			android:background="#ffdfdfdf"/>
 
 		<RelativeLayout
 			android:id="@+id/ll_facechoose"
-			android:layout_width="fill_parent"
-			android:layout_height="124dip"
-			android:background="#f6f5f5"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/PanelHeight"
+			android:background="#ffdfdfdf"
 			android:visibility="gone">
 
 			<android.support.v4.view.ViewPager
 				android:id="@+id/vp_contains"
 				android:layout_width="match_parent"
-				android:layout_height="match_parent"
+				android:layout_height="wrap_content"
 				android:layout_alignParentLeft="true"
 				android:layout_alignParentTop="true"
 				>
@@ -92,9 +136,10 @@
 		<view
 			android:id="@+id/recordView"
 			class="org.helloworld.RecordRelativeLayout"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:visibility="gone">
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/PanelHeight"
+			android:visibility="gone"
+			android:background="#ffdfdfdf">
 
 			<include
 				layout="@layout/layout_include_record"

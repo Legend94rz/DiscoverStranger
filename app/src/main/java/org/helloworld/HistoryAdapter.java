@@ -1,6 +1,8 @@
 package org.helloworld;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,28 +54,57 @@ public class HistoryAdapter extends BaseAdapter
 			h = new H();
 			view = LayoutInflater.from(context).inflate(R.layout.liaotian, viewGroup, false);
 			h.pic = (ImageView) view.findViewById(R.id.imgHead);
-			h.Time = (TextView) view.findViewById(R.id.tvTime);
+			h.time = (TextView) view.findViewById(R.id.tvTime);
 			h.name = (TextView) view.findViewById(R.id.tvName);
-			h.MsgCount = (TextView) view.findViewById(R.id.tvCount);
-			h.newMsg = (TextView) view.findViewById(R.id.tvLastmsg);
+			h.msgCount = (TextView) view.findViewById(R.id.tvCount);
+			h.lastMsg = (TextView) view.findViewById(R.id.tvLastmsg);
 			view.setTag(h);
 		} else
 			h = (H) view.getTag();
-		h.pic.setImageResource(R.drawable.icon);
+		if(history.headId!=-1)
+			h.pic.setImageResource(history.headId);
+		else
+		{
+			if(FileUtils.Exist(Global.PATH.HeadImg + history.fromName +".png"))
+			{
+				h.pic.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg + history.fromName +".png"));
+			}
+			else
+				h.pic.setImageResource(R.drawable.nohead);
+		}
+
 		UserInfo temp = Global.map2Friend.get(history.fromName);
-		String showName = temp.Ex_remark;
-		if (showName == null || showName.equals("")) showName = temp.nickName;
-		h.name.setText(showName);
-		h.newMsg.setText(history.historyMsg.get(history.historyMsg.size() - 1).Text);
+		if(temp!=null)
+		{
+			String showName = temp.Ex_remark;
+			if (showName == null || showName.equals("")) showName = temp.nickName;
+			h.name.setText(showName);
+		}
+		else		//发消息的人不在好友列表中
+		{
+			h.name.setText(history.fromName);
+		}
+
+		Message lastMessage=history.historyMsg.get(history.historyMsg.size()-1);
+		if((lastMessage.msgType& Global.MSG_TYPE.T_TEXT_MSG)>0)
+		{
+			SpannableString spannableString = FaceConversionUtil.getInstace().getExpressionString(context, lastMessage.text);
+			h.lastMsg.setText( spannableString );
+		}
+		else if((lastMessage.msgType & Global.MSG_TYPE.T_PIC_MSG)>0)
+			h.lastMsg.setText("[图片]");
+		else if((lastMessage.msgType & Global.MSG_TYPE.T_VOICE_MSG)>0)
+			h.lastMsg.setText("[语音]");
+
 		if (history.unreadCount == 0)
 		{
-			h.MsgCount.setVisibility(View.INVISIBLE);
+			h.msgCount.setVisibility(View.INVISIBLE);
 		} else
 		{
-			h.MsgCount.setText(String.valueOf(history.unreadCount));
-			h.MsgCount.setVisibility(View.VISIBLE);
+			h.msgCount.setText(String.valueOf(history.unreadCount));
+			h.msgCount.setVisibility(View.VISIBLE);
 		}
-		h.Time.setText(history.getLastDateWithFormat("HH:mm"));
+		h.time.setText(history.getLastDateWithFormat("HH:mm"));
 		return view;
 	}
 
@@ -81,8 +112,8 @@ public class HistoryAdapter extends BaseAdapter
 	{
 		ImageView pic;
 		TextView name;
-		TextView newMsg;
-		TextView Time;
-		TextView MsgCount;
+		TextView lastMsg;
+		TextView time;
+		TextView msgCount;
 	}
 }

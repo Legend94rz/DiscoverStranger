@@ -1,6 +1,7 @@
 package org.helloworld;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,9 +49,11 @@ public class ContactAdapter extends BaseAdapter {
 		}else{
 			h = (H)view.getTag();
 		}
-		//Todo 修改显示文字及图片
-		h.pic.setImageResource(R.drawable.icon);
-		if(hh.Ex_remark==null)
+		if(FileUtils.Exist(Global.PATH.HeadImg + hh.username + ".png"))
+			h.pic.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg + hh.username + ".png"));
+		else
+			h.pic.setImageResource(R.drawable.nohead);
+		if(hh.Ex_remark==null || hh.Ex_remark.length()==0)
 			h.name.setText(hh.nickName);
 		else
 			h.name.setText(hh.Ex_remark);

@@ -21,6 +21,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -51,7 +52,8 @@
         </activity>
         <activity
             android:name=".ChatActivity"
-            android:label="@string/title_activity_chat" >
+            android:label="@string/title_activity_chat"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
 
         <service
@@ -76,6 +78,14 @@
         <activity
             android:name=".RegisterAct"
             android:label="@string/title_activity_register" >
+        </activity>
+        <activity
+            android:name=".NotificationAct"
+            android:label="@string/title_activity_notification" >
+        </activity>
+        <activity
+            android:name=".ShakeResultAct"
+            android:label="@string/title_activity_shake_result" >
         </activity>
     </application>
 

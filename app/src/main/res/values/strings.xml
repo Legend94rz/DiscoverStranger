@@ -19,4 +19,20 @@
 	<string name="goback">返回</string>
 	<string name="Detail">详细信息</string>
     <string name="title_activity_register">RegisterAct</string>
+	<string name="modify_remark">修改备注</string>
+	<string name="title_activity_notification">NotificationAct</string>
+	<string name="FinishAndAddFriendSuc">你已经成功完成了对方设置的游戏，现在你们已经是好友啦。马上跟TA聊聊吧</string>
+	<string name="GotoChat">去聊天</string>
+	<string name="Later">过一会吧</string>
+	<string name="HintTitle">提示信息</string>
+	<string name="playGame">去玩游戏</string>
+	<string name="MustPlayGame">需要通过对方设置的游戏才能将TA加为好友</string>
+	<string name="dowant">算了</string>
+	<string name="title_activity_shake_result">ShakeResultAct</string>
+	<string name="sayHello">打招呼</string>
+
+	<string name="ptr_pull_to_refresh">下拉刷新</string>
+	<string name="ptr_release_to_refresh">释放立即刷新</string>
+	<string name="ptr_refreshing">正在刷新…</string>
+	<string name="ptr_last_updated">上次更新: %1$s</string>
 </resources>

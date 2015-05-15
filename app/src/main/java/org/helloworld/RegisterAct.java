@@ -5,16 +5,13 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,8 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -32,7 +27,6 @@ import org.ksoap2.serialization.SoapObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
 
 
 public class RegisterAct extends Activity {
@@ -53,7 +47,7 @@ public class RegisterAct extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register);
+        setContentView(R.layout.activity_register);
         Avatarimg=(ImageView) findViewById(R.id.Avatar);
         User_name=(EditText) findViewById(R.id.username);
         passwords=(EditText) findViewById(R.id.password);
@@ -214,8 +208,6 @@ public class RegisterAct extends Activity {
             try
             {
                 SoapObject result = register.call();
-                String rr=result.getProperty(0).toString();
-                User_name.setText(rr);
                 return (result.getProperty(0).toString().equals(Global.OPT_SUCCEED));
             }
             catch (NullPointerException e)

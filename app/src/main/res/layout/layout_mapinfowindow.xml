@@ -22,7 +22,7 @@
 		<ImageView
 			android:layout_width="48dp"
 			android:layout_height="48dp"
-			android:id="@+id/imageView"
+			android:id="@+id/ivHeadImg"
 			android:src="@drawable/brand_default_head"
 			android:scaleType="fitCenter"/>
 
@@ -61,8 +61,8 @@
 		style="?android:attr/buttonStyleSmall"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="打招呼"
-		android:id="@+id/btnPlayWith"
+		android:text="@string/sayHello"
+		android:id="@+id/btnSayHello"
 		android:layout_below="@+id/linearLayout2"
 		android:layout_centerHorizontal="true"
 		android:layout_marginTop="8dp"

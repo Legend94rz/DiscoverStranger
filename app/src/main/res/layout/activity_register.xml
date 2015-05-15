@@ -1,120 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-				android:orientation="vertical"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="150dip"
+        android:layout_height="150dip"
+        android:id="@+id/Avatar"
 
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="填写以下基本信息："
-		android:id="@+id/textView6"
-		android:layout_alignParentTop="true"
-		android:layout_alignParentLeft="true"
-		android:padding="10dp"/>
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="填写以下基本信息："
+        android:id="@+id/following"
+        android:padding="10dp"
+        android:layout_below="@+id/Avatar"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/username"
+        android:hint="用户名(字母/数字/下划线)"
 
-	<EditText
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/editText"
-		android:layout_below="@+id/textView6"
-		android:layout_alignParentLeft="true"
-		android:layout_toLeftOf="@+id/progressBar2"
-		android:hint="用户名(字母/数字/下划线)"/>
+        android:layout_below="@+id/following"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/progressBar3" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/password"
+        android:hint="密码(8-32位)"
+        android:layout_below="@+id/username"
 
-	<ProgressBar
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/progressBar2"
-		android:layout_above="@+id/progressBar3"
-		android:layout_alignParentRight="true"/>
+        android:layout_alignParentLeft="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/confirmPassword"
+        android:hint="重复密码"
+        android:layout_below="@+id/password"
+        android:layout_alignParentLeft="true" />
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/check_name"
+        android:layout_alignTop="@id/username"
+        android:layout_toRightOf="@+id/username"
+        android:visibility="invisible"
+        />
 
-	<EditText
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:inputType="textPassword"
-		android:ems="10"
-		android:id="@+id/editText2"
-		android:layout_below="@+id/editText"
-		android:layout_alignParentLeft="true"
-		android:layout_toLeftOf="@+id/progressBar2"
-		android:hint="密码(8-32位)"/>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/check_password"
+        android:layout_alignTop="@id/confirmPassword"
+        android:layout_toRightOf="@+id/confirmPassword"
+        android:visibility="invisible" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/nickname"
+        android:hint="昵称"
+        android:layout_toRightOf="@+id/username"
+        android:layout_below="@id/confirmPassword"
+        android:layout_alignParentLeft="true"/>
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nickname"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="男"
+        android:id="@+id/maleButton"
+        android:layout_below="@id/nickname"
+        />
 
-	<EditText
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:inputType="textPassword"
-		android:ems="10"
-		android:id="@+id/editText3"
-		android:layout_below="@+id/editText2"
-		android:layout_alignParentLeft="true"
-		android:layout_alignRight="@+id/editText2"
-		android:hint="重复密码"/>
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="女"
+        android:id="@+id/femaleButton"
+        android:checked="false"
+        android:layout_toRightOf="@+id/maleButton"
+        android:layout_alignTop="@+id/maleButton"
+        />
+    </RadioGroup>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="完成并登录"
+        android:id="@+id/next"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        />
 
-	<ProgressBar
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/progressBar3"
-		android:layout_above="@+id/editText3"
-		android:layout_alignTop="@+id/editText2"
-		android:layout_toRightOf="@+id/editText2"/>
-
-	<ProgressBar
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/progressBar4"
-		android:layout_alignBottom="@+id/editText3"
-		android:layout_below="@+id/progressBar3"
-		android:layout_toRightOf="@+id/editText3"/>
-
-	<EditText
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:inputType="textPersonName"
-		android:ems="10"
-		android:id="@+id/editText4"
-		android:layout_below="@+id/editText3"
-		android:layout_alignParentLeft="true"
-		android:layout_toLeftOf="@+id/progressBar4"
-		android:hint="昵称"/>
-
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="性别："
-		android:id="@+id/textView7"
-		android:textSize="18dp"
-		android:layout_below="@+id/editText4"
-		android:layout_alignParentLeft="true"
-		android:paddingTop="10dp"
-		android:paddingLeft="5dp"
-		android:paddingRight="5dp"
-		android:paddingBottom="5dp"/>
-
-	<RadioButton
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="男"
-		android:id="@+id/radioButton"
-		android:layout_alignTop="@+id/textView7"
-		android:layout_toLeftOf="@+id/radioButton2"/>
-
-	<RadioButton
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="女"
-		android:id="@+id/radioButton2"
-		android:checked="false"
-		android:layout_alignTop="@+id/radioButton"
-		android:layout_toRightOf="@+id/textView6"
-		android:layout_marginLeft="30dp"/>
-
-	<Button
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="下一步"
-		android:id="@+id/button"
-		android:layout_alignParentBottom="true"
-		android:layout_alignParentLeft="true"/>
 
 </RelativeLayout>

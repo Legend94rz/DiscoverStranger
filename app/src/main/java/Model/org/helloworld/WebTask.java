@@ -16,6 +16,8 @@ public class WebTask extends AsyncTask<Object,Void,SoapObject>
 	Handler handler;
 	/**
 	 * 每当此异步任务完成时会向该handler发msg_what为when_complete的消息.(将handler置null或when_complete置-1表示并不关心返回结果)
+	 * @param handler 完成之后会向它发送消息
+	 * @param when_complete 消息的what
 	 * */
 	public WebTask(@Nullable Handler handler, int when_complete)
 	{
@@ -40,7 +42,7 @@ public class WebTask extends AsyncTask<Object,Void,SoapObject>
 	@Override
 	protected void onPostExecute(SoapObject soapObject)
 	{
-		if(when_complete!=-1 || handler==null)
+		if(when_complete!=-1 && handler!=null)
 		{
 			android.os.Message soapMsg = new android.os.Message();
 			soapMsg.what = when_complete;

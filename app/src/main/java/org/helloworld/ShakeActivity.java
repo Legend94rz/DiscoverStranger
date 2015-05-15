@@ -1,9 +1,9 @@
 package org.helloworld;
 
 import android.app.Activity;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Vibrator;
+import android.content.Intent;
+import android.os.*;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +13,10 @@ import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import org.ksoap2.serialization.SoapObject;
+
+import java.util.ArrayList;
+
 
 public class ShakeActivity extends Activity
 {
@@ -20,34 +24,100 @@ public class ShakeActivity extends Activity
 	private Vibrator mVibrator;
 	private RelativeLayout mImgUp;
 	private RelativeLayout mImgDn;
+	public static ArrayList<ShakeRecord> records;
+	public static Handler handler;
+
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		mVibrator = (Vibrator)getApplication().getSystemService(VIBRATOR_SERVICE);
+		mShakeListener = new ShakeListener(this);
+		mShakeListener.setOnShakeListener(new ShakeListener.OnShakeListener()
+		{
+			public void onShake()
+			{
+				startAnim();  //开始 摇一摇手掌动画
+				mShakeListener.stop();
+				startVibrato(); //开始 震动
+				new WebTask(null, -1).execute("addShake", 2, "name", Global.mySelf.username, "time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"));
+				Toast.makeText(ShakeActivity.this, "正在搜索同一时刻摇动手机的人...", Toast.LENGTH_SHORT).show();
+				new Handler().postDelayed(new Runnable()
+				{
+					@Override
+					public void run()
+					{
+						mVibrator.cancel();
+						mShakeListener.start();
+						new WebTask(handler, Global.MSG_WHAT.W_GOT_SHAKE_RESULT).execute("getShakes", 2, "name", Global.mySelf.username, "time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"));
+					}
+				}, 3000);
+			}
+		});
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shake);
-		mVibrator = (Vibrator)getApplication().getSystemService(VIBRATOR_SERVICE);
+
 		mImgUp = (RelativeLayout) findViewById(R.id.shakeImgUp);
 		mImgDn = (RelativeLayout) findViewById(R.id.shakeImgDown);
-		mShakeListener = new ShakeListener(this);
-		mShakeListener.setOnShakeListener(new ShakeListener.OnShakeListener() {
-			public void onShake() {
-				startAnim();  //开始 摇一摇手掌动画
-				mShakeListener.stop();
-				startVibrato(); //开始 震动
-				new Handler().postDelayed(new Runnable(){
-					@Override
-					public void run(){
-						Toast mtoast;
-						mtoast = Toast.makeText(getApplicationContext(),"抱歉，暂时没有找到\n在同一时刻摇一摇的人。\n再试一次吧",Toast.LENGTH_SHORT);
-						//mtoast.setGravity(Gravity.CENTER, 0, 0);
-						mtoast.show();
-						mVibrator.cancel();
-						mShakeListener.start();
-					}
-				}, 2000);
+		handler=new Handler(new Handler.Callback()
+		{
+			@Override
+			public boolean handleMessage(Message message)
+			{
+				switch (message.what)
+				{
+					case Global.MSG_WHAT.W_GOT_SHAKE_RESULT:
+						records = new ArrayList<ShakeRecord>();
+						SoapObject T;
+						try
+						{
+							T = ((SoapObject) ((SoapObject) message.obj).getProperty(0));
+						}
+						catch (NullPointerException e)
+						{
+							e.printStackTrace();
+							return true;
+						}
+						catch (ClassCastException e)
+						{
+							e.printStackTrace();
+							return true;
+						}
+						int count = T.getPropertyCount();
+						if (count == 0)
+						{
+							Toast mtoast;
+							mtoast = Toast.makeText(getApplicationContext(), "抱歉，暂时没有找到在同一时刻摇一摇的人。\n再试一次吧", Toast.LENGTH_SHORT);
+							mtoast.show();
+						}
+						else
+						{
+							for (int i = 0; i < count; i++)
+								records.add(ShakeRecord.parse((SoapObject) T.getProperty(i)));
+							Intent intent = new Intent(ShakeActivity.this, ShakeResultAct.class);
+							startActivity(intent);
+						}
+						break;
+				}
+				return true;
 			}
 		});
+	}
 
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+		mShakeListener.stop();
+		mShakeListener=null;
+
+		mVibrator.cancel();
+		mVibrator=null;
 	}
 
 	public void startAnim () {   //定义摇一摇动画动画
