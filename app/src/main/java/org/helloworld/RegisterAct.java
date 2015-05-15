@@ -25,6 +25,8 @@ import android.widget.Toast;
 
 import org.ksoap2.serialization.SoapObject;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -44,6 +46,7 @@ public class RegisterAct extends Activity {
     private Button next_step;
     private RadioButton male;
     private RadioButton female;
+    private Bitmap photo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,8 +108,12 @@ public class RegisterAct extends Activity {
             boolean usergender=male.isChecked();
             String nick=nick_name.getText().toString();
             Register_online task =new Register_online(Username,psw,usergender,nick);
-
             task.execute();
+            String path=Global.PATH.HeadImg;
+            String filename=Global.mySelf.username+".png";
+
+            Upload_head task2 =new Upload_head(photo,path,filename);
+            task2.execute();
 
             }
         });
@@ -257,7 +264,11 @@ public class RegisterAct extends Activity {
         protected Boolean doInBackground(Void... voids)
         {
             WebService register=new WebService("uploadFile");
-            register.addProperty("file",Head).addProperty("path",Path).addProperty("fileName",Filename);
+            byte[] StandardHead;
+            ByteArrayOutputStream binaryImg = new ByteArrayOutputStream();
+            Head.compress(Bitmap.CompressFormat.PNG,100,binaryImg);
+            StandardHead =binaryImg.toByteArray();
+            register.addProperty("file",StandardHead).addProperty("path",Path).addProperty("fileName",Filename);
             try
             {
                 SoapObject result = register.call();
@@ -330,19 +341,36 @@ public class RegisterAct extends Activity {
                 if (data != null) {
                     Bundle extras = data.getExtras();
                     if (extras != null) {
-                        Bitmap photo = extras.getParcelable("data");
+                        // Here I switch the photo to global var
+                        photo = extras.getParcelable("data");
                         Avatarimg.setImageBitmap(photo);
-                        File file = new File(Environment.getExternalStorageDirectory(),"avatar.png");
+                        File file = new File(Global.PATH.HeadImg,"avatar.png");
                         if(!file.exists())
                             file.mkdirs();
                         try {
                             FileOutputStream fileOutputStream = new FileOutputStream(file.getPath());
                             photo.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
+                            FileOutputStream fileOutputStream1 = new FileOutputStream(Global.PATH.HeadImg);
+                            photo.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream1);
                             fileOutputStream.close();
+                            //Anther way to store the pic
+                            BufferedOutputStream bos= null;
+                            FileOutputStream fos=null;
+                            ByteArrayOutputStream baos=new ByteArrayOutputStream();
+                            photo.compress(Bitmap.CompressFormat.PNG,100,baos);
+                            byte[] byteArray=baos.toByteArray();
+                            fos = new FileOutputStream(file);
+                            bos =new BufferedOutputStream(fos);
+                            bos.write(byteArray);
+
                             System.out.println("saveBmp is here");
+                            fos.close();
+                            baos.close();
+                            bos.close();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+
                     }
                 }
 
