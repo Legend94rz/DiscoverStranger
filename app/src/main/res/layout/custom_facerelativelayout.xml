@@ -56,7 +56,7 @@
 				android:autoText="false"
 				android:padding="5dp"
 				android:layout_toLeftOf="@+id/btnSwitchInput"
-				android:background="@drawable/msginput"
+				android:background="@drawable/bg_editbox"
 				/>
 
 			<ToggleButton
