@@ -3,6 +3,7 @@
 	<color name="normal_text">#FF758493</color>
 	<color name="user_detail_public_bg">#f3f3f3</color>
 	<color name="user_list_public_bg">#e5e6e7</color>
+    <color name="actionbar_bg">#0F9D58</color>
     <color name="white">#FFFFFF</color><!--白色 -->
 
     <color name="ivory">#FFFFF0</color><!--象牙色 -->

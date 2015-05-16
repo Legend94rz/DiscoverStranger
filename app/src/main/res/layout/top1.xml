@@ -5,7 +5,7 @@
     android:orientation="vertical" >
     
 	<RelativeLayout 
-            android:background="@drawable/abc_ab_bottom_solid_dark_holo"
+            android:background="@color/actionbar_bg"
             android:layout_width="match_parent" 
     		android:layout_height="wrap_content"
     		android:padding="12dip"
@@ -25,11 +25,11 @@
                 <TextView
                     android:layout_width="wrap_content" 
     				android:layout_height="wrap_content" 
-    				android:text="微信"
+    				android:text="解密陌生人"
     				android:layout_marginLeft="10dip"
     				android:textSize="18dp"
-    				android:textColor="@color/lightgray"
-                    />
+    				android:textColor="@color/white"
+                    android:id="@+id/"/>
             </LinearLayout>
             <LinearLayout 
                 android:orientation="horizontal"
@@ -44,14 +44,8 @@
     				android:layout_height="30dp" 
     				android:src="@drawable/actionbar_search_icon"
                     />
-                 <ImageView 
-                    android:layout_width="30dp" 
-    				android:layout_height="30dp" 
-    				android:id="@+id/add"
-    				android:layout_marginRight="20dip"
-    				android:src="@drawable/actionbar_add_icon"
-                    />
-                  <ImageView 
+
+                <ImageView
                     android:layout_width="30dp" 
     				android:layout_height="30dp" 
     				android:id="@+id/set"

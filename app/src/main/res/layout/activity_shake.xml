@@ -29,7 +29,7 @@
 				android:layout_width="fill_parent"
 				android:layout_height="190dp"
 				android:background="#111"
-				android:layout_weight="1">
+				android:layout_weight="0.98">
 
 				<ImageView
 					android:layout_width="wrap_content"
@@ -37,6 +37,39 @@
 					android:layout_alignParentBottom="true"
 					android:layout_centerHorizontal="true"
 					android:src="@drawable/shake_logo_up"/>
+
+				<RelativeLayout
+					android:id="@+id/relativeLayout"
+					android:layout_width="fill_parent"
+					android:layout_height="55dp"
+					android:background="#00008007"
+					android:gravity="center_vertical"
+					android:layout_alignParentTop="true"
+					android:layout_alignParentLeft="true">
+
+					<Button
+						android:layout_width="25dp"
+						android:layout_height="25dp"
+						android:textColor="#fff"
+						android:onClick="goback"
+						android:background="@drawable/goback"
+						android:layout_marginLeft="15dp"
+						android:layout_alignParentLeft="false"
+						android:id="@+id/button4"
+						android:layout_centerVertical="true"
+						android:layout_alignWithParentIfMissing="false"/>
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="摇一摇"
+						android:textSize="20sp"
+						android:textColor="#ffffff"
+						android:layout_centerVertical="true"
+						android:layout_toRightOf="@+id/button4"
+						android:layout_marginLeft="20dp"/>
+
+				</RelativeLayout>
 			</RelativeLayout>
 
 			<RelativeLayout
@@ -55,33 +88,4 @@
 		</LinearLayout>
 	</RelativeLayout>
 
-	<RelativeLayout
-		android:id="@+id/relativeLayout"
-		android:layout_width="fill_parent"
-		android:layout_height="55dp"
-		android:background="@drawable/abc_ab_bottom_solid_dark_holo"
-		android:gravity="center_vertical"
-		android:layout_alignParentLeft="true">
-
-		<Button
-			android:layout_width="80dp"
-			android:layout_height="wrap_content"
-			android:text="返回"
-			android:textColor="#fff"
-			android:onClick="goback"
-			android:background="@drawable/title_btn_back"
-			android:textSize="13dp"
-			android:layout_alignParentBottom="true"
-			android:layout_marginTop="5dp"
-			android:layout_marginBottom="5dp"/>
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="摇一摇"
-			android:layout_centerInParent="true"
-			android:textSize="20sp"
-			android:textColor="#ffffff"/>
-
-	</RelativeLayout>
 </RelativeLayout>

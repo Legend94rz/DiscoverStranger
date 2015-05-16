@@ -9,30 +9,35 @@
 		android:id="@+id/relativeLayout3"
 		android:layout_width="fill_parent"
 		android:layout_height="55dp"
-		android:background="@drawable/abc_ab_bottom_solid_dark_holo"
+		android:background="@color/actionbar_bg"
 		android:gravity="center_vertical"
 		android:layout_alignParentTop="true"
 		android:layout_alignParentLeft="true">
 
 		<Button
-			android:layout_width="80dp"
-			android:layout_height="wrap_content"
-			android:text="@string/goback"
+			android:layout_width="25dp"
+			android:layout_height="25dp"
 			android:textColor="#fff"
-			android:background="@drawable/title_btn_back"
-			android:textSize="13sp"
-			android:layout_alignParentBottom="true"
-			android:layout_marginTop="5dp"
-			android:layout_marginBottom="5dp"
-			android:onClick="goback"/>
+			android:onClick="goback"
+			android:background="@drawable/goback"
+			android:layout_marginLeft="15dp"
+			android:layout_alignTop="@+id/textView6"
+			android:layout_alignParentLeft="false"
+			android:id="@+id/button2"
+			android:layout_centerVertical="true"
+			android:layout_alignWithParentIfMissing="false"/>
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="@string/Detail"
-			android:layout_centerInParent="true"
 			android:textSize="20sp"
-			android:textColor="#ffffff"/>
+			android:textColor="#ffffff"
+			android:id="@+id/textView6"
+			android:layout_marginLeft="20dp"
+			android:layout_alignBaseline="@+id/button"
+			android:layout_alignBottom="@+id/button"
+			android:layout_toRightOf="@+id/button2"/>
 
 		<TextView
 			android:layout_width="wrap_content"
@@ -84,37 +89,12 @@
 	<LinearLayout
 		android:orientation="horizontal"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
+		android:layout_height="0.5dp"
+		android:background="#ff000000"
+		android:id="@+id/linearLayout4"
 		android:layout_below="@+id/ivHeadImg"
 		android:layout_alignParentLeft="true"
-		android:layout_marginTop="20dp"
-		android:background="#ffffffff"
-		android:id="@+id/linearLayout3">
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="地区"
-			android:id="@+id/textView2"
-			android:textSize="20dp"
-			android:layout_margin="15dp"/>
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:id="@+id/tvRegion"
-			android:layout_margin="15dp"
-			android:text="未填写"/>
-	</LinearLayout>
-
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="match_parent"
-		android:layout_height="0.5dp"
-		android:layout_below="@+id/linearLayout3"
-		android:layout_alignLeft="@+id/linearLayout3"
-		android:background="#ff000000"
-		android:id="@+id/linearLayout4">
+		android:layout_marginTop="109dp">
 	</LinearLayout>
 
 	<LinearLayout

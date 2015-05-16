@@ -8,21 +8,22 @@
 	<RelativeLayout
 		android:layout_width="fill_parent"
 		android:layout_height="55dp"
-		android:background="@drawable/abc_ab_bottom_solid_dark_holo"
+		android:background="@color/actionbar_bg"
 		android:gravity="center_vertical"
 		android:layout_alignParentLeft="true"
 		android:id="@+id/relativeLayout2">
 
 		<Button
-			android:layout_width="70dp"
-			android:layout_height="wrap_content"
-			android:text="返回"
+			android:layout_width="25dp"
+			android:layout_height="25dp"
 			android:textColor="#fff"
 			android:onClick="goback"
-			android:background="@drawable/title_btn_back"
+			android:background="@drawable/goback"
 			android:textSize="14dp"
-			android:layout_alignParentBottom="true"
-			android:id="@+id/button2"/>
+			android:layout_alignParentBottom="false"
+			android:layout_centerVertical="true"
+			android:layout_marginLeft="15dp"
+			android:id="@+id/button3"/>
 
 		<TextView
 			android:layout_width="wrap_content"
@@ -31,7 +32,8 @@
 			android:textColor="#ffffff"
 			android:id="@+id/tvToId"
 			android:layout_centerVertical="true"
-			android:layout_toRightOf="@+id/button2"/>
+			android:layout_toRightOf="@+id/button3"
+			android:layout_marginLeft="20dp"/>
 	</RelativeLayout>
 
 	<ListView
@@ -42,13 +44,10 @@
 		android:cacheColorHint="#0000"
 		android:divider="@null"
 		android:dividerHeight="5dp"
-		android:scrollbarStyle="outsideInset"
-		android:stackFromBottom="false"
+		android:scrollbarStyle="outsideOverlay"
+		android:stackFromBottom="true"
 		android:layout_below="@+id/relativeLayout2"
-		android:fastScrollEnabled="true"
-		android:transcriptMode="normal"
-		android:background="#ffefeff4"
-		/>
+		android:background="#ffefeff4"/>
 
 	<LinearLayout
         android:id="@+id/rl_bottom"
