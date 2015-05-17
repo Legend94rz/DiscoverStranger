@@ -7,20 +7,20 @@
 	<RelativeLayout 
             android:background="@color/actionbar_bg"
             android:layout_width="match_parent" 
-    		android:layout_height="wrap_content"
-    		android:padding="12dip"
-            >
+    		android:layout_height="54dp"
+        >
             <LinearLayout 
                 android:orientation="horizontal"
                 android:layout_width="wrap_content" 
     			android:layout_height="wrap_content" 
     			android:layout_alignParentLeft="true"
-    			android:gravity="center"
-                >
-                <ImageView 
-                    android:layout_width="30dp" 
-    				android:layout_height="30dp" 
-    				android:src="@drawable/actionbar_icon"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true">
+                <ImageButton
+                    android:layout_width="50dp"
+    				android:layout_height="50dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/actionbar_icon"
                     />
                 <TextView
                     android:layout_width="wrap_content" 
@@ -28,8 +28,7 @@
     				android:text="解密陌生人"
     				android:layout_marginLeft="10dip"
     				android:textSize="18dp"
-    				android:textColor="@color/white"
-                    android:id="@+id/"/>
+    				android:textColor="@color/white"/>
             </LinearLayout>
             <LinearLayout 
                 android:orientation="horizontal"
@@ -37,20 +36,26 @@
     			android:layout_height="wrap_content" 
     			android:layout_alignParentRight="true"
     			android:gravity="center"
-                >
-                <ImageView 
-                    android:layout_marginRight="20dip"
-                    android:layout_width="30dp" 
-    				android:layout_height="30dp" 
-    				android:src="@drawable/actionbar_search_icon"
-                    />
+                android:id="@+id/linearLayout9">
 
-                <ImageView
-                    android:layout_width="30dp" 
-    				android:layout_height="30dp" 
-    				android:id="@+id/set"
-    				android:src="@drawable/actionbar_more_icon"
-                    />
             </LinearLayout>
-        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="30dp"
+			android:layout_height="30dp"
+			android:src="@drawable/actionbar_search_icon"
+            android:id="@+id/imageView4"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/set"
+            android:layout_marginRight="10dp"/>
+
+        <ImageView
+			android:layout_width="30dp"
+			android:layout_height="30dp"
+			android:id="@+id/set"
+			android:src="@drawable/actionbar_more_icon"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"/>
+    </RelativeLayout>
 </LinearLayout>

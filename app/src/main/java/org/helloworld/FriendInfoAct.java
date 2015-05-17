@@ -162,20 +162,6 @@ public class FriendInfoAct extends Activity implements View.OnClickListener
 
 	private void deleteFriend(final String friendName)
 	{
-		//通知对方将自己从他的列表中删除
-		JSONObject j=new JSONObject();
-		try
-		{
-			j.put("cmdName","delFriend");
-			JSONArray params=new JSONArray();
-			params.put(Global.mySelf.username);
-			j.put("param",params);
-			new WebTask(null,-1).execute("pushMsg", 5, "from", "cmd", "to", friendName, "msg", j.toString(), "time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"), "msgType",String.valueOf(Global.MSG_TYPE.T_TEXT_MSG));
-		}
-		catch (JSONException e)
-		{
-			e.printStackTrace();
-		}
 		AlertDialog.Builder builder = new AlertDialog.Builder(this)
 										  .setTitle("警告")
 										  .setPositiveButton("确定", new DialogInterface.OnClickListener()
@@ -183,6 +169,20 @@ public class FriendInfoAct extends Activity implements View.OnClickListener
 											  @Override
 											  public void onClick(DialogInterface dialogInterface, int i)
 											  {
+												  //通知对方将自己从他的列表中删除
+												  JSONObject j=new JSONObject();
+												  try
+												  {
+													  j.put("cmdName","delFriend");
+													  JSONArray params=new JSONArray();
+													  params.put(Global.mySelf.username);
+													  j.put("param",params);
+													  new WebTask(null,-1).execute("pushMsg", 5, "from", "cmd", "to", friendName, "msg", j.toString(), "time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"), "msgType",String.valueOf(Global.MSG_TYPE.T_TEXT_MSG));
+												  }
+												  catch (JSONException e)
+												  {
+													  e.printStackTrace();
+												  }
 												  DelFriend(friendName);
 												  finish();
 											  }

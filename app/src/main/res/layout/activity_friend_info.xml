@@ -1,181 +1,237 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 				xmlns:tools="http://schemas.android.com/tools"
 				android:layout_width="match_parent"
-				android:layout_height="match_parent"
+				android:layout_height="fill_parent"
 				tools:context="org.helloworld.FriendInfoAct"
 	>
 
-	<RelativeLayout
-		android:id="@+id/relativeLayout3"
-		android:layout_width="fill_parent"
-		android:layout_height="55dp"
-		android:background="@color/actionbar_bg"
-		android:gravity="center_vertical"
-		android:layout_alignParentTop="true"
-		android:layout_alignParentLeft="true">
-
-		<Button
-			android:layout_width="25dp"
-			android:layout_height="25dp"
-			android:textColor="#fff"
-			android:onClick="goback"
-			android:background="@drawable/goback"
-			android:layout_marginLeft="15dp"
-			android:layout_alignTop="@+id/textView6"
-			android:layout_alignParentLeft="false"
-			android:id="@+id/button2"
-			android:layout_centerVertical="true"
-			android:layout_alignWithParentIfMissing="false"/>
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/Detail"
-			android:textSize="20sp"
-			android:textColor="#ffffff"
-			android:id="@+id/textView6"
-			android:layout_marginLeft="20dp"
-			android:layout_alignBaseline="@+id/button"
-			android:layout_alignBottom="@+id/button"
-			android:layout_toRightOf="@+id/button2"/>
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/modify_remark"
-			android:id="@+id/button"
-			android:layout_centerVertical="true"
-			android:layout_alignParentRight="true"
-			android:layout_marginRight="10dp"
-			android:onClick="modifyRemark"
-			android:textSize="18sp"
-			android:background="#00000000"
-			android:textColor="@color/btn_text_color"
-			android:clickable="true"/>
-	</RelativeLayout>
-
-	<ImageView
-		android:layout_width="64dp"
-		android:layout_height="64dp"
-		android:id="@+id/ivHeadImg"
-		android:layout_marginTop="15dp"
-		android:src="@drawable/brand_default_head"
-		android:scaleType="fitCenter"
-		android:layout_below="@+id/relativeLayout3"
-		android:layout_alignParentLeft="true"
-		android:layout_marginLeft="20dp"/>
-
-	<TextView
+	<ScrollView
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/tvRemark"
-		android:layout_marginLeft="17dp"
-		android:textSize="22dp"
-		android:layout_alignBottom="@+id/ivHeadImg"
-		android:layout_toRightOf="@+id/ivHeadImg"
-		android:layout_marginBottom="14dp"
-		android:text="无备注"/>
+		android:layout_height="fill_parent"
+		android:id="@+id/scrollView">
 
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/tvNickName"
-		android:textColor="#ff808080"
-		android:layout_marginLeft="10dp"
-		android:layout_alignBottom="@+id/ivHeadImg"
-		android:layout_toRightOf="@+id/tvRemark"
-		android:layout_marginBottom="14dp"/>
 
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="match_parent"
-		android:layout_height="0.5dp"
-		android:background="#ff000000"
-		android:id="@+id/linearLayout4"
-		android:layout_below="@+id/ivHeadImg"
-		android:layout_alignParentLeft="true"
-		android:layout_marginTop="109dp">
-	</LinearLayout>
-
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:background="#ffffffff"
-		android:layout_below="@+id/linearLayout4"
-		android:layout_alignLeft="@+id/linearLayout4"
-		android:id="@+id/linearLayout6">
-
-		<TextView
-			android:layout_width="wrap_content"
+		<LinearLayout
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="性别"
-			android:id="@+id/textView4"
-			android:textSize="20dp"
-			android:layout_margin="15dp"/>
+			android:showDividers="end"
+			android:orientation="vertical"
+			android:background="@color/white">
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:id="@+id/tvSex"
-			android:layout_margin="15dp"
-			android:text="未填写"/>
-	</LinearLayout>
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:paddingBottom="30dp">
 
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="match_parent"
-		android:layout_height="0.5dp"
-		android:background="#ff000000"
-		android:id="@+id/linearLayout5"
-		android:layout_below="@+id/linearLayout6"
-		android:layout_alignLeft="@+id/linearLayout6"/>
+				<ImageView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/imageView3"
+					android:layout_alignParentLeft="true"
+					android:src="@drawable/info_bg"
+					android:scaleType="fitXY"
+					android:layout_alignParentRight="true"
+					android:layout_alignParentTop="true"
+					android:adjustViewBounds="true"/>
 
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:background="#ffffffff"
-		android:layout_below="@+id/linearLayout5"
-		android:layout_alignLeft="@+id/linearLayout6"
-		android:id="@+id/linearLayout7">
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/tvRemark"
+					android:textSize="22dp"
+					android:text="无备注"
+					android:layout_alignBottom="@+id/ivHeadImg"
+					android:layout_toLeftOf="@+id/ivHeadImg"
+					android:layout_marginRight="25dp"/>
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="年龄"
-			android:id="@+id/textView8"
-			android:textSize="20dp"
-			android:layout_margin="15dp"/>
+				<ImageView
+					android:layout_width="64dp"
+					android:layout_height="64dp"
+					android:id="@+id/ivHeadImg"
+					android:src="@drawable/brand_default_head"
+					android:scaleType="fitCenter"
+					android:layout_alignParentRight="true"
+					android:layout_below="@+id/imageView3"
+					android:layout_marginTop="-32dp"
+					android:layout_marginRight="10dp"/>
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:id="@+id/tvAge"
-			android:layout_margin="15dp"
-			android:text="未填写"/>
-	</LinearLayout>
+				<RelativeLayout
+					android:id="@+id/relativeLayout3"
+					android:layout_width="fill_parent"
+					android:layout_height="55dp"
+					android:background="#00008007"
+					android:gravity="center_vertical"
+					android:layout_alignParentTop="true"
+					android:layout_alignParentLeft="true">
 
-	<Button
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="删除TA"
-		android:id="@+id/btnDel"
-		android:layout_marginBottom="33dp"
-		android:layout_alignParentBottom="true"
-		android:layout_centerHorizontal="true"
-		android:layout_marginLeft="50dp"
-		android:onClick="onClick"/>
+					<Button
+						android:layout_width="25dp"
+						android:layout_height="25dp"
+						android:textColor="#fff"
+						android:onClick="goback"
+						android:background="@drawable/goback"
+						android:layout_marginLeft="15dp"
+						android:layout_alignTop="@+id/textView6"
+						android:layout_alignParentLeft="false"
+						android:id="@+id/button2"
+						android:layout_centerVertical="true"
+						android:layout_alignWithParentIfMissing="false"/>
 
-	<Button
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="发消息"
-		android:id="@+id/btnChatWith"
-		android:layout_marginBottom="15dp"
-		android:layout_above="@+id/btnDel"
-		android:layout_alignLeft="@+id/btnDel"
-		android:layout_alignRight="@+id/btnDel"
-		android:onClick="onClick"/>
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/Detail"
+						android:textSize="20sp"
+						android:textColor="#ffffff"
+						android:id="@+id/textView6"
+						android:layout_marginLeft="20dp"
+						android:layout_alignBaseline="@+id/button"
+						android:layout_alignBottom="@+id/button"
+						android:layout_toRightOf="@+id/button2"/>
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/modify_remark"
+						android:id="@+id/button"
+						android:layout_centerVertical="true"
+						android:layout_alignParentRight="true"
+						android:layout_marginRight="10dp"
+						android:onClick="modifyRemark"
+						android:textSize="18sp"
+						android:background="#00000000"
+						android:textColor="@color/btn_text_color"
+						android:clickable="true"/>
+
+				</RelativeLayout>
+
+			</RelativeLayout>
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="0.5dp"
+				android:background="#ff000000"
+				android:id="@+id/linearLayout3"
+				/>
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/linearLayout8"
+				android:background="@color/white">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="昵称"
+					android:id="@+id/textView2"
+					android:textSize="20dp"
+					android:layout_margin="15dp"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/tvNickName"
+					android:layout_alignBottom="@+id/ivHeadImg"
+					android:layout_toRightOf="@+id/tvRemark"
+					android:layout_margin="15dp"
+					android:text="未填写"/>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="0.5dp"
+				android:background="#ff000000"
+				android:id="@+id/linearLayout4"
+				>
+			</LinearLayout>
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="#ffffffff"
+				android:id="@+id/linearLayout6">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="性别"
+					android:id="@+id/textView4"
+					android:textSize="20dp"
+					android:layout_margin="15dp"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/tvSex"
+					android:layout_margin="15dp"
+					android:text="未填写"/>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="0.5dp"
+				android:background="#ff000000"
+				android:id="@+id/linearLayout5"
+				/>
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="#ffffffff"
+				android:id="@+id/linearLayout7"
+				>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="年龄"
+					android:id="@+id/textView8"
+					android:textSize="20dp"
+					android:layout_margin="15dp"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/tvAge"
+					android:layout_margin="15dp"
+					android:text="未填写"/>
+			</LinearLayout>
+
+			<Button
+				android:layout_width="match_parent"
+				android:layout_height="40dp"
+				android:text="发消息"
+				android:id="@+id/btnChatWith"
+				android:onClick="onClick"
+				android:background="@drawable/messagebtn"
+				android:layout_marginLeft="20dp"
+				android:layout_marginRight="20dp"
+				android:textColor="@color/white"
+				android:layout_marginTop="15dp"/>
+
+			<Button
+				android:layout_width="match_parent"
+				android:layout_height="40dp"
+				android:text="删除TA"
+				android:id="@+id/btnDel"
+				android:onClick="onClick"
+				android:layout_marginTop="15dp"
+				android:layout_marginLeft="20dp"
+				android:layout_marginRight="20dp"
+				android:background="@drawable/deletebtn"
+				android:textColor="#ff646464"
+				android:layout_marginBottom="50dp"/>
+
+		</LinearLayout>
+	</ScrollView>
 
 </RelativeLayout>

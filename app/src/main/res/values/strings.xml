@@ -35,4 +35,5 @@
 	<string name="ptr_release_to_refresh">释放立即刷新</string>
 	<string name="ptr_refreshing">正在刷新…</string>
 	<string name="ptr_last_updated">上次更新: %1$s</string>
+	<string name="message">发消息</string>
 </resources>

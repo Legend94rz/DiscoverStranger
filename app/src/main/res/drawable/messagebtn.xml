@@ -3,18 +3,16 @@
 	<item android:state_pressed="false">
 		<shape xmlns:android="http://schemas.android.com/apk/res/android"
 			   android:shape="rectangle">
-			<corners android:radius="5dp" />
-			<solid android:color="#33AC71"/>
+			<corners android:radius="5dp"/>
+			<solid android:color="#45C01A"/>
 		</shape>
 	</item>
 	<item android:state_pressed="true">
 		<shape xmlns:android="http://schemas.android.com/apk/res/android"
 			   android:shape="rectangle">
-			<corners android:radius="5dp" />
-			<solid android:color="#7BE4B7"/>
+			<corners android:radius="5dp"/>
+			<solid android:color="#8AD472"/>
 		</shape>
 	</item>
 </selector>
-
-
 
