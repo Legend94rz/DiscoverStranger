@@ -6,12 +6,14 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,6 +32,8 @@ import java.util.List;
 public class MainActivity extends Activity implements View.OnClickListener, ViewPager.OnPageChangeListener
 {
 	public static android.os.Handler handler;
+	private DrawerLayout drawerLayout;
+	View drawerContent;
 	private ListView lvFriends;
 	private ListView lvHistory;
 	public static int updateCount = 0;
@@ -42,6 +46,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 	private TextView liaotian;
 	private TextView faxian;
 	private TextView tongxunlu;
+	ImageButton ibtnOpenDrawer;
 	TextView emptyNotice;
 
 	ViewPager viewPager;
@@ -406,6 +411,22 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 		}
 		mCurSel = 0;
 		mImageViews[mCurSel].setEnabled(false);
+
+		// Drawer:
+		drawerLayout= (DrawerLayout) findViewById(R.id.drawer);
+		drawerContent  = drawerLayout.getChildAt(1);
+		ibtnOpenDrawer= (ImageButton) findViewById(R.id.ibtnOpenDrawer);
+		ibtnOpenDrawer.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				if(drawerLayout.isDrawerOpen(drawerContent))
+					drawerLayout.closeDrawer(drawerContent);
+				else
+					drawerLayout.openDrawer(drawerContent);
+			}
+		});
 	}
 
 	void BindAdapter(ArrayList<UserInfo> list)
