@@ -152,8 +152,8 @@ public class ChatMsgAdapter extends BaseAdapter
 			String[] parts = entity.text.split("~");
 			spannableString = new SpannableString(parts[1]);
 
-			Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.emoji_202);
-			bitmap = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
+			Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.play_alt);
+			bitmap = Bitmap.createScaledBitmap(bitmap, 35, 35, true);
 
 			ImageSpan imageSpan = new ImageSpan(context, bitmap);
 			spannableString.setSpan(imageSpan, 0, 7, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -200,7 +200,7 @@ public class ChatMsgAdapter extends BaseAdapter
 		@Override
 		public void onClick(View view)
 		{
-			Toast.makeText(context, view.toString(), Toast.LENGTH_SHORT).show();
+			//Toast.makeText(context, view.toString(), Toast.LENGTH_SHORT).show();
 
 			switch (view.getId())
 			{

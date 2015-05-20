@@ -6,14 +6,14 @@ import android.os.Handler;
  * Created by Administrator on 2015/5/6.
  * 秒计时器。一个用途是记录录音时间
  */
-public class Chronograph extends Thread
+public class Chronograph extends Thread implements OnTickListener
 {
-	private android.os.Handler handler;
 	public boolean Break;
-	public Chronograph(Handler handler)
+	private OnTickListener listener;
+
+	public void setListener(OnTickListener listener)
 	{
-		this.handler = handler;
-		Break=false;
+		this.listener = listener;
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class Chronograph extends Thread
 			try
 			{
 				Thread.sleep(1000);
-				handler.sendEmptyMessage(Global.MSG_WHAT.W_SECOND_GO_BY);
+				OnTick();
 			}
 			catch (InterruptedException e)
 			{
@@ -35,6 +35,12 @@ public class Chronograph extends Thread
 				e1.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public void OnTick()
+	{
+		listener.OnTick();
 	}
 }
 

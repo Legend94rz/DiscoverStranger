@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">HelloWorld</string>
+    <string name="app_name">解密陌生人</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_log_in">LogIn</string>
@@ -36,4 +36,7 @@
 	<string name="ptr_refreshing">正在刷新…</string>
 	<string name="ptr_last_updated">上次更新: %1$s</string>
 	<string name="message">发消息</string>
+	<string name="exit">退出</string>
+	<string name="notimplement">敬请期待...</string>
+	<string name="title_activity_splash">解密陌生人</string>
 </resources>

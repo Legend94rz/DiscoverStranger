@@ -48,8 +48,15 @@ public class LogInAct extends Activity
 			try
 			{
 				SoapObject result = login.call();
-                result.toString();
-				return Boolean.parseBoolean(result.getProperty(0).toString());
+				if(Boolean.parseBoolean(result.getProperty(0).toString()))
+				{
+					WebService getUser = new WebService("GetUser");
+					result = getUser.addProperty("name", Username).call();
+					Global.mySelf = UserInfo.parse(result);
+					return true;
+				}
+				else
+					return false;
 			}
 			catch (NullPointerException e)
 			{
@@ -66,8 +73,6 @@ public class LogInAct extends Activity
 			if(aBoolean)
 			{
 				Toast.makeText(LogInAct.this, "登录成功", Toast.LENGTH_SHORT).show();
-				Global.mySelf.username = Username;
-				Global.mySelf.password = Password;
 				Intent i = new Intent(LogInAct.this, MainActivity.class);
 				startActivity(i);
 				finish();
@@ -139,28 +144,4 @@ public class LogInAct extends Activity
 		ivHeadImg = (ImageView) findViewById(R.id.ivHeadImg);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.menu_log_in, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-
-		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_settings)
-		{
-			return true;
-		}
-
-		return super.onOptionsItemSelected(item);
-	}
 }

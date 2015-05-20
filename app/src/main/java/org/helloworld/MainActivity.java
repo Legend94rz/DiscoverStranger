@@ -2,6 +2,7 @@ package org.helloworld;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,8 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +27,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.ksoap2.serialization.SoapObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -46,12 +49,12 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 	private TextView liaotian;
 	private TextView faxian;
 	private TextView tongxunlu;
-	ImageButton ibtnOpenDrawer;
 	TextView emptyNotice;
 
 	ViewPager viewPager;
 	List<View> pages;
-	SwipeRefreshLayout refreshLayout1,refreshLayout2;
+	SwipeRefreshLayout refreshLayout1, refreshLayout2;
+
 	/**
 	 * 处理导航标签的点击事件
 	 */
@@ -100,11 +103,13 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
 	{
 	}
+
 	@Override
 	public void onPageSelected(int position)
 	{
 		setCurPoint(position);
 	}
+
 	@Override
 	public void onPageScrollStateChanged(int state)
 	{
@@ -137,7 +142,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 			{
 				e.printStackTrace();
 			}
-			new DownloadTask("HeadImg", Global.PATH.HeadImg, userName+".png", handler, Global.MSG_WHAT.W_REFRESH, null).execute();
+			new DownloadTask("HeadImg", Global.PATH.HeadImg, userName + ".png", handler, Global.MSG_WHAT.W_REFRESH, null).execute();
 			try
 			{
 				Global.friendList.get(index).Ex_remark = jsons[0].getString("remark");
@@ -186,7 +191,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 			hisAdapter = new HistoryAdapter(Global.historyList, MainActivity.this);
 			lvHistory.setAdapter(hisAdapter);
 		}
-		if(hisAdapter.getCount()==0)
+		if (hisAdapter.getCount() == 0)
 		{
 			emptyNotice.setVisibility(View.VISIBLE);
 			lvHistory.setVisibility(View.GONE);
@@ -206,15 +211,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 		setContentView(R.layout.activity_main);
 		init();
 
-		//Todo 异步加载表情图片放在载入界面里
-		new Thread(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				FaceConversionUtil.getInstace().getFileText(getApplication());
-			}
-		}).start();
+
 
 		handler = new android.os.Handler()
 		{
@@ -333,7 +330,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 				startActivity(chat);
 			}
 		});
-		refreshLayout1= (SwipeRefreshLayout) v1.findViewById(R.id.swipe_container);
+		refreshLayout1 = (SwipeRefreshLayout) v1.findViewById(R.id.swipe_container);
 		refreshLayout1.setColorSchemeColors(R.color.blue, R.color.red, R.color.green, R.color.black);
 		refreshLayout1.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
 		{
@@ -351,7 +348,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 				}, 2000);
 			}
 		});
-		refreshLayout2= (SwipeRefreshLayout) v3.findViewById(R.id.swipe_container);
+		refreshLayout2 = (SwipeRefreshLayout) v3.findViewById(R.id.swipe_container);
 		refreshLayout2.setColorSchemeColors(R.color.blue, R.color.red, R.color.green, R.color.black);
 		refreshLayout2.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
 		{
@@ -413,20 +410,71 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 		mImageViews[mCurSel].setEnabled(false);
 
 		// Drawer:
-		drawerLayout= (DrawerLayout) findViewById(R.id.drawer);
-		drawerContent  = drawerLayout.getChildAt(1);
-		ibtnOpenDrawer= (ImageButton) findViewById(R.id.ibtnOpenDrawer);
-		ibtnOpenDrawer.setOnClickListener(new View.OnClickListener()
+		drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+		drawerContent = drawerLayout.getChildAt(1);
+
+		SimpleAdapter simpleAdapter = new SimpleAdapter(this, getData(), R.layout.drawer_item, new String[]{"icon", "desc"}, new int[]{R.id.ivIcon, R.id.tvDesc});
+		ListView l = (ListView) drawerContent.findViewById(R.id.lvDrawerMenu);
+		l.setAdapter(simpleAdapter);
+		l.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
 			@Override
-			public void onClick(View view)
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
 			{
-				if(drawerLayout.isDrawerOpen(drawerContent))
-					drawerLayout.closeDrawer(drawerContent);
-				else
-					drawerLayout.openDrawer(drawerContent);
+				Intent I;
+				switch (i)
+				{
+					case 0:
+						I = new Intent(MainActivity.this, ShakeActivity.class);
+						startActivity(I);
+						break;
+					case 1:
+						I = new Intent(MainActivity.this, NearbyStrangerAct.class);
+						startActivity(I);
+						break;
+					case 2:
+						exit();
+						break;
+				}
+				drawerLayout.closeDrawer(drawerContent);
 			}
 		});
+		RefreshMyInfo();
+	}
+
+	public void openDrawer(View view)
+	{
+		if (drawerLayout.isDrawerOpen(drawerContent))
+			drawerLayout.closeDrawer(drawerContent);
+		else
+			drawerLayout.openDrawer(drawerContent);
+	}
+
+	private void RefreshMyInfo()
+	{
+		TextView tvNickname= (TextView) drawerContent.findViewById(R.id.tvNickname);
+		tvNickname.setText(Global.mySelf.nickName);
+		ImageView ivHeadImg= (ImageView) drawerContent.findViewById(R.id.ivHeadImg);
+		if(FileUtils.Exist(Global.PATH.HeadImg+Global.mySelf.username+".png"))
+			ivHeadImg.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg+Global.mySelf.username+".png"));
+	}
+
+	private List<HashMap<String, Object>> getData()
+	{
+		List<HashMap<String, Object>> data = new ArrayList<HashMap<String, Object>>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("icon", R.drawable.find_more_friend_shake);
+		map.put("desc", "摇一摇");
+		data.add(map);
+		map = new HashMap<String, Object>();
+		map.put("icon", R.drawable.find_more_friend_near_icon);
+		map.put("desc", "附近的人");
+		data.add(map);
+		map = new HashMap<String, Object>();
+		map.put("icon", R.drawable.more_game);
+		map.put("desc", "退出");
+		data.add(map);
+		return data;
 	}
 
 	void BindAdapter(ArrayList<UserInfo> list)
@@ -470,15 +518,17 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 		//noinspection SimplifiableIfStatement
 		switch (id)
 		{
-			case R.id.action_settings:
-				return true;
-			case R.id.meuFlush:
-				FlushFriendsList();
-				Toast.makeText(MainActivity.this, "正在刷新", Toast.LENGTH_SHORT).show();
+			case R.id.meuExit:
+				exit();
 				break;
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void exit()
+	{
+		finish();
 	}
 
 	///以下是 发现 页的几个监听，触发方式写在xml里

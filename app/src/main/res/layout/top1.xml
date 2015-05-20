@@ -12,16 +12,23 @@
             <LinearLayout 
                 android:orientation="horizontal"
                 android:layout_width="wrap_content" 
-    			android:layout_height="wrap_content" 
+    			android:layout_height="match_parent"
     			android:layout_alignParentLeft="true"
                 android:gravity="center_vertical"
-                android:layout_centerVertical="true">
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:background="@drawable/img_btn_mask"
+                android:id="@+id/llTitle"
+                android:paddingRight="10dp"
+                android:onClick="openDrawer">
                 <ImageButton
-                    android:layout_width="50dp"
-    				android:layout_height="50dp"
+                    android:layout_width="46dp"
+    				android:layout_height="46dp"
                     android:scaleType="fitXY"
-                    android:background="@drawable/actionbar_icon"
-                    android:id="@+id/ibtnOpenDrawer"/>
+                    android:id="@+id/ibtnOpenDrawer"
+                    android:background="@drawable/actionbar_icon_v2"
+                    android:clickable="true"
+                    android:onClick="openDrawer"/>
                 <TextView
                     android:layout_width="wrap_content" 
     				android:layout_height="wrap_content" 
@@ -40,22 +47,5 @@
 
             </LinearLayout>
 
-        <ImageView
-            android:layout_width="30dp"
-			android:layout_height="30dp"
-			android:src="@drawable/actionbar_search_icon"
-            android:id="@+id/imageView4"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/set"
-            android:layout_marginRight="10dp"/>
-
-        <ImageView
-			android:layout_width="30dp"
-			android:layout_height="30dp"
-			android:id="@+id/set"
-			android:src="@drawable/actionbar_more_icon"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"/>
     </RelativeLayout>
 </LinearLayout>

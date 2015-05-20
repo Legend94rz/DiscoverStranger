@@ -3,6 +3,7 @@ package org.helloworld;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 /**
@@ -13,7 +14,7 @@ public class RecordRelativeLayout extends RelativeLayout
 	private Context context;
 	private Button btnSendVoice;
 	private Button btnCancel;
-	private Button btnRecord;
+	private ImageButton btnRecord;
 	public boolean isHidden;
 	public RecordRelativeLayout(Context context)
 	{
@@ -44,7 +45,7 @@ public class RecordRelativeLayout extends RelativeLayout
 	private void onCreate()
 	{
 		btnCancel= (Button) findViewById(R.id.btnCancel);
-		btnRecord= (Button) findViewById(R.id.btnRec);
+		btnRecord= (ImageButton) findViewById(R.id.btnRec);
 		btnSendVoice= (Button) findViewById(R.id.btnSendVoice);
 	}
 }

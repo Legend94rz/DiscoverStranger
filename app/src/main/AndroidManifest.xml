@@ -30,18 +30,11 @@
         android:theme="@android:style/Theme.Light.NoTitleBar" >
         <activity
             android:name=".LogInAct"
-            android:label="@string/title_activity_log_in"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:label="@string/title_activity_log_in" >
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main"
-            android:screenOrientation="portrait" >
+            android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="org.helloworld.action.CanReceiveMsg" />
             </intent-filter>
@@ -86,6 +79,14 @@
         <activity
             android:name=".ShakeResultAct"
             android:label="@string/title_activity_shake_result" >
+        </activity>
+        <activity
+            android:name=".SplashAct"
+            android:label="@string/title_activity_splash" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

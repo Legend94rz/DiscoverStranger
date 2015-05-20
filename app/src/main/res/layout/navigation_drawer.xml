@@ -3,7 +3,7 @@
 			  android:orientation="vertical"
 			  android:layout_width="wrap_content"
 			  android:layout_height="fill_parent"
-			  android:background="#88ffffff">
+			  android:background="@color/white">
 
 	<RelativeLayout
 		android:layout_width="300dp"
@@ -13,7 +13,7 @@
 		<ImageView
 			android:layout_width="48dp"
 			android:layout_height="48dp"
-			android:id="@+id/imageView5"
+			android:id="@+id/ivHeadImg"
 			android:layout_marginLeft="30dp"
 			android:layout_marginTop="30dp"
 			android:background="@drawable/nohead"
@@ -23,27 +23,21 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="New Text"
-			android:id="@+id/textView7"
+			android:text="NickName"
+			android:id="@+id/tvNickname"
 			android:textColor="@color/white"
 			android:textSize="25dp"
 			android:layout_alignParentBottom="true"
-			android:layout_alignLeft="@+id/imageView5"
+			android:layout_alignLeft="@+id/ivHeadImg"
 			android:layout_marginBottom="28dp"/>
 	</RelativeLayout>
 
-	<Button
+	<ListView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:text="New Button"
-		android:id="@+id/button7"
+		android:id="@+id/lvDrawerMenu"
+		android:fastScrollAlwaysVisible="false"
+		android:smoothScrollbar="true"
 		/>
-
-	<Button
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="New Button"
-		android:id="@+id/button8"
-		android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>

@@ -12,28 +12,40 @@
 		android:layout_alignParentLeft="true"
 		android:id="@+id/relativeLayout6">
 
-		<Button
-			android:layout_width="25dp"
-			android:layout_height="25dp"
-			android:textColor="#fff"
-			android:onClick="goback"
-			android:background="@drawable/goback"
-			android:layout_marginLeft="15dp"
-			android:layout_alignParentLeft="false"
-			android:id="@+id/button6"
-			android:layout_centerVertical="true"
-			android:layout_alignWithParentIfMissing="false"/>
-
-		<TextView
+		<LinearLayout
+			android:orientation="horizontal"
 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textSize="20sp"
-			android:textColor="#ffffff"
-			android:id="@+id/textView3"
-			android:text="通知中心"
-			android:layout_centerVertical="true"
-			android:layout_toRightOf="@+id/button6"
-			android:layout_marginLeft="20dp"/>
+			android:layout_height="match_parent"
+			android:onClick="goback"
+			android:clickable="true"
+			android:background="@drawable/img_btn_mask"
+			android:paddingRight="15dp">
+
+			<Button
+				android:layout_width="25dp"
+				android:layout_height="25dp"
+				android:textColor="#fff"
+				android:background="@drawable/goback"
+				android:layout_marginLeft="15dp"
+				android:layout_alignParentLeft="false"
+				android:id="@+id/button6"
+				android:layout_centerVertical="true"
+				android:layout_alignWithParentIfMissing="false"
+				android:layout_gravity="center_vertical"
+				android:onClick="goback"/>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="20sp"
+				android:textColor="#ffffff"
+				android:id="@+id/textView3"
+				android:text="通知中心"
+				android:layout_centerVertical="true"
+				android:layout_toRightOf="@+id/button6"
+				android:layout_marginLeft="20dp"
+				android:layout_gravity="center_vertical"/>
+		</LinearLayout>
 	</RelativeLayout>
 
 	<ListView

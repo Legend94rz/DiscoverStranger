@@ -57,9 +57,7 @@
 				android:visibility="visible"
 				android:maxWidth="150dp"
 				android:singleLine="false"
-				android:layout_marginTop="5dp"
-				android:layout_marginBottom="5dp"
-				/>
+				android:layout_centerVertical="true"/>
 
 			<ImageView
 				android:layout_width="wrap_content"
@@ -68,13 +66,12 @@
 				android:visibility="gone"
 				android:cropToPadding="false"
 				android:scaleType="fitXY"
-				android:layout_marginTop="10dp"
-				android:layout_marginBottom="10dp"
 				android:adjustViewBounds="true"
 				android:clickable="true"
 				android:maxWidth="100dp"
 				android:maxHeight="100dp"
-				android:src="@drawable/nohead"/>
+				android:src="@drawable/nohead"
+				android:layout_centerVertical="true"/>
 		</RelativeLayout>
 
 		<ProgressBar

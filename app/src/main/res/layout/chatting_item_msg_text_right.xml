@@ -47,8 +47,6 @@
             android:gravity="left|center"
 			android:minHeight="50dp"
 			android:textColor="#ff000000"
-			android:paddingLeft="10dp"
-			android:paddingRight="20dp"
 			android:lineSpacingExtra="2dp"
 			android:layout_marginLeft="8dp"
 			android:id="@+id/relativeLayout5"
@@ -59,8 +57,9 @@
 				android:layout_height="wrap_content"
 				android:id="@+id/tvChatcontent"
 				android:maxWidth="150dp"
-				android:layout_marginTop="5dp"
-				android:layout_marginBottom="5dp"/>
+				android:layout_centerVertical="true"
+				android:layout_toRightOf="@+id/ivPic"
+				android:textColor="@color/white"/>
 
 			<ImageView
 				android:layout_width="wrap_content"
@@ -70,11 +69,10 @@
 				android:adjustViewBounds="true"
 				android:maxHeight="100dp"
 				android:maxWidth="100dp"
-				android:layout_marginTop="10dp"
-				android:layout_marginBottom="10dp"
 				android:clickable="true"
 				android:src="@drawable/nohead"
-				android:visibility="gone"/>
+				android:visibility="gone"
+				android:layout_centerVertical="true"/>
 		</RelativeLayout>
 
 		<ProgressBar

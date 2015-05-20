@@ -23,7 +23,9 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +49,7 @@ import java.util.HashMap;
 public class ChatActivity extends Activity implements OnClickListener, MediaRecorder.OnInfoListener
 {
 	private static final int PHOTO_REQUEST = 1;
-
+	private boolean timerEnable=false;
 	private String chatTo;
 	private History history;
 	private EditText mEditTextContent;
@@ -60,12 +62,13 @@ public class ChatActivity extends Activity implements OnClickListener, MediaReco
 	private ToggleButton swiMoreInput;
 	private ToggleButton swiInput;
 
-	//这5个是录音界面元素
+	//录音界面元素
 	private RecordRelativeLayout recordRelativeLayout;
 	private Button btnSend;
 	private Button btnSendVoice;
 	private Button btnCancel;
-	private Button btnRec;
+	private ImageButton btnRec;
+	private ProgressBar pbPlayRecord;
 
 	private Chronograph timer;    //计时器
 	int timeOfRec;        //录音时间长度
@@ -186,10 +189,6 @@ public class ChatActivity extends Activity implements OnClickListener, MediaReco
 							mListView.setSelection(mListView.getCount() - 1);
 						mAdapter.notifyDataSetChanged();
 						break;
-					case Global.MSG_WHAT.W_SECOND_GO_BY:
-						timeOfRec++;
-						tvTime.setText(String.format("%02d:%02d", timeOfRec / 60, timeOfRec % 60));
-						break;
 					case Global.MSG_WHAT.W_RESEND_MSG:
 						Message m = ((Message) message.obj);
 						if ((m.msgType & Global.MSG_TYPE.T_TEXT_MSG) > 0)
@@ -277,10 +276,10 @@ public class ChatActivity extends Activity implements OnClickListener, MediaReco
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		super.onActivityResult(requestCode, resultCode, data);
-		if(requestCode==PHOTO_REQUEST && data!=null && resultCode== RESULT_OK)
+		if (requestCode == PHOTO_REQUEST && data != null && resultCode == RESULT_OK)
 		{
 			Uri selectedImage = data.getData();
-			String[] filePathColumn = { MediaStore.Images.Media.DATA };
+			String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
 			Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
 			cursor.moveToFirst();
@@ -288,14 +287,14 @@ public class ChatActivity extends Activity implements OnClickListener, MediaReco
 			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 			String picturePath = cursor.getString(columnIndex);
 			cursor.close();
-			File tmp=new File(picturePath);
-			if(tmp.length()>=64000)
+			File tmp = new File(picturePath);
+			if (tmp.length() >= 64000)
 			{
-				Toast.makeText(this,"图片太大",Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "图片太大", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			Message entity = new Message();
-			String localPath = tmp.getParent()+"/";
+			String localPath = tmp.getParent() + "/";
 			String localName = tmp.getName();
 			entity.msgType = Global.MSG_TYPE.T_SEND_MSG | Global.MSG_TYPE.T_PIC_MSG;
 			entity.fromId = Global.mySelf.username;
@@ -335,7 +334,7 @@ public class ChatActivity extends Activity implements OnClickListener, MediaReco
 		for (int i = 0; i < 1; i++)
 		{
 			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("ItemPic", R.drawable.nohead);
+			map.put("ItemPic", R.drawable.input_pic_btn);
 			map.put("ItemDes", des[i]);
 			lstItem.add(map);
 		}
@@ -350,7 +349,6 @@ public class ChatActivity extends Activity implements OnClickListener, MediaReco
 				//Toast.makeText(ChatActivity.this, p.get("ItemDes").toString(), Toast.LENGTH_SHORT).show();
 				if (p.get("ItemDes").equals("图片"))
 				{
-					//Todo 选择图片
 					Intent choostPhoto = new Intent(Intent.ACTION_PICK, null);
 					choostPhoto.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 					startActivityForResult(choostPhoto, PHOTO_REQUEST);
@@ -360,10 +358,12 @@ public class ChatActivity extends Activity implements OnClickListener, MediaReco
 		//--------------以下是初始化录音界面--------------------
 		btnCancel = (Button) findViewById(R.id.btnCancel);
 		btnCancel.setOnClickListener(this);
-		btnRec = (Button) findViewById(R.id.btnRec);
+		btnRec = (ImageButton) findViewById(R.id.btnRec);
 		btnRec.setOnClickListener(this);
+		btnRec.setTag("点击录音");
 		btnSendVoice = (Button) findViewById(R.id.btnSendVoice);
 		btnSendVoice.setOnClickListener(this);
+		pbPlayRecord = (ProgressBar) findViewById(R.id.pbPlayProgress);
 	}
 
 	private void HideAndReset()
@@ -387,7 +387,10 @@ public class ChatActivity extends Activity implements OnClickListener, MediaReco
 		else history.unreadCount = 0;
 		mAdapter = new ChatMsgAdapter(this, history.historyMsg);
 		mListView.setAdapter(mAdapter);
-		tvChatTitle.setText(chatTo);
+		String title=Global.map2Friend.get(chatTo).Ex_remark;
+		if(title==null || title.equals(""))
+			title=Global.map2Friend.get(chatTo).nickName;
+		tvChatTitle.setText(title);
 	}
 
 	@Override
@@ -420,27 +423,39 @@ public class ChatActivity extends Activity implements OnClickListener, MediaReco
 				entity.text = String.format("%s~[Voice] %d'", soundFile.getName(), timeOfRec);
 				entity.sendState = 1;
 				sendVoiceMsg(entity);
-				btnSendVoice.setVisibility(View.INVISIBLE);
-				btnCancel.setVisibility(View.INVISIBLE);
-				btnRec.setText("点击录音");
-				tvTime.setText("00:00");
+				resetRecordView();
 				break;
 			case R.id.btnCancel:
-				btnRec.setText("点击录音");
-				btnCancel.setVisibility(View.INVISIBLE);
-				btnSendVoice.setVisibility(View.INVISIBLE);
-				if (soundFile.exists())
+				resetRecordView();
+				if (soundFile != null && soundFile.exists())
 					soundFile.delete();
 				break;
 			case R.id.btnRec:
-				if (btnRec.getText().equals("点击录音"))
+				if (btnRec.getTag().equals("点击录音"))
 				{
+					btnRec.setTag("停止");tvTime.setText("00:00");
+					btnRec.setImageResource(R.drawable.media_stop);
 					btnSendVoice.setVisibility(View.INVISIBLE);
 					btnCancel.setVisibility(View.INVISIBLE);
-					btnRec.setText("停止");
 					timeOfRec = 0;
-					timer = new Chronograph(handler);
-					timer.start();
+
+					final Handler h=new Handler();
+					Runnable r=new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							timeOfRec++;
+							tvTime.setText(String.format("%02d:%02d", timeOfRec / 60, timeOfRec % 60));
+							if(timerEnable)
+								h.postDelayed(this,1000);
+							else
+								h.removeCallbacks(this);
+						}
+					};
+					timerEnable=true;
+					h.postDelayed(r, 1000);
+
 					String path = Global.PATH.SoundMsg;
 					FileUtils.mkDir(new File(path));
 					soundFile = new File(path + String.format("%s-%s-%tQ.amr", Global.mySelf.username, chatTo, Global.getDate()));
@@ -459,13 +474,41 @@ public class ChatActivity extends Activity implements OnClickListener, MediaReco
 					{
 						e.printStackTrace();
 					}
+					catch (IllegalStateException e1)
+					{
+						e1.printStackTrace();
+					}
 				}
-				else if (btnRec.getText().equals("停止"))
+				else if (btnRec.getTag().equals("停止"))
 				{
 					stopRec();
 				}
 				else
 				{
+					btnRec.setVisibility(View.INVISIBLE);
+					pbPlayRecord.setVisibility(View.VISIBLE);
+					pbPlayRecord.setMax(timeOfRec);
+					pbPlayRecord.setProgress(0);
+					final Handler h=new Handler();
+					Runnable r=new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							if(pbPlayRecord.getProgress()<pbPlayRecord.getMax())
+							{
+								pbPlayRecord.incrementProgressBy(1);
+								h.postDelayed(this,1000);
+							}
+							else
+							{
+								pbPlayRecord.setVisibility(View.INVISIBLE);
+								btnRec.setVisibility(View.VISIBLE);
+							}
+						}
+					};
+					h.postDelayed(r,1000);
+
 					playSound(soundFile.getName());
 				}
 				break;
@@ -473,6 +516,17 @@ public class ChatActivity extends Activity implements OnClickListener, MediaReco
 				HideAndReset();
 				break;
 		}
+	}
+
+	public void resetRecordView()
+	{
+		btnRec.setTag("点击录音");
+		btnRec.setImageResource(R.drawable.media_record);
+		tvTime.setText("00:00");
+		btnCancel.setVisibility(View.INVISIBLE);
+		btnSendVoice.setVisibility(View.INVISIBLE);
+		btnRec.setVisibility(View.VISIBLE);
+		pbPlayRecord.setVisibility(View.INVISIBLE);
 	}
 
 	private void playSound(String fileName)
@@ -506,17 +560,14 @@ public class ChatActivity extends Activity implements OnClickListener, MediaReco
 	{
 		btnSendVoice.setVisibility(View.VISIBLE);
 		btnCancel.setVisibility(View.VISIBLE);
-		btnRec.setText("试听");
+		btnRec.setTag("试听");
+		btnRec.setImageResource(R.drawable.media_play);
 		if (recorder != null)
 		{
 			recorder.stop();
 			recorder = null;
 		}
-		if (timer != null)
-		{
-			timer.Break = true;
-			timer = null;
-		}
+		timerEnable=false;
 	}
 
 	@Override

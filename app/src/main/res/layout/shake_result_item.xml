@@ -26,11 +26,13 @@
 	<Button
 		style="?android:attr/buttonStyleSmall"
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
+		android:layout_height="30dp"
 		android:text="@string/sayHello"
 		android:id="@+id/btnSayHello"
 		android:layout_centerVertical="true"
 		android:layout_alignParentRight="true"
 		android:paddingLeft="15dp"
-		android:paddingRight="15dp"/>
+		android:paddingRight="15dp"
+		android:background="@drawable/sendbutton"
+		android:textColor="@color/white"/>
 </RelativeLayout>

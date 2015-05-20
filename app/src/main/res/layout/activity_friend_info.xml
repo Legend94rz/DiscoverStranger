@@ -64,31 +64,6 @@
 					android:layout_alignParentTop="true"
 					android:layout_alignParentLeft="true">
 
-					<Button
-						android:layout_width="25dp"
-						android:layout_height="25dp"
-						android:textColor="#fff"
-						android:onClick="goback"
-						android:background="@drawable/goback"
-						android:layout_marginLeft="15dp"
-						android:layout_alignTop="@+id/textView6"
-						android:layout_alignParentLeft="false"
-						android:id="@+id/button2"
-						android:layout_centerVertical="true"
-						android:layout_alignWithParentIfMissing="false"/>
-
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:text="@string/Detail"
-						android:textSize="20sp"
-						android:textColor="#ffffff"
-						android:id="@+id/textView6"
-						android:layout_marginLeft="20dp"
-						android:layout_alignBaseline="@+id/button"
-						android:layout_alignBottom="@+id/button"
-						android:layout_toRightOf="@+id/button2"/>
-
 					<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
@@ -102,6 +77,45 @@
 						android:background="#00000000"
 						android:textColor="@color/btn_text_color"
 						android:clickable="true"/>
+
+					<LinearLayout
+						android:orientation="horizontal"
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:background="@drawable/img_btn_mask"
+						android:clickable="true"
+						android:onClick="goback"
+						android:paddingRight="15dp">
+
+						<Button
+							android:layout_width="25dp"
+							android:layout_height="25dp"
+							android:textColor="#fff"
+							android:background="@drawable/goback"
+							android:layout_marginLeft="15dp"
+							android:layout_alignTop="@+id/textView6"
+							android:layout_alignParentLeft="false"
+							android:id="@+id/button2"
+							android:layout_centerVertical="true"
+							android:layout_alignWithParentIfMissing="false"
+							android:layout_gravity="center_vertical"
+							android:clickable="true"
+							android:onClick="goback"/>
+
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="@string/Detail"
+							android:textSize="20sp"
+							android:textColor="#ffffff"
+							android:id="@+id/textView6"
+							android:layout_marginLeft="20dp"
+							android:layout_alignBaseline="@+id/button"
+							android:layout_alignBottom="@+id/button"
+							android:layout_toRightOf="@+id/button2"
+							android:layout_gravity="center_vertical"/>
+
+					</LinearLayout>
 
 				</RelativeLayout>
 

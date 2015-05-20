@@ -1,14 +1,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 	  xmlns:tools="http://schemas.android.com/tools"
 	  tools:context="org.helloworld.MainActivity">
-	<item
-		android:showAsAction="always|withText"
-		android:title="菜单">
-		<menu>
-			<group>
-				<item android:title="@string/menu_Add_Friends" android:id="@+id/meuAdd"/>
-				<item android:title="@string/menu_Flush_Friends" android:id="@+id/meuFlush"/>
-			</group>
-		</menu>
-	</item>
+	<item android:title="@string/exit" android:id="@+id/meuExit"/>
 </menu>

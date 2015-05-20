@@ -11,29 +11,40 @@
 		android:background="@color/actionbar_bg"
 		android:gravity="center_vertical"
 		android:layout_alignParentLeft="true"
-		android:id="@+id/relativeLayout2">
+		android:id="@+id/relativeLayout2"
+		android:clickable="false">
 
-		<Button
-			android:layout_width="25dp"
-			android:layout_height="25dp"
-			android:textColor="#fff"
-			android:onClick="goback"
-			android:background="@drawable/goback"
-			android:textSize="14dp"
-			android:layout_alignParentBottom="false"
-			android:layout_centerVertical="true"
-			android:layout_marginLeft="15dp"
-			android:id="@+id/button3"/>
-
-		<TextView
+		<RelativeLayout
 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textSize="20sp"
-			android:textColor="#ffffff"
-			android:id="@+id/tvToId"
-			android:layout_centerVertical="true"
-			android:layout_toRightOf="@+id/button3"
-			android:layout_marginLeft="20dp"/>
+			android:layout_height="match_parent"
+			android:onClick="goback"
+			android:clickable="true"
+			android:background="@drawable/img_btn_mask"
+			android:paddingRight="15dp">
+
+			<Button
+				android:layout_width="25dp"
+				android:layout_height="25dp"
+				android:textColor="#fff"
+				android:background="@drawable/goback"
+				android:textSize="14dp"
+				android:layout_alignParentBottom="false"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="15dp"
+				android:id="@+id/button3"
+				android:clickable="true"
+				android:onClick="goback"/>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="20sp"
+				android:textColor="#ffffff"
+				android:id="@+id/tvToId"
+				android:layout_centerVertical="true"
+				android:layout_toRightOf="@+id/button3"
+				android:layout_marginLeft="20dp"/>
+		</RelativeLayout>
 	</RelativeLayout>
 
 	<ListView
@@ -47,7 +58,8 @@
 		android:scrollbarStyle="outsideOverlay"
 		android:stackFromBottom="true"
 		android:layout_below="@+id/relativeLayout2"
-		android:background="#ffefeff4"/>
+		android:background="#ffefeff4"
+		/>
 
 	<LinearLayout
         android:id="@+id/rl_bottom"
