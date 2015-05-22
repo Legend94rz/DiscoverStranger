@@ -106,7 +106,7 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 							public void onClick(DialogInterface dialogInterface, int i)
 							{
 								Intent intent = new Intent();
-								intent.putExtra("friendName", strangerName);
+								intent.putExtra("strangerName", strangerName);
 
 								onActivityResult(0, SUCCESS_FINISH_GAME, intent);
 							}
@@ -128,14 +128,13 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 		//super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == SUCCESS_FINISH_GAME)
 		{
-			SuccessFinishGame(this,handler, data);
+			SuccessFinishGame(this,handler, data.getStringExtra("strangerName"));
 		}
 	}
 
-	public static void SuccessFinishGame(Context context, final Handler handler,Intent data)
+	public static void SuccessFinishGame(Context context, final Handler handler,final String strangerName)
 	{
 		final ProgressDialog dialog=ProgressDialog.show(context, "稍候", "正在发送请求...");
-		final String strangerName=data.getStringExtra("friendName");
 		new Thread(new Runnable()
 		{
 			@Override
@@ -157,8 +156,17 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 					.addProperty("msg", jobj.toString())
 					.addProperty("time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"))
 					.addProperty("msgType", String.valueOf(Global.MSG_TYPE.T_TEXT_MSG));
-				SoapObject so = service.call();
+				SoapObject so=null;
 				Boolean f2=true;
+				try
+				{
+					so = service.call();
+				}
+				catch (NullPointerException e)
+				{
+					e.printStackTrace();
+					f2=false;
+				}
 				if(!Global.map2Friend.containsKey(strangerName))
 				{
 					//通知对方将自己加入好友列表中
@@ -186,7 +194,7 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 						service1.addProperty("name", Global.mySelf.username).addProperty("friendList", fL.toString());
 						f2 =Boolean.parseBoolean(service1.call().getPropertyAsString(0));
 					}
-					catch (JSONException e)
+					catch (Exception e)
 					{
 						e.printStackTrace();
 						f2=false;
@@ -256,7 +264,14 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 		{
 			WebService s = new WebService("getNearStranger");
 			s.addProperty("name", Global.mySelf.username).addProperty("latitude", String.valueOf(latitude)).addProperty("longitude", String.valueOf(longitude));
-			SoapObject so = s.call();
+			SoapObject so = null;
+			try
+			{
+				so = s.call();
+			}
+			catch (NullPointerException ignored)
+			{
+			}
 			return so;
 		}
 
@@ -273,8 +288,9 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 				}
 				handler.sendEmptyMessage(Global.MSG_WHAT.W_GOT_STRANGERS);
 			}
-			catch (NullPointerException ignored)
+			catch (Exception ignored)
 			{
+				Toast.makeText(NearbyStrangerAct.this,Global.ERROR_HINT.HINT_ERROR_NETWORD,Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
@@ -365,7 +381,7 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 				switch (message.what)
 				{
 					case Global.MSG_WHAT.W_GOT_STRANGERS:
-						Toast.makeText(NearbyStrangerAct.this, String.format("%d个附近的人", strangerInfos.size()), Toast.LENGTH_SHORT).show();
+						Toast.makeText(NearbyStrangerAct.this, String.format("共发现%d个附近的人\n点击陌生人标记可加好友哦~", strangerInfos.size()), Toast.LENGTH_SHORT).show();
 						for (final PositionInfo p : strangerInfos)
 						{
 							//添加一个标记
@@ -405,8 +421,19 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 						}
 						else
 						{
-							Toast.makeText(NearbyStrangerAct.this,"请求发送失败",Toast.LENGTH_SHORT).show();
-							//Todo 重新发送
+							AlertDialog.Builder builder =new AlertDialog.Builder(NearbyStrangerAct.this);
+							builder.setTitle("错误")
+								.setMessage("请求发送失败，是否重试?")
+								.setPositiveButton("好", new DialogInterface.OnClickListener()
+								{
+									@Override
+									public void onClick(DialogInterface dialogInterface, int i)
+									{
+										NearbyStrangerAct.SuccessFinishGame(NearbyStrangerAct.this,handler,data.getString("strangerName"));
+									}
+								})
+								.setNegativeButton("算了",null);
+							builder.create().show();
 						}
 						break;
 				}

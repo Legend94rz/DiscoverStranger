@@ -55,70 +55,6 @@
 					android:layout_marginTop="-32dp"
 					android:layout_marginRight="10dp"/>
 
-				<RelativeLayout
-					android:id="@+id/relativeLayout3"
-					android:layout_width="fill_parent"
-					android:layout_height="55dp"
-					android:background="#00008007"
-					android:gravity="center_vertical"
-					android:layout_alignParentTop="true"
-					android:layout_alignParentLeft="true">
-
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:text="@string/modify_remark"
-						android:id="@+id/button"
-						android:layout_centerVertical="true"
-						android:layout_alignParentRight="true"
-						android:layout_marginRight="10dp"
-						android:onClick="modifyRemark"
-						android:textSize="18sp"
-						android:background="#00000000"
-						android:textColor="@color/btn_text_color"
-						android:clickable="true"/>
-
-					<LinearLayout
-						android:orientation="horizontal"
-						android:layout_width="wrap_content"
-						android:layout_height="match_parent"
-						android:background="@drawable/img_btn_mask"
-						android:clickable="true"
-						android:onClick="goback"
-						android:paddingRight="15dp">
-
-						<Button
-							android:layout_width="25dp"
-							android:layout_height="25dp"
-							android:textColor="#fff"
-							android:background="@drawable/goback"
-							android:layout_marginLeft="15dp"
-							android:layout_alignTop="@+id/textView6"
-							android:layout_alignParentLeft="false"
-							android:id="@+id/button2"
-							android:layout_centerVertical="true"
-							android:layout_alignWithParentIfMissing="false"
-							android:layout_gravity="center_vertical"
-							android:clickable="true"
-							android:onClick="goback"/>
-
-						<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:text="@string/Detail"
-							android:textSize="20sp"
-							android:textColor="#ffffff"
-							android:id="@+id/textView6"
-							android:layout_marginLeft="20dp"
-							android:layout_alignBaseline="@+id/button"
-							android:layout_alignBottom="@+id/button"
-							android:layout_toRightOf="@+id/button2"
-							android:layout_gravity="center_vertical"/>
-
-					</LinearLayout>
-
-				</RelativeLayout>
-
 			</RelativeLayout>
 
 			<LinearLayout
@@ -247,5 +183,65 @@
 
 		</LinearLayout>
 	</ScrollView>
+
+	<RelativeLayout
+		android:id="@+id/relativeLayout3"
+		android:layout_width="fill_parent"
+		android:layout_height="55dp"
+		android:background="#00008007"
+		android:gravity="center_vertical"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentLeft="true">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/modify_remark"
+			android:id="@+id/button"
+			android:layout_centerVertical="true"
+			android:layout_alignParentRight="true"
+			android:layout_marginRight="10dp"
+			android:onClick="modifyRemark"
+			android:textSize="18sp"
+			android:background="@drawable/img_btn_mask"
+			android:textColor="@color/btn_text_color"
+			android:clickable="true"/>
+
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:background="@drawable/img_btn_mask"
+			android:clickable="true"
+			android:onClick="goback"
+			android:paddingRight="15dp">
+
+			<TextView
+				android:layout_width="25dp"
+				android:layout_height="25dp"
+				android:textColor="#fff"
+				android:background="@drawable/goback"
+				android:layout_marginLeft="15dp"
+				android:id="@+id/button2"
+				android:layout_gravity="center_vertical"
+				android:clickable="false"
+				/>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/Detail"
+				android:textSize="20sp"
+				android:textColor="#ffffff"
+				android:id="@+id/textView6"
+				android:layout_marginLeft="20dp"
+				android:layout_alignBaseline="@+id/button"
+				android:layout_alignBottom="@+id/button"
+				android:layout_toRightOf="@+id/button2"
+				android:layout_gravity="center_vertical"/>
+
+		</LinearLayout>
+
+	</RelativeLayout>
 
 </RelativeLayout>

@@ -48,7 +48,7 @@ public class NotificationAct extends Activity
 		for(org.helloworld.Message m : history.historyMsg)
 		{
 			if(!FileUtils.Exist(Global.PATH.HeadImg + m.fromId +".png"))
-				new DownloadTask("HeadImg",Global.PATH.HeadImg,m.fromId +".png",handler,Global.MSG_WHAT.W_REFRESH,null);
+				new DownloadTask("HeadImg",Global.PATH.HeadImg,m.fromId +".png",Global.BLOCK_SIZE,handler,Global.MSG_WHAT.W_REFRESH,null);
 		}
 	}
 

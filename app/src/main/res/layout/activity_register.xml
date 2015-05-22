@@ -4,187 +4,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/azure">
+
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="55dp"
-        android:background="@color/actionbar_bg"
-        android:gravity="center_vertical"
-        android:layout_alignParentLeft="true"
-        android:id="@+id/relativeLayout2">
+		android:layout_width="fill_parent"
+		android:layout_height="55dp"
+		android:background="@color/actionbar_bg"
+		android:gravity="center_vertical"
+		android:layout_alignParentLeft="true"
+		android:id="@+id/relativeLayout2">
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="#ffffff"
-            android:id="@+id/tvToId"
-            android:text="注册"
-            android:layout_alignBottom="@+id/button3"
-            android:layout_centerHorizontal="true" />
-    </RelativeLayout>
-    <ImageView
-        android:layout_width="150dip"
-        android:layout_height="150dip"
-        android:id="@+id/Avatar"
-        android:src="@drawable/default_avatar"
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="20sp"
+			android:textColor="#ffffff"
+			android:id="@+id/tvToId"
+			android:text="注册"
+			android:layout_alignBottom="@+id/button3"
+			android:layout_centerHorizontal="true" />
+	</RelativeLayout>
+
+    <ScrollView
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+        android:layout_alignParentBottom="false"
         android:layout_below="@+id/relativeLayout2"
-        android:layout_centerHorizontal="true" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="填写以下基本信息："
-        android:id="@+id/following"
-        android:padding="10dp"
-        android:layout_below="@+id/Avatar"
-        android:layout_alignLeft="@+id/username" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/username"
-        android:hint="用户名(字母/数字/下划线)"
+        android:fillViewport="true">
 
-        android:layout_below="@+id/following"
-        android:layout_toLeftOf="@+id/username_error"
-        android:layout_marginLeft="48dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/error_info_username"
-        android:padding="10dp"
-        android:layout_below="@+id/username"
-        android:layout_alignLeft="@+id/username"
-        android:background="@color/azure"
-        android:textColor="#ffff3634"
-        android:visibility="gone"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/password"
-        android:hint="密码(8-32位)"
-        android:layout_below="@+id/error_info_username"
-        android:layout_alignLeft="@+id/error_info_username"
-        android:layout_alignRight="@+id/username" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/confirmPassword"
-        android:hint="重复密码"
-        android:layout_below="@+id/password"
-        android:layout_alignLeft="@+id/password"
-        android:layout_toLeftOf="@+id/username_error" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/error_info_password"
-        android:padding="10dp"
-        android:layout_below="@+id/confirmPassword"
-        android:layout_alignLeft="@+id/confirmPassword"
-        android:background="@color/azure"
-        android:textColor="#ffff3634"
-        android:visibility="gone"/>
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/check_name"
-        android:visibility="gone"
-        android:layout_below="@+id/following"
-        android:layout_toRightOf="@+id/username" />
-    <ImageView
-        android:layout_width="48dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/username_error"
-        android:visibility="invisible"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/username"
-        android:layout_above="@+id/password"
-        android:src="@drawable/error"/>
-
-    <ImageView
-        android:layout_width="48dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/password_error"
-        android:visibility="invisible"
-        android:layout_alignTop="@id/confirmPassword"
-        android:layout_toRightOf="@+id/confirmPassword"
-        android:layout_alignBottom="@+id/confirmPassword"
-        android:layout_alignRight="@+id/username_error"
-        android:src="@drawable/error"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/nickname"
-        android:hint="昵称"
-        android:layout_below="@+id/confirmPassword"
-        android:layout_alignLeft="@+id/confirmPassword"
-        android:layout_alignRight="@+id/confirmPassword"/>
-
-    <RadioGroup
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal"
-        android:layout_alignLeft="@+id/nickname"
-        android:layout_alignRight="@+id/username"
-        android:id="@+id/radioGroup"
-        android:gravity="top|left"
-        android:layout_above="@+id/next"
-        android:layout_below="@+id/textView5">
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="男"
-        android:id="@+id/maleButton"
-        android:layout_below="@id/nickname"
-        android:layout_marginRight="30dp"/>
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="女"
-        android:id="@+id/femaleButton"
-        android:checked="false"
-        android:layout_toRightOf="@+id/maleButton"
-        android:layout_alignTop="@+id/maleButton"
-        />
-    </RadioGroup>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="完成并登录"
-        android:id="@+id/next"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
-        android:layout_above="@+id/following"
-        android:layout_toLeftOf="@+id/Avatar" />
-     <ScrollView
-         android:layout_width="fill_parent"
-         android:layout_height="fill_parent"
-         android:layout_alignBottom="@+id/radioGroup"
-         android:visibility="gone">
-
-     </ScrollView>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="性别："
-        android:id="@+id/textView5"
-        android:layout_below="@+id/nickname"
-        android:layout_alignLeft="@+id/nickname"
-        android:textSize="18dp"/>
+        <include
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			layout="@layout/register_include"
+			/>
+    </ScrollView>
 
 </RelativeLayout>

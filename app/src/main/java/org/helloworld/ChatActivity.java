@@ -70,7 +70,6 @@ public class ChatActivity extends Activity implements OnClickListener, MediaReco
 	private ImageButton btnRec;
 	private ProgressBar pbPlayRecord;
 
-	private Chronograph timer;    //计时器
 	int timeOfRec;        //录音时间长度
 	private TextView tvTime;
 
@@ -123,18 +122,16 @@ public class ChatActivity extends Activity implements OnClickListener, MediaReco
 			boolean r1 = true;
 			if ((message.msgType & Global.MSG_TYPE.T_TEXT_MSG) == 0)
 			{
+				UploadTask uploadTask;
 				try
 				{
-					String base64 = FileUtils.toBase64(message.extra.getString("localPath"));
-
-					WebService upload = new WebService("uploadFile");
-					upload.addProperty("base64", base64).addProperty("path", remotePath).addProperty("fileName", message.extra.getString("remoteName"));
-					SoapObject s1 = upload.call();
-					r1 = Boolean.parseBoolean(s1.getPropertyAsString(0));
+					uploadTask = new UploadTask(Global.BLOCK_SIZE,message.extra.getString("localPath"),message.extra.getString("remoteName"),remotePath);
+					r1 = uploadTask.call();
 				}
-				catch (NullPointerException ignored)
+				catch (IOException e)
 				{
-					r1 = false;
+					e.printStackTrace();
+					r1=false;
 				}
 			}
 			if (!r1) return false;
@@ -149,7 +146,7 @@ public class ChatActivity extends Activity implements OnClickListener, MediaReco
 				SoapObject s2 = send.call();
 				return Boolean.parseBoolean(s2.getPropertyAsString(0));
 			}
-			catch (NullPointerException e)
+			catch (Exception e)
 			{
 				return false;
 			}
@@ -185,12 +182,10 @@ public class ChatActivity extends Activity implements OnClickListener, MediaReco
 								history.historyMsg.add(msg);
 						}
 						mAdapter.notifyDataSetChanged();
-						if (mListView.getLastVisiblePosition() == mListView.getCount() - 1)
-							mListView.setSelection(mListView.getCount() - 1);
-						mAdapter.notifyDataSetChanged();
 						break;
 					case Global.MSG_WHAT.W_RESEND_MSG:
 						Message m = ((Message) message.obj);
+						m.sendState=1;
 						if ((m.msgType & Global.MSG_TYPE.T_TEXT_MSG) > 0)
 							send((Message) message.obj);
 						else if ((m.msgType & Global.MSG_TYPE.T_VOICE_MSG) > 0)
@@ -288,11 +283,11 @@ public class ChatActivity extends Activity implements OnClickListener, MediaReco
 			String picturePath = cursor.getString(columnIndex);
 			cursor.close();
 			File tmp = new File(picturePath);
-			if (tmp.length() >= 64000)
+/*			if (tmp.length() >= 64000)
 			{
 				Toast.makeText(this, "图片太大", Toast.LENGTH_SHORT).show();
 				return;
-			}
+			}*/
 			Message entity = new Message();
 			String localPath = tmp.getParent() + "/";
 			String localName = tmp.getName();
@@ -551,7 +546,7 @@ public class ChatActivity extends Activity implements OnClickListener, MediaReco
 		else
 		{
 			/*异步任务下载语音*/
-			DownloadTask t = new DownloadTask("soundMsg", Global.PATH.SoundMsg, fileName, handler, Global.MSG_WHAT.W_PLAY_SOUND, fileName);
+			DownloadTask t = new DownloadTask("soundMsg", Global.PATH.SoundMsg, fileName,Global.BLOCK_SIZE, handler, Global.MSG_WHAT.W_PLAY_SOUND, fileName);
 			t.execute();
 		}
 	}

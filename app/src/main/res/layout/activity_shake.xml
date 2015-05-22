@@ -38,50 +38,6 @@
 					android:layout_centerHorizontal="true"
 					android:src="@drawable/shake_logo_up"/>
 
-				<RelativeLayout
-					android:id="@+id/relativeLayout"
-					android:layout_width="fill_parent"
-					android:layout_height="55dp"
-					android:background="#00008007"
-					android:gravity="center_vertical"
-					android:layout_alignParentTop="true"
-					android:layout_alignParentLeft="true">
-
-					<LinearLayout
-						android:orientation="horizontal"
-						android:layout_width="wrap_content"
-						android:layout_height="match_parent"
-						android:onClick="goback"
-						android:clickable="true"
-						android:background="@drawable/img_btn_mask"
-						android:paddingRight="15dp">
-
-						<Button
-							android:layout_width="25dp"
-							android:layout_height="25dp"
-							android:textColor="#fff"
-							android:background="@drawable/goback"
-							android:layout_marginLeft="15dp"
-							android:layout_alignParentLeft="false"
-							android:id="@+id/button4"
-							android:layout_centerVertical="true"
-							android:layout_alignWithParentIfMissing="false"
-							android:layout_gravity="center_vertical"
-							android:onClick="onClick"/>
-
-						<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:text="摇一摇"
-							android:textSize="20sp"
-							android:textColor="#ffffff"
-							android:layout_centerVertical="true"
-							android:layout_toRightOf="@+id/button4"
-							android:layout_marginLeft="20dp"
-							android:layout_gravity="center_vertical"/>
-					</LinearLayout>
-
-				</RelativeLayout>
 			</RelativeLayout>
 
 			<RelativeLayout
@@ -98,6 +54,46 @@
 					android:src="@drawable/shake_logo_down"/>
 			</RelativeLayout>
 		</LinearLayout>
+
+		<RelativeLayout
+			android:id="@+id/relativeLayout"
+			android:layout_width="fill_parent"
+			android:layout_height="55dp"
+			android:background="#00008007"
+			android:gravity="center_vertical"
+			android:layout_alignParentTop="true"
+			android:layout_alignParentLeft="true">
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:onClick="goback"
+				android:clickable="true"
+				android:background="@drawable/img_btn_mask"
+				android:paddingRight="15dp">
+
+				<TextView
+					android:layout_width="25dp"
+					android:layout_height="25dp"
+					android:textColor="#fff"
+					android:background="@drawable/goback"
+					android:layout_marginLeft="15dp"
+					android:id="@+id/button4"
+					android:layout_gravity="center_vertical"
+					/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="摇一摇"
+					android:textSize="20sp"
+					android:textColor="#ffffff"
+					android:layout_marginLeft="20dp"
+					android:layout_gravity="center_vertical"/>
+			</LinearLayout>
+
+		</RelativeLayout>
 	</RelativeLayout>
 
 </RelativeLayout>

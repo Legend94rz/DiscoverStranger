@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,13 +16,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.baidu.navisdk.model.GeoLocateModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -143,7 +145,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 			{
 				e.printStackTrace();
 			}
-			new DownloadTask("HeadImg", Global.PATH.HeadImg, userName + ".png", handler, Global.MSG_WHAT.W_REFRESH, null).execute();
+			new DownloadTask("HeadImg", Global.PATH.HeadImg, userName + ".png",Global.BLOCK_SIZE, handler, Global.MSG_WHAT.W_REFRESH, null).execute();
 			try
 			{
 				Global.friendList.get(index).Ex_remark = jsons[0].getString("remark");
@@ -212,8 +214,6 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 		setContentView(R.layout.activity_main);
 		init();
 
-
-
 		handler = new android.os.Handler()
 		{
 			@Override
@@ -222,6 +222,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 				switch (msg.what)
 				{
 					case Global.MSG_WHAT.W_RECEIVED_NEW_MSG:
+						RemindUser();
 						ArrayList<Message> received = (ArrayList<Message>) msg.obj;
 						for (Message m : received)
 						{
@@ -237,7 +238,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 								h.unreadCount++;
 								if ((m.msgType & Global.MSG_TYPE.T_PIC_MSG) > 0)
 								{
-									DownloadTask task = new DownloadTask("ChatPic", Global.PATH.ChatPic, m.text, ChatActivity.handler, Global.MSG_WHAT.W_RECEIVED_NEW_MSG, null);
+									DownloadTask task = new DownloadTask("ChatPic", Global.PATH.ChatPic, m.text,Global.BLOCK_SIZE, ChatActivity.handler, Global.MSG_WHAT.W_RECEIVED_NEW_MSG, null);
 									task.execute();
 								}
 								if (ChatActivity.handler != null && !h.fromName.equals("通知"))            //如果当前有活动的聊天界面则直接转发给ChatActivity
@@ -293,7 +294,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 						Toast.makeText(MainActivity.this, Global.ERROR_HINT.HINT_ERROR_NETWORD, Toast.LENGTH_SHORT).show();
 						break;
 					case Global.MSG_WHAT.W_REFRESH_DEEP:
-						FlushFriendsList();
+						FlushState();
 					case Global.MSG_WHAT.W_REFRESH:
 						if (contactAdapter != null)
 							contactAdapter.notifyDataSetChanged();
@@ -302,9 +303,15 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 				}
 			}
 		};
-		FlushFriendsList();
+		FlushState();
 		Intent I = new Intent(this, MsgPullService.class);
 		startService(I);
+	}
+
+	private void RemindUser()
+	{
+		Vibrator vibrator = (Vibrator)getApplication().getSystemService(VIBRATOR_SERVICE);
+		vibrator.vibrate(500);
 	}
 
 	private void init()
@@ -356,7 +363,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 			@Override
 			public void onRefresh()
 			{
-				FlushFriendsList();
+				FlushState();
 				refreshLayout2.postDelayed(new Runnable()
 				{
 					@Override
@@ -440,7 +447,6 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 				drawerLayout.closeDrawer(drawerContent);
 			}
 		});
-		RefreshMyInfo();
 	}
 
 	public void openDrawer(View view)
@@ -458,6 +464,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 		ImageView ivHeadImg= (ImageView) drawerContent.findViewById(R.id.ivHeadImg);
 		if(FileUtils.Exist(Global.PATH.HeadImg+Global.mySelf.username+".png"))
 			ivHeadImg.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg+Global.mySelf.username+".png"));
+		else
+			new DownloadTask("HeadImg",Global.PATH.HeadImg, Global.mySelf.username+".png",Global.BLOCK_SIZE,handler,Global.MSG_WHAT.W_REFRESH_DEEP,null).execute();
 	}
 
 	private List<HashMap<String, Object>> getData()
@@ -494,8 +502,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 		Toast.makeText(this, "已更新", Toast.LENGTH_SHORT).show();
 	}
 
-	void FlushFriendsList()
+	void FlushState()
 	{
+		RefreshMyInfo();
 		updateCount = 0;
 		new WebTask(MainActivity.handler, Global.MSG_WHAT.W_GOT_FRIENDS_LIST).execute("getFriends", 1, "name", Global.mySelf.username);
 	}
@@ -530,6 +539,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 	private void exit()
 	{
 		finish();
+		android.os.Process.killProcess(android.os.Process.myPid());    //获取PID
+		System.exit(0);   //常规java、c#的标准退出法，返回值为0代表正常退出
 	}
 
 	///以下是 发现 页的几个监听，触发方式写在xml里
@@ -551,8 +562,6 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     {
         if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN)
         {
-
-
             if((System.currentTimeMillis()-exitTime) > 2000)  //System.currentTimeMillis()无论何时调用，肯定大于2000
             {
                 Toast.makeText(getApplicationContext(), "再按一次退出程序",Toast.LENGTH_SHORT).show();
@@ -560,11 +569,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             }
             else
             {
-
-                finish();
-                System.exit(0);
+				exit();
             }
-
             return true;
         }
         return super.onKeyDown(keyCode, event);

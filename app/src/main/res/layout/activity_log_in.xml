@@ -20,42 +20,50 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textColor="#ffffff"
-            android:id="@+id/tvToId"
             android:text="登录"
             android:layout_alignBottom="@+id/button3"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
 	<EditText
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
 		android:id="@+id/etName"
 		android:hint="帐号"
 		android:layout_marginTop="20dp"
 		android:layout_below="@+id/ivHeadImg"
-		android:layout_alignParentLeft="true"
-		/>
+		style="@style/fill_width_edit_text_style"
+		android:layout_width="match_parent"
+		android:layout_height="48dp"
+		android:layout_marginLeft="5dp"
+		android:layout_centerHorizontal="true"
+		android:singleLine="true"/>
 
 	<EditText
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
+		android:layout_height="48dp"
 		android:inputType="textPassword"
 		android:ems="10"
 		android:id="@+id/etPassword"
 		android:hint="密码"
 		android:layout_below="@+id/etName"
 		android:layout_alignParentLeft="true"
-		/>
+		android:layout_centerHorizontal="true"
+		android:layout_marginLeft="5dp"
+		android:layout_marginTop="5dp"
+		style="@style/fill_width_edit_text_style"/>
 
 	<Button
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
+		android:layout_height="48dp"
 		android:text="登录"
 		android:id="@+id/btnLogin"
 		android:layout_below="@+id/etPassword"
 		android:layout_alignParentLeft="true"
 		android:layout_alignRight="@+id/tvToRegister"
 		android:layout_marginLeft="15dp"
-		android:layout_marginRight="15dp"/>
+		android:layout_marginRight="15dp"
+		android:layout_marginTop="5dp"
+		android:background="@drawable/main_btn"
+		android:textColor="@color/white"
+		android:textSize="20dp"/>
 
 	<TextView
 		android:layout_width="wrap_content"
@@ -64,7 +72,7 @@
 		android:id="@+id/tvToRegister"
 		android:layout_alignParentBottom="true"
 		android:layout_alignParentRight="true"
-		android:textSize="13dp"
+		android:textSize="13sp"
 		android:textColor="#ff0084ff"
 		android:paddingBottom="15dp"
 		android:paddingLeft="10dp"
@@ -72,7 +80,8 @@
 		android:paddingRight="10dp"
 		android:clickable="true"
 		android:enabled="true"
-		android:autoText="false"/>
+		android:autoText="false"
+		android:background="@drawable/img_btn_mask"/>
 
 	<ProgressBar
 		android:layout_width="wrap_content"
@@ -82,15 +91,17 @@
 		android:visibility="invisible"
 		android:layout_below="@+id/btnLogin"
 		android:layout_centerHorizontal="true"
-		android:layout_marginTop="10dp"/>
+		android:layout_marginTop="10dp"
+		android:indeterminateDrawable="@drawable/progress_circle_anim"
+		android:indeterminateDuration="1000"/>
 
 	<ImageView
 		android:layout_width="128dp"
 		android:layout_height="128dp"
 		android:id="@+id/ivHeadImg"
         android:src="@drawable/nohead"
-        android:layout_below="@+id/relativeLayout2"
-        android:layout_toLeftOf="@+id/tvToRegister"
-        android:layout_marginTop="60dp" />
+		android:layout_marginTop="20dp"
+		android:layout_below="@+id/relativeLayout2"
+		android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

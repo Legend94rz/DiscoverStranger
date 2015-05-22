@@ -21,20 +21,20 @@
                 android:id="@+id/llTitle"
                 android:paddingRight="10dp"
                 android:onClick="openDrawer">
-                <ImageButton
+                <TextView
                     android:layout_width="46dp"
     				android:layout_height="46dp"
                     android:scaleType="fitXY"
                     android:id="@+id/ibtnOpenDrawer"
                     android:background="@drawable/actionbar_icon_v2"
-                    android:clickable="true"
-                    android:onClick="openDrawer"/>
+                    android:clickable="false"
+                    />
                 <TextView
                     android:layout_width="wrap_content" 
     				android:layout_height="wrap_content" 
     				android:text="解密陌生人"
     				android:layout_marginLeft="10dip"
-    				android:textSize="18dp"
+    				android:textSize="18sp"
     				android:textColor="@color/white"/>
             </LinearLayout>
             <LinearLayout 

@@ -1,6 +1,7 @@
 package org.helloworld;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.SpannableString;
@@ -134,14 +135,14 @@ public class ChatMsgAdapter extends BaseAdapter
 			{
 				if (FileUtils.Exist(entity.extra.getString("localPath")))
 				{
-					viewHolder.ivPic.setImageBitmap(BitmapFactory.decodeFile(entity.extra.getString("localPath")));
+					viewHolder.ivPic.setImageBitmap(FileUtils.getOptimalBitmap(entity.extra.getString("localPath"),true));
 				}
 			}
 			else                //接收到的消息，则显示下载的照片
 			{
 				if (FileUtils.Exist(Global.PATH.ChatPic + entity.text))
 				{
-					viewHolder.ivPic.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.ChatPic + entity.text));
+					viewHolder.ivPic.setImageBitmap(FileUtils.getOptimalBitmap(Global.PATH.ChatPic + entity.text,true));
 				}
 			}
 		}
@@ -205,6 +206,15 @@ public class ChatMsgAdapter extends BaseAdapter
 			switch (view.getId())
 			{
 				case R.id.ivPic:
+					if(FileUtils.Exist(Global.PATH.ChatPic + tvContent.getText()))
+					{
+						Intent bigPic = new Intent(context, BigPicAct.class);
+						if(isComMsg)
+							bigPic.putExtra("imgsrc", Global.PATH.ChatPic + msg.text);
+						else
+							bigPic.putExtra("imgsrc",msg.extra.getString("localPath"));
+						context.startActivity(bigPic);
+					}
 					break;
 				case R.id.tvChatcontent:
 					if((msg.msgType & Global.MSG_TYPE.T_VOICE_MSG)>0)

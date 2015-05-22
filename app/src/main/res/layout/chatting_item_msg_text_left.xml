@@ -9,10 +9,9 @@
 	<RelativeLayout
 		android:layout_width="fill_parent"
 		android:layout_height="0dp"
-		android:layout_marginLeft="5dp"
-		android:layout_marginTop="5dp"
 		android:layout_weight="1.12"
-		android:background="#0000b7ff">
+		android:layout_margin="3dp"
+		>
 
 		<ImageView
 			android:id="@+id/iv_userhead"
@@ -35,7 +34,6 @@
 			android:layout_marginBottom="10dp"/>
 
 		<RelativeLayout
-			style="@style/chat_content_date_style"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="13dp"
@@ -44,20 +42,22 @@
 			android:layout_alignTop="@+id/iv_userhead"
 			android:lineSpacingExtra="2dp"
 			android:id="@+id/relativeLayout4"
-			android:minHeight="50dp"
-			android:paddingLeft="20dp"
 			android:layout_marginRight="8dp"
-			android:paddingRight="10dp"
-			android:clickable="true">
+			android:clickable="true"
+			android:layout_marginTop="8dp"
+			android:paddingLeft="10dp"
+			android:paddingTop="5dp"
+			android:paddingRight="5dp"
+			android:paddingBottom="5dp">
 
 			<TextView
 				android:id="@+id/tvChatcontent"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:visibility="visible"
 				android:maxWidth="150dp"
 				android:singleLine="false"
-				android:layout_centerVertical="true"/>
+				android:paddingTop="3dp"
+				android:visibility="visible"/>
 
 			<ImageView
 				android:layout_width="wrap_content"
@@ -70,8 +70,12 @@
 				android:clickable="true"
 				android:maxWidth="100dp"
 				android:maxHeight="100dp"
-				android:src="@drawable/nohead"
-				android:layout_centerVertical="true"/>
+				android:layout_marginLeft="15dp"
+				android:layout_marginRight="5dp"
+				android:layout_centerVertical="true"
+				android:layout_marginTop="10dp"
+				android:padding="3dp"
+				android:src="@drawable/nopic"/>
 		</RelativeLayout>
 
 		<ProgressBar
@@ -83,7 +87,9 @@
 			android:visibility="visible"
 			android:layout_alignBottom="@+id/relativeLayout4"
 			android:layout_toRightOf="@+id/relativeLayout4"
-			android:layout_marginBottom="12dp"/>
+			android:layout_marginBottom="12dp"
+			android:indeterminateDuration="1000"
+			android:indeterminateDrawable="@drawable/progress_circle_anim"/>
 
 		<ImageButton
 			android:layout_width="15dp"

@@ -1,6 +1,8 @@
 package org.helloworld;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Base64;
 
 import java.io.BufferedReader;
@@ -71,7 +73,32 @@ public class FileUtils
 			file.mkdir();
 		}
 	}
+	private static int getImageScale(String imagePath) {
+		final int IMAGE_MAX_WIDTH=100;
+		final int IMAGE_MAX_HEIGHT=100;
 
+		BitmapFactory.Options option = new BitmapFactory.Options();
+		// set inJustDecodeBounds to true, allowing the caller to query the bitmap info without having to allocate the
+		// memory for its pixels.
+		option.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(imagePath, option);
+
+		int scale = 1;
+		while (option.outWidth / scale >= IMAGE_MAX_WIDTH || option.outHeight / scale >= IMAGE_MAX_HEIGHT) {
+			scale *= 2;
+		}
+		return scale;
+	}
+	public static Bitmap getOptimalBitmap(String filePath,boolean restrictSize)
+	{
+		BitmapFactory.Options opt = new BitmapFactory.Options();
+		opt.inPreferredConfig = Bitmap.Config.RGB_565;
+		opt.inPurgeable = true;
+		opt.inInputShareable = true;
+		if(restrictSize)
+			opt.inSampleSize=getImageScale(filePath);
+		return BitmapFactory.decodeFile(filePath,opt);
+	}
 	public static String toBase64(String filePath)
 	{
 		String base64 = null;

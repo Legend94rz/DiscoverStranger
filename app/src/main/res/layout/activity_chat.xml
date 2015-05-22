@@ -22,18 +22,18 @@
 			android:background="@drawable/img_btn_mask"
 			android:paddingRight="15dp">
 
-			<Button
+			<TextView
 				android:layout_width="25dp"
 				android:layout_height="25dp"
 				android:textColor="#fff"
 				android:background="@drawable/goback"
-				android:textSize="14dp"
+				android:textSize="14sp"
 				android:layout_alignParentBottom="false"
 				android:layout_centerVertical="true"
 				android:layout_marginLeft="15dp"
 				android:id="@+id/button3"
-				android:clickable="true"
-				android:onClick="goback"/>
+				android:clickable="false"
+				/>
 
 			<TextView
 				android:layout_width="wrap_content"
@@ -56,10 +56,13 @@
 		android:divider="@null"
 		android:dividerHeight="5dp"
 		android:scrollbarStyle="outsideOverlay"
-		android:stackFromBottom="true"
+		android:stackFromBottom="false"
 		android:layout_below="@+id/relativeLayout2"
 		android:background="#ffefeff4"
-		/>
+		android:clipToPadding="false"
+		android:scrollingCache="true"
+		android:transcriptMode="normal"
+		android:listSelector="@null"/>
 
 	<LinearLayout
         android:id="@+id/rl_bottom"

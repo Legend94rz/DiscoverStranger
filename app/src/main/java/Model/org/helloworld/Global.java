@@ -18,7 +18,7 @@ public class Global
 	public final static ArrayList<History> historyList = new ArrayList<History>();                    //历史消息列表
 	public final static Map<String, UserInfo> map2Friend = new HashMap<String, UserInfo>();            //好友列表，为便于快速查询
 	public final static ArrayList<UserInfo> friendList = new ArrayList<UserInfo>();                    //好友列表
-
+	public static final int BLOCK_SIZE = 30000;	//分块上传 下载的大小
 	public static class MSG_WHAT
 	{
 		public static final int W_RECEIVED_NEW_MSG = 2;
@@ -33,6 +33,7 @@ public class Global
 		public static final int W_PLAY_SOUND = 11;
 		public static final int W_REFRESH_DEEP = 12;
 		public static final int W_GOT_SHAKE_RESULT = 13;
+		public static final int W_CHECKED_USERNAME = 14;
 	}
 
 	public static class ERROR_HINT

@@ -73,7 +73,7 @@ public class ShakeResultAct extends Activity
 					public void onClick(View view)
 					{
 						Intent intent = new Intent();
-						intent.putExtra("friendName", r.username);
+						intent.putExtra("strangerName", r.username);
 
 						onActivityResult(0, SUCCESS_FINISH_GAME, intent);
 					}
@@ -118,8 +118,20 @@ public class ShakeResultAct extends Activity
 						}
 						else
 						{
-							Toast.makeText(ShakeResultAct.this, "请求发送失败", Toast.LENGTH_SHORT).show();
-							//Todo 重新发送
+							AlertDialog.Builder builder =new AlertDialog.Builder(ShakeResultAct.this);
+							builder.setTitle("错误")
+								.setMessage("请求发送失败，是否重试?")
+								.setPositiveButton("好", new DialogInterface.OnClickListener()
+								{
+									@Override
+									public void onClick(DialogInterface dialogInterface, int i)
+									{
+										NearbyStrangerAct.SuccessFinishGame(ShakeResultAct.this,handler,data.getString("strangerName"));
+									}
+								})
+								.setNegativeButton("算了",null);
+							builder.create().show();
+
 						}
 						break;
 				}
@@ -134,7 +146,7 @@ public class ShakeResultAct extends Activity
 //		super.onActivityResult(requestCode, resultCode, data);
 		if(resultCode==SUCCESS_FINISH_GAME)
 		{
-			NearbyStrangerAct.SuccessFinishGame(ShakeResultAct.this,handler,data);
+			NearbyStrangerAct.SuccessFinishGame(ShakeResultAct.this,handler,data.getStringExtra("strangerName"));
 		}
 	}
 

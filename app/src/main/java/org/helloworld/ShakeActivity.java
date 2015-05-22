@@ -28,35 +28,6 @@ public class ShakeActivity extends Activity
 	public static Handler handler;
 
 	@Override
-	protected void onResume()
-	{
-		super.onResume();
-		mVibrator = (Vibrator)getApplication().getSystemService(VIBRATOR_SERVICE);
-		mShakeListener = new ShakeListener(this);
-		mShakeListener.setOnShakeListener(new ShakeListener.OnShakeListener()
-		{
-			public void onShake()
-			{
-				startAnim();  //开始 摇一摇手掌动画
-				mShakeListener.stop();
-				startVibrato(); //开始 震动
-				new WebTask(null, -1).execute("addShake", 2, "name", Global.mySelf.username, "time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"));
-				Toast.makeText(ShakeActivity.this, "正在搜索同一时刻摇动手机的人...", Toast.LENGTH_SHORT).show();
-				new Handler().postDelayed(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						mVibrator.cancel();
-						mShakeListener.start();
-						new WebTask(handler, Global.MSG_WHAT.W_GOT_SHAKE_RESULT).execute("getShakes", 2, "name", Global.mySelf.username, "time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"));
-					}
-				}, 3000);
-			}
-		});
-	}
-
-	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
@@ -110,6 +81,35 @@ public class ShakeActivity extends Activity
 	}
 
 	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		mVibrator = (Vibrator)getApplication().getSystemService(VIBRATOR_SERVICE);
+		mShakeListener = new ShakeListener(this);
+		mShakeListener.setOnShakeListener(new ShakeListener.OnShakeListener()
+		{
+			public void onShake()
+			{
+				startAnim();  //开始 摇一摇手掌动画
+				mShakeListener.stop();
+				startVibrato(); //开始 震动
+				new WebTask(null, -1).execute("addShake", 2, "name", Global.mySelf.username, "time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"));
+				Toast.makeText(ShakeActivity.this, "正在搜索同一时刻摇动手机的人...", Toast.LENGTH_SHORT).show();
+				new Handler().postDelayed(new Runnable()
+				{
+					@Override
+					public void run()
+					{
+						mVibrator.cancel();
+						mShakeListener.start();
+						new WebTask(handler, Global.MSG_WHAT.W_GOT_SHAKE_RESULT).execute("getShakes", 2, "name", Global.mySelf.username, "time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"));
+					}
+				}, 3000);
+			}
+		});
+	}
+
+	@Override
 	protected void onPause()
 	{
 		super.onPause();
@@ -141,7 +141,7 @@ public class ShakeActivity extends Activity
 		animdn.addAnimation(mytranslateanimdn1);
 		mImgDn.startAnimation(animdn);
 	}
-	public void startVibrato(){		//定义震动
+	private void startVibrato(){		//定义震动
 		mVibrator.vibrate( new long[]{500,200,500,200}, -1); //第一个｛｝里面是节奏数组， 第二个参数是重复次数，-1为不重复，非-1俄日从pattern的指定下标开始重复
 	}
 
