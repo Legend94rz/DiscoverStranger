@@ -1,7 +1,7 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 	  xmlns:tools="http://schemas.android.com/tools"
-	  tools:context="org.helloworld.FriendInfoAct">
+	  tools:context="org.DiscoverStranger.FriendInfoAct">
 	<!-- 举报、拉黑等功能-->
 	<item android:id="@+id/action_settings"
 		  android:title="@string/notimplement"

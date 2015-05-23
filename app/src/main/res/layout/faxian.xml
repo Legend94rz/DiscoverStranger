@@ -98,8 +98,7 @@
 			android:layout_width="35dp"
 			android:layout_height="35dp"
 			android:src="@drawable/settings"
-			android:scaleType="fitCenter"
-			android:id="@+id/"/>
+			android:scaleType="fitCenter"/>
 
 		<TextView
 			android:layout_width="wrap_content"
@@ -108,8 +107,7 @@
 			android:text="设置    ( 暂未实现 )"
 			android:textSize="15sp"
 			android:gravity="center"
-			android:textColor="@color/black"
-			android:id="@+id/"/>
+			android:textColor="@color/black"/>
 	</LinearLayout>
 
 </LinearLayout>
