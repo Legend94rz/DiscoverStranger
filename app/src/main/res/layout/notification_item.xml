@@ -23,7 +23,7 @@
 		android:layout_alignParentLeft="true"
 		android:gravity="center_vertical"
 		android:padding="20dp"
-		android:background="@drawable/rectangle"
+		android:background="@drawable/deletebtn"
 		android:layout_marginTop="15dp">
 
 		<ImageView
@@ -44,7 +44,9 @@
 			android:layout_toRightOf="@+id/ivHeadImg"
 			android:layout_marginLeft="26dp"
 			android:layout_marginTop="8dp"
-			android:text="NULL"/>
+			android:text="NULL"
+			android:autoText="false"
+			/>
 
 		<TextView
 			android:layout_width="wrap_content"

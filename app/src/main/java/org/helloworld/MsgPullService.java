@@ -4,6 +4,9 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
+import org.helloworld.tools.Global;
+import org.helloworld.tools.Message;
+import org.helloworld.tools.WebService;
 import org.ksoap2.serialization.SoapObject;
 
 import java.util.ArrayList;
@@ -50,7 +53,8 @@ public class MsgPullService extends Service
 					{
 						android.os.Message M=new android.os.Message();
 						M.what= Global.MSG_WHAT.W_ERROR_NETWORK;
-						MainActivity.handler.sendMessage(M);
+						if(MainActivity.handler!=null)
+							MainActivity.handler.sendMessage(M);
 						isError=true;
 					}
 				}

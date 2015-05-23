@@ -17,6 +17,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.helloworld.tools.FileUtils;
+import org.helloworld.tools.Global;
+import org.helloworld.tools.History;
+import org.helloworld.tools.UserInfo;
+import org.helloworld.tools.WebTask;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,6 +31,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class FriendInfoAct extends Activity implements View.OnClickListener
@@ -162,34 +169,51 @@ public class FriendInfoAct extends Activity implements View.OnClickListener
 
 	private void deleteFriend(final String friendName)
 	{
-		AlertDialog.Builder builder = new AlertDialog.Builder(this)
-										  .setTitle("警告")
-										  .setPositiveButton("确定", new DialogInterface.OnClickListener()
-										  {
-											  @Override
-											  public void onClick(DialogInterface dialogInterface, int i)
-											  {
-												  //通知对方将自己从他的列表中删除
-												  JSONObject j=new JSONObject();
-												  try
-												  {
-													  j.put("cmdName","delFriend");
-													  JSONArray params=new JSONArray();
-													  params.put(Global.mySelf.username);
-													  j.put("param",params);
-													  new WebTask(null,-1).execute("pushMsg", 5, "from", "cmd", "to", friendName, "msg", j.toString(), "time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"), "msgType",String.valueOf(Global.MSG_TYPE.T_TEXT_MSG));
-												  }
-												  catch (JSONException e)
-												  {
-													  e.printStackTrace();
-												  }
-												  DelFriend(friendName);
-												  finish();
-											  }
-										  })
-										  .setMessage("删除将不可恢复，确定吗？")
-										  .setNegativeButton("取消", null);
-		builder.create().show();
+		new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+			.setTitleText("确定吗?")
+			.setContentText(getString(R.string.delete_message))
+			.setConfirmText("确定")
+			.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
+			{
+				@Override
+				public void onClick(final SweetAlertDialog sDialog)
+				{
+					//通知对方将自己从他的列表中删除
+					JSONObject j = new JSONObject();
+					try
+					{
+						j.put("cmdName", "delFriend");
+						JSONArray params = new JSONArray();
+						params.put(Global.mySelf.username);
+						j.put("param", params);
+						new WebTask(null, -1).execute("pushMsg", 5, "from", "cmd", "to", friendName, "msg", j.toString(), "time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"), "msgType", String.valueOf(Global.MSG_TYPE.T_TEXT_MSG));
+					}
+					catch (JSONException e)
+					{
+						e.printStackTrace();
+					}
+					DelFriend(friendName);
+					sDialog
+						.setTitleText("已删除")
+						.setContentText("已将TA从你的好友列表中删除")
+						.setConfirmText("知道了")
+						.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
+						{
+							@Override
+							public void onClick(SweetAlertDialog sweetAlertDialog)
+							{
+								sDialog.dismiss();
+								finish();
+							}
+						})
+						.showCancelButton(false)
+						.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+				}
+			})
+			.setCancelText("取消").setCancelClickListener(null)
+			.show();
+
+
 	}
 
 	public static void DelFriend(String friendName)
@@ -198,14 +222,14 @@ public class FriendInfoAct extends Activity implements View.OnClickListener
 		Global.map2Friend.remove(friendName);
 		Global.friendList.remove(u);
 
-		History h= Global.map.get(friendName);
+		History h = Global.map.get(friendName);
 		Global.map.remove(friendName);
 		Global.historyList.remove(h);
 
 		MainActivity.handler.sendEmptyMessage(Global.MSG_WHAT.W_REFRESH);
 
 		String jobjStr = constructFriends2JSON().toString();
-		new WebTask(null,-1).execute("updateFriendList", 2, "name", Global.mySelf.username, "friendList", jobjStr);
+		new WebTask(null, -1).execute("updateFriendList", 2, "name", Global.mySelf.username, "friendList", jobjStr);
 	}
 
 	public void modifyRemark(View view)
@@ -256,21 +280,22 @@ public class FriendInfoAct extends Activity implements View.OnClickListener
 		}
 		return jobj;
 	}
+
 	public static void AddFriend(String strangerName)
 	{
 		JSONObject fL = FriendInfoAct.constructFriends2JSON();
 		try
 		{
 			JSONArray fA = fL.getJSONArray("friends");
-			for(int i=0;i<fA.length();i++)
+			for (int i = 0; i < fA.length(); i++)
 			{
-				if(fA.getJSONObject(i).getString("name").equals(strangerName))
+				if (fA.getJSONObject(i).getString("name").equals(strangerName))
 					return;
 			}
 			JSONObject fnew = new JSONObject();
 			fnew.put("name", strangerName);
 			fA.put(fnew);
-			new WebTask(MainActivity.handler,Global.MSG_WHAT.W_REFRESH_DEEP).execute("updateFriendList",2,"name",Global.mySelf.username,"friendList",fL.toString());
+			new WebTask(MainActivity.handler, Global.MSG_WHAT.W_REFRESH_DEEP).execute("updateFriendList", 2, "name", Global.mySelf.username, "friendList", fL.toString());
 		}
 		catch (JSONException e)
 		{

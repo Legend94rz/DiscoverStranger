@@ -12,7 +12,6 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -24,6 +23,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ToggleButton;
+
+import org.helloworld.tools.FaceAdapter;
+import org.helloworld.tools.emojiAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

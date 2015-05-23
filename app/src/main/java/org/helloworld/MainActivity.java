@@ -23,8 +23,19 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.navisdk.model.GeoLocateModel;
-
+import org.helloworld.tools.CMDParser;
+import org.helloworld.tools.ContactAdapter;
+import org.helloworld.tools.DownloadTask;
+import org.helloworld.tools.FileUtils;
+import org.helloworld.tools.Global;
+import org.helloworld.tools.History;
+import org.helloworld.tools.HistoryAdapter;
+import org.helloworld.tools.MSGPreprocessor;
+import org.helloworld.tools.Message;
+import org.helloworld.tools.UserInfo;
+import org.helloworld.tools.WebService;
+import org.helloworld.tools.WebTask;
+import org.helloworld.tools.myViewPagerAdapter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +44,8 @@ import org.ksoap2.serialization.SoapObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class MainActivity extends Activity implements View.OnClickListener, ViewPager.OnPageChangeListener
@@ -118,42 +131,44 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 	{
 	}
 
-	public class parserWithExtraAsync extends AsyncTask<JSONObject, Void, Void>
+	public class parserWithExtraAsync extends AsyncTask<Void, Void, Void>
 	{
-		private int index;
+		private String incompleteName;
+		private JSONObject jsonUser;
 
-		public parserWithExtraAsync(int index)
+		public parserWithExtraAsync(String incompleteName, JSONObject userInfo)
 		{
-			this.index = index;
+			this.incompleteName = incompleteName;
+			jsonUser = userInfo;
 		}
 
 		@Override
-		protected Void doInBackground(JSONObject... jsons)
+		protected Void doInBackground(Void... voids)
 		{
 			WebService getUser = new WebService("GetUser");
 			String userName = null;
+			UserInfo u = null;
 			try
 			{
-				userName = jsons[0].getString("name");
-				SoapObject result = getUser.addProperty("name", jsons[0].getString("name")).call();
-				Global.friendList.set(index, UserInfo.parse(result));
+				userName = jsonUser.getString("name");
+				SoapObject result = getUser.addProperty("name", jsonUser.getString("name")).call();
+				u = UserInfo.parse(result);
 			}
-			catch (NullPointerException ignored)
-			{
-			}
-			catch (JSONException e)
+			catch (Exception e)
 			{
 				e.printStackTrace();
+				return null;
 			}
-			new DownloadTask("HeadImg", Global.PATH.HeadImg, userName + ".png",Global.BLOCK_SIZE, handler, Global.MSG_WHAT.W_REFRESH, null).execute();
 			try
 			{
-				Global.friendList.get(index).Ex_remark = jsons[0].getString("remark");
+				u.Ex_remark = jsonUser.getString("remark");
 			}
 			catch (JSONException ignored)
 			{
-				Global.friendList.get(index).Ex_remark = null;
+				u.Ex_remark = null;
 			}
+			Global.map2Friend.put(incompleteName, u);
+			new DownloadTask("HeadImg", Global.PATH.HeadImg, userName + ".png", Global.BLOCK_SIZE, handler, Global.MSG_WHAT.W_REFRESH, null).execute();
 			synchronized ((Object) updateCount)
 			{
 				updateCount++;
@@ -238,7 +253,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 								h.unreadCount++;
 								if ((m.msgType & Global.MSG_TYPE.T_PIC_MSG) > 0)
 								{
-									DownloadTask task = new DownloadTask("ChatPic", Global.PATH.ChatPic, m.text,Global.BLOCK_SIZE, ChatActivity.handler, Global.MSG_WHAT.W_RECEIVED_NEW_MSG, null);
+									DownloadTask task = new DownloadTask("ChatPic", Global.PATH.ChatPic, m.text, Global.BLOCK_SIZE, ChatActivity.handler, Global.MSG_WHAT.W_RECEIVED_NEW_MSG, null);
 									task.execute();
 								}
 								if (ChatActivity.handler != null && !h.fromName.equals("通知"))            //如果当前有活动的聊天界面则直接转发给ChatActivity
@@ -272,17 +287,11 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 							{
 								JSONObject userInfo = array.getJSONObject(i);
 								UserInfo friend = new UserInfo(userInfo.getString("name"));
-								if (Global.friendList.size() < array.length())
-									Global.friendList.add(friend);
-								else
-									Global.friendList.set(i, friend);
-								new parserWithExtraAsync(i).execute(userInfo);
+								Global.map2Friend.put(userInfo.getString("name"), friend);
+								new parserWithExtraAsync(friend.username, userInfo).execute();
 							}
 						}
-						catch (NullPointerException ignored)
-						{
-						}
-						catch (ArrayIndexOutOfBoundsException ignored)
+						catch (NullPointerException | ArrayIndexOutOfBoundsException ignored)
 						{
 						}
 						catch (JSONException e)
@@ -296,9 +305,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 					case Global.MSG_WHAT.W_REFRESH_DEEP:
 						FlushState();
 					case Global.MSG_WHAT.W_REFRESH:
-						if (contactAdapter != null)
-							contactAdapter.notifyDataSetChanged();
-						BindAdapter(Global.friendList);
+						BindAdapter();
 						break;
 				}
 			}
@@ -310,7 +317,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
 	private void RemindUser()
 	{
-		Vibrator vibrator = (Vibrator)getApplication().getSystemService(VIBRATOR_SERVICE);
+		Vibrator vibrator = (Vibrator) getApplication().getSystemService(VIBRATOR_SERVICE);
 		vibrator.vibrate(500);
 	}
 
@@ -441,7 +448,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 						startActivity(I);
 						break;
 					case 2:
-						exit();
+						exitWithConfirm();
 						break;
 				}
 				drawerLayout.closeDrawer(drawerContent);
@@ -459,13 +466,13 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
 	private void RefreshMyInfo()
 	{
-		TextView tvNickname= (TextView) drawerContent.findViewById(R.id.tvNickname);
+		TextView tvNickname = (TextView) drawerContent.findViewById(R.id.tvNickname);
 		tvNickname.setText(Global.mySelf.nickName);
-		ImageView ivHeadImg= (ImageView) drawerContent.findViewById(R.id.ivHeadImg);
-		if(FileUtils.Exist(Global.PATH.HeadImg+Global.mySelf.username+".png"))
-			ivHeadImg.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg+Global.mySelf.username+".png"));
+		ImageView ivHeadImg = (ImageView) drawerContent.findViewById(R.id.ivHeadImg);
+		if (FileUtils.Exist(Global.PATH.HeadImg + Global.mySelf.username + ".png"))
+			ivHeadImg.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg + Global.mySelf.username + ".png"));
 		else
-			new DownloadTask("HeadImg",Global.PATH.HeadImg, Global.mySelf.username+".png",Global.BLOCK_SIZE,handler,Global.MSG_WHAT.W_REFRESH_DEEP,null).execute();
+			new DownloadTask("HeadImg", Global.PATH.HeadImg, Global.mySelf.username + ".png", Global.BLOCK_SIZE, handler, Global.MSG_WHAT.W_REFRESH_DEEP, null).execute();
 	}
 
 	private List<HashMap<String, Object>> getData()
@@ -480,26 +487,26 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 		map.put("desc", "附近的人");
 		data.add(map);
 		map = new HashMap<String, Object>();
-		map.put("icon", R.drawable.more_game);
+		map.put("icon", R.drawable.exit);
 		map.put("desc", "退出");
 		data.add(map);
 		return data;
 	}
 
-	void BindAdapter(ArrayList<UserInfo> list)
+	void BindAdapter()
 	{
+		Global.friendList.clear();
+		for (UserInfo u : Global.map2Friend.values())
+		{
+			Global.friendList.add(u);
+		}
 		if (contactAdapter == null)
 		{
-			contactAdapter = new ContactAdapter(this, list);
+			contactAdapter = new ContactAdapter(this, Global.friendList);
 			lvFriends.setAdapter(contactAdapter);
 		}
 		contactAdapter.notifyDataSetChanged();
-		Global.map2Friend.clear();
-		for (UserInfo u : list)
-		{
-			Global.map2Friend.put(u.username, u);
-		}
-		Toast.makeText(this, "已更新", Toast.LENGTH_SHORT).show();
+		//Toast.makeText(this, "已更新", Toast.LENGTH_SHORT).show();
 	}
 
 	void FlushState()
@@ -528,8 +535,11 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 		//noinspection SimplifiableIfStatement
 		switch (id)
 		{
+			case R.id.meuOpenDrawer:
+				openDrawer(null);
+				break;
 			case R.id.meuExit:
-				exit();
+				exitWithConfirm();
 				break;
 		}
 
@@ -541,6 +551,25 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 		finish();
 		android.os.Process.killProcess(android.os.Process.myPid());    //获取PID
 		System.exit(0);   //常规java、c#的标准退出法，返回值为0代表正常退出
+	}
+
+	private void exitWithConfirm()
+	{
+		final SweetAlertDialog dialog = new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE);
+		dialog.setContentText("真的要退出吗？");
+		dialog.setCancelText("取消");
+		dialog.setCancelClickListener(null);
+		dialog.setConfirmText("确定");
+		dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
+		{
+			@Override
+			public void onClick(SweetAlertDialog sweetAlertDialog)
+			{
+				dialog.dismiss();
+				exit();
+			}
+		});
+		dialog.show();
 	}
 
 	///以下是 发现 页的几个监听，触发方式写在xml里
@@ -555,24 +584,26 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 		Intent I = new Intent(this, NearbyStrangerAct.class);
 		startActivity(I);
 	}
-    //按两次退出主界面
-    private long exitTime=0;
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
-        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN)
-        {
-            if((System.currentTimeMillis()-exitTime) > 2000)  //System.currentTimeMillis()无论何时调用，肯定大于2000
-            {
-                Toast.makeText(getApplicationContext(), "再按一次退出程序",Toast.LENGTH_SHORT).show();
-                exitTime = System.currentTimeMillis();
-            }
-            else
-            {
+
+	//按两次退出主界面
+	private long exitTime = 0;
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN)
+		{
+			if ((System.currentTimeMillis() - exitTime) > 2000)  //System.currentTimeMillis()无论何时调用，肯定大于2000
+			{
+				Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+				exitTime = System.currentTimeMillis();
+			}
+			else
+			{
 				exit();
-            }
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 }

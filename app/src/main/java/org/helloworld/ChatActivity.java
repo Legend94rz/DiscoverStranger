@@ -31,6 +31,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import org.helloworld.tools.ChatMsgAdapter;
+import org.helloworld.tools.DownloadTask;
+import org.helloworld.tools.FileUtils;
+import org.helloworld.tools.Global;
+import org.helloworld.tools.History;
+import org.helloworld.tools.Message;
+import org.helloworld.tools.UploadTask;
+import org.helloworld.tools.WebService;
 import org.ksoap2.serialization.SoapObject;
 
 import java.io.File;

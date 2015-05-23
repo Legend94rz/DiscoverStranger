@@ -7,8 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,9 +15,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.helloworld.tools.Global;
+import org.helloworld.tools.UserInfo;
+import org.helloworld.tools.WebService;
 import org.ksoap2.serialization.SoapObject;
 
 import java.io.File;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class LogInAct extends Activity

@@ -10,6 +10,8 @@ import android.text.style.DynamicDrawableSpan;
 import android.text.style.ImageSpan;
 import android.util.Log;
 
+import org.helloworld.tools.FileUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

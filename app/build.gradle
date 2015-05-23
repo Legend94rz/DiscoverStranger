@@ -1,20 +1,27 @@
 apply plugin: 'com.android.application'
 
+version = VERSION_NAME
+group = GROUP
+
 android {
-	compileSdkVersion 15
-	buildToolsVersion "21.1.2"
+	compileSdkVersion 21
+	buildToolsVersion '21.1.2'
 
 	defaultConfig {
 		applicationId "org.helloworld"
 		minSdkVersion 15
-		targetSdkVersion 20
+		targetSdkVersion 21
 		versionCode 1
 		versionName "1.0"
 	}
+	lintOptions {
+		abortOnError false
+	}
 	buildTypes {
 		release {
-			minifyEnabled false
-			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+			proguardFiles 'proguard-android.txt'
+			minifyEnabled true
+			shrinkResources true
 		}
 	}
 	sourceSets { main { java.srcDirs = ['src/main/java', 'src/main/java/Model'] } }
@@ -29,4 +36,7 @@ dependencies {
 	compile files('libs/android_api_1.1_forsdk.jar')
 	compile files('libs/BaiduLBS_Android.jar')
 	compile files('libs/galaxy_mini.jar')
+	compile files('libs/classes.jar')
+	compile 'cn.pedant.sweetalert:library:1.3'
+	compile project(':library')
 }

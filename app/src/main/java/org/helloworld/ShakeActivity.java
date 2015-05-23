@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.*;
 import android.os.Message;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -13,6 +11,9 @@ import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import org.helloworld.tools.Global;
+import org.helloworld.tools.ShakeRecord;
+import org.helloworld.tools.WebTask;
 import org.ksoap2.serialization.SoapObject;
 
 import java.util.ArrayList;

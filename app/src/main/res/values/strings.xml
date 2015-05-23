@@ -21,13 +21,13 @@
     <string name="title_activity_register">RegisterAct</string>
 	<string name="modify_remark">修改备注</string>
 	<string name="title_activity_notification">NotificationAct</string>
-	<string name="FinishAndAddFriendSuc">你已经成功完成了对方设置的游戏，现在你们已经是好友啦。马上跟TA聊聊吧</string>
+	<string name="FinishAndAddFriendSuc">你已经成功完成了对方设置的游戏，现在你们已经是好友啦。</string>
 	<string name="GotoChat">去聊天</string>
 	<string name="Later">过一会吧</string>
 	<string name="HintTitle">提示信息</string>
 	<string name="playGame">去玩游戏</string>
 	<string name="MustPlayGame">需要通过对方设置的游戏才能将TA加为好友</string>
-	<string name="dowant">算了</string>
+	<string name="dontwant">算了</string>
 	<string name="title_activity_shake_result">ShakeResultAct</string>
 	<string name="sayHello">打招呼</string>
 
@@ -40,4 +40,8 @@
 	<string name="notimplement">敬请期待...</string>
 	<string name="title_activity_splash">解密陌生人</string>
 	<string name="title_activity_big_pic">BigPicAct</string>
+	<string name="delete_message">删除后你也会从TA的列表中消失且不可恢复，确定吗？</string>
+	<string name="opendrawer">打开侧边栏</string>
+
+
 </resources>

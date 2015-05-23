@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +39,12 @@ import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 
+import org.helloworld.tools.FileUtils;
+import org.helloworld.tools.Global;
+import org.helloworld.tools.PositionInfo;
+import org.helloworld.tools.UserInfo;
+import org.helloworld.tools.WebService;
+import org.helloworld.tools.WebTask;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,6 +52,8 @@ import org.ksoap2.serialization.SoapObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClickListener
 {
@@ -57,8 +66,8 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 	static double latitude;
 	static double longitude;
 
-	private final int SUCCESS_FINISH_GAME = 1;
-	private final int FAIL_FINISH_GAME = 2;
+	private static final int SUCCESS_FINISH_GAME = 1;
+	private static final int FAIL_FINISH_GAME = 2;
 
 	//这两个用于控制浮动窗口的显示状态
 	private Marker lastClick = null;
@@ -98,21 +107,7 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 				@Override
 				public void onClick(View view)
 				{
-					AlertDialog.Builder builder = new AlertDialog.Builder(NearbyStrangerAct.this);
-					builder.setTitle(getString(R.string.HintTitle))
-						.setPositiveButton(getString(R.string.playGame), new DialogInterface.OnClickListener()
-						{
-							@Override
-							public void onClick(DialogInterface dialogInterface, int i)
-							{
-								Intent intent = new Intent();
-								intent.putExtra("strangerName", strangerName);
-
-								onActivityResult(0, SUCCESS_FINISH_GAME, intent);
-							}
-						})
-						.setNegativeButton(getString(R.string.dowant), null).setMessage(getString(R.string.MustPlayGame));
-					builder.create().show();
+					SayHello(strangerName,NearbyStrangerAct.this);
 				}
 			});
 		InfoWindow infoWindow = new InfoWindow(windowView, pos, -65);
@@ -121,7 +116,29 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 		isShow = true;
 		return true;
 	}
+	public static void SayHello(final String strangerName, final Context context)
+	{
+		final SweetAlertDialog dialog = new SweetAlertDialog(context);
+		dialog.setTitleText(context.getString(R.string.HintTitle));
+		dialog.setConfirmText(context.getString(R.string.playGame));
+		dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
+		{
+			@Override
+			public void onClick(SweetAlertDialog sweetAlertDialog)
+			{
+				Intent intent = new Intent();
+				intent.putExtra("strangerName", strangerName);
+				//Todo context.startActivity(intent);
+				SuccessFinishGame(context, handler, strangerName);
+				dialog.dismiss();
+			}
+		});
+		dialog.setCancelText(context.getString(R.string.dontwant));
+		dialog.setCancelClickListener(null);
+		dialog.setContentText(context.getString(R.string.MustPlayGame));
+		dialog.show();
 
+	}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, final Intent data)
 	{
@@ -130,11 +147,22 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 		{
 			SuccessFinishGame(this,handler, data.getStringExtra("strangerName"));
 		}
+		else
+		{
+			new SweetAlertDialog(this)
+				.setContentText("很遗憾，你没有通过对方的游戏，不能加他为好友")
+				.setConfirmText("知道了").setConfirmClickListener(null).show();
+		}
 	}
 
-	public static void SuccessFinishGame(Context context, final Handler handler,final String strangerName)
+	public static void SuccessFinishGame(final Context context, final Handler handler,final String strangerName)
 	{
-		final ProgressDialog dialog=ProgressDialog.show(context, "稍候", "正在发送请求...");
+		//final ProgressDialog dialog=ProgressDialog.show(context, "稍候", "正在发送请求...");
+		final SweetAlertDialog dialog=new SweetAlertDialog(context,SweetAlertDialog.PROGRESS_TYPE);
+		dialog.getProgressHelper().setBarColor(context.getResources().getColor(R.color.blue));
+		dialog.setContentText("稍候,正在发送请求...");
+		dialog.setCancelable(false);
+		dialog.show();
 		new Thread(new Runnable()
 		{
 			@Override
@@ -295,8 +323,6 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 		}
 	}
 
-
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -402,38 +428,31 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 						if(data.getBoolean("result"))
 						{
 							MainActivity.handler.sendEmptyMessage(Global.MSG_WHAT.W_REFRESH_DEEP);
-							AlertDialog.Builder builder = new AlertDialog.Builder(NearbyStrangerAct.this);
-							builder.setTitle(getString(R.string.HintTitle))
-								.setMessage(getString(R.string.FinishAndAddFriendSuc))
-								.setPositiveButton(getString(R.string.GotoChat), new DialogInterface.OnClickListener()
-								{
-									@Override
-									public void onClick(DialogInterface dialogInterface, int i)
-									{
-										Intent intent = new Intent(NearbyStrangerAct.this, ChatActivity.class);
-										intent.putExtra("chatTo", data.getString("strangerName"));
-										startActivity(intent);
-										finish();
-									}
-								})
-								.setNegativeButton(getString(R.string.Later), null);
-							builder.create().show();
+							Global.map2Friend.put(data.getString("strangerName"),new UserInfo(data.getString("strangerName")));
+							final SweetAlertDialog n = new SweetAlertDialog(NearbyStrangerAct.this, SweetAlertDialog.SUCCESS_TYPE);
+							n.setContentText(getString(R.string.FinishAndAddFriendSuc));
+							n.setConfirmText("好");
+							n.show();
+							lastClick.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin));isShow=false;lastClick=null;
+							map.hideInfoWindow();
 						}
 						else
 						{
-							AlertDialog.Builder builder =new AlertDialog.Builder(NearbyStrangerAct.this);
-							builder.setTitle("错误")
-								.setMessage("请求发送失败，是否重试?")
-								.setPositiveButton("好", new DialogInterface.OnClickListener()
+							final SweetAlertDialog n = new SweetAlertDialog(NearbyStrangerAct.this, SweetAlertDialog.ERROR_TYPE);
+							n.setContentText("请求发送失败，是否重试?");
+							n.setConfirmText("好");
+							n.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
+							{
+								@Override
+								public void onClick(SweetAlertDialog sweetAlertDialog)
 								{
-									@Override
-									public void onClick(DialogInterface dialogInterface, int i)
-									{
-										NearbyStrangerAct.SuccessFinishGame(NearbyStrangerAct.this,handler,data.getString("strangerName"));
-									}
-								})
-								.setNegativeButton("算了",null);
-							builder.create().show();
+									NearbyStrangerAct.SuccessFinishGame(NearbyStrangerAct.this,handler,data.getString("strangerName"));
+									n.dismiss();
+								}
+							});
+							n.setCancelText("算了");
+							n.setCancelClickListener(null);
+							n.show();
 						}
 						break;
 				}

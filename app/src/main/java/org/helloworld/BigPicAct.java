@@ -1,11 +1,12 @@
 package org.helloworld;
 
 import android.app.Activity;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+
+import org.helloworld.tools.FileUtils;
 
 
 public class BigPicAct extends Activity

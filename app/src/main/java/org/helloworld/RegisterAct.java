@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.*;
 import android.os.Message;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +20,10 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.helloworld.tools.FileUtils;
+import org.helloworld.tools.Global;
+import org.helloworld.tools.UploadTask;
+import org.helloworld.tools.WebService;
 import org.ksoap2.serialization.SoapObject;
 
 import java.io.ByteArrayOutputStream;
@@ -28,6 +31,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class RegisterAct extends Activity
@@ -203,26 +208,28 @@ public class RegisterAct extends Activity
 		@Override
 		public void onClick(View v)
 		{
-			AlertDialog.Builder builder = new AlertDialog.Builder(RegisterAct.this).setTitle("请选择头像图片的来源");
+			new SweetAlertDialog(RegisterAct.this)
+				.setTitleText("请选择头像图片的来源")
+				.setConfirmText("相册")
+				.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
+				{
+					@Override
+					public void onClick(SweetAlertDialog sweetAlertDialog)
+					{
+						getPicFromPhoto();
+					}
+				})
+				.setCancelText("拍照")
+				.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener()
+				{
+					@Override
+					public void onClick(SweetAlertDialog sweetAlertDialog)
+					{
+						getPicFromCamera();
+					}
+				})
+				.show();
 
-			builder.setPositiveButton("相册", new DialogInterface.OnClickListener()
-			{
-				@Override
-				public void onClick(DialogInterface dialogInterface, int i)
-				{
-					getPicFromPhoto();
-				}
-			});
-			builder.setNegativeButton("拍照", new DialogInterface.OnClickListener()
-			{
-				@Override
-				public void onClick(DialogInterface dialogInterface, int i)
-				{
-					getPicFromCamera();
-				}
-			});
-			builder.create();
-			builder.show();
 		}
 	}
 

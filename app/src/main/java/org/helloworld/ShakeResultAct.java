@@ -7,17 +7,19 @@ import android.content.Intent;
 import android.os.*;
 import android.os.Message;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import org.helloworld.tools.Global;
+import org.helloworld.tools.ShakeRecord;
 
 import java.util.ArrayList;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class ShakeResultAct extends Activity
@@ -72,10 +74,7 @@ public class ShakeResultAct extends Activity
 					@Override
 					public void onClick(View view)
 					{
-						Intent intent = new Intent();
-						intent.putExtra("strangerName", r.username);
-
-						onActivityResult(0, SUCCESS_FINISH_GAME, intent);
+						NearbyStrangerAct.SayHello(r.username, ShakeResultAct.this);
 					}
 				});
 
@@ -95,43 +94,34 @@ public class ShakeResultAct extends Activity
 				switch (message.what)
 				{
 					case Global.MSG_WHAT.W_SENDED_REQUEST:
-						final Bundle data = message.getData();
-						if (data.getBoolean("result"))
+						final Bundle data=message.getData();
+						if(data.getBoolean("result"))
 						{
 							MainActivity.handler.sendEmptyMessage(Global.MSG_WHAT.W_REFRESH_DEEP);
-							AlertDialog.Builder builder = new AlertDialog.Builder(ShakeResultAct.this);
-							builder.setTitle(getString(R.string.HintTitle))
-								.setMessage(getString(R.string.FinishAndAddFriendSuc))
-								.setPositiveButton(getString(R.string.GotoChat), new DialogInterface.OnClickListener()
-								{
-									@Override
-									public void onClick(DialogInterface dialogInterface, int i)
-									{
-										Intent intent = new Intent(ShakeResultAct.this, ChatActivity.class);
-										intent.putExtra("chatTo", data.getString("strangerName"));
-										startActivity(intent);
-										finish();
-									}
-								})
-								.setNegativeButton(getString(R.string.Later), null);
-							builder.create().show();
+							final SweetAlertDialog n = new SweetAlertDialog(ShakeResultAct.this, SweetAlertDialog.SUCCESS_TYPE);
+							n.setContentText("你们已经成为好友啦");
+							n.setConfirmText("好");
+							n.setConfirmClickListener(null);
+							n.setContentText(getString(R.string.FinishAndAddFriendSuc));
+							n.show();
 						}
 						else
 						{
-							AlertDialog.Builder builder =new AlertDialog.Builder(ShakeResultAct.this);
-							builder.setTitle("错误")
-								.setMessage("请求发送失败，是否重试?")
-								.setPositiveButton("好", new DialogInterface.OnClickListener()
+							final SweetAlertDialog n = new SweetAlertDialog(ShakeResultAct.this, SweetAlertDialog.ERROR_TYPE);
+							n.setContentText("请求发送失败，是否重试?");
+							n.setConfirmText("好");
+							n.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
+							{
+								@Override
+								public void onClick(SweetAlertDialog sweetAlertDialog)
 								{
-									@Override
-									public void onClick(DialogInterface dialogInterface, int i)
-									{
-										NearbyStrangerAct.SuccessFinishGame(ShakeResultAct.this,handler,data.getString("strangerName"));
-									}
-								})
-								.setNegativeButton("算了",null);
-							builder.create().show();
-
+									NearbyStrangerAct.SuccessFinishGame(ShakeResultAct.this, handler, data.getString("strangerName"));
+									n.dismiss();
+								}
+							});
+							n.setCancelText("算了");
+							n.setCancelClickListener(null);
+							n.show();
 						}
 						break;
 				}
@@ -148,9 +138,14 @@ public class ShakeResultAct extends Activity
 		{
 			NearbyStrangerAct.SuccessFinishGame(ShakeResultAct.this,handler,data.getStringExtra("strangerName"));
 		}
+		else
+		{
+			new SweetAlertDialog(this)
+				.setContentText("很遗憾，你没有通过对方的游戏，不能加他为好友")
+				.setConfirmText("知道了").setConfirmClickListener(null).show();
+		}
 	}
-
-
+	
 	public void goback(View view)
 	{
 		finish();
