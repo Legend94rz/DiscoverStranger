@@ -18,9 +18,9 @@ public class History
 	public int headId;
 	public ArrayList<Message> historyMsg;
 	public int unreadCount;
-	private static HashMap<String,Integer> sysHead= new HashMap<>();
+	private static HashMap<String,Integer> sysHead = new HashMap<>();
 	static {
-		sysHead.put("通知", R.drawable.common_signin_btn_icon_pressed_light);
+		sysHead.put("通知",R.drawable.notification_icon);
 	}
 	public History(String fromName )
 	{
