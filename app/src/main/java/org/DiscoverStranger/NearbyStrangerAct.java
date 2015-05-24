@@ -35,6 +35,7 @@ import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 
+import org.DiscoverStranger.game.GameSplash;
 import org.DiscoverStranger.tools.FileUtils;
 import org.DiscoverStranger.tools.Global;
 import org.DiscoverStranger.tools.PositionInfo;
@@ -53,7 +54,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * 附近的人界面
- * */
+ */
 
 public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClickListener
 {
@@ -66,13 +67,15 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 	static double latitude;
 	static double longitude;
 
-	private static final int SUCCESS_FINISH_GAME = 1;
-	private static final int FAIL_FINISH_GAME = 2;
+	public static final int SUCCESS_FINISH_GAME = 1;
+	public static final int FAIL_FINISH_GAME = 2;
+	public static final int PLAY_GAME = 3;
 
 	//这两个用于控制浮动窗口的显示状态
 	private Marker lastClick = null;
 	private boolean isShow = false;
 	boolean isFirstLoc = true;// 是否首次定位
+
 	@Override
 	public boolean onMarkerClick(Marker marker)
 	{
@@ -84,7 +87,7 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 			return true;
 		}
 		final Bundle extraInfo = marker.getExtraInfo();
-		final String strangerName=extraInfo.getString("strangerName");
+		final String strangerName = extraInfo.getString("strangerName");
 		LatLng pos = new LatLng(extraInfo.getDouble("latitude"), extraInfo.getDouble("longitude"));
 		LayoutInflater layoutInflater = LayoutInflater.from(NearbyStrangerAct.this);
 		View windowView = layoutInflater.inflate(R.layout.layout_mapinfowindow, null);
@@ -93,8 +96,8 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 		TextView tvDistance = (TextView) windowView.findViewById(R.id.tvDistance);
 		tvDistance.setText(extraInfo.getString("distance"));
 		Button btnSayHello = (Button) windowView.findViewById(R.id.btnSayHello);
-		ImageView ivHeadImg= (ImageView) windowView.findViewById(R.id.ivHeadImg);
-		if(Global.map2Friend.containsKey(strangerName))
+		ImageView ivHeadImg = (ImageView) windowView.findViewById(R.id.ivHeadImg);
+		if (Global.map2Friend.containsKey(strangerName))
 		{
 			btnSayHello.setEnabled(false);
 			btnSayHello.setText("已互为好友");
@@ -107,7 +110,7 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 				@Override
 				public void onClick(View view)
 				{
-					SayHello(strangerName,NearbyStrangerAct.this,handler);
+					SayHello(strangerName, NearbyStrangerAct.this, handler);
 				}
 			});
 		InfoWindow infoWindow = new InfoWindow(windowView, pos, -65);
@@ -119,8 +122,8 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 
 	/**
 	 * 弹对话框显示玩游戏提示
-	 * */
-	public static void SayHello(final String strangerName, final Context context,final Handler handler)
+	 */
+	public static void SayHello(final String strangerName, final Context context, final Handler handler)
 	{
 		final SweetAlertDialog dialog = new SweetAlertDialog(context);
 		dialog.setTitleText(context.getString(R.string.HintTitle));
@@ -130,11 +133,10 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 			@Override
 			public void onClick(SweetAlertDialog sweetAlertDialog)
 			{
-				Intent intent = new Intent();
-				intent.putExtra("strangerName", strangerName);
-				//Todo context.startActivity(intent);
-				SuccessFinishGame(context, handler, strangerName);
 				dialog.dismiss();
+				Intent intent = new Intent(context, GameSplash.class);
+				intent.putExtra("strangerName", strangerName);
+				((Activity) context).startActivityForResult(intent, PLAY_GAME);
 			}
 		});
 		dialog.setCancelText(context.getString(R.string.dontwant));
@@ -143,28 +145,37 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 		dialog.show();
 
 	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, final Intent data)
 	{
-		//super.onActivityResult(requestCode, resultCode, data);
-		if (resultCode == SUCCESS_FINISH_GAME)
+		DealGameResult(requestCode, resultCode, data, handler, NearbyStrangerAct.this);
+	}
+
+	public static void DealGameResult(int requestCode, int resultCode, Intent data, Handler handler, Context context)
+	{
+		if (requestCode == PLAY_GAME)
 		{
-			SuccessFinishGame(this,handler, data.getStringExtra("strangerName"));
-		}
-		else
-		{
-			new SweetAlertDialog(this)
-				.setContentText("很遗憾，你没有通过对方的游戏，不能加他为好友")
-				.setConfirmText("知道了").setConfirmClickListener(null).show();
+			if (resultCode == RESULT_OK && data.getBooleanExtra("result", false))
+			{
+				SuccessFinishGame(context, handler, data.getStringExtra("strangerName"));
+			}
+			else
+			{
+				new SweetAlertDialog(context)
+					.setContentText("很遗憾，你没有通过对方的游戏，不能加他为好友")
+					.setConfirmText("知道了").setConfirmClickListener(null).show();
+			}
 		}
 	}
+
 	/**
 	 * 完成游戏之后发送加好友请求
-	 * */
-	public static void SuccessFinishGame(final Context context, final Handler handler,final String strangerName)
+	 */
+	public static void SuccessFinishGame(final Context context, final Handler handler, final String strangerName)
 	{
 		//final ProgressDialog dialog=ProgressDialog.show(context, "稍候", "正在发送请求...");
-		final SweetAlertDialog dialog=new SweetAlertDialog(context,SweetAlertDialog.PROGRESS_TYPE);
+		final SweetAlertDialog dialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
 		dialog.getProgressHelper().setBarColor(context.getResources().getColor(R.color.blue));
 		dialog.setContentText("稍候,正在发送请求...");
 		dialog.setCancelable(false);
@@ -174,24 +185,24 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 			@Override
 			public void run()
 			{
-				JSONObject jobj=new JSONObject();
+				JSONObject jobj = new JSONObject();
 				try
 				{
 					jobj.put("userName", Global.mySelf.username);
-					jobj.put("Text",Global.mySelf.nickName + " 通过了你的游戏，现在你们已经是好友啦！");
+					jobj.put("Text", Global.mySelf.nickName + " 通过了你的游戏，现在你们已经是好友啦！");
 				}
 				catch (JSONException e)
 				{
 					e.printStackTrace();
 				}
 				WebService service = new WebService("pushMsg");
-				service.addProperty("from","通知")
+				service.addProperty("from", "通知")
 					.addProperty("to", strangerName)
 					.addProperty("msg", jobj.toString())
 					.addProperty("time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"))
 					.addProperty("msgType", String.valueOf(Global.MSG_TYPE.T_TEXT_MSG));
-				SoapObject so=null;
-				Boolean f2=true;
+				SoapObject so = null;
+				Boolean f2 = true;
 				try
 				{
 					so = service.call();
@@ -199,19 +210,19 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 				catch (NullPointerException e)
 				{
 					e.printStackTrace();
-					f2=false;
+					f2 = false;
 				}
-				if(!Global.map2Friend.containsKey(strangerName))
+				if (!Global.map2Friend.containsKey(strangerName))
 				{
 					//通知对方将自己加入好友列表中
-					JSONObject j=new JSONObject();
+					JSONObject j = new JSONObject();
 					try
 					{
-						j.put("cmdName","addFriend");
-						JSONArray ja=new JSONArray();
+						j.put("cmdName", "addFriend");
+						JSONArray ja = new JSONArray();
 						ja.put(Global.mySelf.username);
-						j.put("param",ja);
-						new WebTask(null,-1).execute("pushMsg", 5, "from", "cmd", "to", strangerName, "msg", j.toString(), "time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"), "msgType",String.valueOf(Global.MSG_TYPE.T_TEXT_MSG));
+						j.put("param", ja);
+						new WebTask(null, -1).execute("pushMsg", 5, "from", "cmd", "to", strangerName, "msg", j.toString(), "time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"), "msgType", String.valueOf(Global.MSG_TYPE.T_TEXT_MSG));
 					}
 					catch (JSONException e)
 					{
@@ -226,25 +237,25 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 						fA.put(fnew);
 						WebService service1 = new WebService("updateFriendList");
 						service1.addProperty("name", Global.mySelf.username).addProperty("friendList", fL.toString());
-						f2 =Boolean.parseBoolean(service1.call().getPropertyAsString(0));
+						f2 = Boolean.parseBoolean(service1.call().getPropertyAsString(0));
 					}
 					catch (Exception e)
 					{
 						e.printStackTrace();
-						f2=false;
+						f2 = false;
 					}
 				}
-				Message m=new Message();
-				m.what=Global.MSG_WHAT.W_SENDED_REQUEST;
-				Bundle data=new Bundle();
+				Message m = new Message();
+				m.what = Global.MSG_WHAT.W_SENDED_REQUEST;
+				Bundle data = new Bundle();
 				try
 				{
-					data.putBoolean("result", Boolean.parseBoolean(so.getPropertyAsString(0)) && f2 );
+					data.putBoolean("result", Boolean.parseBoolean(so.getPropertyAsString(0)) && f2);
 				}
 				catch (NullPointerException e)
 				{
 					e.printStackTrace();
-					data.putBoolean("result",false);
+					data.putBoolean("result", false);
 				}
 				data.putString("strangerName", strangerName);
 				m.setData(data);
@@ -314,8 +325,8 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 		{
 			try
 			{
-				SoapObject strangers = (SoapObject) soapObject.getProperty(0);
 				strangerInfos = new ArrayList<PositionInfo>();
+				SoapObject strangers = (SoapObject) soapObject.getProperty(0);
 				for (int i = 0; i < strangers.getPropertyCount(); i++)
 				{
 					strangerInfos.add(PositionInfo.parse((SoapObject) strangers.getProperty(i)));
@@ -324,7 +335,7 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 			}
 			catch (Exception ignored)
 			{
-				Toast.makeText(NearbyStrangerAct.this,Global.ERROR_HINT.HINT_ERROR_NETWORD,Toast.LENGTH_SHORT).show();
+				Toast.makeText(NearbyStrangerAct.this, Global.ERROR_HINT.HINT_ERROR_NETWORD, Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
@@ -339,7 +350,7 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 		}
 		catch (NullPointerException e)
 		{
-			Toast.makeText(this,"无法初始化定位数据.",Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "无法初始化定位数据.", Toast.LENGTH_SHORT).show();
 			finish();
 		}
 		setContentView(R.layout.activity_nearby_stranger);
@@ -387,7 +398,6 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 		locationClient.start();
 
 
-
 	}
 
 	//以下是地图生命周期管理
@@ -423,23 +433,25 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 							extraInfo.putString("distance", String.format("%.2fm", p.distance));
 							extraInfo.putDouble("latitude", p.latitude);
 							extraInfo.putDouble("longitude", p.longitude);
-							if(Global.map2Friend.containsKey(p.strangerName))
+							if (Global.map2Friend.containsKey(p.strangerName))
 								addAMarkerWithExtraInfo(R.drawable.pin, pos, extraInfo);
 							else
 								addAMarkerWithExtraInfo(R.drawable.pin_black, pos, extraInfo);
 						}
 						break;
 					case Global.MSG_WHAT.W_SENDED_REQUEST:
-						final Bundle data=message.getData();
-						if(data.getBoolean("result"))
+						final Bundle data = message.getData();
+						if (data.getBoolean("result"))
 						{
 							MainActivity.handler.sendEmptyMessage(Global.MSG_WHAT.W_REFRESH_DEEP);
-							Global.map2Friend.put(data.getString("strangerName"),new UserInfo(data.getString("strangerName")));
+							Global.map2Friend.put(data.getString("strangerName"), new UserInfo(data.getString("strangerName")));
 							final SweetAlertDialog n = new SweetAlertDialog(NearbyStrangerAct.this, SweetAlertDialog.SUCCESS_TYPE);
 							n.setContentText(getString(R.string.FinishAndAddFriendSuc));
 							n.setConfirmText("好");
 							n.show();
-							lastClick.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin));isShow=false;lastClick=null;
+							lastClick.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin));
+							isShow = false;
+							lastClick = null;
 							map.hideInfoWindow();
 						}
 						else
@@ -452,7 +464,7 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 								@Override
 								public void onClick(SweetAlertDialog sweetAlertDialog)
 								{
-									NearbyStrangerAct.SuccessFinishGame(NearbyStrangerAct.this,handler,data.getString("strangerName"));
+									NearbyStrangerAct.SuccessFinishGame(NearbyStrangerAct.this, handler, data.getString("strangerName"));
 									n.dismiss();
 								}
 							});
@@ -511,6 +523,8 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 			Marker m = (Marker) map.addOverlay(options);
 			m.setExtraInfo(extraInfo);
 		}
-		catch (NullPointerException ignored){}//防止此时Activity已关闭的情况
+		catch (NullPointerException ignored)
+		{
+		}//防止此时Activity已关闭的情况
 	}
 }

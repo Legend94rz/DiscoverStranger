@@ -134,17 +134,7 @@ public class ShakeResultAct extends Activity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-//		super.onActivityResult(requestCode, resultCode, data);
-		if(resultCode==SUCCESS_FINISH_GAME)
-		{
-			NearbyStrangerAct.SuccessFinishGame(ShakeResultAct.this,handler,data.getStringExtra("strangerName"));
-		}
-		else
-		{
-			new SweetAlertDialog(this)
-				.setContentText("很遗憾，你没有通过对方的游戏，不能加他为好友")
-				.setConfirmText("知道了").setConfirmClickListener(null).show();
-		}
+		NearbyStrangerAct.DealGameResult(requestCode,resultCode,data,handler,ShakeResultAct.this);
 	}
 	
 	public void goback(View view)

@@ -203,7 +203,6 @@
 			android:layout_marginRight="10dp"
 			android:onClick="modifyRemark"
 			android:textSize="18sp"
-			android:background="@drawable/img_btn_mask"
 			android:textColor="@color/btn_text_color"
 			android:clickable="true"/>
 

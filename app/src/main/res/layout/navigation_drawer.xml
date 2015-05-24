@@ -16,7 +16,6 @@
 			android:id="@+id/ivHeadImg"
 			android:layout_marginLeft="30dp"
 			android:layout_marginTop="30dp"
-			android:background="@drawable/nohead"
 			android:layout_alignParentTop="true"
 			android:layout_alignParentLeft="true"/>
 

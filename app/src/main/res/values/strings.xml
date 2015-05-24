@@ -7,6 +7,7 @@
 	<string name="btnName">New RadioButton</string>
 	<string name="title_activity_main">MainActivity</string>
 	<string name="title_activity_nearby_stranger">NearbyStranger</string>
+	<string name="title_activity_game">拼图游戏</string>
 	<string name="menu_Add_Friends">添加朋友</string>
 	<string name="menu_Flush_Friends">刷新</string>
 	<string name="title_activity_chat">ChatActivity</string>
@@ -15,7 +16,7 @@
 	<string name="game">游戏</string>
 	<string name="settings">设置</string>
 	<string name="title_activity_shake">ShakeActivity</string>
-	<string name="title_activity_friend_inof">FriendInofAct</string>
+	<string name="title_activity_friend_info">FriendInofAct</string>
 	<string name="goback">返回</string>
 	<string name="Detail">详细信息</string>
     <string name="title_activity_register">RegisterAct</string>
@@ -42,6 +43,7 @@
 	<string name="title_activity_big_pic">BigPicAct</string>
 	<string name="delete_message">删除后你也会从TA的列表中消失且不可恢复，确定吗？</string>
 	<string name="opendrawer">打开侧边栏</string>
+	<string name="title_activity_modify_friend_info">ModifyFriendInfo</string>
 
 
 </resources>

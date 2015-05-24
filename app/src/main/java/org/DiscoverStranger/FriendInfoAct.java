@@ -47,7 +47,7 @@ public class FriendInfoAct extends Activity implements View.OnClickListener
 	private TextView tvNickName;
 	private TextView tvRemark;
 	public static Handler handler;
-
+	public static final int MODIFY_RETURENED = 0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -215,8 +215,6 @@ public class FriendInfoAct extends Activity implements View.OnClickListener
 			})
 			.setCancelText("取消").setCancelClickListener(null)
 			.show();
-
-
 	}
 
 	public static void DelFriend(String friendName)
@@ -237,7 +235,7 @@ public class FriendInfoAct extends Activity implements View.OnClickListener
 
 	public void modifyRemark(View view)
 	{
-		final EditText etRemark=new EditText(this);
+/*		final EditText etRemark=new EditText(this);
 		etRemark.setHint("输入备注");
 		final UserInfo u= Global.map2Friend.get(friendName);
 		if(u.Ex_remark!=null)
@@ -257,7 +255,33 @@ public class FriendInfoAct extends Activity implements View.OnClickListener
 									})
 									.setView(etRemark)
 									.setNegativeButton("取消", null);
-		builder.create().show();
+		builder.create().show();*/
+		Intent intent=new Intent(this,ModifyFriendInfo.class);
+		final UserInfo u= Global.map2Friend.get(friendName);
+		if(u.Ex_remark==null)
+			intent.putExtra("oldRemark","");
+		else
+			intent.putExtra("oldRemark",u.Ex_remark);
+		startActivityForResult(intent,MODIFY_RETURENED);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if(requestCode==MODIFY_RETURENED)
+		{
+			if(resultCode==ModifyFriendInfo.MODIFY_SUCCESS)
+			{
+				final UserInfo u= Global.map2Friend.get(friendName);
+				u.Ex_remark = data.getStringExtra("newRemark");
+				String jsonStr = constructFriends2JSON().toString();
+				if(u.Ex_remark.length()>0)
+					tvRemark.setText(u.Ex_remark);
+				else
+					tvRemark.setText("无备注");
+				new WebTask(null, -1).execute("updateFriendList", 2, "name", Global.mySelf.username, "friendList", jsonStr);
+			}
+		}
 	}
 
 	public static JSONObject constructFriends2JSON()

@@ -1,0 +1,117 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+    android:layout_gravity="center_vertical"
+    tools:context="com.example.qf.study.GameActivity">
+
+	<RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:background="@color/actionbar_bg"
+        android:gravity="center_vertical"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/relativeLayout8">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#ffffff"
+            android:text="拼图游戏"
+            android:layout_alignBottom="@+id/button3"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+
+	<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+		android:layout_below="@+id/relativeLayout8"
+		android:layout_alignBottom="@+id/gridView"
+		>
+
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:weightSum="1"
+			android:paddingLeft="16dp"
+			android:paddingRight="16dp"
+			android:paddingTop="16dp"
+			android:paddingBottom="16dp"
+			android:id="@+id/linearLayout10"
+			android:layout_above="@+id/linearLayout11"
+			android:layout_margin="8dp"
+			android:background="@drawable/black_round_rect">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="在这个黑色方框中滑动手指来移动方块~"
+				android:id="@+id/textView11"
+				android:layout_gravity="center_horizontal"/>
+
+			<GridView
+				android:verticalSpacing="5dp"
+				android:horizontalSpacing="5dp"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:id="@+id/gridView"
+				android:numColumns = "3"
+				android:gravity="center"
+				android:layout_marginTop="10dp"/>
+
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/imageView"
+				android:layout_alignParentRight="true"
+				android:layout_alignParentEnd="true"
+				android:layout_marginTop="73dp"
+				android:visibility="gone" />
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentEnd="false"
+			android:layout_alignParentBottom="true"
+			android:id="@+id/linearLayout11">
+
+			<Button
+				android:layout_width="80dp"
+				android:layout_height="46dp"
+				android:text="新游戏"
+				android:id="@+id/restart"
+				android:layout_alignTop="@+id/quit"
+				android:layout_alignLeft="@+id/linearLayout10"
+				android:layout_alignStart="@+id/linearLayout10"
+				android:layout_toLeftOf="@+id/quit"
+				android:layout_toStartOf="@+id/quit"
+				android:layout_weight="1"
+				android:background="@drawable/main_btn"
+				android:textColor="@color/white"
+				android:layout_margin="5dp"
+				android:textSize="17dp"/>
+
+			<Button
+				android:layout_width="80dp"
+				android:layout_height="46dp"
+				android:text="退出"
+				android:id="@+id/quit"
+				android:layout_alignParentBottom="true"
+				android:layout_alignParentRight="true"
+				android:layout_alignParentEnd="true"
+				android:layout_weight="1"
+				android:background="@drawable/red_button"
+				android:textColor="@color/white"
+				android:layout_margin="5dp"
+				android:textSize="17dp"/>
+		</LinearLayout>
+
+	</RelativeLayout>
+
+
+</RelativeLayout>

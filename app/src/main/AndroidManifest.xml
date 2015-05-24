@@ -27,37 +27,37 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Light.NoTitleBar"
-        android:largeHeap="true">
+        android:largeHeap="true"
+        android:theme="@android:style/Theme.Light.NoTitleBar" >
         <activity
-            android:name="org.DiscoverStranger.LogInAct"
+            android:name=".LogInAct"
             android:label="@string/title_activity_log_in" >
         </activity>
         <activity
-            android:name="org.DiscoverStranger.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="org.helloworld.action.CanReceiveMsg" />
             </intent-filter>
         </activity>
         <activity
-            android:name="org.DiscoverStranger.NearbyStrangerAct"
+            android:name=".NearbyStrangerAct"
             android:label="@string/title_activity_nearby_stranger" >
         </activity>
         <activity
-            android:name="org.DiscoverStranger.ChatActivity"
+            android:name=".ChatActivity"
             android:label="@string/title_activity_chat"
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
 
         <service
-            android:name="org.DiscoverStranger.MsgPullService"
+            android:name=".MsgPullService"
             android:enabled="true"
             android:exported="false" >
         </service>
 
         <activity
-            android:name="org.DiscoverStranger.ShakeActivity"
+            android:name=".ShakeActivity"
             android:label="@string/title_activity_shake" >
         </activity>
 
@@ -66,23 +66,23 @@
             android:value="AH3LQGFaTzb4KozQ0se7d7kC" />
 
         <activity
-            android:name="org.DiscoverStranger.FriendInfoAct"
-            android:label="@string/title_activity_friend_inof" >
+            android:name=".FriendInfoAct"
+            android:label="@string/title_activity_friend_info" >
         </activity>
         <activity
-            android:name="org.DiscoverStranger.RegisterAct"
+            android:name=".RegisterAct"
             android:label="@string/title_activity_register" >
         </activity>
         <activity
-            android:name="org.DiscoverStranger.NotificationAct"
+            android:name=".NotificationAct"
             android:label="@string/title_activity_notification" >
         </activity>
         <activity
-            android:name="org.DiscoverStranger.ShakeResultAct"
+            android:name=".ShakeResultAct"
             android:label="@string/title_activity_shake_result" >
         </activity>
         <activity
-            android:name="org.DiscoverStranger.SplashAct"
+            android:name=".SplashAct"
             android:label="@string/title_activity_splash" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -91,8 +91,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.DiscoverStranger.BigPicAct"
+            android:name=".BigPicAct"
             android:label="@string/title_activity_big_pic" >
+        </activity>
+        <activity
+            android:name=".ModifyFriendInfo"
+            android:label="@string/title_activity_modify_friend_info" >
+        </activity>
+
+        <activity
+            android:name=".game.GameActivity"
+            android:label="@string/title_activity_game" >
+        </activity>
+        <activity
+            android:name=".game.GameSplash"
+            android:label="@string/title_activity_game" >
         </activity>
     </application>
 
