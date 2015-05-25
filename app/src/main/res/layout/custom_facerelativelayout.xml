@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<org.DiscoverStranger.FaceRelativeLayout
+<org.helloworld.FaceRelativeLayout
 	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/FaceRelativeLayout"
 	xmlns:android="http://schemas.android.com/apk/res/android"
@@ -135,7 +135,7 @@
 
 		<view
 			android:id="@+id/recordView"
-			class="org.DiscoverStranger.RecordRelativeLayout"
+			class="org.helloworld.RecordRelativeLayout"
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/PanelHeight"
 			android:visibility="gone"
@@ -147,4 +147,4 @@
 				android:layout_height="wrap_content"/>
 		</view>
 	</LinearLayout>
-</org.DiscoverStranger.FaceRelativeLayout>
+</org.helloworld.FaceRelativeLayout>

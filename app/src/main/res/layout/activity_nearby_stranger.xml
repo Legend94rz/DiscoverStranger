@@ -2,7 +2,7 @@
 				xmlns:tools="http://schemas.android.com/tools"
 				android:layout_width="fill_parent"
 				android:layout_height="fill_parent"
-				tools:context="org.DiscoverStranger.NearbyStrangerAct"
+				tools:context="org.helloworld.NearbyStrangerAct"
 				android:columnCount="2"
 				android:rowCount="2">
 

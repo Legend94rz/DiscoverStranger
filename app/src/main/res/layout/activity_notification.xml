@@ -2,7 +2,7 @@
 				xmlns:tools="http://schemas.android.com/tools"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				tools:context="org.DiscoverStranger.NotificationAct"
+				tools:context="org.helloworld.NotificationAct"
 				android:background="#ffefeff4">
 
 	<RelativeLayout

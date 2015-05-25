@@ -59,16 +59,19 @@
 				android:id="@+id/gridView"
 				android:numColumns = "3"
 				android:gravity="center"
-				android:layout_marginTop="10dp"/>
+				android:layout_marginTop="10dp"
+				/>
 
 			<ImageView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
 				android:id="@+id/imageView"
 				android:layout_alignParentRight="true"
 				android:layout_alignParentEnd="true"
-				android:layout_marginTop="73dp"
-				android:visibility="gone" />
+				android:visibility="gone"
+				android:src="@drawable/canon"
+				android:layout_marginTop="10dp"
+				android:scaleType="fitStart"/>
 
 		</LinearLayout>
 
@@ -81,7 +84,7 @@
 			android:id="@+id/linearLayout11">
 
 			<Button
-				android:layout_width="80dp"
+				android:layout_width="wrap_content"
 				android:layout_height="46dp"
 				android:text="新游戏"
 				android:id="@+id/restart"
@@ -94,10 +97,23 @@
 				android:background="@drawable/main_btn"
 				android:textColor="@color/white"
 				android:layout_margin="5dp"
-				android:textSize="17dp"/>
+				android:textSize="17sp"/>
+
+			<ToggleButton
+				android:layout_width="wrap_content"
+				android:layout_height="46dp"
+				android:text="New ToggleButton"
+				android:id="@+id/tbSwith"
+				android:layout_weight="1"
+				android:checked="false"
+				android:textOff="查看图片"
+				android:textOn="隐藏图片"
+				android:textSize="17sp"
+				android:background="@drawable/switch_button"
+				android:layout_margin="5dp"/>
 
 			<Button
-				android:layout_width="80dp"
+				android:layout_width="wrap_content"
 				android:layout_height="46dp"
 				android:text="退出"
 				android:id="@+id/quit"
@@ -108,7 +124,7 @@
 				android:background="@drawable/red_button"
 				android:textColor="@color/white"
 				android:layout_margin="5dp"
-				android:textSize="17dp"/>
+				android:textSize="17sp"/>
 		</LinearLayout>
 
 	</RelativeLayout>

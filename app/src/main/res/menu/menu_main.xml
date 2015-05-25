@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 	  xmlns:tools="http://schemas.android.com/tools"
-	  tools:context="org.DiscoverStranger.MainActivity">
+	  tools:context="org.helloworld.MainActivity">
 	<item android:title="@string/opendrawer" android:id="@+id/meuOpenDrawer"/>
 	<item android:title="@string/exit" android:id="@+id/meuExit"/>
 </menu>

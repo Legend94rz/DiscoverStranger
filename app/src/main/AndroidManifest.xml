@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.DiscoverStranger" >
+    package="org.helloworld" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -30,59 +30,56 @@
         android:largeHeap="true"
         android:theme="@android:style/Theme.Light.NoTitleBar" >
         <activity
-            android:name=".LogInAct"
+            android:name="org.helloworld.LogInAct"
             android:label="@string/title_activity_log_in" >
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="org.helloworld.MainActivity"
             android:label="@string/title_activity_main" >
-            <intent-filter>
-                <action android:name="org.helloworld.action.CanReceiveMsg" />
-            </intent-filter>
         </activity>
         <activity
-            android:name=".NearbyStrangerAct"
+            android:name="org.helloworld.NearbyStrangerAct"
             android:label="@string/title_activity_nearby_stranger" >
         </activity>
         <activity
-            android:name=".ChatActivity"
+            android:name="org.helloworld.ChatActivity"
             android:label="@string/title_activity_chat"
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
 
         <service
-            android:name=".MsgPullService"
+            android:name="org.helloworld.MsgPullService"
             android:enabled="true"
             android:exported="false" >
         </service>
 
         <activity
-            android:name=".ShakeActivity"
+            android:name="org.helloworld.ShakeActivity"
             android:label="@string/title_activity_shake" >
         </activity>
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="AH3LQGFaTzb4KozQ0se7d7kC" />
+            android:value="OHGfEikzDVBZcllUntaebyge" />
 
         <activity
-            android:name=".FriendInfoAct"
+            android:name="org.helloworld.FriendInfoAct"
             android:label="@string/title_activity_friend_info" >
         </activity>
         <activity
-            android:name=".RegisterAct"
+            android:name="org.helloworld.RegisterAct"
             android:label="@string/title_activity_register" >
         </activity>
         <activity
-            android:name=".NotificationAct"
+            android:name="org.helloworld.NotificationAct"
             android:label="@string/title_activity_notification" >
         </activity>
         <activity
-            android:name=".ShakeResultAct"
+            android:name="org.helloworld.ShakeResultAct"
             android:label="@string/title_activity_shake_result" >
         </activity>
         <activity
-            android:name=".SplashAct"
+            android:name="org.helloworld.SplashAct"
             android:label="@string/title_activity_splash" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -91,20 +88,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BigPicAct"
+            android:name="org.helloworld.BigPicAct"
             android:label="@string/title_activity_big_pic" >
         </activity>
         <activity
-            android:name=".ModifyFriendInfo"
+            android:name="org.helloworld.ModifyFriendInfo"
             android:label="@string/title_activity_modify_friend_info" >
         </activity>
 
         <activity
-            android:name=".game.GameActivity"
+            android:name="org.helloworld.game.GameActivity"
             android:label="@string/title_activity_game" >
         </activity>
         <activity
-            android:name=".game.GameSplash"
+            android:name="org.helloworld.game.GameSplash"
             android:label="@string/title_activity_game" >
         </activity>
     </application>
