@@ -108,9 +108,12 @@ public class ShakeActivity extends Activity
 					@Override
 					public void run()
 					{
-						mVibrator.cancel();
-						mShakeListener.start();
-						new WebTask(handler, Global.MSG_WHAT.W_GOT_SHAKE_RESULT).execute("getShakes", 2, "name", Global.mySelf.username, "time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"));
+						if(mVibrator!=null && mShakeListener!=null)
+						{
+							mVibrator.cancel();
+							mShakeListener.start();
+							new WebTask(handler, Global.MSG_WHAT.W_GOT_SHAKE_RESULT).execute("getShakes", 2, "name", Global.mySelf.username, "time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"));
+						}
 					}
 				}, 3000);
 			}

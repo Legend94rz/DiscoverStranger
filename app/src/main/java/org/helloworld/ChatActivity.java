@@ -28,7 +28,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import org.helloworld.tools.ChatMsgAdapter;
@@ -53,7 +52,7 @@ import java.util.HashMap;
 public class ChatActivity extends Activity implements OnClickListener
 {
 	private static final int PHOTO_REQUEST = 1;
-	private boolean timerEnable=false;
+	private boolean timerEnable = false;
 	private String chatTo;
 	private History history;
 	private EditText mEditTextContent;
@@ -117,13 +116,13 @@ public class ChatActivity extends Activity implements OnClickListener
 				UploadTask uploadTask;
 				try
 				{
-					uploadTask = new UploadTask(Global.BLOCK_SIZE,message.extra.getString("localPath"),message.extra.getString("remoteName"),remotePath);
+					uploadTask = new UploadTask(Global.BLOCK_SIZE, message.extra.getString("localPath"), message.extra.getString("remoteName"), remotePath);
 					r1 = uploadTask.call();
 				}
 				catch (IOException e)
 				{
 					e.printStackTrace();
-					r1=false;
+					r1 = false;
 				}
 			}
 			if (!r1) return false;
@@ -177,7 +176,7 @@ public class ChatActivity extends Activity implements OnClickListener
 						break;
 					case Global.MSG_WHAT.W_RESEND_MSG:
 						Message m = ((Message) message.obj);
-						m.sendState=1;
+						m.sendState = 1;
 						if ((m.msgType & Global.MSG_TYPE.T_TEXT_MSG) > 0)
 							send((Message) message.obj);
 						else if ((m.msgType & Global.MSG_TYPE.T_VOICE_MSG) > 0)
@@ -374,9 +373,18 @@ public class ChatActivity extends Activity implements OnClickListener
 		else history.unreadCount = 0;
 		mAdapter = new ChatMsgAdapter(this, history.historyMsg);
 		mListView.setAdapter(mAdapter);
-		String title=Global.map2Friend.get(chatTo).Ex_remark;
-		if(title==null || title.equals(""))
-			title=Global.map2Friend.get(chatTo).nickName;
+		String title;
+		try
+		{
+			title = Global.map2Friend.get(chatTo).Ex_remark;
+			if (title == null || title.equals(""))
+				title = Global.map2Friend.get(chatTo).nickName;
+		}
+		catch (NullPointerException e)
+		{
+			title = chatTo;
+		}
+
 		tvChatTitle.setText(title);
 	}
 
@@ -420,27 +428,28 @@ public class ChatActivity extends Activity implements OnClickListener
 			case R.id.btnRec:
 				if (btnRec.getTag().equals("点击录音"))
 				{
-					btnRec.setTag("停止");tvTime.setText("00:00");
+					btnRec.setTag("停止");
+					tvTime.setText("00:00");
 					btnRec.setImageResource(R.drawable.media_stop);
 					btnSendVoice.setVisibility(View.INVISIBLE);
 					btnCancel.setVisibility(View.INVISIBLE);
 					timeOfRec = 0;
 
-					final Handler h=new Handler();
-					Runnable r=new Runnable()
+					final Handler h = new Handler();
+					Runnable r = new Runnable()
 					{
 						@Override
 						public void run()
 						{
 							timeOfRec++;
 							tvTime.setText(String.format("%02d:%02d", timeOfRec / 60, timeOfRec % 60));
-							if(timerEnable)
-								h.postDelayed(this,1000);
+							if (timerEnable)
+								h.postDelayed(this, 1000);
 							else
 								h.removeCallbacks(this);
 						}
 					};
-					timerEnable=true;
+					timerEnable = true;
 					h.postDelayed(r, 1000);
 
 					String path = Global.PATH.SoundMsg;
@@ -475,16 +484,16 @@ public class ChatActivity extends Activity implements OnClickListener
 					pbPlayRecord.setVisibility(View.VISIBLE);
 					pbPlayRecord.setMax(timeOfRec);
 					pbPlayRecord.setProgress(0);
-					final Handler h=new Handler();
-					Runnable r=new Runnable()
+					final Handler h = new Handler();
+					Runnable r = new Runnable()
 					{
 						@Override
 						public void run()
 						{
-							if(pbPlayRecord.getProgress()<pbPlayRecord.getMax())
+							if (pbPlayRecord.getProgress() < pbPlayRecord.getMax())
 							{
 								pbPlayRecord.incrementProgressBy(1);
-								h.postDelayed(this,1000);
+								h.postDelayed(this, 1000);
 							}
 							else
 							{
@@ -493,7 +502,7 @@ public class ChatActivity extends Activity implements OnClickListener
 							}
 						}
 					};
-					h.postDelayed(r,1000);
+					h.postDelayed(r, 1000);
 
 					playSound(soundFile.getName());
 				}
@@ -537,7 +546,7 @@ public class ChatActivity extends Activity implements OnClickListener
 		else
 		{
 			/*异步任务下载语音*/
-			DownloadTask t = new DownloadTask("soundMsg", Global.PATH.SoundMsg, fileName,Global.BLOCK_SIZE, handler, Global.MSG_WHAT.W_PLAY_SOUND, fileName);
+			DownloadTask t = new DownloadTask("soundMsg", Global.PATH.SoundMsg, fileName, Global.BLOCK_SIZE, handler, Global.MSG_WHAT.W_PLAY_SOUND, fileName);
 			t.execute();
 		}
 	}
@@ -553,7 +562,7 @@ public class ChatActivity extends Activity implements OnClickListener
 			recorder.stop();
 			recorder = null;
 		}
-		timerEnable=false;
+		timerEnable = false;
 	}
 
 	@Override

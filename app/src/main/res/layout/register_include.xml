@@ -153,7 +153,7 @@
 				android:id="@+id/maleButton"
 				android:layout_below="@id/nickname"
 				android:button="@drawable/radio_btn"
-				android:checked="false"
+				android:checked="true"
 				android:paddingLeft="35dp"
 				android:layout_weight="1"
 				/>

@@ -68,8 +68,6 @@
 				android:scaleType="fitXY"
 				android:adjustViewBounds="true"
 				android:clickable="true"
-				android:maxWidth="100dp"
-				android:maxHeight="100dp"
 				android:layout_marginLeft="15dp"
 				android:layout_marginRight="5dp"
 				android:layout_centerVertical="true"

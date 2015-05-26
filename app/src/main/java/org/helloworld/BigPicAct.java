@@ -21,10 +21,9 @@ public class BigPicAct extends Activity
 		setContentView(R.layout.activity_big_pic);
 		ivImg= (ImageView) findViewById(R.id.ivImg);
 		String imgsrc=getIntent().getStringExtra("imgsrc");
+		if(imgsrc!=null && FileUtils.Exist(imgsrc))
+			ivImg.setImageBitmap(FileUtils.getOptimalBitmap(BigPicAct.this,imgsrc,false));
 
-		if(FileUtils.Exist(imgsrc))
-			ivImg.setImageBitmap(FileUtils.getOptimalBitmap(imgsrc,false));
-		
 	}
 
 	@Override

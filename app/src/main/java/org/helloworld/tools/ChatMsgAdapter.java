@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.helloworld.BigPicAct;
 import org.helloworld.ChatActivity;
@@ -133,14 +134,14 @@ public class ChatMsgAdapter extends BaseAdapter
 			{
 				if (FileUtils.Exist(entity.extra.getString("localPath")))
 				{
-					viewHolder.ivPic.setImageBitmap(FileUtils.getOptimalBitmap(entity.extra.getString("localPath"),true));
+					viewHolder.ivPic.setImageBitmap(FileUtils.getOptimalBitmap(context,entity.extra.getString("localPath"),true));
 				}
 			}
 			else                //接收到的消息，则显示下载的照片
 			{
 				if (FileUtils.Exist(Global.PATH.ChatPic + entity.text))
 				{
-					viewHolder.ivPic.setImageBitmap(FileUtils.getOptimalBitmap(Global.PATH.ChatPic + entity.text,true));
+					viewHolder.ivPic.setImageBitmap(FileUtils.getOptimalBitmap(context,Global.PATH.ChatPic + entity.text,true));
 				}
 			}
 		}
@@ -152,7 +153,7 @@ public class ChatMsgAdapter extends BaseAdapter
 			spannableString = new SpannableString(parts[1]);
 
 			Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.play_alt);
-			bitmap = Bitmap.createScaledBitmap(bitmap, 35, 35, true);
+			bitmap = Bitmap.createScaledBitmap(bitmap, 35 * (int)context.getApplicationContext().getResources().getDisplayMetrics().density , 35 * (int)context.getApplicationContext().getResources().getDisplayMetrics().density, true);
 
 			ImageSpan imageSpan = new ImageSpan(context, bitmap);
 			spannableString.setSpan(imageSpan, 0, 7, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -204,15 +205,15 @@ public class ChatMsgAdapter extends BaseAdapter
 			switch (view.getId())
 			{
 				case R.id.ivPic:
-					if(FileUtils.Exist(Global.PATH.ChatPic + tvContent.getText()))
+					Intent bigPic = new Intent(context, BigPicAct.class);
+					if(isComMsg)
 					{
-						Intent bigPic = new Intent(context, BigPicAct.class);
-						if(isComMsg)
+						if(FileUtils.Exist(Global.PATH.ChatPic + msg.text))
 							bigPic.putExtra("imgsrc", Global.PATH.ChatPic + msg.text);
-						else
-							bigPic.putExtra("imgsrc",msg.extra.getString("localPath"));
-						context.startActivity(bigPic);
 					}
+					else
+						bigPic.putExtra("imgsrc",msg.extra.getString("localPath"));
+					context.startActivity(bigPic);
 					break;
 				case R.id.tvChatcontent:
 					if((msg.msgType & Global.MSG_TYPE.T_VOICE_MSG)>0)

@@ -57,6 +57,7 @@ public class RegisterAct extends Activity
 	private TextView tvError_info_password;
 
 	public static Handler handler;
+	private Boolean canRegister=true;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -88,33 +89,7 @@ public class RegisterAct extends Activity
 			{
 				if (!hasfocus && etUser_name.getText().length()>0)
 				{
-					String urname = etUser_name.getText().toString();
-					boolean isLegal = true;
-					String error_info_username = "";
-					for (int i = 0; i < urname.length(); i++)
-					{
-						int s = (int) urname.charAt(i);
-						if (!((s > 47) && (s < 58) || ((s > 64) && (s < 91)) || ((s > 96) && (s < 122)) || (s == 95)))
-							isLegal = false;
-					}
-					if (!isLegal) error_info_username += " 用户名只能包含字母数字和下划线 ";
-					if (urname.length() > 16) error_info_username += "用户名不能超过16位";
-					if (error_info_username.length() > 0)
-					{
-						ivUsernameError.setVisibility(View.VISIBLE);
-						tvError_info_username.setVisibility(View.VISIBLE);
-						tvError_info_username.setText(error_info_username);
-						return;
-					}
-					else
-					{
-						ivUsernameError.setVisibility(View.GONE);
-						tvError_info_username.setVisibility(View.GONE);
-						tvError_info_username.setText("");
-					}
-					pbcheckname.setVisibility(View.VISIBLE);
-					Check_online task = new Check_online(urname);
-					task.execute();
+					checkUserName();
 				}
 			}
 		});
@@ -126,27 +101,7 @@ public class RegisterAct extends Activity
 			{
 				if (!hasfocus)
 				{
-					String ps = etpasswords.getText().toString();
-					String cmps = etconfirmpasswords.getText().toString();
-					String error_info_password = "";
-					if (!ps.equals(cmps))
-					{
-						error_info_password += " 两次输入的密码不一致 ";
-					}
-					if (!((ps.length() >= 8) && (ps.length() <= 32)))
-						error_info_password += " 密码长度为8~32位";
-					if (error_info_password.length() > 0)
-					{
-						ivPassError.setVisibility(View.VISIBLE);
-						tvError_info_password.setVisibility(View.VISIBLE);
-						tvError_info_password.setText(error_info_password);
-					}
-					else
-					{
-						ivPassError.setVisibility(View.GONE);
-						tvError_info_password.setVisibility(View.GONE);
-						tvError_info_password.setText("");
-					}
+					checkPassword();
 				}
 
 			}
@@ -160,6 +115,10 @@ public class RegisterAct extends Activity
 			@Override
 			public void onClick(View view)
 			{
+				canRegister=true;
+				checkUserName();
+				checkPassword();
+				if(!canRegister)return;
 				btnNext.setEnabled(false);
 				String Username = etUser_name.getText().toString();
 				String psw = etpasswords.getText().toString();
@@ -197,6 +156,65 @@ public class RegisterAct extends Activity
 			}
 		});
 
+	}
+
+	public void checkPassword()
+	{
+		String ps = etpasswords.getText().toString();
+		String cmps = etconfirmpasswords.getText().toString();
+		String error_info_password = "";
+		if (!ps.equals(cmps))
+		{
+			error_info_password += " 两次输入的密码不一致 ";
+		}
+		if (!((ps.length() >= 8) && (ps.length() <= 32)))
+			error_info_password += " 密码长度为8~32位";
+		if (error_info_password.length() > 0)
+		{
+			ivPassError.setVisibility(View.VISIBLE);
+			tvError_info_password.setVisibility(View.VISIBLE);
+			tvError_info_password.setText(error_info_password);
+			canRegister &= false;
+		}
+		else
+		{
+			ivPassError.setVisibility(View.GONE);
+			tvError_info_password.setVisibility(View.GONE);
+			tvError_info_password.setText("");
+			canRegister &= true;
+		}
+	}
+
+	public void checkUserName()
+	{
+		String urname = etUser_name.getText().toString();
+		boolean isLegal = true;
+		String error_info_username = "";
+		for (int i = 0; i < urname.length(); i++)
+		{
+			int s = (int) urname.charAt(i);
+			if (!((s > 47) && (s < 58) || ((s > 64) && (s < 91)) || ((s > 96) && (s < 122)) || (s == 95)))
+				isLegal = false;
+		}
+		if (!isLegal) error_info_username += " 用户名只能包含字母数字和下划线 ";
+		if (urname.length() > 16 || urname.length()<1) error_info_username += "用户名在1-16位之间";
+		if (error_info_username.length() > 0)
+		{
+			ivUsernameError.setVisibility(View.VISIBLE);
+			tvError_info_username.setVisibility(View.VISIBLE);
+			tvError_info_username.setText(error_info_username);
+			canRegister &= false;
+			return;
+		}
+		else
+		{
+			ivUsernameError.setVisibility(View.GONE);
+			tvError_info_username.setVisibility(View.GONE);
+			tvError_info_username.setText("");
+		}
+		pbcheckname.setVisibility(View.VISIBLE);
+		Check_online task = new Check_online(urname);
+		task.execute();
 	}
 
 	/**
@@ -269,6 +287,7 @@ public class RegisterAct extends Activity
 			Message m=new Message();
 			m.what=Global.MSG_WHAT.W_CHECKED_USERNAME;
 			m.obj=aBoolean;
+			canRegister &= aBoolean;
 			handler.sendMessage(m);
 			pbcheckname.setVisibility(View.INVISIBLE);
 		}

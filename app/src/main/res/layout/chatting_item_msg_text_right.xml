@@ -70,8 +70,6 @@
 				android:id="@+id/ivPic"
 				android:scaleType="fitXY"
 				android:adjustViewBounds="true"
-				android:maxHeight="100dp"
-				android:maxWidth="100dp"
 				android:clickable="true"
 				android:visibility="gone"
 				android:baselineAlignBottom="false"

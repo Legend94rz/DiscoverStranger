@@ -28,9 +28,8 @@ public class FileUtils
 		try
 		{
 			List<String> list = new ArrayList<String>();
-			InputStream in = context.getResources().getAssets().open("emoji");// �ļ�����Ϊrose.txt
-			BufferedReader br = new BufferedReader(new InputStreamReader(in,
-																			"UTF-8"));
+			InputStream in = context.getResources().getAssets().open("emoji");
+			BufferedReader br = new BufferedReader(new InputStreamReader(in,"UTF-8"));
 			String str = null;
 			while ((str = br.readLine()) != null)
 			{
@@ -69,9 +68,9 @@ public class FileUtils
 			file.mkdir();
 		}
 	}
-	private static int getImageScale(String imagePath) {
-		final int IMAGE_MAX_WIDTH=100;
-		final int IMAGE_MAX_HEIGHT=100;
+	private static int getImageScale(Context context, String imagePath) {
+		final int IMAGE_MAX_WIDTH=200*(int)context.getApplicationContext().getResources().getDisplayMetrics().density;
+		final int IMAGE_MAX_HEIGHT=200*(int)context.getApplicationContext().getResources().getDisplayMetrics().density;
 
 		BitmapFactory.Options option = new BitmapFactory.Options();
 		// set inJustDecodeBounds to true, allowing the caller to query the bitmap info without having to allocate the
@@ -90,14 +89,14 @@ public class FileUtils
 	 * @param filePath 路径
 	 * @param restrictSize 传true将会使bitmap强制缩放到100 * 100
 	 * */
-	public static Bitmap getOptimalBitmap(String filePath,boolean restrictSize)
+	public static Bitmap getOptimalBitmap(Context context,String filePath,boolean restrictSize)
 	{
 		BitmapFactory.Options opt = new BitmapFactory.Options();
 		opt.inPreferredConfig = Bitmap.Config.RGB_565;
 		opt.inPurgeable = true;
 		opt.inInputShareable = true;
 		if(restrictSize)
-			opt.inSampleSize=getImageScale(filePath);
+			opt.inSampleSize=getImageScale(context,filePath);
 		return BitmapFactory.decodeFile(filePath,opt);
 	}
 	/**

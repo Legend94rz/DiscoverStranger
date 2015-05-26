@@ -77,7 +77,7 @@ public class FaceConversionUtil
 		}
 		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
 				imgId);
-		bitmap = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
+		bitmap = Bitmap.createScaledBitmap(bitmap, 38*(int)context.getApplicationContext().getResources().getDisplayMetrics().density,38*(int)context.getApplicationContext().getResources().getDisplayMetrics().density, true);
 		ImageSpan imageSpan = new ImageSpan(context, bitmap);
 		SpannableString spannable = new SpannableString(spannableString);
 		spannable.setSpan(imageSpan, 0, spannableString.length(),
@@ -110,7 +110,7 @@ public class FaceConversionUtil
 			if (resId != 0) {
 				Bitmap bitmap = BitmapFactory.decodeResource(
 						context.getResources(), resId);
-				bitmap = Bitmap.createScaledBitmap(bitmap, 36, 36, true);
+				bitmap = Bitmap.createScaledBitmap(bitmap, 36*(int)context.getApplicationContext().getResources().getDisplayMetrics().density, 36*(int)context.getApplicationContext().getResources().getDisplayMetrics().density, true);
 				// 通过图片资源id来得到bitmap，用一个ImageSpan来包装
 				ImageSpan imageSpan = new ImageSpan(context,bitmap, DynamicDrawableSpan.ALIGN_BOTTOM);
 				// 计算该图片名字的长度，也就是要替换的字符串的长度

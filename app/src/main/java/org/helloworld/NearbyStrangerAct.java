@@ -113,7 +113,7 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 					SayHello(strangerName, NearbyStrangerAct.this, handler);
 				}
 			});
-		InfoWindow infoWindow = new InfoWindow(windowView, pos, -65);
+		InfoWindow infoWindow = new InfoWindow(windowView, pos, -65 * (int)getResources().getDisplayMetrics().density);
 		map.showInfoWindow(infoWindow);
 		lastClick = marker;
 		isShow = true;
