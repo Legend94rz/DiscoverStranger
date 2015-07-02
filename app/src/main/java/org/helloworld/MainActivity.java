@@ -562,7 +562,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 	private void exitWithConfirm()
 	{
 		final SweetAlertDialog dialog = new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE);
-		dialog.setContentText("真的要退出吗？");
+		dialog.setTitleText("真的要退出吗？");
 		dialog.setCancelText("取消");
 		dialog.setCancelClickListener(null);
 		dialog.setConfirmText("确定");

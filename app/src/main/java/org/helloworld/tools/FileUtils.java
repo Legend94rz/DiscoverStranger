@@ -69,8 +69,8 @@ public class FileUtils
 		}
 	}
 	private static int getImageScale(Context context, String imagePath) {
-		final int IMAGE_MAX_WIDTH=200*(int)context.getApplicationContext().getResources().getDisplayMetrics().density;
-		final int IMAGE_MAX_HEIGHT=200*(int)context.getApplicationContext().getResources().getDisplayMetrics().density;
+		final int IMAGE_MAX_WIDTH = 400 * (int) context.getApplicationContext().getResources().getDisplayMetrics().density;
+		final int IMAGE_MAX_HEIGHT = 400 * (int) context.getApplicationContext().getResources().getDisplayMetrics().density;
 
 		BitmapFactory.Options option = new BitmapFactory.Options();
 		// set inJustDecodeBounds to true, allowing the caller to query the bitmap info without having to allocate the
