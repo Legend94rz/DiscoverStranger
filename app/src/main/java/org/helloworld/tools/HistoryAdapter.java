@@ -68,15 +68,15 @@ public class HistoryAdapter extends BaseAdapter
 			h.pic.setImageResource(history.headId);
 		else
 		{
-			if(FileUtils.Exist(Global.PATH.HeadImg + history.fromName +".png"))
+			if (FileUtils.Exist(Global.PATH.HeadImg + history.partner + ".png"))
 			{
-				h.pic.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg + history.fromName +".png"));
+				h.pic.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg + history.partner + ".png"));
 			}
 			else
 				h.pic.setImageResource(R.drawable.nohead);
 		}
 
-		UserInfo temp = Global.map2Friend.get(history.fromName);
+		UserInfo temp = Global.map2Friend.get(history.partner);
 		if(temp!=null)
 		{
 			String showName = temp.Ex_remark;
@@ -85,7 +85,7 @@ public class HistoryAdapter extends BaseAdapter
 		}
 		else		//发消息的人不在好友列表中
 		{
-			h.name.setText(history.fromName);
+			h.name.setText(history.partner);
 		}
 
 		Message lastMessage=history.historyMsg.get(history.historyMsg.size()-1);

@@ -25,7 +25,7 @@ public class Message
 	public byte flag;
 	public byte msgType;
 	/**
-	 * 发送状态:0-正常;1-发送中;2-发送失败
+	 * 发送状态:0-正常;1-发送/接收中;2-发送/接收失败
 	 * */
 	public byte sendState;
 	/**

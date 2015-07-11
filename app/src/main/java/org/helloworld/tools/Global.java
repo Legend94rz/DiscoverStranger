@@ -13,25 +13,25 @@ import java.util.Map;
  */
 public class Global
 {
-	public static UserInfo mySelf = new UserInfo();
+	public static UserInfo mySelf = null;
 	/**
 	 * 存储历史消息，方便快速查询
 	 * */
-	public final static Map<String, History> map = new HashMap<String, History>();
+	public static Map<String, History> map;
 	/**
 	 * 历史消息列表，用于HistoryAdapter
 	 * @see HistoryAdapter
 	 * */
-	public final static ArrayList<History> historyList = new ArrayList<History>();
+	public static ArrayList<History> historyList;
 	/**
 	 * 好友列表，为便于快速查询
 	 * */
-	public final static Map<String, UserInfo> map2Friend = new HashMap<String, UserInfo>();
+	public static Map<String, UserInfo> map2Friend;
 	/**
 	 * 好友列表，用于ContactAdapter
 	 * @see ContactAdapter
 	 * */
-	public final static ArrayList<UserInfo> friendList = new ArrayList<UserInfo>();
+	public static ArrayList<UserInfo> friendList;
 	/**
 	 * 分块上传 下载的大小
 	 * */
@@ -115,5 +115,16 @@ public class Global
 	{
 		SimpleDateFormat format=new SimpleDateFormat(patten);
 		return format.format(date);
+	}
+
+	/**
+	 * 初始化用户数据
+	 */
+	public static void InitData()
+	{
+		map2Friend = new HashMap<>();
+		map = new HashMap<>();
+		historyList = new ArrayList<>();
+		friendList = new ArrayList<>();
 	}
 }

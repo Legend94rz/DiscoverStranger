@@ -24,6 +24,7 @@ public class MsgPullService extends Service
 		public void run()
 		{
 			WebService pullMsg = new WebService("pullMsg");
+			if (Global.mySelf == null) return;
 			pullMsg.addProperty("name", Global.mySelf.username);
 			while (true)
 			{
@@ -90,7 +91,6 @@ public class MsgPullService extends Service
 	@Override
 	public IBinder onBind(Intent intent)
 	{
-		// TODO: Return the communication channel to the service.
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 }

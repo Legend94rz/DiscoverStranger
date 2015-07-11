@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
@@ -15,7 +16,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.helloworld.BigPicAct;
 import org.helloworld.ChatActivity;
@@ -101,6 +101,7 @@ public class ChatMsgAdapter extends BaseAdapter
 
 			viewHolder = new ViewHolder();
 			viewHolder.tvSendTime = (TextView) convertView.findViewById(R.id.tv_sendtime);
+			viewHolder.pbPlayVoice = (ProgressBar) convertView.findViewById(R.id.pbPlayVoice);
 			viewHolder.tvContent = (TextView) convertView.findViewById(R.id.tvChatcontent);
 			viewHolder.isComMsg = isComMsg;
 			viewHolder.ivPic = (ImageView) convertView.findViewById(R.id.ivPic);
@@ -153,7 +154,7 @@ public class ChatMsgAdapter extends BaseAdapter
 			spannableString = new SpannableString(parts[1]);
 
 			Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.play_alt);
-			bitmap = Bitmap.createScaledBitmap(bitmap, 35 * (int)context.getApplicationContext().getResources().getDisplayMetrics().density , 35 * (int)context.getApplicationContext().getResources().getDisplayMetrics().density, true);
+			bitmap = Bitmap.createScaledBitmap(bitmap, 28 * (int) context.getApplicationContext().getResources().getDisplayMetrics().density, 28 * (int) context.getApplicationContext().getResources().getDisplayMetrics().density, true);
 
 			ImageSpan imageSpan = new ImageSpan(context, bitmap);
 			spannableString.setSpan(imageSpan, 0, 7, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -166,7 +167,10 @@ public class ChatMsgAdapter extends BaseAdapter
 			viewHolder.ivHead.setImageResource(R.drawable.nohead);
 
 		viewHolder.tvSendTime.setText(entity.getDateWithFormat("yyyy-MM-dd HH:mm"));
-
+		if ((entity.msgType & Global.MSG_TYPE.T_VOICE_MSG) == 0)
+			viewHolder.pbPlayVoice.setVisibility(View.GONE);
+		else
+			viewHolder.pbPlayVoice.setVisibility(View.INVISIBLE);
 		switch (entity.sendState)
 		{
 			case 0:    // 消息发送成功
@@ -196,7 +200,7 @@ public class ChatMsgAdapter extends BaseAdapter
 		public ImageView ivPic;
 		public ImageView ivHead;
 		public Message msg;
-
+		public ProgressBar pbPlayVoice;
 		@Override
 		public void onClick(View view)
 		{
@@ -220,7 +224,12 @@ public class ChatMsgAdapter extends BaseAdapter
 					{
 						android.os.Message m=new android.os.Message();
 						m.what= Global.MSG_WHAT.W_PLAY_SOUND;
-						m.obj=msg;
+						Bundle data = new Bundle();
+						data.putString("content", msg.text.split("~")[0]);
+						String tmp = msg.text.split("    ")[1];
+						data.putString("length", tmp.substring(0, tmp.length() - 1));
+						m.setData(data);
+						m.obj = pbPlayVoice;
 						ChatActivity.handler.sendMessage(m);
 					}
 					break;

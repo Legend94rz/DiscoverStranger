@@ -37,8 +37,12 @@ public class SplashAct extends Activity
 
 	private void redirectTo()
 	{
+		//Todo 为实现自动登录功能，在这里判断进入哪个Activity
+		//if auto-login then enter MainAct; else:
 		Intent i=new Intent(SplashAct.this,LogInAct.class);
 		startActivity(i);
+		//Intent I = new Intent(this, MsgPullService.class);
+		//startService(I);
 		finish();
 	}
 

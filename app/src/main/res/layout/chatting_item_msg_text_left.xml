@@ -45,10 +45,10 @@
 			android:layout_marginRight="8dp"
 			android:clickable="true"
 			android:layout_marginTop="8dp"
-			android:paddingLeft="12dp"
 			android:paddingTop="5dp"
 			android:paddingRight="7dp"
-			android:paddingBottom="9dp">
+			android:paddingBottom="9dp"
+			android:paddingLeft="12dp">
 
 			<TextView
 				android:id="@+id/tvChatcontent"
@@ -57,7 +57,8 @@
 				android:maxWidth="150dp"
 				android:singleLine="false"
 				android:paddingTop="3dp"
-				android:visibility="visible"/>
+				android:visibility="visible"
+				/>
 
 			<ImageView
 				android:layout_width="wrap_content"
@@ -74,6 +75,20 @@
 				android:layout_marginTop="10dp"
 				android:padding="3dp"
 				android:src="@drawable/nopic"/>
+
+			<ProgressBar
+				style="?android:attr/progressBarStyleHorizontal"
+				android:layout_width="wrap_content"
+				android:layout_height="2dp"
+				android:id="@+id/pbPlayVoice"
+				android:layout_below="@+id/tvChatcontent"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentStart="true"
+				android:layout_toRightOf="@+id/tvChatcontent"
+				android:layout_alignRight="@+id/tvChatcontent"
+				android:layout_alignEnd="@+id/tvChatcontent"
+				android:indeterminate="false"
+				android:layout_marginTop="1dp"/>
 		</RelativeLayout>
 
 		<ProgressBar

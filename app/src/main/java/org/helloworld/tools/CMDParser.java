@@ -5,17 +5,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 /**
  * 解析并执行远程命令
  */
 public class CMDParser
 {
-	private final static ArrayList<Message> cmdList=new ArrayList<Message>();
-	public static void Add(Message message)
+	public static void Execute(Message message)
 	{
-		cmdList.add(message);
 		parser(message);
 	}
 	private static void parser(Message message)

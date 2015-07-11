@@ -6,7 +6,9 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.*;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.view.View;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 import org.helloworld.tools.FileUtils;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.UploadTask;
+import org.helloworld.tools.UserInfo;
 import org.helloworld.tools.WebService;
 import org.ksoap2.serialization.SoapObject;
 
@@ -365,10 +368,12 @@ public class RegisterAct extends Activity
 					{
 						e.printStackTrace();
 					}
+					Global.mySelf = new UserInfo();
 					Global.mySelf.username = Username;
 					Global.mySelf.password = Password;
 					Global.mySelf.nickName = Nickname;
 					Global.mySelf.sex = Gender;
+					Global.InitData();
 					Intent i = new Intent(RegisterAct.this, MainActivity.class);
 					startActivity(i);
 					finish();
@@ -406,7 +411,6 @@ public class RegisterAct extends Activity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode)
 		{

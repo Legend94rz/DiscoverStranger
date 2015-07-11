@@ -28,10 +28,10 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import org.helloworld.tools.ChatMsgAdapter;
-import org.helloworld.tools.DownloadTask;
 import org.helloworld.tools.FileUtils;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.History;
@@ -174,6 +174,14 @@ public class ChatActivity extends Activity implements OnClickListener
 						}
 						mAdapter.notifyDataSetChanged();
 						break;
+					case Global.MSG_WHAT.W_REFRESH:
+					{
+						Message msg = (Message) message.obj;
+						if (message.getData().getBoolean("result")) msg.sendState = 0;
+						else msg.sendState = 2;
+						mAdapter.notifyDataSetChanged();
+					}
+					break;
 					case Global.MSG_WHAT.W_RESEND_MSG:
 						Message m = ((Message) message.obj);
 						m.sendState = 1;
@@ -185,19 +193,32 @@ public class ChatActivity extends Activity implements OnClickListener
 							sendPic(((Message) message.obj));
 						break;
 					case Global.MSG_WHAT.W_PLAY_SOUND:
-						String P;
-						if (message.obj instanceof Message)
+					{
+						final ProgressBar pbPlayVoice = (ProgressBar) message.obj;
+						pbPlayVoice.setVisibility(View.VISIBLE);
+						pbPlayVoice.setMax(Integer.parseInt(message.getData().getString("length")) * 5);
+						pbPlayVoice.setProgress(0);
+						final Handler h = new Handler();
+						Runnable r = new Runnable()
 						{
-							Message m2 = ((Message) message.obj);
-							String[] p = m2.text.split("~");
-							P = p[0];
-						}
-						else
-						{
-							P = message.obj.toString();
-						}
-						playSound(P);
+							@Override
+							public void run()
+							{
+								if (pbPlayVoice.getProgress() < pbPlayVoice.getMax())
+								{
+									pbPlayVoice.incrementProgressBy(1);
+									h.postDelayed(this, 200);
+								}
+								else
+								{
+									pbPlayVoice.setVisibility(View.INVISIBLE);
+								}
+							}
+						};
+						h.postDelayed(r, 200);
+						playSound(message.getData().getString("content"));
 						break;
+					}
 				}
 				return false;
 			}
@@ -415,7 +436,7 @@ public class ChatActivity extends Activity implements OnClickListener
 				entity.extra.putString("localPath", soundFile.getAbsolutePath());
 				entity.extra.putString("localName", soundFile.getName());
 				entity.extra.putString("remoteName", soundFile.getName());
-				entity.text = String.format("%s~[Voice] %d'", soundFile.getName(), timeOfRec);
+				entity.text = String.format("%s~[Voice]    %d'", soundFile.getName(), timeOfRec);
 				entity.sendState = 1;
 				sendVoiceMsg(entity);
 				resetRecordView();
@@ -545,9 +566,7 @@ public class ChatActivity extends Activity implements OnClickListener
 		}
 		else
 		{
-			/*异步任务下载语音*/
-			DownloadTask t = new DownloadTask("soundMsg", Global.PATH.SoundMsg, fileName, Global.BLOCK_SIZE, handler, Global.MSG_WHAT.W_PLAY_SOUND, fileName);
-			t.execute();
+			Toast.makeText(this, "文件不存在", Toast.LENGTH_SHORT).show();
 		}
 	}
 

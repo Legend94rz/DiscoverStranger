@@ -197,7 +197,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 			int i;
 			for (i = 0; i < Global.historyList.size(); i++)
 			{
-				if (Global.historyList.get(i).fromName.equals(h.fromName))
+				if (Global.historyList.get(i).partner.equals(h.partner))
 					break;
 			}
 			if (i == Global.historyList.size()) Global.historyList.add(h);
@@ -256,10 +256,18 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 								h.unreadCount++;
 								if ((m.msgType & Global.MSG_TYPE.T_PIC_MSG) > 0)
 								{
-									DownloadTask task = new DownloadTask("ChatPic", Global.PATH.ChatPic, m.text, Global.BLOCK_SIZE, ChatActivity.handler, Global.MSG_WHAT.W_RECEIVED_NEW_MSG, null);
+									m.sendState = 1;
+									DownloadTask task = new DownloadTask("ChatPic", Global.PATH.ChatPic, m.text, Global.BLOCK_SIZE, ChatActivity.handler, Global.MSG_WHAT.W_REFRESH, m);
 									task.execute();
 								}
-								if (ChatActivity.handler != null && !h.fromName.equals("通知"))            //如果当前有活动的聊天界面则直接转发给ChatActivity
+								if ((m.msgType & Global.MSG_TYPE.T_VOICE_MSG) > 0)
+								{
+									m.sendState = 1;
+									String fileName = m.text.split("~")[0];
+									DownloadTask t = new DownloadTask("soundMsg", Global.PATH.SoundMsg, fileName, Global.BLOCK_SIZE, ChatActivity.handler, Global.MSG_WHAT.W_REFRESH, m);
+									t.execute();
+								}
+								if (ChatActivity.handler != null && !h.partner.equals("通知"))            //如果当前有活动的聊天界面则直接转发给ChatActivity
 								{
 									android.os.Message message = new android.os.Message();
 									message.what = Global.MSG_WHAT.W_RECEIVED_NEW_MSG;
@@ -268,14 +276,14 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 								}
 								else
 								{
-									Global.map.put(h.fromName, h);
+									Global.map.put(h.partner, h);
 									if (!Global.historyList.contains(h))
 										Global.historyList.add(h);
 								}
 							}
 							else            //如果这条消息是一个远程命令
 							{
-								CMDParser.Add(m);
+								CMDParser.Execute(m);
 							}
 						}
 						updateHistoryView();
@@ -394,7 +402,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
 			{
-				String to = Global.historyList.get(i).fromName;
+				String to = Global.historyList.get(i).partner;
 				if (!to.equals("通知"))
 				{
 					Intent chat = new Intent(MainActivity.this, ChatActivity.class);
@@ -555,6 +563,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 	private void exit()
 	{
 		finish();
+		//Todo 保存状态
+
 		android.os.Process.killProcess(android.os.Process.myPid());    //获取PID
 		System.exit(0);   //常规java、c#的标准退出法，返回值为0代表正常退出
 	}

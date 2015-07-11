@@ -1,6 +1,8 @@
 package org.helloworld.tools;
 
-import android.os.*;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.Base64;
@@ -88,15 +90,15 @@ public class DownloadTask extends AsyncTask<Void, Void, Boolean>
 	@Override
 	protected void onPostExecute(Boolean aBoolean)
 	{
-		if (aBoolean && handler != null)
-			if(obj==null)
-				handler.sendEmptyMessage(what);
-			else
-			{
-				android.os.Message m=new Message();
-				m.what=what;
-				m.obj=obj;
-				handler.sendMessage(m);
-			}
+		if (handler != null)
+		{
+			android.os.Message m = new Message();
+			Bundle data = new Bundle();
+			data.putBoolean("result", aBoolean);
+			m.setData(data);
+			m.what = what;
+			m.obj = obj;
+			handler.sendMessage(m);
+		}
 	}
 }
