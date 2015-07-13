@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import org.helloworld.BigPicAct;
 import org.helloworld.ChatActivity;
-import org.helloworld.FaceConversionUtil;
 import org.helloworld.R;
 
 import java.util.List;

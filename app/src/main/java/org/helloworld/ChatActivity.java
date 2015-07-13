@@ -1,6 +1,5 @@
 package org.helloworld;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -54,7 +53,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 /**
  * 聊天界面
  */
-public class ChatActivity extends Activity implements OnClickListener
+public class ChatActivity extends BaseActivity implements OnClickListener
 {
 	private static final int PHOTO_REQUEST = 1;
 	private boolean timerEnable = false;
@@ -338,7 +337,6 @@ public class ChatActivity extends Activity implements OnClickListener
 			String picturePath = cursor.getString(columnIndex);
 			cursor.close();
 			final File tmp = new File(picturePath);
-			//Todo 在这里将tmp文件复制一份到图片消息文件夹下。使用模态进度对话框
 			final SweetAlertDialog dialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
 			dialog.setContentText("准备中...");
 			dialog.getProgressHelper().setBarColor(getResources().getColor(R.color.blue));
@@ -746,8 +744,4 @@ public class ChatActivity extends Activity implements OnClickListener
 		lvMsg.setSelection(lvMsg.getCount() - 1);
 	}
 
-	public void goback(View v)
-	{     //标题栏 返回按钮
-		this.finish();
-	}
 }

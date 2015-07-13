@@ -1,6 +1,5 @@
 package org.helloworld;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -58,7 +57,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * 主界面
  */
 
-public class MainActivity extends Activity implements View.OnClickListener, ViewPager.OnPageChangeListener, OnUserInfoModifyListener
+public class MainActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, OnUserInfoModifyListener
 {
 	public static android.os.Handler handler;
 	private DrawerLayout drawerLayout;

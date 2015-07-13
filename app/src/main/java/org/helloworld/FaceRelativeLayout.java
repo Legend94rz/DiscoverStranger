@@ -26,6 +26,7 @@ import android.widget.ToggleButton;
 
 import org.helloworld.tools.ChatEmoji;
 import org.helloworld.tools.FaceAdapter;
+import org.helloworld.tools.FaceConversionUtil;
 import org.helloworld.tools.emojiAdapter;
 
 import java.util.ArrayList;

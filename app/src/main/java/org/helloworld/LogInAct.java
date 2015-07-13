@@ -1,6 +1,5 @@
 package org.helloworld;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -26,7 +25,7 @@ import java.io.File;
  * 登录界面
  * */
 
-public class LogInAct extends Activity
+public class LogInAct extends BaseActivity
 {
 	private ProgressBar pbLogInBar;
 	private Button btnLogIn;

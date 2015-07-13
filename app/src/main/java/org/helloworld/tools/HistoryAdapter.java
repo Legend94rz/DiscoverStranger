@@ -10,7 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.helloworld.FaceConversionUtil;
 import org.helloworld.R;
 
 import java.util.ArrayList;

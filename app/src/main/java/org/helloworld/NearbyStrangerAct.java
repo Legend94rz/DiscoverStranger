@@ -56,7 +56,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * 附近的人界面
  */
 
-public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClickListener
+public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarkerClickListener
 {
 	private BaiduMap map;
 	private LatLng position;

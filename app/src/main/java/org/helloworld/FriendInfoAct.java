@@ -1,6 +1,5 @@
 package org.helloworld;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -35,7 +34,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * 好友详细信息界面
  * */
 
-public class FriendInfoAct extends Activity implements View.OnClickListener
+public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 {
 	private TextView tvAge;
 	private TextView tvSex;
@@ -145,11 +144,6 @@ public class FriendInfoAct extends Activity implements View.OnClickListener
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void goback(View view)
-	{
-		finish();
-	}
-
 	@Override
 	public void onClick(View view)
 	{
@@ -232,28 +226,7 @@ public class FriendInfoAct extends Activity implements View.OnClickListener
 
 	public void modifyRemark(View view)
 	{
-/*		final EditText etRemark=new EditText(this);
-		etRemark.setHint("输入备注");
-		final UserInfo u= Global.map2Friend.get(friendName);
-		if(u.Ex_remark!=null)
-			etRemark.setText(u.Ex_remark);
-		AlertDialog.Builder builder=new AlertDialog.Builder(this)
-									.setTitle("修改备注")
-									.setPositiveButton("确定", new DialogInterface.OnClickListener()
-									{
-										@Override
-										public void onClick(DialogInterface dialogInterface, int i)
-										{
-											u.Ex_remark = etRemark.getText().toString();
-											String jsonStr = constructFriends2JSON().toString();
-											new WebTask(null, -1).execute("updateFriendList", 2, "name", Global.mySelf.username, "friendList", jsonStr);
-											finish();
-										}
-									})
-									.setView(etRemark)
-									.setNegativeButton("取消", null);
-		builder.create().show();*/
-		Intent intent=new Intent(this,ModifyFriendInfo.class);
+		Intent intent = new Intent(this, ModifyFriendInfoAct.class);
 		final UserInfo u= Global.map2Friend.get(friendName);
 		if(u.Ex_remark==null)
 			intent.putExtra("oldRemark","");
@@ -267,7 +240,7 @@ public class FriendInfoAct extends Activity implements View.OnClickListener
 	{
 		if(requestCode==MODIFY_RETURENED)
 		{
-			if(resultCode==ModifyFriendInfo.MODIFY_SUCCESS)
+			if (resultCode == ModifyFriendInfoAct.MODIFY_SUCCESS)
 			{
 				final UserInfo u= Global.map2Friend.get(friendName);
 				u.Ex_remark = data.getStringExtra("newRemark");

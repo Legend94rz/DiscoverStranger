@@ -1,6 +1,5 @@
 package org.helloworld;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -38,7 +37,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 /**
  * 注册界面
  * */
-public class RegisterAct extends Activity
+public class RegisterAct extends BaseActivity
 {
 
 	private static final int PHOTO_REQUEST = 1;

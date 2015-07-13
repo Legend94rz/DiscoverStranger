@@ -1,8 +1,8 @@
 package org.helloworld;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.*;
+import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +23,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * 摇一摇结果界面
  * */
 
-public class ShakeResultAct extends Activity
+public class ShakeResultAct extends BaseActivity
 {
 	private ListView lvResult;
 	private ArrayList<ShakeRecord> result;
@@ -134,11 +134,6 @@ public class ShakeResultAct extends Activity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		NearbyStrangerAct.DealGameResult(requestCode,resultCode,data,handler,ShakeResultAct.this);
-	}
-	
-	public void goback(View view)
-	{
-		finish();
+		NearbyStrangerAct.DealGameResult(requestCode, resultCode, data, handler, ShakeResultAct.this);
 	}
 }

@@ -1,10 +1,8 @@
 package org.helloworld;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.View;
 import android.widget.ListView;
 
 import org.helloworld.tools.DownloadTask;
@@ -19,7 +17,7 @@ import java.util.ArrayList;
  * 查看通知界面
  * */
 
-public class NotificationAct extends Activity
+public class NotificationAct extends BaseActivity
 {
 	private ListView lvNotification;
 	private NotificationAdapter adapter;
@@ -64,9 +62,4 @@ public class NotificationAct extends Activity
 		}
 	}
 
-
-	public void goback(View view)
-	{
-		finish();
-	}
 }

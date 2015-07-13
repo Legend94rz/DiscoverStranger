@@ -1,14 +1,15 @@
 package org.helloworld;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import org.helloworld.tools.FaceConversionUtil;
+
 /**
  * 启动界面
  * */
-public class SplashAct extends Activity
+public class SplashAct extends BaseActivity
 {
 
 	@Override

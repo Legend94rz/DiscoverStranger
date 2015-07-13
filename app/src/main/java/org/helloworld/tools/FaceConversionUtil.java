@@ -1,4 +1,4 @@
-package org.helloworld;
+package org.helloworld.tools;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -10,8 +10,7 @@ import android.text.style.DynamicDrawableSpan;
 import android.text.style.ImageSpan;
 import android.util.Log;
 
-import org.helloworld.tools.ChatEmoji;
-import org.helloworld.tools.FileUtils;
+import org.helloworld.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
