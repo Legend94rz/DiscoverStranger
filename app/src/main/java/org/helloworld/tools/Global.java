@@ -60,7 +60,7 @@ public class Global
 		public static final int W_GOT_STRANGERS = 6;
 		public static final int W_DOWNLOADED_A_FILE = 7;
 		public static final int W_SENDED_REQUEST = 8;
-		public static final int W_SECOND_GO_BY = 9;
+		public static final int W_RECEIVED_NEW_CMD = 9;
 		public static final int W_RESEND_MSG = 10;
 		public static final int W_PLAY_SOUND = 11;
 		public static final int W_REFRESH_DEEP = 12;

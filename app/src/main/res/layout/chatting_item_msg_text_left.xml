@@ -47,7 +47,7 @@
 			android:layout_marginTop="8dp"
 			android:paddingTop="5dp"
 			android:paddingRight="7dp"
-			android:paddingBottom="9dp"
+			android:paddingBottom="8dp"
 			android:paddingLeft="12dp">
 
 			<TextView
@@ -69,12 +69,12 @@
 				android:scaleType="fitXY"
 				android:adjustViewBounds="true"
 				android:clickable="true"
-				android:layout_marginLeft="15dp"
-				android:layout_marginRight="5dp"
 				android:layout_centerVertical="true"
-				android:layout_marginTop="10dp"
 				android:padding="3dp"
-				android:src="@drawable/nopic"/>
+				android:src="@drawable/nopic"
+				android:layout_alignParentTop="true"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentBottom="true"/>
 
 			<ProgressBar
 				style="?android:attr/progressBarStyleHorizontal"

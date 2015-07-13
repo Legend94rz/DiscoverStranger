@@ -32,6 +32,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import org.helloworld.tools.ChatMsgAdapter;
+import org.helloworld.tools.DownloadTask;
 import org.helloworld.tools.FileUtils;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.History;
@@ -97,23 +98,13 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 	public static Handler handler;
 
 	@Override
-	protected void onPause()
-	{
-		if (messages.size() > history.unreadMsg.size())
-		{
-			history.lastHistoryMsg = messages.get(messages.size() - 1);
-			Global.map.put(chatTo, history);
-		}
-		history.unreadMsg.clear();
-		handler = null;
-		super.onPause();
-	}
-
-	@Override
 	protected void onDestroy()
 	{
 		super.onDestroy();
 		totalRec = -1;
+		history.unreadMsg.clear();
+		MsgPullService.handlers.remove(handler);
+		handler = null;
 	}
 
 	public class SendTask extends AsyncTask<Void, Void, Boolean>
@@ -175,9 +166,12 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 	}
 
 	@Override
-	protected void onResume()
+	public void onCreate(Bundle savedInstanceState)
 	{
-		super.onResume();
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_chat);
+		manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		handler = new Handler(new Handler.Callback()
 		{
 			@Override
@@ -186,14 +180,29 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 				switch (message.what)
 				{
 					case Global.MSG_WHAT.W_RECEIVED_NEW_MSG:
-						if (message.obj != null)
+					{
+						ArrayList<Message> msgs = ((ArrayList<Message>) message.obj);
+						for (Message m : msgs)
 						{
-							Message msg = (Message) message.obj;
-							if (msg.fromId.equals(chatTo) && !messages.contains(msg))
-								messages.add(msg);
+							if ((m.msgType & Global.MSG_TYPE.T_PIC_MSG) > 0)
+							{
+								m.sendState = 1;
+								DownloadTask task = new DownloadTask("ChatPic", Global.PATH.ChatPic, m.text, Global.BLOCK_SIZE, handler, Global.MSG_WHAT.W_REFRESH, m);
+								task.execute();
+							}
+							if ((m.msgType & Global.MSG_TYPE.T_VOICE_MSG) > 0)
+							{
+								m.sendState = 1;
+								String fileName = m.text.split("~")[0];
+								DownloadTask t = new DownloadTask("soundMsg", Global.PATH.SoundMsg, fileName, Global.BLOCK_SIZE, handler, Global.MSG_WHAT.W_REFRESH, m);
+								t.execute();
+							}
 						}
+						messages.addAll(msgs);
 						mAdapter.notifyDataSetChanged();
-						break;
+						history.unreadMsg.clear();        //不知为何，仅在onDestroy里写这句话不行。
+					}
+					break;
 					case Global.MSG_WHAT.W_REFRESH:
 					{
 						Message msg = (Message) message.obj;
@@ -265,15 +274,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 				return false;
 			}
 		});
-	}
-
-	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_chat);
-		manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+		MsgPullService.handlers.add(handler);
 		initView();
 		initData();
 	}
@@ -497,20 +498,20 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 	{
 		chatTo = getIntent().getStringExtra("chatTo");
 		history = Global.map.get(chatTo);
+		messages = new ArrayList<>();
 		if (history == null)
 		{
 			history = new History(chatTo);
+			Global.map.put(chatTo, history);
+			Global.historyList.add(history);
 			timeNode = Global.getDate();
-			messages = new ArrayList<>();
 		}
 		else
 		{
-			messages = new ArrayList<>(history.unreadMsg);
 			if (history.unreadMsg.size() > 0)
 				timeNode = history.unreadMsg.get(0).sendTime;
 			else
 				timeNode = Global.getDate();
-			history.unreadMsg.clear();
 		}
 		mAdapter = new ChatMsgAdapter(this, messages);
 		lvMsg.setAdapter(mAdapter);
@@ -525,8 +526,14 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 		{
 			title = chatTo;
 		}
-
 		tvChatTitle.setText(title);
+		if (history.unreadMsg.size() > 0)
+		{
+			android.os.Message message = new android.os.Message();
+			message.obj = history.unreadMsg;
+			message.what = Global.MSG_WHAT.W_RECEIVED_NEW_MSG;
+			handler.sendMessage(message);
+		}
 	}
 
 	@Override
@@ -717,9 +724,11 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 
 	private void sendVoiceMsg(Message entity)
 	{
-
 		if (!messages.contains(entity))
+		{
 			messages.add(entity);
+			history.lastHistoryMsg = entity;
+		}
 		mAdapter.notifyDataSetChanged();
 		new SendTask(entity, "soundMsg").execute();
 		lvMsg.setSelection(lvMsg.getCount() - 1);
@@ -728,7 +737,10 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 	private void sendPic(Message entity)
 	{
 		if (!messages.contains(entity))
+		{
 			messages.add(entity);
+			history.lastHistoryMsg = entity;
+		}
 		mAdapter.notifyDataSetChanged();
 		new SendTask(entity, "ChatPic").execute();
 		lvMsg.setSelection(lvMsg.getCount() - 1);
@@ -738,7 +750,10 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 	{
 		new SendTask(entity, null).execute();
 		if (!messages.contains(entity))
+		{
 			messages.add(entity);
+			history.lastHistoryMsg = entity;
+		}
 		mAdapter.notifyDataSetChanged();
 		mEditTextContent.setText("");
 		lvMsg.setSelection(lvMsg.getCount() - 1);

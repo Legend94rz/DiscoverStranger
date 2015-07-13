@@ -2,6 +2,7 @@ package org.helloworld;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
 
 import org.helloworld.tools.Global;
@@ -13,13 +14,15 @@ import java.util.ArrayList;
 
 /**
  * 消息拉取服务
- * */
+ */
 public class MsgPullService extends Service
 {
-	private boolean isError;
+	public static ArrayList<Handler> handlers = new ArrayList<>();
+
 	public class MsgPuller implements Runnable
 	{
 		boolean isError;
+
 		@Override
 		public void run()
 		{
@@ -28,23 +31,48 @@ public class MsgPullService extends Service
 			pullMsg.addProperty("name", Global.mySelf.username);
 			while (true)
 			{
-				ArrayList<Message> listOfMsg = new ArrayList<Message>();
+				ArrayList<Message> listOfMsg = new ArrayList<>();
+				ArrayList<Message> listOfCmd = new ArrayList<>();
 				try
 				{
 					SoapObject messages = pullMsg.call();
-					SoapObject result= (SoapObject) messages.getProperty(0);
-					int T=result.getPropertyCount();
-					if(T>0)
+					SoapObject result = (SoapObject) messages.getProperty(0);
+					int T = result.getPropertyCount();
+					for (int i = 0; i < T; i++)
 					{
-						android.os.Message newMessageHint = new android.os.Message();
-						newMessageHint.what = Global.MSG_WHAT.W_RECEIVED_NEW_MSG;
-						for (int i = 0; i < T; i++)
-							listOfMsg.add(Message.parse((SoapObject) result.getProperty(i)));
-						newMessageHint.obj = listOfMsg;
-						MainActivity.handler.sendMessage(newMessageHint);
+						Message m = Message.parse((SoapObject) result.getProperty(i));
+						if (m.fromId.equals("cmd"))
+						{
+							listOfCmd.add(m);
+						}
+						else
+						{
+							m.msgType |= Global.MSG_TYPE.T_RECEIVE_MSG;
+							listOfMsg.add(m);
+						}
+					}
+					if (listOfMsg.size() > 0)
+					{
+						for (Handler handler : handlers)
+						{
+							android.os.Message newMessageHint = new android.os.Message();
+							newMessageHint.what = Global.MSG_WHAT.W_RECEIVED_NEW_MSG;
+							newMessageHint.obj = listOfMsg;
+							handler.sendMessage(newMessageHint);
+						}
+					}
+					if (listOfCmd.size() > 0)
+					{
+						for (Handler handler : handlers)
+						{
+							android.os.Message newMessageHint = new android.os.Message();
+							newMessageHint.what = Global.MSG_WHAT.W_RECEIVED_NEW_CMD;
+							newMessageHint.obj = listOfCmd;
+							handler.sendMessage(newMessageHint);
+						}
 					}
 					Thread.sleep(5000);
-					isError=false;
+					isError = false;
 				}
 				catch (InterruptedException e)
 				{
@@ -53,22 +81,22 @@ public class MsgPullService extends Service
 				catch (NullPointerException e)
 				{
 					e.printStackTrace();
-					if(!isError)
+					if (!isError)
 					{
-						android.os.Message M=new android.os.Message();
-						M.what= Global.MSG_WHAT.W_ERROR_NETWORK;
-						if(MainActivity.handler!=null)
-							MainActivity.handler.sendMessage(M);
-						isError=true;
+						if (MainActivity.handler != null)
+							MainActivity.handler.sendEmptyMessage(Global.MSG_WHAT.W_ERROR_NETWORK);
+						isError = true;
 					}
 				}
 
 			}
 		}
 	}
+
 	public MsgPullService()
 	{
 	}
+
 	@Override
 	public boolean onUnbind(Intent intent)
 	{

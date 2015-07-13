@@ -204,16 +204,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 	protected void onResume()
 	{
 		super.onResume();
-		for (History h : Global.map.values())    //ChatAct是维护的map,所以要手动保持historyList与Map的一致
-		{
-			int i;
-			for (i = 0; i < Global.historyList.size(); i++)
-			{
-				if (Global.historyList.get(i).partner.equals(h.partner))
-					break;
-			}
-			if (i == Global.historyList.size()) Global.historyList.add(h);
-		}
 		updateHistoryView();
 	}
 
@@ -251,66 +241,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 			{
 				switch (msg.what)
 				{
+					case Global.MSG_WHAT.W_RECEIVED_NEW_CMD:
+					{
+						ArrayList<Message> cmds = ((ArrayList<Message>) msg.obj);
+						for (Message m : cmds)
+							CMDParser.Execute(m);
+					}
+					break;
 					case Global.MSG_WHAT.W_RECEIVED_NEW_MSG:
 						ArrayList<Message> received = (ArrayList<Message>) msg.obj;
-						if (!received.get(0).fromId.equals("cmd")) RemindUser();
+						RemindUser();
 						for (Message m : received)
 						{
-							if (!m.fromId.equals("cmd"))
-							{
-								History h;
-								m.msgType |= Global.MSG_TYPE.T_RECEIVE_MSG;
-								h = Global.map.get(m.fromId);
-								if (h == null)
-									h = new History(m.fromId);
-								new MSGPreprocessor(m).Preprocess();
-								h.unreadMsg.add(m);
-								h.lastHistoryMsg = m;
-								if ((m.msgType & Global.MSG_TYPE.T_PIC_MSG) > 0)
-								{
-									m.sendState = 1;
-									DownloadTask task = new DownloadTask("ChatPic", Global.PATH.ChatPic, m.text, Global.BLOCK_SIZE, handler, Global.MSG_WHAT.W_DOWNLOADED_A_FILE, m);
-									task.execute();
-								}
-								if ((m.msgType & Global.MSG_TYPE.T_VOICE_MSG) > 0)
-								{
-									m.sendState = 1;
-									String fileName = m.text.split("~")[0];
-									DownloadTask t = new DownloadTask("soundMsg", Global.PATH.SoundMsg, fileName, Global.BLOCK_SIZE, handler, Global.MSG_WHAT.W_DOWNLOADED_A_FILE, m);
-									t.execute();
-								}
-								if (ChatActivity.handler != null && !h.partner.equals("通知"))            //如果当前有活动的聊天界面则直接转发给ChatActivity
-								{
-									android.os.Message message = new android.os.Message();
-									message.what = Global.MSG_WHAT.W_RECEIVED_NEW_MSG;
-									message.obj = m;
-									ChatActivity.handler.sendMessage(message);
-								}
-								else
-								{
-									Global.map.put(h.partner, h);
-									if (!Global.historyList.contains(h))
-										Global.historyList.add(h);
-								}
-							}
-							else            //如果这条消息是一个远程命令
-							{
-								CMDParser.Execute(m);
-							}
+							History h;
+							h = Global.map.get(m.fromId);
+							if (h == null)
+								h = new History(m.fromId);
+							new MSGPreprocessor(m).Preprocess();
+							h.unreadMsg.add(m);
+							h.lastHistoryMsg = m;
+							Global.map.put(h.partner, h);
+							if (!Global.historyList.contains(h))
+								Global.historyList.add(h);
 						}
 						updateHistoryView();
 						break;
-					case Global.MSG_WHAT.W_DOWNLOADED_A_FILE:        //下载完成了一个文件(针对语音消息跟图片消息).这个实现方式很可能不好。
-					{
-						if (ChatActivity.handler != null)    //如果此时有活动的聊天界面
-						{
-							android.os.Message newMsg = new android.os.Message();
-							newMsg.copyFrom(msg);            //否则会引起This message is already in use异常
-							newMsg.what = Global.MSG_WHAT.W_REFRESH;
-							ChatActivity.handler.sendMessage(newMsg);    //基本原样转发，提醒聊天界面刷新
-						}
-					}
-					break;
 					case Global.MSG_WHAT.W_GOT_FRIENDS_LIST:
 						try
 						{
@@ -346,6 +301,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		};
 		FlushState();
 		Intent I = new Intent(this, MsgPullService.class);
+		MsgPullService.handlers.add(handler);
 		startService(I);
 	}
 
