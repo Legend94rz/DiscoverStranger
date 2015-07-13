@@ -58,7 +58,7 @@ public class FriendInfoAct extends Activity implements View.OnClickListener
 			@Override
 			public boolean handleMessage(Message message)
 			{
-				if (message.what == Global.MSG_WHAT.W_DOWNLOADED_A_HAEDIMG)
+				if (message.what == Global.MSG_WHAT.W_DOWNLOADED_A_FILE)
 				{
 					try
 					{
@@ -99,7 +99,7 @@ public class FriendInfoAct extends Activity implements View.OnClickListener
 			Bitmap bmp = BitmapFactory.decodeFile(path);
 			ivHeadImg.setImageBitmap(bmp);
 		}
-		WebTask task = new WebTask(handler, Global.MSG_WHAT.W_DOWNLOADED_A_HAEDIMG);
+		WebTask task = new WebTask(handler, Global.MSG_WHAT.W_DOWNLOADED_A_FILE);
 		task.execute("downloadFile", 2, "path", "HeadImg", "fileName", friendName + ".png");
 
 	}
@@ -186,7 +186,7 @@ public class FriendInfoAct extends Activity implements View.OnClickListener
 						JSONArray params = new JSONArray();
 						params.put(Global.mySelf.username);
 						j.put("param", params);
-						new WebTask(null, -1).execute("pushMsg", 5, "from", "cmd", "to", friendName, "msg", j.toString(), "time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"), "msgType", String.valueOf(Global.MSG_TYPE.T_TEXT_MSG));
+						new WebTask(null, -1).execute("pushMsg", 5, "from", "cmd", "to", friendName, "msg", j.toString(), "time", Global.formatDate(Global.getDate(), "yyyy-MM-dd HH:mm:ss"), "msgType", String.valueOf(Global.MSG_TYPE.T_TEXT_MSG));
 					}
 					catch (JSONException e)
 					{

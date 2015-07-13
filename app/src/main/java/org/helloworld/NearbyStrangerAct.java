@@ -199,7 +199,7 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 				service.addProperty("from", "通知")
 					.addProperty("to", strangerName)
 					.addProperty("msg", jobj.toString())
-					.addProperty("time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"))
+					.addProperty("time", Global.formatDate(Global.getDate(), "yyyy-MM-dd HH:mm:ss"))
 					.addProperty("msgType", String.valueOf(Global.MSG_TYPE.T_TEXT_MSG));
 				SoapObject so = null;
 				Boolean f2 = true;
@@ -222,7 +222,7 @@ public class NearbyStrangerAct extends Activity implements BaiduMap.OnMarkerClic
 						JSONArray ja = new JSONArray();
 						ja.put(Global.mySelf.username);
 						j.put("param", ja);
-						new WebTask(null, -1).execute("pushMsg", 5, "from", "cmd", "to", strangerName, "msg", j.toString(), "time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"), "msgType", String.valueOf(Global.MSG_TYPE.T_TEXT_MSG));
+						new WebTask(null, -1).execute("pushMsg", 5, "from", "cmd", "to", strangerName, "msg", j.toString(), "time", Global.formatDate(Global.getDate(), "yyyy-MM-dd HH:mm:ss"), "msgType", String.valueOf(Global.MSG_TYPE.T_TEXT_MSG));
 					}
 					catch (JSONException e)
 					{

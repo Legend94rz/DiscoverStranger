@@ -131,19 +131,9 @@ public class ChatMsgAdapter extends BaseAdapter
 		{
 			viewHolder.tvContent.setVisibility(View.GONE);
 			viewHolder.ivPic.setVisibility(View.VISIBLE);
-			if (!isComMsg)        //如果是发送的消息，则显示本地照片
+			if (FileUtils.Exist(Global.PATH.ChatPic + entity.text))
 			{
-				if (FileUtils.Exist(entity.extra.getString("localPath")))
-				{
-					viewHolder.ivPic.setImageBitmap(FileUtils.getOptimalBitmap(context,entity.extra.getString("localPath"),true));
-				}
-			}
-			else                //接收到的消息，则显示下载的照片
-			{
-				if (FileUtils.Exist(Global.PATH.ChatPic + entity.text))
-				{
-					viewHolder.ivPic.setImageBitmap(FileUtils.getOptimalBitmap(context,Global.PATH.ChatPic + entity.text,true));
-				}
+				viewHolder.ivPic.setImageBitmap(FileUtils.getOptimalBitmap(context, Global.PATH.ChatPic + entity.text, true));
 			}
 		}
 		else if ((entity.msgType & Global.MSG_TYPE.T_VOICE_MSG) > 0)
@@ -161,8 +151,8 @@ public class ChatMsgAdapter extends BaseAdapter
 		}
 		viewHolder.tvContent.setText(spannableString);
 
-		if(FileUtils.Exist(Global.PATH.HeadImg + entity.fromId +".png"))
-			viewHolder.ivHead.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg + entity.fromId +".png"));
+		if (FileUtils.Exist(Global.PATH.HeadImg + entity.fromId + ".png"))
+			viewHolder.ivHead.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg + entity.fromId + ".png"));
 		else
 			viewHolder.ivHead.setImageResource(R.drawable.nohead);
 
@@ -201,6 +191,7 @@ public class ChatMsgAdapter extends BaseAdapter
 		public ImageView ivHead;
 		public Message msg;
 		public ProgressBar pbPlayVoice;
+
 		@Override
 		public void onClick(View view)
 		{
@@ -210,20 +201,15 @@ public class ChatMsgAdapter extends BaseAdapter
 			{
 				case R.id.ivPic:
 					Intent bigPic = new Intent(context, BigPicAct.class);
-					if(isComMsg)
-					{
-						if(FileUtils.Exist(Global.PATH.ChatPic + msg.text))
-							bigPic.putExtra("imgsrc", Global.PATH.ChatPic + msg.text);
-					}
-					else
-						bigPic.putExtra("imgsrc",msg.extra.getString("localPath"));
+					if (FileUtils.Exist(Global.PATH.ChatPic + msg.text))
+						bigPic.putExtra("imgsrc", Global.PATH.ChatPic + msg.text);
 					context.startActivity(bigPic);
 					break;
 				case R.id.tvChatcontent:
-					if((msg.msgType & Global.MSG_TYPE.T_VOICE_MSG)>0)
+					if ((msg.msgType & Global.MSG_TYPE.T_VOICE_MSG) > 0)
 					{
-						android.os.Message m=new android.os.Message();
-						m.what= Global.MSG_WHAT.W_PLAY_SOUND;
+						android.os.Message m = new android.os.Message();
+						m.what = Global.MSG_WHAT.W_PLAY_SOUND;
 						Bundle data = new Bundle();
 						data.putString("content", msg.text.split("~")[0]);
 						String tmp = msg.text.split("    ")[1];
@@ -234,9 +220,9 @@ public class ChatMsgAdapter extends BaseAdapter
 					}
 					break;
 				case R.id.ibResendbtn:
-					android.os.Message m=new android.os.Message();
-					m.obj=msg;
-					m.what= Global.MSG_WHAT.W_RESEND_MSG;
+					android.os.Message m = new android.os.Message();
+					m.obj = msg;
+					m.what = Global.MSG_WHAT.W_RESEND_MSG;
 					ChatActivity.handler.sendMessage(m);
 					break;
 			}

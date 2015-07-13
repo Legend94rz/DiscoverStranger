@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,13 +39,17 @@ import org.helloworld.tools.History;
 import org.helloworld.tools.Message;
 import org.helloworld.tools.UploadTask;
 import org.helloworld.tools.WebService;
+import org.helloworld.tools.WebTask;
 import org.ksoap2.serialization.SoapObject;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * 聊天界面
@@ -56,10 +61,15 @@ public class ChatActivity extends Activity implements OnClickListener
 	private String chatTo;
 	private History history;
 	private EditText mEditTextContent;
-	private ListView mListView;
+	private ListView lvMsg;
 	private ChatMsgAdapter mAdapter;
 	private InputMethodManager manager;
-
+	private ArrayList<Message> messages;        //记录本次会话所有聊天消息
+	private SwipeRefreshLayout swipeRefreshLayout;
+	//翻页相关
+	int curPage, totalPage, totalRec = -1;
+	private final static int PAGE_SIZE = 10;
+	Date timeNode;
 	//三个ToggleButton
 	private ToggleButton swiFace;
 	private ToggleButton swiMoreInput;
@@ -90,10 +100,21 @@ public class ChatActivity extends Activity implements OnClickListener
 	@Override
 	protected void onPause()
 	{
-		history.unreadCount = 0;
-		if (history.historyMsg.size() > 0) Global.map.put(chatTo, history);
+		if (messages.size() > history.unreadMsg.size())
+		{
+			history.lastHistoryMsg = messages.get(messages.size() - 1);
+			Global.map.put(chatTo, history);
+		}
+		history.unreadMsg.clear();
 		handler = null;
 		super.onPause();
+	}
+
+	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
+		totalRec = -1;
 	}
 
 	public class SendTask extends AsyncTask<Void, Void, Boolean>
@@ -169,8 +190,8 @@ public class ChatActivity extends Activity implements OnClickListener
 						if (message.obj != null)
 						{
 							Message msg = (Message) message.obj;
-							if (msg.fromId.equals(chatTo) && !history.historyMsg.contains(msg))
-								history.historyMsg.add(msg);
+							if (msg.fromId.equals(chatTo) && !messages.contains(msg))
+								messages.add(msg);
 						}
 						mAdapter.notifyDataSetChanged();
 						break;
@@ -183,6 +204,7 @@ public class ChatActivity extends Activity implements OnClickListener
 					}
 					break;
 					case Global.MSG_WHAT.W_RESEND_MSG:
+					{
 						Message m = ((Message) message.obj);
 						m.sendState = 1;
 						if ((m.msgType & Global.MSG_TYPE.T_TEXT_MSG) > 0)
@@ -191,7 +213,8 @@ public class ChatActivity extends Activity implements OnClickListener
 							sendVoiceMsg((Message) message.obj);
 						else if ((m.msgType & Global.MSG_TYPE.T_PIC_MSG) > 0)
 							sendPic(((Message) message.obj));
-						break;
+					}
+					break;
 					case Global.MSG_WHAT.W_PLAY_SOUND:
 					{
 						final ProgressBar pbPlayVoice = (ProgressBar) message.obj;
@@ -219,6 +242,26 @@ public class ChatActivity extends Activity implements OnClickListener
 						playSound(message.getData().getString("content"));
 						break;
 					}
+					case Global.MSG_WHAT.W_GOT_MSG_HISTORY_LIST:
+					{
+						SoapObject so = (SoapObject) message.obj;
+						SoapObject result = (SoapObject) so.getProperty(0);
+						ArrayList<Message> tmp = new ArrayList<>();
+						for (int i = 0; i < result.getPropertyCount(); i++)
+						{
+							Message msg = Message.parse((SoapObject) result.getProperty(i));
+							if (msg.fromId.equals(Global.mySelf.username))
+								msg.msgType |= Global.MSG_TYPE.T_SEND_MSG;
+							else
+								msg.msgType |= Global.MSG_TYPE.T_RECEIVE_MSG;
+							tmp.add(msg);
+						}
+						messages.addAll(0, tmp);
+						mAdapter.notifyDataSetChanged();
+						lvMsg.setSelection(PAGE_SIZE);
+						swipeRefreshLayout.setRefreshing(false);
+					}
+					break;
 				}
 				return false;
 			}
@@ -294,15 +337,16 @@ public class ChatActivity extends Activity implements OnClickListener
 			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 			String picturePath = cursor.getString(columnIndex);
 			cursor.close();
-			File tmp = new File(picturePath);
-/*			if (tmp.length() >= 64000)
-			{
-				Toast.makeText(this, "图片太大", Toast.LENGTH_SHORT).show();
-				return;
-			}*/
-			Message entity = new Message();
-			String localPath = tmp.getParent() + "/";
-			String localName = tmp.getName();
+			final File tmp = new File(picturePath);
+			//Todo 在这里将tmp文件复制一份到图片消息文件夹下。使用模态进度对话框
+			final SweetAlertDialog dialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+			dialog.setContentText("准备中...");
+			dialog.getProgressHelper().setBarColor(getResources().getColor(R.color.blue));
+			dialog.setCancelable(false);
+			dialog.show();
+			final Message entity = new Message();
+			final String localPath = tmp.getParent() + "/";
+			final String localName = tmp.getName();
 			entity.msgType = Global.MSG_TYPE.T_SEND_MSG | Global.MSG_TYPE.T_PIC_MSG;
 			entity.fromId = Global.mySelf.username;
 			entity.toId = chatTo;
@@ -313,6 +357,16 @@ public class ChatActivity extends Activity implements OnClickListener
 			entity.extra.putString("localName", localName);
 			entity.extra.putString("remoteName", entity.text);
 			entity.sendState = 1;
+			Thread t = new Thread(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					FileUtils.FastCopy(new File(localPath + localName), new File(Global.PATH.ChatPic + entity.text));
+					dialog.dismiss();
+				}
+			});
+			t.start();
 			//发送图片
 			sendPic(entity);
 		}
@@ -320,7 +374,65 @@ public class ChatActivity extends Activity implements OnClickListener
 
 	public void initView()
 	{
-		mListView = (ListView) findViewById(R.id.lvChatMsg);
+		lvMsg = (ListView) findViewById(R.id.lvChatMsg);
+		swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
+		swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+		{
+			@Override
+			public void onRefresh()
+			{
+				final String where = String.format("((FromId='%s' and ToId='%s') or (FromId='%s' and ToId='%s') ) and (SendTime < '%s') ", Global.mySelf.username, chatTo, chatTo, Global.mySelf.username, Global.formatDate(timeNode, "yyyy-MM-dd HH:mm:ss"));
+				if (totalRec == -1)
+				{
+					Thread t = new Thread(new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							WebService service = new WebService("getMsgCountBy");
+							service.addProperty("where", where);
+							try
+							{
+								SoapObject so = service.call();
+								totalRec = Integer.valueOf(so.getPropertyAsString(0));
+							}
+							catch (NullPointerException e)
+							{
+								e.printStackTrace();
+							}
+						}
+					});
+					t.start();
+					try
+					{
+						t.join(5000);
+						if (totalRec == -1) throw new Exception();    //这说明获取消息总数失败
+					}
+					catch (InterruptedException e)
+					{
+						e.printStackTrace();
+						return;
+					}
+					catch (Exception e)
+					{
+						e.printStackTrace();
+						swipeRefreshLayout.setRefreshing(false);
+						Toast.makeText(ChatActivity.this, Global.ERROR_HINT.HINT_ERROR_NETWORD, Toast.LENGTH_SHORT).show();
+						return;
+					}
+					totalPage = totalRec / PAGE_SIZE;
+					if (totalRec % PAGE_SIZE != 0) totalPage++;
+					curPage = totalPage;
+				}
+				if (curPage <= 0)
+				{
+					swipeRefreshLayout.setRefreshing(false);
+					return;
+				}
+				new WebTask(handler, Global.MSG_WHAT.W_GOT_MSG_HISTORY_LIST).execute("getMsgByPage", 3, "where", where, "pageIndex", curPage, "pageSize", PAGE_SIZE);
+				curPage--;
+			}
+		});
 		tvTime = (TextView) findViewById(R.id.tvTime);
 		btnSend = (Button) findViewById(R.id.btnSend);
 		btnSend.setOnClickListener(this);
@@ -390,10 +502,20 @@ public class ChatActivity extends Activity implements OnClickListener
 		if (history == null)
 		{
 			history = new History(chatTo);
+			timeNode = Global.getDate();
+			messages = new ArrayList<>();
 		}
-		else history.unreadCount = 0;
-		mAdapter = new ChatMsgAdapter(this, history.historyMsg);
-		mListView.setAdapter(mAdapter);
+		else
+		{
+			messages = new ArrayList<>(history.unreadMsg);
+			if (history.unreadMsg.size() > 0)
+				timeNode = history.unreadMsg.get(0).sendTime;
+			else
+				timeNode = Global.getDate();
+			history.unreadMsg.clear();
+		}
+		mAdapter = new ChatMsgAdapter(this, messages);
+		lvMsg.setAdapter(mAdapter);
 		String title;
 		try
 		{
@@ -545,6 +667,11 @@ public class ChatActivity extends Activity implements OnClickListener
 		pbPlayRecord.setVisibility(View.INVISIBLE);
 	}
 
+	/**
+	 * 播放语音消息文件夹下的声音文件
+	 *
+	 * @param fileName 文件名
+	 */
 	private void playSound(String fileName)
 	{
 		if (FileUtils.Exist(Global.PATH.SoundMsg + fileName))
@@ -593,30 +720,30 @@ public class ChatActivity extends Activity implements OnClickListener
 	private void sendVoiceMsg(Message entity)
 	{
 
-		if (!history.historyMsg.contains(entity))
-			history.historyMsg.add(entity);
+		if (!messages.contains(entity))
+			messages.add(entity);
 		mAdapter.notifyDataSetChanged();
 		new SendTask(entity, "soundMsg").execute();
-		mListView.setSelection(mListView.getCount() - 1);
+		lvMsg.setSelection(lvMsg.getCount() - 1);
 	}
 
 	private void sendPic(Message entity)
 	{
-		if (!history.historyMsg.contains(entity))
-			history.historyMsg.add(entity);
+		if (!messages.contains(entity))
+			messages.add(entity);
 		mAdapter.notifyDataSetChanged();
 		new SendTask(entity, "ChatPic").execute();
-		mListView.setSelection(mListView.getCount() - 1);
+		lvMsg.setSelection(lvMsg.getCount() - 1);
 	}
 
 	private void send(Message entity)
 	{
 		new SendTask(entity, null).execute();
-		if (!history.historyMsg.contains(entity))
-			history.historyMsg.add(entity);
+		if (!messages.contains(entity))
+			messages.add(entity);
 		mAdapter.notifyDataSetChanged();
 		mEditTextContent.setText("");
-		mListView.setSelection(mListView.getCount() - 1);
+		lvMsg.setSelection(lvMsg.getCount() - 1);
 	}
 
 	public void goback(View v)

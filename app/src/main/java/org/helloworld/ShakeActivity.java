@@ -2,8 +2,10 @@ package org.helloworld;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.*;
+import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -101,7 +103,7 @@ public class ShakeActivity extends Activity
 				startAnim();  //开始 摇一摇手掌动画
 				mShakeListener.stop();
 				startVibrato(); //开始 震动
-				new WebTask(null, -1).execute("addShake", 2, "name", Global.mySelf.username, "time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"));
+				new WebTask(null, -1).execute("addShake", 2, "name", Global.mySelf.username, "time", Global.formatDate(Global.getDate(), "yyyy-MM-dd HH:mm:ss"));
 				Toast.makeText(ShakeActivity.this, "正在搜索同一时刻摇动手机的人...", Toast.LENGTH_SHORT).show();
 				new Handler().postDelayed(new Runnable()
 				{
@@ -112,7 +114,7 @@ public class ShakeActivity extends Activity
 						{
 							mVibrator.cancel();
 							mShakeListener.start();
-							new WebTask(handler, Global.MSG_WHAT.W_GOT_SHAKE_RESULT).execute("getShakes", 2, "name", Global.mySelf.username, "time", Global.formatData(Global.getDate(), "yyyy-MM-dd HH:mm:ss"));
+							new WebTask(handler, Global.MSG_WHAT.W_GOT_SHAKE_RESULT).execute("getShakes", 2, "name", Global.mySelf.username, "time", Global.formatDate(Global.getDate(), "yyyy-MM-dd HH:mm:ss"));
 						}
 					}
 				}, 3000);

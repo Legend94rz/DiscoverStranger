@@ -53,7 +53,7 @@ public class Message
 		catch (ParseException e)
 		{
 			e.printStackTrace();
-			model.sendTime =new Date(System.currentTimeMillis());
+			model.sendTime = Global.getDate();
 		}
 		return model;
 	}

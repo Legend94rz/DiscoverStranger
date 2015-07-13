@@ -9,9 +9,11 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,16 +58,16 @@ public class FileUtils
 	/**
 	 * 递归创建文件夹
 	 * */
-	public static void mkDir(File file)
+	public static void mkDir(File folder)
 	{
-		if (file.getParentFile().exists())
+		if (folder.getParentFile().exists())
 		{
-			file.mkdir();
+			folder.mkdir();
 		}
 		else
 		{
-			mkDir(file.getParentFile());
-			file.mkdir();
+			mkDir(folder.getParentFile());
+			folder.mkdir();
 		}
 	}
 	private static int getImageScale(Context context, String imagePath) {
@@ -124,5 +126,51 @@ public class FileUtils
 			e.printStackTrace();
 		}
 		return base64;
+	}
+
+	public static void FastCopy(File source, File target)
+	{
+		FileChannel in = null;
+		FileChannel out = null;
+		FileInputStream inStream = null;
+		FileOutputStream outStream = null;
+		try
+		{
+			inStream = new FileInputStream(source);
+			outStream = new FileOutputStream(target);
+			in = inStream.getChannel();
+			out = outStream.getChannel();
+			in.transferTo(0, in.size(), out);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if (inStream != null)
+				{
+					inStream.close();
+				}
+				if (in != null)
+				{
+					in.close();
+				}
+				if (outStream != null)
+				{
+					outStream.close();
+				}
+				if (out != null)
+				{
+					out.close();
+				}
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 }

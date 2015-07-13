@@ -1,7 +1,8 @@
 package org.helloworld;
 
 import android.app.Activity;
-import android.os.*;
+import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.ListView;
@@ -12,6 +13,8 @@ import org.helloworld.tools.Global;
 import org.helloworld.tools.History;
 import org.helloworld.tools.NotificationAdapter;
 
+import java.util.ArrayList;
+
 /**
  * 查看通知界面
  * */
@@ -20,6 +23,7 @@ public class NotificationAct extends Activity
 {
 	private ListView lvNotification;
 	private NotificationAdapter adapter;
+	private ArrayList<org.helloworld.tools.Message> messages;
 	private History history;
 	public static Handler handler;
 	@Override
@@ -28,7 +32,8 @@ public class NotificationAct extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_notification);
 		history= Global.map.get("通知");
-		history.unreadCount=0;
+		messages = new ArrayList<>(history.unreadMsg);
+		history.unreadMsg.clear();
 		initView();
 		handler=new Handler(new Handler.Callback()
 		{
@@ -50,9 +55,9 @@ public class NotificationAct extends Activity
 	private void initView()
 	{
 		lvNotification= (ListView) findViewById(R.id.lvNotification);
-		adapter=new NotificationAdapter(this,history.historyMsg);
+		adapter = new NotificationAdapter(this, messages);
 		lvNotification.setAdapter(adapter);
-		for(org.helloworld.tools.Message m : history.historyMsg)
+		for (org.helloworld.tools.Message m : messages)
 		{
 			if(!FileUtils.Exist(Global.PATH.HeadImg + m.fromId + ".png"))
 				new DownloadTask("HeadImg",Global.PATH.HeadImg,m.fromId +".png",Global.BLOCK_SIZE,handler,Global.MSG_WHAT.W_REFRESH,null);

@@ -30,31 +30,31 @@
         android:largeHeap="true"
         android:theme="@android:style/Theme.Light.NoTitleBar" >
         <activity
-            android:name="org.helloworld.LogInAct"
+            android:name=".LogInAct"
             android:label="@string/title_activity_log_in" >
         </activity>
         <activity
-            android:name="org.helloworld.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/title_activity_main" >
         </activity>
         <activity
-            android:name="org.helloworld.NearbyStrangerAct"
+            android:name=".NearbyStrangerAct"
             android:label="@string/title_activity_nearby_stranger" >
         </activity>
         <activity
-            android:name="org.helloworld.ChatActivity"
+            android:name=".ChatActivity"
             android:label="@string/title_activity_chat"
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
 
         <service
-            android:name="org.helloworld.MsgPullService"
+            android:name=".MsgPullService"
             android:enabled="true"
             android:exported="false" >
         </service>
 
         <activity
-            android:name="org.helloworld.ShakeActivity"
+            android:name=".ShakeActivity"
             android:label="@string/title_activity_shake" >
         </activity>
 
@@ -63,23 +63,23 @@
             android:value="OHGfEikzDVBZcllUntaebyge" />
 
         <activity
-            android:name="org.helloworld.FriendInfoAct"
+            android:name=".FriendInfoAct"
             android:label="@string/title_activity_friend_info" >
         </activity>
         <activity
-            android:name="org.helloworld.RegisterAct"
+            android:name=".RegisterAct"
             android:label="@string/title_activity_register" >
         </activity>
         <activity
-            android:name="org.helloworld.NotificationAct"
+            android:name=".NotificationAct"
             android:label="@string/title_activity_notification" >
         </activity>
         <activity
-            android:name="org.helloworld.ShakeResultAct"
+            android:name=".ShakeResultAct"
             android:label="@string/title_activity_shake_result" >
         </activity>
         <activity
-            android:name="org.helloworld.SplashAct"
+            android:name=".SplashAct"
             android:label="@string/title_activity_splash" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -88,22 +88,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.helloworld.BigPicAct"
+            android:name=".BigPicAct"
             android:label="@string/title_activity_big_pic" >
         </activity>
         <activity
-            android:name="org.helloworld.ModifyFriendInfo"
+            android:name=".ModifyFriendInfo"
             android:label="@string/title_activity_modify_friend_info" >
         </activity>
+        <activity
+            android:name=".game.GameActivity"
+            android:label="@string/title_activity_game" >
+        </activity>
+        <activity
+            android:name=".game.GameSplash"
+            android:label="@string/title_activity_game" >
+        </activity>
 
-        <activity
-            android:name="org.helloworld.game.GameActivity"
-            android:label="@string/title_activity_game" >
-        </activity>
-        <activity
-            android:name="org.helloworld.game.GameSplash"
-            android:label="@string/title_activity_game" >
-        </activity>
     </application>
 
 </manifest>

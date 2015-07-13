@@ -2,6 +2,13 @@ package org.helloworld.tools;
 
 import android.os.Environment;
 
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,30 +23,34 @@ public class Global
 	public static UserInfo mySelf = null;
 	/**
 	 * 存储历史消息，方便快速查询
-	 * */
+	 */
 	public static Map<String, History> map;
 	/**
 	 * 历史消息列表，用于HistoryAdapter
+	 *
 	 * @see HistoryAdapter
-	 * */
+	 */
 	public static ArrayList<History> historyList;
 	/**
 	 * 好友列表，为便于快速查询
-	 * */
+	 */
 	public static Map<String, UserInfo> map2Friend;
 	/**
 	 * 好友列表，用于ContactAdapter
+	 *
 	 * @see ContactAdapter
-	 * */
+	 */
 	public static ArrayList<UserInfo> friendList;
 	/**
 	 * 分块上传 下载的大小
-	 * */
+	 */
 	public static final int BLOCK_SIZE = 30000;
+
 	/**
 	 * Message消息类型
+	 *
 	 * @see android.os.Message
-	 * */
+	 */
 	public static class MSG_WHAT
 	{
 		public static final int W_RECEIVED_NEW_MSG = 2;
@@ -47,7 +58,7 @@ public class Global
 		public static final int W_ERROR_NETWORK = 4;
 		public static final int W_REFRESH = 5;
 		public static final int W_GOT_STRANGERS = 6;
-		public static final int W_DOWNLOADED_A_HAEDIMG = 7;
+		public static final int W_DOWNLOADED_A_FILE = 7;
 		public static final int W_SENDED_REQUEST = 8;
 		public static final int W_SECOND_GO_BY = 9;
 		public static final int W_RESEND_MSG = 10;
@@ -55,10 +66,12 @@ public class Global
 		public static final int W_REFRESH_DEEP = 12;
 		public static final int W_GOT_SHAKE_RESULT = 13;
 		public static final int W_CHECKED_USERNAME = 14;
+		public static final int W_GOT_MSG_HISTORY_LIST = 15;
 	}
+
 	/**
 	 * 以Toast形式向用户反馈的信息
-	 * */
+	 */
 	public static class ERROR_HINT
 	{
 		public static final String HINT_ERROR_NETWORD = "网络连接失败";
@@ -67,10 +80,12 @@ public class Global
 	public static final String OPT_SUCCEED = "操作成功";
 	public static final String ERROR_EXISTED_USER = "已存在的用户";
 	public static final String ERROR_UNEXCEPT = "未知的错误";
+
 	/**
 	 * 发送、接收的Message类型
+	 *
 	 * @see Message
-	 * */
+	 */
 	public static class MSG_TYPE
 	{
 		public static final byte T_SEND_MSG = 1;
@@ -93,27 +108,38 @@ public class Global
 		public static final String HeadImg = root + "Head/";
 		/**
 		 * 聊天过程中发送的图片存放路径
-		 * */
+		 */
 		public static final String ChatPic = root + "ChatPic/";
 		/**
 		 * 语音消息路径
-		 * */
+		 */
 		public static final String SoundMsg = root + "soundMsg/";
+		/**
+		 * 缓存
+		 */
+		public static final String Cache = root + "cache/";
+		/**
+		 * 配置文件
+		 */
+		public static final String Setting = root + "setting/";
 	}
+
 	/**
 	 * 获得当前日期
-	 * */
+	 */
 	public static Date getDate()
 	{
 		return new Date(System.currentTimeMillis());
 	}
+
 	/**
 	 * 格式化日期
+	 *
 	 * @param patten 格式字符串
-	 * */
-	public static String formatData(Date date,String patten)
+	 */
+	public static String formatDate(Date date, String patten)
 	{
-		SimpleDateFormat format=new SimpleDateFormat(patten);
+		SimpleDateFormat format = new SimpleDateFormat(patten);
 		return format.format(date);
 	}
 
@@ -122,9 +148,51 @@ public class Global
 	 */
 	public static void InitData()
 	{
-		map2Friend = new HashMap<>();
-		map = new HashMap<>();
 		historyList = new ArrayList<>();
 		friendList = new ArrayList<>();
+		map2Friend = new HashMap<>();
+		map = new HashMap<>();
+		Gson g = new Gson();
+		String contactfile = PATH.Cache + mySelf.username + "contact.txt";
+		String historyfile = PATH.Cache + mySelf.username + "history.txt";
+		try
+		{
+			BufferedReader reader1 = new BufferedReader(new FileReader(new File(PATH.Cache, mySelf.username + "contact.txt")));
+			String line = reader1.readLine();
+			while (line != null)
+			{
+				UserInfo u = g.fromJson(line, UserInfo.class);
+				friendList.add(u);
+				map2Friend.put(u.username, u);
+				line = reader1.readLine();
+			}
+		}
+		catch (FileNotFoundException ignored)
+		{
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		try
+		{
+			BufferedReader reader2 = new BufferedReader(new FileReader(new File(PATH.Cache, mySelf.username + "history.txt")));
+			String line = reader2.readLine();
+			while (line != null)
+			{
+				History h = g.fromJson(line, History.class);
+				historyList.add(h);
+				map.put(h.partner, h);
+				line = reader2.readLine();
+			}
+		}
+		catch (FileNotFoundException ignored)
+		{
+
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

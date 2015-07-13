@@ -23,6 +23,9 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import org.helloworld.interfaces.OnUserInfoModifyListener;
 import org.helloworld.tools.CMDParser;
 import org.helloworld.tools.ContactAdapter;
 import org.helloworld.tools.DownloadTask;
@@ -41,6 +44,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.ksoap2.serialization.SoapObject;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,9 +56,9 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * 主界面
- * */
+ */
 
-public class MainActivity extends Activity implements View.OnClickListener, ViewPager.OnPageChangeListener
+public class MainActivity extends Activity implements View.OnClickListener, ViewPager.OnPageChangeListener, OnUserInfoModifyListener
 {
 	public static android.os.Handler handler;
 	private DrawerLayout drawerLayout;
@@ -134,6 +141,12 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 	{
 	}
 
+	@Override
+	public void OnModify(UserInfo newUser)
+	{
+		RefreshMyInfo();
+	}
+
 	public class parserWithExtraAsync extends AsyncTask<Void, Void, Void>
 	{
 		private String incompleteName;
@@ -192,7 +205,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 	protected void onResume()
 	{
 		super.onResume();
-		for (History h : Global.map.values())
+		for (History h : Global.map.values())    //ChatAct是维护的map,所以要手动保持historyList与Map的一致
 		{
 			int i;
 			for (i = 0; i < Global.historyList.size(); i++)
@@ -241,7 +254,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 				{
 					case Global.MSG_WHAT.W_RECEIVED_NEW_MSG:
 						ArrayList<Message> received = (ArrayList<Message>) msg.obj;
-						if(!received.get(0).fromId.equals("cmd")) RemindUser();
+						if (!received.get(0).fromId.equals("cmd")) RemindUser();
 						for (Message m : received)
 						{
 							if (!m.fromId.equals("cmd"))
@@ -252,19 +265,19 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 								if (h == null)
 									h = new History(m.fromId);
 								new MSGPreprocessor(m).Preprocess();
-								h.historyMsg.add(m);
-								h.unreadCount++;
+								h.unreadMsg.add(m);
+								h.lastHistoryMsg = m;
 								if ((m.msgType & Global.MSG_TYPE.T_PIC_MSG) > 0)
 								{
 									m.sendState = 1;
-									DownloadTask task = new DownloadTask("ChatPic", Global.PATH.ChatPic, m.text, Global.BLOCK_SIZE, ChatActivity.handler, Global.MSG_WHAT.W_REFRESH, m);
+									DownloadTask task = new DownloadTask("ChatPic", Global.PATH.ChatPic, m.text, Global.BLOCK_SIZE, handler, Global.MSG_WHAT.W_DOWNLOADED_A_FILE, m);
 									task.execute();
 								}
 								if ((m.msgType & Global.MSG_TYPE.T_VOICE_MSG) > 0)
 								{
 									m.sendState = 1;
 									String fileName = m.text.split("~")[0];
-									DownloadTask t = new DownloadTask("soundMsg", Global.PATH.SoundMsg, fileName, Global.BLOCK_SIZE, ChatActivity.handler, Global.MSG_WHAT.W_REFRESH, m);
+									DownloadTask t = new DownloadTask("soundMsg", Global.PATH.SoundMsg, fileName, Global.BLOCK_SIZE, handler, Global.MSG_WHAT.W_DOWNLOADED_A_FILE, m);
 									t.execute();
 								}
 								if (ChatActivity.handler != null && !h.partner.equals("通知"))            //如果当前有活动的聊天界面则直接转发给ChatActivity
@@ -288,6 +301,17 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 						}
 						updateHistoryView();
 						break;
+					case Global.MSG_WHAT.W_DOWNLOADED_A_FILE:        //下载完成了一个文件(针对语音消息跟图片消息).这个实现方式很可能不好。
+					{
+						if (ChatActivity.handler != null)    //如果此时有活动的聊天界面
+						{
+							android.os.Message newMsg = new android.os.Message();
+							newMsg.copyFrom(msg);            //否则会引起This message is already in use异常
+							newMsg.what = Global.MSG_WHAT.W_REFRESH;
+							ChatActivity.handler.sendMessage(newMsg);    //基本原样转发，提醒聊天界面刷新
+						}
+					}
+					break;
 					case Global.MSG_WHAT.W_GOT_FRIENDS_LIST:
 						try
 						{
@@ -328,7 +352,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
 	/**
 	 * 震动提醒
-	 * */
+	 */
 	private void RemindUser()
 	{
 		Vibrator vibrator = (Vibrator) getApplication().getSystemService(VIBRATOR_SERVICE);
@@ -563,8 +587,42 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 	private void exit()
 	{
 		finish();
-		//Todo 保存状态
-
+		Gson g = new Gson();
+		File path = new File(Global.PATH.Cache);
+		FileUtils.mkDir(path);
+		String contactfile = Global.mySelf.username + "contact.txt";
+		String historyfile = Global.mySelf.username + "history.txt";
+		//把Global.friendList挨个保存
+		try
+		{
+			BufferedWriter writer1 = new BufferedWriter(new FileWriter(new File(path, contactfile)));
+			for (UserInfo u : Global.friendList)
+			{
+				writer1.write(g.toJson(u));
+				writer1.newLine();
+			}
+			writer1.close();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		//把Global.historyList中不是系统Id的保存
+		try
+		{
+			BufferedWriter writer2 = new BufferedWriter(new FileWriter(new File(path, historyfile)));
+			for (History h : Global.historyList)
+				if (h.headId == -1)
+				{
+					writer2.write(g.toJson(h));
+					writer2.newLine();
+				}
+			writer2.close();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 		android.os.Process.killProcess(android.os.Process.myPid());    //获取PID
 		System.exit(0);   //常规java、c#的标准退出法，返回值为0代表正常退出
 	}

@@ -88,7 +88,7 @@ public class HistoryAdapter extends BaseAdapter
 			h.name.setText(history.partner);
 		}
 
-		Message lastMessage=history.historyMsg.get(history.historyMsg.size()-1);
+		Message lastMessage = history.lastHistoryMsg;
 		if((lastMessage.msgType& Global.MSG_TYPE.T_TEXT_MSG)>0)
 		{
 			SpannableString spannableString = FaceConversionUtil.getInstace().getExpressionString(context, lastMessage.text);
@@ -99,15 +99,15 @@ public class HistoryAdapter extends BaseAdapter
 		else if((lastMessage.msgType & Global.MSG_TYPE.T_VOICE_MSG)>0)
 			h.lastMsg.setText("[语音]");
 
-		if (history.unreadCount == 0)
+		if (history.unreadMsg.size() == 0)
 		{
 			h.msgCount.setVisibility(View.INVISIBLE);
 		} else
 		{
-			h.msgCount.setText(String.valueOf(history.unreadCount));
+			h.msgCount.setText(String.valueOf(history.unreadMsg.size()));
 			h.msgCount.setVisibility(View.VISIBLE);
 		}
-		h.time.setText(history.getLastDateWithFormat("HH:mm"));
+		h.time.setText(Global.formatDate(history.lastHistoryMsg.sendTime, "HH:mm"));
 		return view;
 	}
 

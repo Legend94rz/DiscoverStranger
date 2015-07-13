@@ -47,22 +47,28 @@
 		</RelativeLayout>
 	</RelativeLayout>
 
-	<ListView
-		android:id="@+id/lvChatMsg"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:layout_above="@+id/rl_bottom"
-		android:cacheColorHint="#0000"
-		android:divider="@null"
-		android:dividerHeight="5dp"
-		android:scrollbarStyle="outsideOverlay"
-		android:stackFromBottom="false"
+	<android.support.v4.widget.SwipeRefreshLayout
+		android:id="@+id/swipeRefresh"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
 		android:layout_below="@+id/relativeLayout2"
-		android:background="#ffefeff4"
-		android:clipToPadding="false"
-		android:scrollingCache="true"
-		android:transcriptMode="normal"
-		android:listSelector="@null"/>
+		android:layout_above="@+id/rl_bottom">
+
+		<ListView
+			android:id="@+id/lvChatMsg"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:cacheColorHint="#0000"
+			android:divider="@null"
+			android:dividerHeight="5dp"
+			android:scrollbarStyle="outsideOverlay"
+			android:stackFromBottom="false"
+			android:background="#ffefeff4"
+			android:clipToPadding="false"
+			android:scrollingCache="true"
+			android:transcriptMode="normal"
+			android:listSelector="@null"/>
+	</android.support.v4.widget.SwipeRefreshLayout>
 
 	<LinearLayout
         android:id="@+id/rl_bottom"

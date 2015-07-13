@@ -2,7 +2,6 @@ package org.helloworld.tools;
 
 import org.helloworld.R;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,8 +15,8 @@ public class History
 	 * */
 	public String partner;
 	public int headId;
-	public ArrayList<Message> historyMsg;
-	public int unreadCount;
+	public ArrayList<Message> unreadMsg;
+	public Message lastHistoryMsg;
 	private static HashMap<String,Integer> sysHead = new HashMap<>();
 	static {
 		sysHead.put("通知",R.drawable.notification_icon);
@@ -26,13 +25,7 @@ public class History
 	public History(String partner)
 	{
 		this.partner = partner;
-		unreadCount=0;
-		historyMsg= new ArrayList<>();
+		unreadMsg = new ArrayList<>();
 		headId = sysHead.containsKey(partner) ? sysHead.get(partner) : -1;
-	}
-	public String getLastDateWithFormat(String patten)
-	{
-		SimpleDateFormat format=new SimpleDateFormat(patten);
-		return format.format(historyMsg.get(historyMsg.size()-1).sendTime);
 	}
 }
