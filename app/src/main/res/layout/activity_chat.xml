@@ -83,4 +83,21 @@
             layout="@layout/custom_facerelativelayout" />
     </LinearLayout>
 
+	<Button
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/btnNewMsg"
+		android:layout_above="@+id/rl_bottom"
+		android:layout_centerHorizontal="true"
+		android:gravity="left|center_vertical"
+		android:background="#ff55d4eb"
+		android:textSize="18sp"
+		android:maxLines="1"
+		android:singleLine="true"
+		android:visibility="gone"
+		android:paddingTop="8dp"
+		android:paddingRight="15dp"
+		android:paddingBottom="8dp"
+		android:paddingLeft="15dp"/>
+
 </RelativeLayout>

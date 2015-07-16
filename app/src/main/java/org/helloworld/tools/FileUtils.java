@@ -71,8 +71,8 @@ public class FileUtils
 		}
 	}
 	private static int getImageScale(Context context, String imagePath) {
-		final int IMAGE_MAX_WIDTH = 400 * (int) context.getApplicationContext().getResources().getDisplayMetrics().density;
-		final int IMAGE_MAX_HEIGHT = 400 * (int) context.getApplicationContext().getResources().getDisplayMetrics().density;
+		final int IMAGE_MAX_WIDTH = 200 * (int) context.getApplicationContext().getResources().getDisplayMetrics().density;
+		final int IMAGE_MAX_HEIGHT = 200 * (int) context.getApplicationContext().getResources().getDisplayMetrics().density;
 
 		BitmapFactory.Options option = new BitmapFactory.Options();
 		// set inJustDecodeBounds to true, allowing the caller to query the bitmap info without having to allocate the
@@ -89,7 +89,7 @@ public class FileUtils
 	/**
 	 * bitmap优化
 	 * @param filePath 路径
-	 * @param restrictSize 传true将会使bitmap强制缩放到100 * 100
+	 * @param restrictSize 传true将会使bitmap强制缩放到200 * 200
 	 * */
 	public static Bitmap getOptimalBitmap(Context context,String filePath,boolean restrictSize)
 	{

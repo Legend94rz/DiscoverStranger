@@ -110,7 +110,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 				@Override
 				public void onClick(View view)
 				{
-					SayHello(strangerName, NearbyStrangerAct.this, handler);
+					SayHello(NearbyStrangerAct.this, strangerName, handler);
 				}
 			});
 		InfoWindow infoWindow = new InfoWindow(windowView, pos, -65 * (int)getResources().getDisplayMetrics().density);
@@ -118,151 +118,6 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 		lastClick = marker;
 		isShow = true;
 		return true;
-	}
-
-	/**
-	 * 弹对话框显示玩游戏提示
-	 */
-	public static void SayHello(final String strangerName, final Context context, final Handler handler)
-	{
-		final SweetAlertDialog dialog = new SweetAlertDialog(context);
-		dialog.setTitleText(context.getString(R.string.HintTitle));
-		dialog.setConfirmText(context.getString(R.string.playGame));
-		dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
-		{
-			@Override
-			public void onClick(SweetAlertDialog sweetAlertDialog)
-			{
-				dialog.dismiss();
-				Intent intent = new Intent(context, GameSplash.class);
-				intent.putExtra("strangerName", strangerName);
-				((Activity) context).startActivityForResult(intent, PLAY_GAME);
-			}
-		});
-		dialog.setCancelText(context.getString(R.string.dontwant));
-		dialog.setCancelClickListener(null);
-		dialog.setContentText(context.getString(R.string.MustPlayGame));
-		dialog.show();
-
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, final Intent data)
-	{
-		DealGameResult(requestCode, resultCode, data, handler, NearbyStrangerAct.this);
-	}
-
-	public static void DealGameResult(int requestCode, int resultCode, Intent data, Handler handler, Context context)
-	{
-		if (requestCode == PLAY_GAME)
-		{
-			if (resultCode == RESULT_OK && data.getBooleanExtra("result", false))
-			{
-				SuccessFinishGame(context, handler, data.getStringExtra("strangerName"));
-			}
-			else
-			{
-				new SweetAlertDialog(context)
-					.setContentText("很遗憾，你没有通过对方的游戏，不能加他为好友")
-					.setConfirmText("知道了").setConfirmClickListener(null).show();
-			}
-		}
-	}
-
-	/**
-	 * 完成游戏之后发送加好友请求
-	 */
-	public static void SuccessFinishGame(final Context context, final Handler handler, final String strangerName)
-	{
-		//final ProgressDialog dialog=ProgressDialog.show(context, "稍候", "正在发送请求...");
-		final SweetAlertDialog dialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
-		dialog.getProgressHelper().setBarColor(context.getResources().getColor(R.color.blue));
-		dialog.setContentText("稍候,正在发送请求...");
-		dialog.setCancelable(false);
-		dialog.show();
-		new Thread(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				JSONObject jobj = new JSONObject();
-				try
-				{
-					jobj.put("userName", Global.mySelf.username);
-					jobj.put("Text", Global.mySelf.nickName + " 通过了你的游戏，现在你们已经是好友啦！");
-				}
-				catch (JSONException e)
-				{
-					e.printStackTrace();
-				}
-				WebService service = new WebService("pushMsg");
-				service.addProperty("from", "通知")
-					.addProperty("to", strangerName)
-					.addProperty("msg", jobj.toString())
-					.addProperty("time", Global.formatDate(Global.getDate(), "yyyy-MM-dd HH:mm:ss"))
-					.addProperty("msgType", String.valueOf(Global.MSG_TYPE.T_TEXT_MSG));
-				SoapObject so = null;
-				Boolean f2 = true;
-				try
-				{
-					so = service.call();
-				}
-				catch (NullPointerException e)
-				{
-					e.printStackTrace();
-					f2 = false;
-				}
-				if (!Global.map2Friend.containsKey(strangerName))
-				{
-					//通知对方将自己加入好友列表中
-					JSONObject j = new JSONObject();
-					try
-					{
-						j.put("cmdName", "addFriend");
-						JSONArray ja = new JSONArray();
-						ja.put(Global.mySelf.username);
-						j.put("param", ja);
-						new WebTask(null, -1).execute("pushMsg", 5, "from", "cmd", "to", strangerName, "msg", j.toString(), "time", Global.formatDate(Global.getDate(), "yyyy-MM-dd HH:mm:ss"), "msgType", String.valueOf(Global.MSG_TYPE.T_TEXT_MSG));
-					}
-					catch (JSONException e)
-					{
-						e.printStackTrace();
-					}
-					JSONObject fL = FriendInfoAct.constructFriends2JSON();
-					try
-					{
-						JSONArray fA = fL.getJSONArray("friends");
-						JSONObject fnew = new JSONObject();
-						fnew.put("name", strangerName);
-						fA.put(fnew);
-						WebService service1 = new WebService("updateFriendList");
-						service1.addProperty("name", Global.mySelf.username).addProperty("friendList", fL.toString());
-						f2 = Boolean.parseBoolean(service1.call().getPropertyAsString(0));
-					}
-					catch (Exception e)
-					{
-						e.printStackTrace();
-						f2 = false;
-					}
-				}
-				Message m = new Message();
-				m.what = Global.MSG_WHAT.W_SENDED_REQUEST;
-				Bundle data = new Bundle();
-				try
-				{
-					data.putBoolean("result", Boolean.parseBoolean(so.getPropertyAsString(0)) && f2);
-				}
-				catch (NullPointerException e)
-				{
-					e.printStackTrace();
-					data.putBoolean("result", false);
-				}
-				data.putString("strangerName", strangerName);
-				m.setData(data);
-				handler.sendMessage(m);
-				dialog.dismiss();
-			}
-		}).start();
 	}
 
 	public class UpdateLocationTask extends AsyncTask<Void, Void, Void>
@@ -396,25 +251,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 			}
 		});
 		locationClient.start();
-
-
-	}
-
-	//以下是地图生命周期管理
-	@Override
-	protected void onDestroy()
-	{
-		super.onDestroy();
-		//在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
-		mMapView.onDestroy();
-	}
-
-	@Override
-	protected void onResume()
-	{
-		super.onResume();
-		//在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
-		mMapView.onResume();
+		//Todo 测试。从onResume()移回了这里
 		handler = new android.os.Handler(new android.os.Handler.Callback()
 		{
 			@Override
@@ -480,13 +317,35 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 	}
 
 	@Override
+	protected void onActivityResult(int requestCode, int resultCode, final Intent data)
+	{
+		DealGameResult(requestCode, resultCode, data, handler, NearbyStrangerAct.this);
+	}
+
+	//以下是地图生命周期管理
+	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
+		//在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
+		mMapView.onDestroy();
+	}
+
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		//在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
+		mMapView.onResume();
+	}
+
+	@Override
 	protected void onPause()
 	{
 		super.onPause();
 		//在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
 		mMapView.onPause();
 	}
-
 
 	/////////////以下由Android Studio自动生成////////////////////
 	@Override
@@ -527,4 +386,145 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 		{
 		}//防止此时Activity已关闭的情况
 	}
+
+	/**
+	 * 弹对话框显示玩游戏提示
+	 */
+	public static void SayHello(final Context context, final String strangerName, final Handler handler)
+	{
+		final SweetAlertDialog dialog = new SweetAlertDialog(context);
+		dialog.setTitleText(context.getString(R.string.HintTitle));
+		dialog.setConfirmText(context.getString(R.string.playGame));
+		dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
+		{
+			@Override
+			public void onClick(SweetAlertDialog sweetAlertDialog)
+			{
+				dialog.dismiss();
+				Intent intent = new Intent(context, GameSplash.class);
+				intent.putExtra("strangerName", strangerName);
+				((Activity) context).startActivityForResult(intent, PLAY_GAME);
+			}
+		});
+		dialog.setCancelText(context.getString(R.string.dontwant));
+		dialog.setCancelClickListener(null);
+		dialog.setContentText(context.getString(R.string.MustPlayGame));
+		dialog.show();
+
+	}
+
+	public static void DealGameResult(int requestCode, int resultCode, Intent data, Handler handler, Context context)
+	{
+		if (requestCode == PLAY_GAME)
+		{
+			if (resultCode == RESULT_OK && data.getBooleanExtra("result", false))
+			{
+				SuccessFinishGame(context, handler, data.getStringExtra("strangerName"));
+			}
+			else
+			{
+				new SweetAlertDialog(context)
+					.setTitleText("提示")
+					.setContentText("很遗憾，你没有通过对方的游戏，不能加他为好友")
+					.setConfirmText("知道了").setConfirmClickListener(null).show();
+			}
+		}
+	}
+
+	/**
+	 * 完成游戏之后发送加好友请求
+	 */
+	public static void SuccessFinishGame(final Context context, final Handler handler, final String strangerName)
+	{
+		//final ProgressDialog dialog=ProgressDialog.show(context, "稍候", "正在发送请求...");
+		final SweetAlertDialog dialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
+		dialog.getProgressHelper().setBarColor(context.getResources().getColor(R.color.blue));
+		dialog.setTitleText("请稍候...");
+		dialog.setCancelable(false);
+		dialog.show();
+		new Thread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				JSONObject jobj = new JSONObject();
+				try
+				{
+					jobj.put("userName", Global.mySelf.username);
+					jobj.put("Text", Global.mySelf.nickName + " 通过了你的游戏，现在你们已经是好友啦！");
+				}
+				catch (JSONException e)
+				{
+					e.printStackTrace();
+				}
+				WebService service = new WebService("pushMsg");
+				service.addProperty("from", "通知")
+					.addProperty("to", strangerName)
+					.addProperty("msg", jobj.toString())
+					.addProperty("time", Global.formatDate(Global.getDate(), "yyyy-MM-dd HH:mm:ss"))
+					.addProperty("msgType", String.valueOf(Global.MSG_TYPE.T_TEXT_MSG));
+				SoapObject so = null;
+				Boolean f2 = true;
+				try
+				{
+					so = service.call();
+				}
+				catch (NullPointerException e)
+				{
+					e.printStackTrace();
+					f2 = false;
+				}
+				if (!Global.map2Friend.containsKey(strangerName))
+				{
+					//通知对方将自己加入好友列表中
+					JSONObject j = new JSONObject();
+					try
+					{
+						j.put("cmdName", "addFriend");
+						JSONArray ja = new JSONArray();
+						ja.put(Global.mySelf.username);
+						j.put("param", ja);
+						new WebTask(null, -1).execute("pushMsg", 5, "from", "cmd", "to", strangerName, "msg", j.toString(), "time", Global.formatDate(Global.getDate(), "yyyy-MM-dd HH:mm:ss"), "msgType", String.valueOf(Global.MSG_TYPE.T_TEXT_MSG));
+					}
+					catch (JSONException e)
+					{
+						e.printStackTrace();
+					}
+					JSONObject fL = FriendInfoAct.constructFriends2JSON();
+					try
+					{
+						JSONArray fA = fL.getJSONArray("friends");
+						JSONObject fnew = new JSONObject();
+						fnew.put("name", strangerName);
+						fA.put(fnew);
+						WebService service1 = new WebService("updateFriendList");
+						service1.addProperty("name", Global.mySelf.username).addProperty("friendList", fL.toString());
+						f2 = Boolean.parseBoolean(service1.call().getPropertyAsString(0));
+					}
+					catch (Exception e)
+					{
+						e.printStackTrace();
+						f2 = false;
+					}
+				}
+				Message m = new Message();
+				m.what = Global.MSG_WHAT.W_SENDED_REQUEST;
+				Bundle data = new Bundle();
+				try
+				{
+					data.putBoolean("result", Boolean.parseBoolean(so.getPropertyAsString(0)) && f2);
+				}
+				catch (NullPointerException e)
+				{
+					e.printStackTrace();
+					data.putBoolean("result", false);
+				}
+				data.putString("strangerName", strangerName);
+				m.setData(data);
+				handler.sendMessage(m);
+				dialog.dismiss();
+			}
+		}).start();
+	}
+
 }

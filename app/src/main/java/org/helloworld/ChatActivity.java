@@ -66,6 +66,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 	private InputMethodManager manager;
 	private ArrayList<Message> messages;        //记录本次会话所有聊天消息
 	private SwipeRefreshLayout swipeRefreshLayout;
+	private Button btnNewMsg;
 	//翻页相关
 	int curPage, totalPage, totalRec = -1;
 	private final static int PAGE_SIZE = 10;
@@ -89,7 +90,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 	//录音相关
 	File soundFile;
 	MediaRecorder recorder;
-
 
 	private View faceRelativeLayout;
 	private TextView tvChatTitle;
@@ -200,7 +200,20 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 						}
 						messages.addAll(msgs);
 						mAdapter.notifyDataSetChanged();
-						history.unreadMsg.clear();        //不知为何，仅在onDestroy里写这句话不行。
+						history.unreadMsg.clear();
+						if (lvMsg.getSelectedItemPosition() != lvMsg.getCount() - 1)
+						{
+							btnNewMsg.setText(messages.get(messages.size() - 1).toString());
+							btnNewMsg.setVisibility(View.VISIBLE);
+							btnNewMsg.postDelayed(new Runnable()
+							{
+								@Override
+								public void run()
+								{
+									btnNewMsg.setVisibility(View.GONE);
+								}
+							}, 3000);
+						}
 					}
 					break;
 					case Global.MSG_WHAT.W_REFRESH:
@@ -374,6 +387,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 	public void initView()
 	{
 		lvMsg = (ListView) findViewById(R.id.lvChatMsg);
+		btnNewMsg = (Button) findViewById(R.id.btnNewMsg);
+		btnNewMsg.setOnClickListener(this);
 		swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
 		swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
 		{
@@ -482,6 +497,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 		btnSendVoice = (Button) findViewById(R.id.btnSendVoice);
 		btnSendVoice.setOnClickListener(this);
 		pbPlayRecord = (ProgressBar) findViewById(R.id.pbPlayProgress);
+
 	}
 
 	private void HideAndReset()
@@ -657,6 +673,10 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 				break;
 			case R.id.etSendmessage:
 				HideAndReset();
+				break;
+			case R.id.btnNewMsg:
+				btnNewMsg.setVisibility(View.GONE);
+				lvMsg.smoothScrollToPosition(lvMsg.getBottom());
 				break;
 		}
 	}

@@ -28,38 +28,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/chat_send_time_bg"
-            android:padding="2dp"
 			android:textColor="#ffffff"
             android:textSize="12sp"
 			android:layout_alignParentTop="true"
 			android:layout_centerHorizontal="true"
 			android:layout_marginBottom="10dp"
-			android:layout_marginTop="4dp"/>
+			android:layout_marginTop="4dp"
+			android:paddingLeft="8dp"
+			android:paddingRight="8dp"
+			android:paddingTop="2dp"
+			android:paddingBottom="2dp"
+			/>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="13dp"
-            android:layout_toLeftOf="@id/iv_userhead"
-			android:layout_below="@+id/tv_sendtime"
-            android:clickable="true"
+			android:clickable="true"
             android:focusable="true"
 			android:textColor="#ff000000"
 			android:lineSpacingExtra="2dp"
-			android:layout_marginLeft="8dp"
 			android:id="@+id/relativeLayout5"
 			android:background="@drawable/chat_right_bubble"
-			android:layout_marginTop="8dp"
 			android:paddingTop="5dp"
 			android:paddingRight="12dp"
 			android:paddingBottom="8dp"
-			android:paddingLeft="7dp">
+			android:paddingLeft="7dp"
+			android:layout_alignTop="@+id/iv_userhead"
+			android:layout_toLeftOf="@+id/iv_userhead"
+			android:layout_toStartOf="@+id/iv_userhead"
+			android:layout_marginEnd="13dp">
 
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:id="@+id/tvChatcontent"
-				android:maxWidth="150dp"
+				android:maxWidth="200dp"
 				android:textColor="@color/white"
 				android:visibility="visible"
 				android:paddingTop="3dp"
@@ -69,7 +73,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:id="@+id/ivPic"
-				android:scaleType="fitXY"
+				android:scaleType="fitCenter"
 				android:adjustViewBounds="true"
 				android:clickable="true"
 				android:visibility="gone"
@@ -105,7 +109,8 @@
 			android:layout_toLeftOf="@+id/relativeLayout5"
 			android:layout_marginBottom="12dp"
 			android:indeterminateDuration="1000"
-			android:indeterminateDrawable="@drawable/progress_circle_anim"/>
+			android:indeterminateDrawable="@drawable/progress_circle_anim"
+			android:layout_marginRight="8dp"/>
 
 		<ImageButton
 			android:layout_width="15dp"
@@ -117,7 +122,8 @@
 			android:scaleType="fitCenter"
 			android:background="#00008007"
 			android:layout_alignBottom="@+id/relativeLayout5"
-			android:layout_marginBottom="12dp"/>
+			android:layout_marginBottom="12dp"
+			android:layout_marginRight="8dp"/>
 
 	</RelativeLayout>
 

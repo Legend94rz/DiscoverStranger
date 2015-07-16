@@ -75,7 +75,7 @@ public class ShakeResultAct extends BaseActivity
 					@Override
 					public void onClick(View view)
 					{
-						NearbyStrangerAct.SayHello(r.username, ShakeResultAct.this,handler);
+						NearbyStrangerAct.SayHello(ShakeResultAct.this, r.username, handler);
 					}
 				});
 

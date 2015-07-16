@@ -32,7 +32,6 @@ import org.helloworld.tools.FileUtils;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.History;
 import org.helloworld.tools.HistoryAdapter;
-import org.helloworld.tools.MSGPreprocessor;
 import org.helloworld.tools.Message;
 import org.helloworld.tools.UserInfo;
 import org.helloworld.tools.WebService;
@@ -257,7 +256,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 							h = Global.map.get(m.fromId);
 							if (h == null)
 								h = new History(m.fromId);
-							new MSGPreprocessor(m).Preprocess();
 							h.unreadMsg.add(m);
 							h.lastHistoryMsg = m;
 							Global.map.put(h.partner, h);

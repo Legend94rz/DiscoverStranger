@@ -156,6 +156,11 @@ public class ChatMsgAdapter extends BaseAdapter
 			viewHolder.ivHead.setImageResource(R.drawable.nohead);
 
 		viewHolder.tvSendTime.setText(entity.getDateWithFormat("yyyy-MM-dd HH:mm"));
+		if (position >= 1 && coll.get(position - 1).sendTime.getTime() - entity.sendTime.getTime() > 1000 * 60)    //两条消息间隔大于1分钟才显示时间
+			viewHolder.tvSendTime.setVisibility(View.VISIBLE);
+		else
+			viewHolder.tvSendTime.setVisibility(View.GONE);
+
 		if ((entity.msgType & Global.MSG_TYPE.T_VOICE_MSG) == 0)
 			viewHolder.pbPlayVoice.setVisibility(View.GONE);
 		else

@@ -62,4 +62,16 @@ public class Message
 		SimpleDateFormat format=new SimpleDateFormat(patten);
 		return format.format(sendTime);
 	}
+
+	public String toString()
+	{
+		if ((msgType & Global.MSG_TYPE.T_TEXT_MSG) > 0)
+			return text;
+		else if ((msgType & Global.MSG_TYPE.T_PIC_MSG) > 0)
+			return "[图片]";
+		else if ((msgType & Global.MSG_TYPE.T_VOICE_MSG) > 0)
+			return "[语音]";
+		else
+			return "消息";
+	}
 }
