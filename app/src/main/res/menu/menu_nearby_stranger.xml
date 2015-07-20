@@ -3,7 +3,6 @@
 	  tools:context="org.helloworld.NearbyStrangerAct">
 	<!--过滤-->
 	<item android:id="@+id/action_settings"
-		  android:title="@string/notimplement"
-		  android:orderInCategory="100"
-		  android:showAsAction="always"/>
+		  android:title="@string/clearPosInfo"
+		  android:orderInCategory="100"/>
 </menu>

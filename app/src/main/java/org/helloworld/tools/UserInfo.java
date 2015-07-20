@@ -81,4 +81,11 @@ public class UserInfo
 		birthday = newUser.birthday;
 		listener.OnModify(this);
 	}
+
+	public String getShowName()
+	{
+		if (Ex_remark != null && !Ex_remark.equals("")) return Ex_remark;
+		if (nickName != null && !nickName.equals("")) return nickName;
+		return username;
+	}
 }

@@ -8,12 +8,16 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +30,7 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.InfoWindow;
+import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
@@ -42,13 +47,16 @@ import org.helloworld.tools.PositionInfo;
 import org.helloworld.tools.UserInfo;
 import org.helloworld.tools.WebService;
 import org.helloworld.tools.WebTask;
+import org.helloworld.tools.myViewPagerAdapter;
+import org.helloworld.tools.noTouchPager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.ksoap2.serialization.SoapObject;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -56,25 +64,33 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * 附近的人界面
  */
 
-public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarkerClickListener
+public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarkerClickListener, ViewPager.OnPageChangeListener, View.OnClickListener
 {
 	private BaiduMap map;
 	private LatLng position;
 	private MapView mMapView = null;
 	private LocationClient locationClient;
 	private static android.os.Handler handler;
-	private List<PositionInfo> strangerInfos;
+	private ArrayList<PositionInfo> strangers;
 	static double latitude;
 	static double longitude;
 
-	public static final int SUCCESS_FINISH_GAME = 1;
-	public static final int FAIL_FINISH_GAME = 2;
 	public static final int PLAY_GAME = 3;
 
 	//这两个用于控制浮动窗口的显示状态
 	private Marker lastClick = null;
 	private boolean isShow = false;
 	boolean isFirstLoc = true;// 是否首次定位
+
+	private noTouchPager pager;
+	private myViewPagerAdapter viewPagerAdapter;
+	private ArrayList<View> pages;
+	private ListView lvStrangers;
+	private StrangerAdapter strangerAdapter;
+	private TextView tvMap, tvList;
+	private int curPage = 1;
+	private static final int PAGE_SIZE = 5;
+	private Map<String, Marker> map2Marker;
 
 	@Override
 	public boolean onMarkerClick(Marker marker)
@@ -92,7 +108,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 		LayoutInflater layoutInflater = LayoutInflater.from(NearbyStrangerAct.this);
 		View windowView = layoutInflater.inflate(R.layout.layout_mapinfowindow, null);
 		final TextView tvStrangerName = (TextView) windowView.findViewById(R.id.tvStrangerName);
-		tvStrangerName.setText(strangerName);
+		tvStrangerName.setText(extraInfo.getString("showName"));
 		TextView tvDistance = (TextView) windowView.findViewById(R.id.tvDistance);
 		tvDistance.setText(extraInfo.getString("distance"));
 		Button btnSayHello = (Button) windowView.findViewById(R.id.btnSayHello);
@@ -120,6 +136,44 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 		return true;
 	}
 
+	@Override
+	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+	{
+	}
+
+	@Override
+	public void onPageSelected(int position)
+	{
+		setCursorPos(position);
+	}
+
+	public void setCursorPos(int position)
+	{
+		if (position < 0 || position > 1) return;
+		if (position == 0)
+		{
+			tvMap.setTextColor(getResources().getColor(R.color.green));
+			tvList.setTextColor(getResources().getColor(R.color.black));
+		}
+		else
+		{
+			tvMap.setTextColor(getResources().getColor(R.color.black));
+			tvList.setTextColor(getResources().getColor(R.color.green));
+		}
+	}
+
+	@Override
+	public void onPageScrollStateChanged(int state)
+	{
+	}
+
+	@Override
+	public void onClick(View view)
+	{
+		pager.setCurrentItem((Integer) view.getTag(), true);
+		setCursorPos((Integer) view.getTag());
+	}
+
 	public class UpdateLocationTask extends AsyncTask<Void, Void, Void>
 	{
 		private double latitude;
@@ -143,8 +197,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 		@Override
 		protected void onPostExecute(Void aVoid)
 		{
-			GetNearStrangerTask task = new GetNearStrangerTask(latitude, longitude);
-			task.execute();
+			new GetNearStrangerTask(latitude, longitude).execute();
 		}
 	}
 
@@ -163,7 +216,11 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 		protected SoapObject doInBackground(Void... voids)
 		{
 			WebService s = new WebService("getNearStranger");
-			s.addProperty("name", Global.mySelf.username).addProperty("latitude", String.valueOf(latitude)).addProperty("longitude", String.valueOf(longitude));
+			s.addProperty("name", Global.mySelf.username)
+				.addProperty("latitude", String.valueOf(latitude))
+				.addProperty("longitude", String.valueOf(longitude))
+				.addProperty("pageIndex", curPage)
+				.addProperty("pageSize", PAGE_SIZE);
 			SoapObject so = null;
 			try
 			{
@@ -180,13 +237,16 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 		{
 			try
 			{
-				strangerInfos = new ArrayList<PositionInfo>();
+				ArrayList<PositionInfo> strangerInfos = new ArrayList<PositionInfo>();
 				SoapObject strangers = (SoapObject) soapObject.getProperty(0);
 				for (int i = 0; i < strangers.getPropertyCount(); i++)
 				{
 					strangerInfos.add(PositionInfo.parse((SoapObject) strangers.getProperty(i)));
 				}
-				handler.sendEmptyMessage(Global.MSG_WHAT.W_GOT_STRANGERS);
+				Message message = new Message();
+				message.obj = strangerInfos;
+				message.what = Global.MSG_WHAT.W_GOT_STRANGERS;
+				handler.sendMessage(message);
 			}
 			catch (Exception ignored)
 			{
@@ -209,11 +269,75 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 			finish();
 		}
 		setContentView(R.layout.activity_nearby_stranger);
-		mMapView = (MapView) findViewById(R.id.bmapView);
+		curPage = 1;
+		pager = (noTouchPager) findViewById(R.id.viewpager);
+		LayoutInflater inflater = LayoutInflater.from(this);
+		View v1 = inflater.inflate(R.layout.nearby_map, null);
+		View v2 = inflater.inflate(R.layout.nearby_list, null);
+		pages = new ArrayList<>();
+		pages.add(v1);
+		pages.add(v2);
+		viewPagerAdapter = new myViewPagerAdapter(this, pages);
+		pager.setAdapter(viewPagerAdapter);
+		pager.setCurrentItem(0);
+		pager.setOnPageChangeListener(this);
+		tvMap = (TextView) findViewById(R.id.tvMap);
+		tvMap.setTag(0);
+		tvMap.setOnClickListener(this);
+		tvList = (TextView) findViewById(R.id.tvList);
+		tvList.setTag(1);
+		tvList.setOnClickListener(this);
 
+		mMapView = (MapView) v1.findViewById(R.id.bmapView);
 		map = mMapView.getMap();
+		map.setOnMapClickListener(new BaiduMap.OnMapClickListener()
+		{
+			@Override
+			public void onMapClick(LatLng latLng)
+			{
+				map.hideInfoWindow();
+			}
+
+			@Override
+			public boolean onMapPoiClick(MapPoi mapPoi)
+			{
+				return false;
+			}
+		});
 		map.setMyLocationEnabled(true);
 		map.setOnMarkerClickListener(this);
+
+		lvStrangers = (ListView) v2.findViewById(R.id.lvStrangers);
+		strangers = new ArrayList<>();
+		strangerAdapter = new StrangerAdapter(this, strangers);
+		final View v = View.inflate(this, R.layout.foot_view, null);
+		lvStrangers.addFooterView(v, null, false);
+		final TextView tvMore = (TextView) v.findViewById(R.id.tvMore);
+		final LinearLayout llLoading = (LinearLayout) v.findViewById(R.id.llLoading);
+		tvMore.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				llLoading.setVisibility(View.VISIBLE);
+				tvMore.setVisibility(View.GONE);
+				new GetNearStrangerTask(latitude, longitude).execute();
+			}
+		});
+		lvStrangers.setAdapter(strangerAdapter);
+		lvStrangers.setOnItemClickListener(new AdapterView.OnItemClickListener()
+		{
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+			{
+				pager.setCurrentItem(0, true);
+				setCursorPos(0);
+				PositionInfo pi = (PositionInfo) adapterView.getItemAtPosition(i);
+				MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(new LatLng(pi.latitude, pi.longitude));
+				map.animateMapStatus(msu);
+				onMarkerClick(map2Marker.get(pi.strangerName));
+			}
+		});
 
 		locationClient = new LocationClient(getApplicationContext());
 		LocationClientOption option = new LocationClientOption();
@@ -251,7 +375,6 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 			}
 		});
 		locationClient.start();
-		//Todo 测试。从onResume()移回了这里
 		handler = new android.os.Handler(new android.os.Handler.Callback()
 		{
 			@Override
@@ -260,7 +383,19 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 				switch (message.what)
 				{
 					case Global.MSG_WHAT.W_GOT_STRANGERS:
-						Toast.makeText(NearbyStrangerAct.this, String.format("共发现%d个附近的人\n点击陌生人标记可加好友哦~", strangerInfos.size()), Toast.LENGTH_SHORT).show();
+					{
+						ArrayList<PositionInfo> strangerInfos = (ArrayList<PositionInfo>) message.obj;
+						//Toast.makeText(NearbyStrangerAct.this, String.format("共发现%d个附近的人\n点击陌生人标记可加好友哦~", strangerInfos.size()), Toast.LENGTH_SHORT).show();
+						if (strangerInfos.size() > 0)
+						{
+							strangers.addAll(strangerInfos);
+							strangerAdapter.notifyDataSetChanged();
+							curPage++;
+						}
+						else
+							Toast.makeText(NearbyStrangerAct.this, "没有更多了", Toast.LENGTH_SHORT).show();
+						llLoading.setVisibility(View.GONE);
+						tvMore.setVisibility(View.VISIBLE);
 						for (final PositionInfo p : strangerInfos)
 						{
 							//添加一个标记
@@ -271,11 +406,18 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 							extraInfo.putDouble("latitude", p.latitude);
 							extraInfo.putDouble("longitude", p.longitude);
 							if (Global.map2Friend.containsKey(p.strangerName))
-								addAMarkerWithExtraInfo(R.drawable.pin, pos, extraInfo);
+							{
+								extraInfo.putString("showName", Global.map2Friend.get(p.strangerName).getShowName());
+								map2Marker.put(p.strangerName, addAMarkerWithExtraInfo(R.drawable.pin, pos, extraInfo));
+							}
 							else
-								addAMarkerWithExtraInfo(R.drawable.pin_black, pos, extraInfo);
+							{
+								extraInfo.putString("showName", p.strangerName);
+								map2Marker.put(p.strangerName, addAMarkerWithExtraInfo(R.drawable.pin_black, pos, extraInfo));
+							}
 						}
-						break;
+					}
+					break;
 					case Global.MSG_WHAT.W_SENDED_REQUEST:
 						final Bundle data = message.getData();
 						if (data.getBoolean("result"))
@@ -314,6 +456,19 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 				return true;
 			}
 		});
+		map2Marker = new HashMap<>();
+		findViewById(R.id.ibHome).setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				pager.setCurrentItem(0, true);
+				setCursorPos(0);
+				MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(new LatLng(latitude, longitude));
+				map.animateMapStatus(msu);
+			}
+		});
+
 	}
 
 	@Override
@@ -373,7 +528,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 	}
 
 	///以下是几个辅助函数
-	private void addAMarkerWithExtraInfo(int resource, LatLng pos, Bundle extraInfo)
+	private Marker addAMarkerWithExtraInfo(int resource, LatLng pos, Bundle extraInfo)
 	{
 		try
 		{
@@ -381,10 +536,12 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 			OverlayOptions options = new MarkerOptions().position(pos).icon(icon);
 			Marker m = (Marker) map.addOverlay(options);
 			m.setExtraInfo(extraInfo);
+			return m;
 		}
 		catch (NullPointerException ignored)
 		{
 		}//防止此时Activity已关闭的情况
+		return null;
 	}
 
 	/**

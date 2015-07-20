@@ -1,4 +1,4 @@
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 				xmlns:tools="http://schemas.android.com/tools"
 				android:layout_width="fill_parent"
 				android:layout_height="fill_parent"
@@ -6,9 +6,100 @@
 				android:columnCount="2"
 				android:rowCount="2">
 
-	<com.baidu.mapapi.map.MapView
-		android:id="@+id/bmapView"
+
+	<RelativeLayout
 		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:clickable="true" />
-</GridLayout>
+		android:layout_height="55dp"
+		android:background="@color/actionbar_bg"
+		android:gravity="center_vertical"
+		android:layout_alignParentLeft="true"
+		android:id="@+id/relativeLayout9"
+		android:clickable="false">
+
+		<RelativeLayout
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:onClick="goback"
+			android:clickable="true"
+			android:background="@drawable/img_btn_mask"
+			android:paddingRight="15dp">
+
+			<TextView
+				android:layout_width="25dp"
+				android:layout_height="25dp"
+				android:textColor="#fff"
+				android:background="@drawable/goback"
+				android:textSize="14sp"
+				android:layout_alignParentBottom="false"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="15dp"
+				android:id="@+id/textView12"
+				android:clickable="false"/>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="20sp"
+				android:textColor="#ffffff"
+				android:id="@+id/textView13"
+				android:layout_centerVertical="true"
+				android:layout_toRightOf="@+id/textView12"
+				android:layout_marginLeft="20dp"
+				android:text="附近的人"/>
+		</RelativeLayout>
+
+		<ImageButton
+			android:layout_width="55dp"
+			android:layout_height="55dp"
+			android:id="@+id/ibHome"
+			android:src="@drawable/target"
+			android:background="@drawable/img_btn_mask"
+			android:layout_alignParentTop="true"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true"/>
+
+	</RelativeLayout>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/relativeLayout9"
+		android:layout_centerHorizontal="true"
+		android:id="@+id/linearLayout12"
+		android:background="#F5F5F5">
+
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="地图"
+			android:id="@+id/tvMap"
+			android:layout_weight="1"
+			android:textSize="15sp"
+			android:padding="10dp"
+			android:gravity="center"
+			android:textColor="@color/green"
+			android:clickable="true"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="列表"
+			android:id="@+id/tvList"
+			android:layout_weight="1"
+			android:padding="10dp"
+			android:gravity="center"
+			android:clickable="true"/>
+	</LinearLayout>
+
+	<view
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		class="org.helloworld.tools.noTouchPager"
+		android:id="@+id/viewpager"
+		android:layout_below="@+id/linearLayout12"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"/>
+
+</RelativeLayout>
