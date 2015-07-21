@@ -33,6 +33,7 @@ import org.helloworld.tools.Global;
 import org.helloworld.tools.History;
 import org.helloworld.tools.HistoryAdapter;
 import org.helloworld.tools.Message;
+import org.helloworld.tools.Settings;
 import org.helloworld.tools.UserInfo;
 import org.helloworld.tools.WebService;
 import org.helloworld.tools.WebTask;
@@ -249,7 +250,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 					break;
 					case Global.MSG_WHAT.W_RECEIVED_NEW_MSG:
 						ArrayList<Message> received = (ArrayList<Message>) msg.obj;
-						RemindUser();
+						if (Global.settings.vibrate) RemindUser();
 						for (Message m : received)
 						{
 							History h;
@@ -294,6 +295,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 					case Global.MSG_WHAT.W_REFRESH:
 						BindAdapter();
 						break;
+					case Global.MSG_WHAT.W_GOT_USER_SETTING:
+						SoapObject result = (SoapObject) msg.obj;
+						if (result.getPropertyCount() > 0)
+							Global.settings = Settings.parse((SoapObject) result.getProperty(0));
+						break;
 				}
 			}
 		};
@@ -301,6 +307,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		Intent I = new Intent(this, MsgPullService.class);
 		MsgPullService.handlers.add(handler);
 		startService(I);
+		//更新用户配置
+		new WebTask(handler, Global.MSG_WHAT.W_GOT_USER_SETTING).execute("getUserSetting", 1, "username", Global.mySelf.username);
 	}
 
 	/**
@@ -540,6 +548,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 	private void exit()
 	{
 		finish();
+		MsgPullService.handlers.remove(handler);
 		Gson g = new Gson();
 		File path = new File(Global.PATH.Cache);
 		FileUtils.mkDir(path);
@@ -571,6 +580,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 					writer2.newLine();
 				}
 			writer2.close();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		//保存配置信息
+		File settingFolder = new File(Global.PATH.Setting);
+		FileUtils.mkDir(settingFolder);
+		try
+		{
+			BufferedWriter writer3 = new BufferedWriter(new FileWriter(new File(settingFolder, Global.mySelf.username + "_settings.txt")));
+			writer3.write(g.toJson(Global.settings));
+			writer3.newLine();
+			writer3.close();
 		}
 		catch (IOException e)
 		{

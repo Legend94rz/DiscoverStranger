@@ -12,7 +12,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.helloworld.game.GameSplash;
 import org.helloworld.tools.Global;
+import org.helloworld.tools.Settings;
 import org.helloworld.tools.ShakeRecord;
 
 import java.util.ArrayList;
@@ -27,8 +29,8 @@ public class ShakeResultAct extends BaseActivity
 {
 	private ListView lvResult;
 	private ArrayList<ShakeRecord> result;
-	private final int SUCCESS_FINISH_GAME = 1;
-	private final int FAIL_FINISH_GAME = 2;
+	public static final int PLAY_GAME = 3;
+
 	public static Handler handler;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -125,6 +127,30 @@ public class ShakeResultAct extends BaseActivity
 							n.show();
 						}
 						break;
+					case Global.MSG_WHAT.W_GOT_USER_SETTING:
+					{
+						Settings settings = (Settings) message.obj;
+						if (message.getData().getBoolean("result"))
+						{
+							Intent intent;
+							if (settings.game == 1)
+								intent = new Intent(ShakeResultAct.this, GameSplash.class);
+							else
+							{
+								//Todo 启动另外的游戏
+								intent = new Intent();
+							}
+							intent.putExtra("strangerName", message.getData().getString("strangerName"));
+							startActivityForResult(intent, PLAY_GAME);
+						}
+						else
+						{
+							SweetAlertDialog dialog2 = new SweetAlertDialog(ShakeResultAct.this, SweetAlertDialog.ERROR_TYPE);
+							dialog2.setTitleText("错误").setContentText(Global.ERROR_HINT.HINT_ERROR_NETWORD);
+							dialog2.setConfirmClickListener(null);
+						}
+					}
+					break;
 				}
 				return true;
 			}

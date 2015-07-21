@@ -1,6 +1,5 @@
 package org.helloworld;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -44,6 +43,7 @@ import org.helloworld.game.GameSplash;
 import org.helloworld.tools.FileUtils;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.PositionInfo;
+import org.helloworld.tools.Settings;
 import org.helloworld.tools.UserInfo;
 import org.helloworld.tools.WebService;
 import org.helloworld.tools.WebTask;
@@ -76,6 +76,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 	static double longitude;
 
 	public static final int PLAY_GAME = 3;
+	private Settings strangerSettings;
 
 	//这两个用于控制浮动窗口的显示状态
 	private Marker lastClick = null;
@@ -452,6 +453,54 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 							n.show();
 						}
 						break;
+					case Global.MSG_WHAT.W_DELETE_POSITION:
+					{
+						SweetAlertDialog dialog = (SweetAlertDialog) message.obj;
+						if (message.getData().getBoolean("result"))
+						{
+							dialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+							dialog.setTitleText("已清除").setConfirmText("确定").setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
+							{
+								@Override
+								public void onClick(SweetAlertDialog sweetAlertDialog)
+								{
+									sweetAlertDialog.dismiss();
+									finish();
+								}
+							});
+						}
+						else
+						{
+							dialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+							dialog.setTitleText("网络连接失败").setConfirmText("确定").setConfirmClickListener(null);
+						}
+					}
+					break;
+					case Global.MSG_WHAT.W_GOT_USER_SETTING:
+					{
+						Settings settings = (Settings) message.obj;
+						if (message.getData().getBoolean("result"))
+						{
+							Intent intent;
+							if (settings.game == 1)
+								intent = new Intent(NearbyStrangerAct.this, GameSplash.class);
+							else
+							{
+								//Todo 启动另外的游戏
+								intent = new Intent();
+							}
+							intent.putExtra("strangerName", message.getData().getString("strangerName"));
+							startActivityForResult(intent, PLAY_GAME);
+						}
+						else
+						{
+							SweetAlertDialog dialog2 = new SweetAlertDialog(NearbyStrangerAct.this, SweetAlertDialog.ERROR_TYPE);
+							dialog2.setTitleText("错误").setContentText(Global.ERROR_HINT.HINT_ERROR_NETWORD);
+							dialog2.setConfirmClickListener(null);
+							dialog2.show();
+						}
+					}
+					break;
 				}
 				return true;
 			}
@@ -520,8 +569,32 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 		int id = item.getItemId();
 
 		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_settings)
+		if (id == R.id.clearPosInfo)
 		{
+			final SweetAlertDialog dialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+			dialog.getProgressHelper().setBarColor(getResources().getColor(R.color.blue));
+			dialog.setCancelable(false);
+			dialog.setTitleText("请稍候...");
+			dialog.show();
+			new Thread(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					WebService deletePos = new WebService("deletePosition");
+					deletePos.addProperty("username", Global.mySelf.username);
+					Message message = new Message();
+					Bundle data = new Bundle();
+					message.obj = dialog;
+					message.what = Global.MSG_WHAT.W_DELETE_POSITION;
+					message.setData(data);
+					if (deletePos.call() != null)
+						data.putBoolean("result", true);
+					else
+						data.putBoolean("result", false);
+					handler.sendMessage(message);
+				}
+			}).start();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -549,25 +622,56 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 	 */
 	public static void SayHello(final Context context, final String strangerName, final Handler handler)
 	{
-		final SweetAlertDialog dialog = new SweetAlertDialog(context);
-		dialog.setTitleText(context.getString(R.string.HintTitle));
-		dialog.setConfirmText(context.getString(R.string.playGame));
-		dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
+		SweetAlertDialog dialog = new SweetAlertDialog(context)
+									  .setTitleText(context.getString(R.string.HintTitle))
+									  .setConfirmText(context.getString(R.string.playGame))
+									  .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
 		{
 			@Override
 			public void onClick(SweetAlertDialog sweetAlertDialog)
 			{
-				dialog.dismiss();
-				Intent intent = new Intent(context, GameSplash.class);
-				intent.putExtra("strangerName", strangerName);
-				((Activity) context).startActivityForResult(intent, PLAY_GAME);
-			}
-		});
-		dialog.setCancelText(context.getString(R.string.dontwant));
-		dialog.setCancelClickListener(null);
-		dialog.setContentText(context.getString(R.string.MustPlayGame));
-		dialog.show();
+				sweetAlertDialog.dismiss();
 
+				final SweetAlertDialog dialog1 = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
+				dialog1.setCancelable(false);
+				dialog1.setTitleText("正在获取...");
+				dialog1.getProgressHelper().setBarColor(context.getResources().getColor(R.color.blue));
+				dialog1.show();
+				Thread thread = new Thread(new Runnable()
+				{
+					@Override
+					public void run()
+					{
+						Message message = new Message();
+						message.what = Global.MSG_WHAT.W_GOT_USER_SETTING;
+						Bundle data = new Bundle();
+						data.putString("strangerName", strangerName);
+						message.setData(data);
+						WebService getUserSetting = new WebService("getUserSetting");
+						try
+						{
+							SoapObject soapObject = getUserSetting.addProperty("username", strangerName).call();
+							if (soapObject.getPropertyCount() > 0)
+								message.obj = Settings.parse((SoapObject) soapObject.getProperty(0));
+							else
+								message.obj = new Settings();
+							data.putBoolean("result", true);
+						}
+						catch (NullPointerException e)
+						{
+							data.putBoolean("result", false);
+						}
+						dialog1.dismiss();
+						handler.sendMessage(message);
+					}
+				});
+				thread.start();
+			}
+									  }).setCancelText(context.getString(R.string.dontwant))
+									  .setCancelClickListener(null)
+									  .setContentText(context.getString(R.string.MustPlayGame));
+
+		dialog.show();
 	}
 
 	public static void DealGameResult(int requestCode, int resultCode, Intent data, Handler handler, Context context)

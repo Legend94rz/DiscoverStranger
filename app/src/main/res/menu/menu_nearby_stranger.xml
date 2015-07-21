@@ -2,7 +2,8 @@
 	  xmlns:tools="http://schemas.android.com/tools"
 	  tools:context="org.helloworld.NearbyStrangerAct">
 	<!--过滤-->
-	<item android:id="@+id/action_settings"
+	<item
+		android:id="@+id/clearPosInfo"
 		  android:title="@string/clearPosInfo"
 		  android:orderInCategory="100"/>
 </menu>

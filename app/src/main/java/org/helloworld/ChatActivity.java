@@ -387,6 +387,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 	public void initView()
 	{
 		lvMsg = (ListView) findViewById(R.id.lvChatMsg);
+		if (Global.settings.background != 0)
+			lvMsg.setBackgroundResource(Global.settings.background);
 		btnNewMsg = (Button) findViewById(R.id.btnNewMsg);
 		btnNewMsg.setOnClickListener(this);
 		swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
@@ -419,7 +421,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 					t.start();
 					try
 					{
-						t.join(5000);
+						t.join();
 						if (totalRec == -1) throw new Exception();    //这说明获取消息总数失败
 					}
 					catch (InterruptedException e)

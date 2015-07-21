@@ -22,6 +22,10 @@ public class Global
 {
 	public static UserInfo mySelf = null;
 	/**
+	 * 用户配置信息
+	 * */
+	public static Settings settings;
+	/**
 	 * 存储历史消息，方便快速查询
 	 */
 	public static Map<String, History> map;
@@ -67,6 +71,8 @@ public class Global
 		public static final int W_GOT_SHAKE_RESULT = 13;
 		public static final int W_CHECKED_USERNAME = 14;
 		public static final int W_GOT_MSG_HISTORY_LIST = 15;
+		public static final int W_GOT_USER_SETTING = 16;
+		public static final int W_DELETE_POSITION = 17;
 	}
 
 	/**
@@ -152,9 +158,9 @@ public class Global
 		friendList = new ArrayList<>();
 		map2Friend = new HashMap<>();
 		map = new HashMap<>();
+		settings=new Settings();
 		Gson g = new Gson();
-		String contactfile = PATH.Cache + mySelf.username + "contact.txt";
-		String historyfile = PATH.Cache + mySelf.username + "history.txt";
+
 		try
 		{
 			BufferedReader reader1 = new BufferedReader(new FileReader(new File(PATH.Cache, mySelf.username + "contact.txt")));
@@ -189,6 +195,16 @@ public class Global
 		catch (FileNotFoundException ignored)
 		{
 
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		try
+		{
+			BufferedReader reader3=new BufferedReader(new FileReader(new File(PATH.Setting,mySelf.username+"_settings.txt")));
+			String line=reader3.readLine();
+			settings=g.fromJson(line, Settings.class);
 		}
 		catch (IOException e)
 		{
