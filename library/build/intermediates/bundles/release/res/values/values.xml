@@ -29,11 +29,11 @@
     <dimen name="progress_circle_radius">34dp</dimen>
     <!-- From: file:/F:/AndroidStudioProjects/HelloWorld/library/src/main/res/values/strings.xml -->
     <eat-comment/>
-    <string name="LOADING">Loading...</string>
+    <string name="LOADING">正在加载…</string>
     <string name="app_name">SweetAlertDialog</string>
-    <string name="dialog_cancel">Cancel</string>
-    <string name="dialog_default_title">Here\'s a message!</string>
-    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">取消</string>
+    <string name="dialog_default_title">提示</string>
+    <string name="dialog_ok">确定</string>
     <!-- From: file:/F:/AndroidStudioProjects/HelloWorld/library/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="alert_dialog" parent="android:Theme.Dialog">

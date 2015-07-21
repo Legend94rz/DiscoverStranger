@@ -44,6 +44,10 @@
 	<string name="delete_message">删除后你也会从TA的列表中消失且不可恢复，确定吗？</string>
 	<string name="opendrawer">打开侧边栏</string>
 	<string name="title_activity_modify_friend_info">ModifyFriendInfo</string>
+    <string name="title_activity_alter">Alter</string>
+    <string name="title_activity_alter_basic_info">AlterBasicInfo</string>
+    <string name="title_activity_oldpassword">Oldpassword</string>
+    <string name="title_activity_confirm_new_password">ConfirmNewPassword</string>
 	<string name="clearPosInfo">清除位置信息并退出</string>
 
 

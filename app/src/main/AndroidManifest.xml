@@ -103,7 +103,22 @@
             android:name=".game.GameSplash"
             android:label="@string/title_activity_game" >
         </activity>
-
+        <activity
+            android:name=".Alter"
+            android:label="@string/title_activity_alter" >
+        </activity>
+        <activity
+            android:name=".AlterBasicInfo"
+            android:label="@string/title_activity_alter_basic_info" >
+        </activity>
+        <activity
+            android:name=".Oldpassword"
+            android:label="@string/title_activity_oldpassword" >
+        </activity>
+        <activity
+            android:name=".ConfirmNewPassword"
+            android:label="@string/title_activity_confirm_new_password" >
+        </activity>
     </application>
 
 </manifest>

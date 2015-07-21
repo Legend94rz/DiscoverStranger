@@ -215,7 +215,7 @@
     <integer name="abc_max_action_buttons">2</integer>
     <!-- From: file:/F:/AndroidStudioProjects/HelloWorld/library/src/main/res/values/strings.xml -->
     <eat-comment/>
-    <string name="LOADING">Loading...</string>
+    <string name="LOADING">正在加载…</string>
     <!-- From: file:/F:/AndroidStudioProjects/HelloWorld/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values/values.xml -->
     <eat-comment/>
     <string name="abc_action_bar_home_description">Navigate home</string>
@@ -236,9 +236,9 @@
     <!-- From: file:/F:/AndroidStudioProjects/HelloWorld/library/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="app_name">SweetAlertDialog</string>
-    <string name="dialog_cancel">Cancel</string>
-    <string name="dialog_default_title">Here\'s a message!</string>
-    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">取消</string>
+    <string name="dialog_default_title">提示</string>
+    <string name="dialog_ok">确定</string>
     <!-- From: file:/F:/AndroidStudioProjects/HelloWorld/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values/values.xml -->
     <eat-comment/>
     <style name="Base.TextAppearance.AppCompat" parent="android:TextAppearance">
