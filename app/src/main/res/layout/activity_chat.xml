@@ -1,49 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout_chat"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#f3f7f8" >
+<RelativeLayout
+	android:id="@+id/layout_chat"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="#f3f7f8">
 
 	<RelativeLayout
+		android:id="@+id/relativeLayout2"
 		android:layout_width="fill_parent"
 		android:layout_height="55dp"
-		android:background="@color/actionbar_bg"
-		android:gravity="center_vertical"
 		android:layout_alignParentLeft="true"
-		android:id="@+id/relativeLayout2"
-		android:clickable="false">
+		android:background="@color/actionbar_bg"
+		android:clickable="false"
+		android:gravity="center_vertical">
 
 		<RelativeLayout
 			android:layout_width="wrap_content"
 			android:layout_height="match_parent"
-			android:onClick="goback"
-			android:clickable="true"
 			android:background="@drawable/img_btn_mask"
+			android:clickable="true"
+			android:onClick="goback"
 			android:paddingRight="15dp">
 
 			<TextView
+				android:id="@+id/button3"
 				android:layout_width="25dp"
 				android:layout_height="25dp"
-				android:textColor="#fff"
-				android:background="@drawable/goback"
-				android:textSize="14sp"
 				android:layout_alignParentBottom="false"
 				android:layout_centerVertical="true"
 				android:layout_marginLeft="15dp"
-				android:id="@+id/button3"
+				android:background="@drawable/goback"
 				android:clickable="false"
+				android:textColor="#fff"
+				android:textSize="14sp"
 				/>
 
 			<TextView
+				android:id="@+id/tvToId"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:textSize="20sp"
-				android:textColor="#ffffff"
-				android:id="@+id/tvToId"
 				android:layout_centerVertical="true"
+				android:layout_marginLeft="20dp"
 				android:layout_toRightOf="@+id/button3"
-				android:layout_marginLeft="20dp"/>
+				android:textColor="#ffffff"
+				android:textSize="20sp"/>
 		</RelativeLayout>
 	</RelativeLayout>
 
@@ -51,8 +52,8 @@
 		android:id="@+id/swipeRefresh"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_below="@+id/relativeLayout2"
-		android:layout_above="@+id/rl_bottom">
+		android:layout_above="@+id/rl_bottom"
+		android:layout_below="@+id/relativeLayout2">
 
 		<ListView
 			android:id="@+id/lvChatMsg"
@@ -70,34 +71,36 @@
 			android:listSelector="@null"/>
 	</android.support.v4.widget.SwipeRefreshLayout>
 
-	<LinearLayout
-        android:id="@+id/rl_bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" >
 
-        <!-- 聊天输入框 -->
-        <include
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            layout="@layout/custom_facerelativelayout" />
-    </LinearLayout>
+	<LinearLayout
+		android:id="@+id/rl_bottom"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true">
+
+		<!-- 聊天输入框 -->
+		<include
+			layout="@layout/custom_facerelativelayout"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+	</LinearLayout>
 
 	<Button
+		android:id="@+id/btnNewMsg"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/btnNewMsg"
 		android:layout_above="@+id/rl_bottom"
 		android:layout_centerHorizontal="true"
-		android:gravity="left|center_vertical"
 		android:background="#ff55d4eb"
-		android:textSize="18sp"
+		android:gravity="left|center_vertical"
 		android:maxLines="1"
-		android:singleLine="true"
-		android:visibility="gone"
-		android:paddingTop="8dp"
-		android:paddingRight="15dp"
 		android:paddingBottom="8dp"
-		android:paddingLeft="15dp"/>
+		android:paddingLeft="15dp"
+		android:paddingRight="15dp"
+		android:paddingTop="8dp"
+		android:singleLine="true"
+		android:textSize="18sp"
+		android:visibility="gone"/>
+
 
 </RelativeLayout>

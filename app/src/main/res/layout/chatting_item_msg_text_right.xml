@@ -78,7 +78,6 @@
 				android:clickable="true"
 				android:visibility="gone"
 				android:baselineAlignBottom="false"
-				android:src="@drawable/nopic"
 				android:layout_centerVertical="true"
 				android:layout_alignParentTop="true"
 				android:layout_alignParentLeft="false"

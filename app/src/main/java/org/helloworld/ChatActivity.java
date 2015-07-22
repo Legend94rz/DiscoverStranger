@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -500,6 +501,23 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 		btnSendVoice.setOnClickListener(this);
 		pbPlayRecord = (ProgressBar) findViewById(R.id.pbPlayProgress);
 
+		lvMsg.setOnScrollListener(new AbsListView.OnScrollListener()
+		{
+			@Override
+			public void onScrollStateChanged(AbsListView absListView, int scrollState)
+			{
+
+			}
+
+			@Override
+			public void onScroll(AbsListView absListView, int i, int i1, int i2)
+			{
+				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+				if (imm.isActive())
+					imm.toggleSoftInput(0, InputMethodManager.RESULT_HIDDEN);
+				HideAndReset();
+			}
+		});
 	}
 
 	private void HideAndReset()
@@ -531,7 +549,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 			else
 				timeNode = Global.getDate();
 		}
-		mAdapter = new ChatMsgAdapter(this, messages);
+		mAdapter = new ChatMsgAdapter(this, messages, lvMsg);
 		lvMsg.setAdapter(mAdapter);
 		String title;
 		try

@@ -11,9 +11,11 @@ import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -26,9 +28,24 @@ import java.util.List;
 /**
  * 聊天消息数据
  */
-public class ChatMsgAdapter extends BaseAdapter
+public class ChatMsgAdapter extends BaseAdapter implements AbsListView.OnScrollListener
 {
+	@Override
+	public void onScrollStateChanged(AbsListView absListView, int scrollState)
+	{
+		if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE)
+		{
+			isScroll = false;
+			notifyDataSetChanged();
+		}
+		else
+			isScroll = true;
+	}
 
+	@Override
+	public void onScroll(AbsListView absListView, int i, int i1, int i2)
+	{
+	}
 	public interface IMsgViewType
 	{
 		int IMVT_COM_MSG = 0;
@@ -38,12 +55,18 @@ public class ChatMsgAdapter extends BaseAdapter
 	private List<Message> coll;
 	private LayoutInflater mInflater;
 	private Context context;
+	private AsyImageLoader loader;
+	private ListView listView;
+	private boolean isScroll;
 
-	public ChatMsgAdapter(Context context, List<Message> coll)
+	public ChatMsgAdapter(Context context, List<Message> coll, ListView listView)
 	{
 		this.coll = coll;
 		mInflater = LayoutInflater.from(context);
 		this.context = context;
+		loader = new AsyImageLoader(context);
+		this.listView = listView;
+		listView.setOnScrollListener(this);
 	}
 
 	public int getCount()
@@ -130,9 +153,23 @@ public class ChatMsgAdapter extends BaseAdapter
 		{
 			viewHolder.tvContent.setVisibility(View.GONE);
 			viewHolder.ivPic.setVisibility(View.VISIBLE);
-			if (FileUtils.Exist(Global.PATH.ChatPic + entity.text))
+			String url = Global.PATH.ChatPic + entity.text;
+			viewHolder.ivPic.setTag(url);
+			viewHolder.ivPic.setImageResource(R.drawable.nopic);
+			if (!isScroll)
 			{
-				viewHolder.ivPic.setImageBitmap(FileUtils.getOptimalBitmap(context, Global.PATH.ChatPic + entity.text, true));
+				Bitmap cacheBitmap = loader.loadDrawable(url, new AsyImageLoader.ImageCallback()
+				{
+					@Override
+					public void imageLoaded(Bitmap bitmap, String url)
+					{
+						ImageView imageView = (ImageView) listView.findViewWithTag(url);
+						if (imageView != null && bitmap != null)
+							imageView.setImageBitmap(bitmap);
+					}
+				});
+				if (cacheBitmap != null)
+					viewHolder.ivPic.setImageBitmap(cacheBitmap);
 			}
 		}
 		else if ((entity.msgType & Global.MSG_TYPE.T_VOICE_MSG) > 0)
@@ -156,7 +193,7 @@ public class ChatMsgAdapter extends BaseAdapter
 			viewHolder.ivHead.setImageResource(R.drawable.nohead);
 
 		viewHolder.tvSendTime.setText(entity.getDateWithFormat("yyyy-MM-dd HH:mm"));
-		if (position >= 1 && coll.get(position - 1).sendTime.getTime() - entity.sendTime.getTime() > 1000 * 60)    //两条消息间隔大于1分钟才显示时间
+		if (position == 0 || entity.sendTime.getTime() - coll.get(position - 1).sendTime.getTime() > 1000 * 60)    //两条消息间隔大于1分钟才显示时间
 			viewHolder.tvSendTime.setVisibility(View.VISIBLE);
 		else
 			viewHolder.tvSendTime.setVisibility(View.GONE);
