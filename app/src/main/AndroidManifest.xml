@@ -105,7 +105,7 @@
         </activity>
         <activity
             android:name=".Alter"
-            android:label="@string/title_activity_alter" >
+            android:label="@string/title_activity_alter">
         </activity>
         <activity
             android:name=".AlterBasicInfo"
@@ -118,6 +118,14 @@
         <activity
             android:name=".ConfirmNewPassword"
             android:label="@string/title_activity_confirm_new_password" >
+        </activity>
+        <activity
+            android:name=".MomentsActivity"
+            android:label="@string/title_activity_moments"
+            android:parentActivityName=".BaseActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.helloworld.BaseActivity" />
         </activity>
         <activity
             android:name=".AlterAvatarAct"

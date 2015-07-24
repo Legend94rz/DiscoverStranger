@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				xmlns:tools="http://schemas.android.com/tools"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				tools:context="org.helloworld.MomentsActivity">
+
+	<view
+		android:id="@+id/pullrefresh"
+		class="android.support.v4.widget.SwipeRefreshLayout"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+		<ListView
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:id="@+id/listview"
+			android:layout_below="@+id/imageView4"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true"
+			/>
+	</view>
+
+
+
+	<RelativeLayout
+		android:id="@+id/relativeLayout10"
+		android:layout_width="fill_parent"
+		android:layout_height="55dp"
+		android:layout_alignParentLeft="true"
+		android:background="#0055d4eb"
+		android:clickable="false"
+		android:gravity="center_vertical">
+
+		<RelativeLayout
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:background="@drawable/img_btn_mask"
+			android:clickable="true"
+			android:onClick="goback"
+			android:paddingRight="15dp">
+
+			<TextView
+				android:id="@+id/textView14"
+				android:layout_width="25dp"
+				android:layout_height="25dp"
+				android:layout_alignParentBottom="false"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="15dp"
+				android:background="@drawable/goback"
+				android:clickable="false"
+				android:textColor="#fff"
+				android:textSize="14sp"/>
+
+			<TextView
+				android:id="@+id/textView15"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="20dp"
+				android:layout_toRightOf="@+id/textView14"
+				android:text="圈子"
+				android:textColor="#ffffff"
+				android:textSize="20sp"/>
+		</RelativeLayout>
+	</RelativeLayout>
+
+</RelativeLayout>

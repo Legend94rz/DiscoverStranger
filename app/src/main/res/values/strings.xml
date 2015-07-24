@@ -49,6 +49,7 @@
 	<string name="title_activity_oldpassword">Oldpassword</string>
 	<string name="title_activity_confirm_new_password">ConfirmNewPassword</string>
 	<string name="clearPosInfo">清除位置信息并退出</string>
+	<string name="title_activity_moments">MomentsActivity</string>
     <string name="title_activity_alter_avatar">AlterAvatarAct</string>
 
 

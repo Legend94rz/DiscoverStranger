@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:orientation="vertical"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent">
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="yyyy-MM-dd"
+		android:id="@+id/tvTime"
+		android:textColor="@color/white"
+		android:gravity="center"
+		android:background="#ff313131"/>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"
+		android:layout_marginLeft="10dp"
+		android:layout_marginTop="10dp">
+
+		<ImageView
+			android:layout_width="64dp"
+			android:layout_height="64dp"
+			android:id="@+id/imageView4"
+			android:src="@drawable/nohead"
+			android:layout_alignParentTop="true"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true"/>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:orientation="vertical">
+
+			<RelativeLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="10dp">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/textView17"
+					android:text="2222222233333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333"
+					android:layout_toLeftOf="@+id/button7"
+					android:layout_toStartOf="@+id/button7"
+					android:layout_marginRight="10dp"
+					android:layout_below="@+id/tvNickname"
+					android:layout_marginTop="10dp"/>
+
+				<Button
+					style="?android:attr/buttonStyleSmall"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="＋好友"
+					android:id="@+id/button7"
+					android:layout_alignParentTop="true"
+					android:layout_alignParentRight="true"
+					android:layout_alignParentEnd="true"
+					android:background="@drawable/sendbutton"
+					android:padding="5dp"
+					android:textColor="@color/white"
+					android:layout_marginRight="10dp"
+					android:layout_marginTop="10dp"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="nickname"
+					android:id="@+id/tvNickname"
+					android:layout_alignStart="@+id/textView17"/>
+
+			</RelativeLayout>
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:visibility="visible"
+				android:padding="10dp">
+
+				<ImageView
+					android:layout_width="64dp"
+					android:layout_height="64dp"
+					android:id="@+id/imageView6"
+					android:src="@drawable/common_signin_btn_icon_pressed_light"
+					android:scaleType="fitXY"
+					/>
+
+				<ImageView
+					android:layout_width="64dp"
+					android:layout_height="64dp"
+					android:id="@+id/imageView7"
+					android:src="@drawable/nopic"
+					android:scaleType="fitXY"/>
+
+				<ImageView
+					android:layout_width="64dp"
+					android:layout_height="64dp"
+					android:id="@+id/imageView8"
+					android:src="@drawable/nopic"
+					android:scaleType="fitXY"/>
+
+				<ImageView
+					android:layout_width="64dp"
+					android:layout_height="64dp"
+					android:id="@+id/imageView9"
+					android:src="@drawable/nopic"
+					android:scaleType="fitXY"/>
+
+			</LinearLayout>
+		</LinearLayout>
+
+	</LinearLayout>
+
+</LinearLayout>

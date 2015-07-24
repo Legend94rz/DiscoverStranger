@@ -22,7 +22,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:id="@+id/ivSettingImg"
-            android:src="@drawable/setting"
+            android:src="@drawable/settings"
             android:layout_alignTop="@+id/ivHeadImg"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"

@@ -147,6 +147,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		RefreshMyInfo();
 	}
 
+
+
 	public class parserWithExtraAsync extends AsyncTask<Void, Void, Void>
 	{
 		private String incompleteName;
@@ -636,6 +638,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 	public void llShack_Click(View view)
 	{
 		Intent I = new Intent(this, ShakeActivity.class);
+		startActivity(I);
+	}
+	public void llMoments_Click(View view)
+	{
+		Intent I=new Intent(this,MomentsActivity.class);
 		startActivity(I);
 	}
 

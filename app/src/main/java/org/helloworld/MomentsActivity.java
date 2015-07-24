@@ -1,45 +1,25 @@
 package org.helloworld;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import org.helloworld.tools.FileUtils;
-/**
- * 查看大图 界面
- * */
 
-public class BigPicAct extends Activity
+public class MomentsActivity extends BaseActivity
 {
-	ImageView ivImg;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_big_pic);
-		ivImg= (ImageView) findViewById(R.id.ivImg);
-		String imgsrc=getIntent().getStringExtra("imgsrc");
-		try
-		{
-			if (imgsrc != null && FileUtils.Exist(imgsrc))
-				ivImg.setImageBitmap(FileUtils.getOptimalBitmap(BigPicAct.this, imgsrc, false));
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			Toast.makeText(this,"图片太大，不予查看",Toast.LENGTH_SHORT).show();
-			finish();
-		}
+		setContentView(R.layout.activity_moments);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.menu_big_pic, menu);
+		getMenuInflater().inflate(R.menu.menu_moments, menu);
 		return true;
 	}
 
