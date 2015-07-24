@@ -74,6 +74,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 	private TextView liaotian;
 	private TextView faxian;
 	private TextView tongxunlu;
+    private ImageView ivSetting;
 	TextView emptyNotice;
 
 	ViewPager viewPager;
@@ -233,6 +234,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		init();
+        Global.mySelf.SetOnModifyListener(this);
 
 		handler = new android.os.Handler()
 		{
@@ -309,6 +311,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		startService(I);
 		//更新用户配置
 		new WebTask(handler, Global.MSG_WHAT.W_GOT_USER_SETTING).execute("getUserSetting", 1, "username", Global.mySelf.username);
+        ivSetting=(ImageView)findViewById(R.id.ivSettingImg);
+        ivSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,Alter.class);
+                startActivity(intent);
+            }
+        });
 	}
 
 	/**

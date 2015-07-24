@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.helloworld.AlterAvatarAct">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:background="@color/actionbar_bg"
+        android:gravity="center_vertical"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/relativeLayout2"
+        android:clickable="false">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="goback"
+            android:clickable="true"
+            android:background="@drawable/img_btn_mask"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:textColor="#fff"
+                android:background="@drawable/goback"
+                android:textSize="14sp"
+                android:layout_alignParentBottom="false"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:id="@+id/button3"
+                android:clickable="false"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="#ffffff"
+                android:id="@+id/tvToId"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/button3"
+                android:layout_marginLeft="20dp"/>
+        </RelativeLayout>
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="200dip"
+        android:layout_height="200dip"
+        android:id="@+id/Avatar"
+        android:src="@drawable/default_avatar"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="确定"
+        android:id="@+id/confirm"
+        android:visibility="visible"
+        android:background="@drawable/main_btn"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+</RelativeLayout>
