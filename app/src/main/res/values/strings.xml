@@ -51,6 +51,9 @@
 	<string name="clearPosInfo">清除位置信息并退出</string>
 	<string name="title_activity_moments">MomentsActivity</string>
     <string name="title_activity_alter_avatar">AlterAvatarAct</string>
+    <string name="title_activity_setting">SettingAct</string>
+    <string name="title_activity_set_chat_background">SetChatBackground</string>
+    <string name="title_activity_set_my_game">SetMyGame</string>
 
 
 </resources>

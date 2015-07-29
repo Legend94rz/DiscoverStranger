@@ -1,0 +1,136 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:background="@color/actionbar_bg"
+        android:gravity="center_vertical"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/relativeLayout2"
+        android:clickable="false">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="goback"
+            android:clickable="true"
+            android:background="@drawable/img_btn_mask"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:textColor="#fff"
+                android:background="@drawable/goback"
+                android:textSize="14sp"
+                android:layout_alignParentBottom="false"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:id="@+id/button3"
+                android:clickable="false"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="#ffffff"
+                android:id="@+id/tvToId"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/button3"
+                android:layout_marginLeft="20dp"/>
+        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置"
+            android:textSize="25dp"
+            android:id="@+id/textView18"
+            android:textColor="#ffffffff"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout_MyGame"
+        android:background="@color/white"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的游戏"
+            android:id="@+id/textView4"
+            android:textSize="25dp"
+            android:layout_margin="15dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout_Vibrate"
+        android:background="@color/white"
+        android:layout_below="@+id/linearLayout_MyGame"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="震动"
+            android:id="@+id/textVibrate"
+            android:textSize="25dp"
+            android:layout_margin="15dp"/>
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textOff="震动关闭"
+            android:textOn="震动开启"
+            android:id="@+id/switch1"
+            android:layout_marginLeft="100dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout_ChatBackground"
+        android:background="@color/white"
+        android:layout_below="@+id/linearLayout_Vibrate"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="聊天背景"
+            android:id="@+id/textView2"
+            android:textSize="25dp"
+            android:layout_margin="15dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout_DeleteCache"
+        android:background="@color/white"
+        android:layout_below="@+id/linearLayout_ChatBackground"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="清除缓存"
+            android:id="@+id/textView5"
+            android:textSize="25dp"
+            android:layout_margin="15dp"/>
+    </LinearLayout>
+</RelativeLayout>

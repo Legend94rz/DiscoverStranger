@@ -105,7 +105,7 @@
         </activity>
         <activity
             android:name=".Alter"
-            android:label="@string/title_activity_alter">
+            android:label="@string/title_activity_alter" >
         </activity>
         <activity
             android:name=".AlterBasicInfo"
@@ -130,6 +130,18 @@
         <activity
             android:name=".AlterAvatarAct"
             android:label="@string/title_activity_alter_avatar" >
+        </activity>
+        <activity
+            android:name=".SetMyGame"
+            android:label="@string/title_activity_set_my_game" >
+        </activity>
+        <activity
+            android:name=".SettingAct"
+            android:label="@string/title_activity_setting" >
+        </activity>
+        <activity
+            android:name=".SetChatBackground"
+            android:label="@string/title_activity_set_chat_background" >
         </activity>
     </application>
 

@@ -37,6 +37,8 @@ public class AlterBasicInfo extends BaseActivity {
         etNickname=(EditText)findViewById(R.id.nickname);
         dpBirthday=(DatePicker)findViewById(R.id.datePicker);
         rbMale=(RadioButton)findViewById(R.id.maleButton);
+        etNickname.setText(Global.mySelf.nickName);
+        rbMale.setChecked(Global.mySelf.sex);
         btEnsure.setOnClickListener(new View.OnClickListener(){
                 @Override
                         public void onClick(View view)
@@ -48,6 +50,17 @@ public class AlterBasicInfo extends BaseActivity {
             boolean usergender = rbMale.isChecked();
             AlterBasicInfo_online task = new AlterBasicInfo_online(username, password, usergender, nickname, birthday);
             task.execute();
+            UserInfo userInfo=new UserInfo();
+            userInfo.username=username;
+            userInfo.nickName=nickname;
+            userInfo.password=password;
+            userInfo.sex=usergender;
+            try {
+                userInfo.birthday=new SimpleDateFormat("yyyy-MM-dd").parse(birthday);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            userInfo.UpdateInfo(userInfo);
         }
         });
     }

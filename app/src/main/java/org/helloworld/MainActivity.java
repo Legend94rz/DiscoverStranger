@@ -313,6 +313,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		startService(I);
 		//更新用户配置
 		new WebTask(handler, Global.MSG_WHAT.W_GOT_USER_SETTING).execute("getUserSetting", 1, "username", Global.mySelf.username);
+        //修改用户信息按钮
         ivSetting=(ImageView)findViewById(R.id.ivSettingImg);
         ivSetting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -652,7 +653,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		startActivity(I);
 	}
 
-	//按两次退出主界面
+    public void llSettings_Click(View view)
+    {
+        Intent I = new Intent(this, SettingAct.class);
+        startActivity(I);
+    }
+
+    //按两次退出主界面
 	private long exitTime = 0;
 
 	@Override
