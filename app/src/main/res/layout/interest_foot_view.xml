@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:orientation="vertical"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+	>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/llSel"
+		android:visibility="visible">
+
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="48dp"
+			android:text="手动输入Tag"
+			android:id="@+id/btnCustom"
+			android:layout_weight="1"
+			android:background="@drawable/deletebtn"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentTop="true"
+			/>
+
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="48dp"
+			android:text="热点Tag"
+			android:id="@+id/btnHotkey"
+			android:layout_weight="1"
+			android:background="@drawable/messagebtn"
+			android:textColor="@color/white"
+			android:layout_alignParentTop="true"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true"
+			android:layout_toRightOf="@+id/btnCustom"
+			android:layout_toEndOf="@+id/btnCustom"/>
+	</LinearLayout>
+
+	<RelativeLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/llSel"
+		android:focusableInTouchMode="false"
+		android:id="@+id/llInput"
+		android:visibility="gone">
+
+		<EditText
+			android:layout_width="wrap_content"
+			android:layout_height="48dp"
+			android:id="@+id/editText"
+			android:layout_weight="5"
+			android:background="@drawable/bg_editbox"
+			android:padding="8dp"
+			android:layout_alignParentLeft="true"
+			android:layout_marginLeft="0dp"
+			android:layout_alignParentTop="true"
+			android:layout_marginTop="0dp"
+			android:layout_toLeftOf="@+id/btnOK"
+			android:layout_toStartOf="@+id/btnOK"/>
+
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="48dp"
+			android:text="取消"
+			android:id="@+id/btnOK"
+			android:layout_weight="1"
+			android:background="@drawable/main_btn"
+			android:textColor="@color/white"
+			android:layout_alignParentTop="true"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true"
+			android:paddingLeft="16dp"
+			android:paddingRight="16dp"/>
+	</RelativeLayout>
+
+</LinearLayout>

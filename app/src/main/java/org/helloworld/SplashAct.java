@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import org.helloworld.tools.FaceConversionUtil;
+import org.helloworld.tools.Global;
 
 /**
  * 启动界面
@@ -17,7 +18,7 @@ public class SplashAct extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
-
+		Global.DPI=(int)getApplicationContext().getResources().getDisplayMetrics().density;
 		new Thread(new Runnable()
 		{
 			@Override

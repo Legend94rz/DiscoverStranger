@@ -23,7 +23,7 @@ public class Global
 	public static UserInfo mySelf = null;
 	/**
 	 * 用户配置信息
-	 * */
+	 */
 	public static Settings settings;
 	/**
 	 * 存储历史消息，方便快速查询
@@ -49,6 +49,7 @@ public class Global
 	 * 分块上传 下载的大小
 	 */
 	public static final int BLOCK_SIZE = 30000;
+	public static int DPI;
 
 	/**
 	 * Message消息类型
@@ -73,6 +74,9 @@ public class Global
 		public static final int W_GOT_MSG_HISTORY_LIST = 15;
 		public static final int W_GOT_USER_SETTING = 16;
 		public static final int W_DELETE_POSITION = 17;
+		public static final int W_GOT_HOTKEYLIST = 18;
+		public static final int W_GOT_FRESHES_OLD = 19;
+		public static final int W_GOT_FRESHES_NEW = 20;
 	}
 
 	/**
@@ -148,7 +152,23 @@ public class Global
 		SimpleDateFormat format = new SimpleDateFormat(patten);
 		return format.format(date);
 	}
-
+	/**
+	 * 返回一个更加人性化的日期显示
+	 * */
+	public static String getShowDate(Date date)
+	{
+		Date now=getDate();
+		if(date.getYear()!=now.getYear())
+			return formatDate(date,"yyyy-MM-dd");
+		else if(date.getMonth()==now.getMonth())
+		{
+			if (date.getDay() == now.getDay())
+				return "今天 " + formatDate(date, "HH:mm");
+			else if (date.getDay() + 1 == now.getDay())
+				return "昨天 " + formatDate(date, "HH:mm");
+		}
+		return formatDate(date,"MM-dd HH:mm");
+	}
 	/**
 	 * 初始化用户数据
 	 */

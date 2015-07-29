@@ -1,81 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			  android:orientation="vertical"
 			  android:layout_width="match_parent"
 			  android:layout_height="match_parent">
 
-	<TextView
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="yyyy-MM-dd"
-		android:id="@+id/tvTime"
-		android:textColor="@color/white"
-		android:gravity="center"
-		android:background="#ff313131"/>
-
-	<LinearLayout
+	<RelativeLayout
 		android:orientation="horizontal"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_alignParentTop="true"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentStart="true"
-		android:layout_marginLeft="10dp"
-		android:layout_marginTop="10dp">
+		android:layout_margin="10dp">
 
-		<ImageView
-			android:layout_width="64dp"
-			android:layout_height="64dp"
-			android:id="@+id/imageView4"
-			android:src="@drawable/nohead"
-			android:layout_alignParentTop="true"
+		<RelativeLayout
+			android:orientation="vertical"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
 			android:layout_alignParentLeft="true"
-			android:layout_alignParentStart="true"/>
+			android:layout_alignParentTop="true"
+			android:id="@+id/linearLayout14"
+			>
+
+			<ImageView
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				android:id="@+id/ivHead"
+				android:src="@drawable/nohead"
+				android:layout_alignParentTop="true"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentStart="true"/>
+
+			<Button
+				style="?android:attr/buttonStyleSmall"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="＋好友"
+				android:id="@+id/btnHello"
+				android:background="@drawable/sendbutton"
+				android:textColor="@color/white"
+				android:singleLine="true"
+				android:layout_below="@+id/ivHead"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentStart="true"
+				android:layout_marginTop="16dp"
+				android:layout_alignRight="@+id/ivHead"
+				android:layout_alignEnd="@+id/ivHead"
+				android:textSize="12sp"
+				android:paddingTop="5dp"
+				android:paddingBottom="5dp"
+				android:paddingRight="2dp"
+				android:paddingLeft="1dp"/>
+		</RelativeLayout>
 
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:orientation="vertical">
+			android:orientation="vertical"
+			android:layout_alignParentTop="true"
+			android:layout_toRightOf="@+id/linearLayout14"
+			android:layout_toEndOf="@+id/linearLayout14"
+			android:layout_marginLeft="8dp">
 
 			<RelativeLayout
 				android:orientation="horizontal"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginLeft="10dp">
+				>
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:id="@+id/textView17"
+					android:id="@+id/tvText"
 					android:text="2222222233333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333"
-					android:layout_toLeftOf="@+id/button7"
-					android:layout_toStartOf="@+id/button7"
+					android:layout_toStartOf="@+id/btnHello"
 					android:layout_marginRight="10dp"
 					android:layout_below="@+id/tvNickname"
 					android:layout_marginTop="10dp"/>
 
-				<Button
-					style="?android:attr/buttonStyleSmall"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="＋好友"
-					android:id="@+id/button7"
-					android:layout_alignParentTop="true"
-					android:layout_alignParentRight="true"
-					android:layout_alignParentEnd="true"
-					android:background="@drawable/sendbutton"
-					android:padding="5dp"
-					android:textColor="@color/white"
-					android:layout_marginRight="10dp"
-					android:layout_marginTop="10dp"/>
-
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="nickname"
+					android:text="NickName"
 					android:id="@+id/tvNickname"
-					android:layout_alignStart="@+id/textView17"/>
+					android:layout_alignStart="@+id/tvText"
+					android:textColor="#ff688390"
+					/>
 
 			</RelativeLayout>
 
@@ -83,41 +94,39 @@
 				android:orientation="horizontal"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:visibility="visible"
-				android:padding="10dp">
-
-				<ImageView
-					android:layout_width="64dp"
-					android:layout_height="64dp"
-					android:id="@+id/imageView6"
-					android:src="@drawable/common_signin_btn_icon_pressed_light"
-					android:scaleType="fitXY"
-					/>
-
-				<ImageView
-					android:layout_width="64dp"
-					android:layout_height="64dp"
-					android:id="@+id/imageView7"
-					android:src="@drawable/nopic"
-					android:scaleType="fitXY"/>
-
-				<ImageView
-					android:layout_width="64dp"
-					android:layout_height="64dp"
-					android:id="@+id/imageView8"
-					android:src="@drawable/nopic"
-					android:scaleType="fitXY"/>
-
-				<ImageView
-					android:layout_width="64dp"
-					android:layout_height="64dp"
-					android:id="@+id/imageView9"
-					android:src="@drawable/nopic"
-					android:scaleType="fitXY"/>
+				android:padding="10dp"
+				android:id="@+id/llcontet"
+				android:visibility="visible">
 
 			</LinearLayout>
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="yyyy-MM-dd"
+				android:id="@+id/tvTime"
+				android:textColor="@color/lightslategrey"
+				android:gravity="left|center_vertical"
+				android:layout_marginTop="8dp"
+				android:layout_marginBottom="15dp"/>
 		</LinearLayout>
 
-	</LinearLayout>
+	</RelativeLayout>
 
-</LinearLayout>
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/tvTag"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true"
+		android:background="@drawable/tag"
+		android:layout_marginTop="5dp"
+		android:layout_marginRight="5dp"
+		android:textSize="16sp"
+		android:textColor="@android:color/white"
+		android:gravity="left|center_vertical"
+		android:paddingRight="20dp"
+		android:paddingBottom="3dp"
+		android:paddingTop="3dp"/>
+
+</RelativeLayout>

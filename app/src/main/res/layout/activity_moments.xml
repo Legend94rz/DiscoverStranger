@@ -8,14 +8,16 @@
 		android:id="@+id/pullrefresh"
 		class="android.support.v4.widget.SwipeRefreshLayout"
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:visibility="visible">
 		<ListView
 			android:layout_width="wrap_content"
 			android:layout_height="0dp"
 			android:id="@+id/listview"
-			android:layout_below="@+id/imageView4"
+			android:layout_below="@+id/ivHead"
 			android:layout_alignParentLeft="true"
 			android:layout_alignParentStart="true"
+			android:listSelector="@null"
 			/>
 	</view>
 
@@ -26,7 +28,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="55dp"
 		android:layout_alignParentLeft="true"
-		android:background="#0055d4eb"
+		android:background="#933030ff"
 		android:clickable="false"
 		android:gravity="center_vertical">
 
@@ -61,6 +63,19 @@
 				android:textColor="#ffffff"
 				android:textSize="20sp"/>
 		</RelativeLayout>
+
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:text="分享新鲜事"
+			android:id="@+id/btnShare"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true"
+			android:textColor="@color/white"
+			android:textSize="20dp"
+			android:background="@drawable/img_btn_mask"
+			android:padding="16dp"/>
 	</RelativeLayout>
 
 </RelativeLayout>

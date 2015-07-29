@@ -105,7 +105,7 @@
         </activity>
         <activity
             android:name=".Alter"
-            android:label="@string/title_activity_alter">
+            android:label="@string/title_activity_alter" >
         </activity>
         <activity
             android:name=".AlterBasicInfo"
@@ -130,6 +130,22 @@
         <activity
             android:name=".AlterAvatarAct"
             android:label="@string/title_activity_alter_avatar" >
+        </activity>
+        <activity
+            android:name=".WriteFreshAct"
+            android:label="@string/title_activity_write_fresh"
+            android:parentActivityName=".BaseActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.helloworld.BaseActivity" />
+        </activity>
+        <activity
+            android:name=".HotKeyActivity"
+            android:label="@string/title_activity_hot_key" >
+        </activity>
+        <activity
+            android:name=".MyInterestAct"
+            android:label="@string/title_activity_my_interest" >
         </activity>
     </application>
 

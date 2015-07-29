@@ -1,0 +1,80 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				xmlns:tools="http://schemas.android.com/tools"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				tools:context="org.helloworld.MyInterestAct">
+
+	<RelativeLayout
+		android:id="@+id/relativeLayout14"
+		android:layout_width="fill_parent"
+		android:layout_height="55dp"
+		android:layout_alignParentLeft="true"
+		android:background="@color/actionbar_bg"
+		android:clickable="false"
+		android:gravity="center_vertical">
+
+		<RelativeLayout
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:background="@drawable/img_btn_mask"
+			android:clickable="true"
+			android:onClick="goback"
+			android:paddingRight="15dp">
+
+			<TextView
+				android:id="@+id/textView21"
+				android:layout_width="25dp"
+				android:layout_height="25dp"
+				android:layout_alignParentBottom="false"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="15dp"
+				android:background="@drawable/goback"
+				android:clickable="false"
+				android:textColor="#fff"
+				android:textSize="14sp"/>
+
+			<TextView
+				android:id="@+id/textView24"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="20dp"
+				android:layout_toRightOf="@+id/textView21"
+				android:textColor="#ffffff"
+				android:textSize="20sp"
+				android:text="我的兴趣"/>
+		</RelativeLayout>
+	</RelativeLayout>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="将只接收含有以下Tag的动态:"
+		android:id="@+id/textView25"
+		android:layout_below="@+id/relativeLayout14"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"
+		android:padding="8dp"/>
+
+	<Button
+		android:layout_width="match_parent"
+		android:layout_height="48dp"
+		android:text="确定"
+		android:id="@+id/btnOK"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true"
+		android:background="@drawable/main_btn"
+		android:textColor="@color/white"
+		android:textSize="20sp"/>
+
+	<ListView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/listview"
+		android:layout_below="@+id/textView25"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"
+		android:layout_above="@+id/btnOK"
+		android:layout_marginBottom="16dp"/>
+</RelativeLayout>

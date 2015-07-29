@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -210,6 +211,7 @@ public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 
 	public static void DelFriend(String friendName)
 	{
+		if(!Global.map2Friend.containsKey(friendName))return;
 		UserInfo u = Global.map2Friend.get(friendName);
 		Global.map2Friend.remove(friendName);
 		Global.friendList.remove(u);
@@ -280,15 +282,11 @@ public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 
 	public static void AddFriend(String strangerName)
 	{
+		if(Global.map2Friend.containsKey(strangerName)|| TextUtils.equals(Global.mySelf.username,strangerName))return;
 		JSONObject fL = FriendInfoAct.constructFriends2JSON();
 		try
 		{
 			JSONArray fA = fL.getJSONArray("friends");
-			for (int i = 0; i < fA.length(); i++)
-			{
-				if (fA.getJSONObject(i).getString("name").equals(strangerName))
-					return;
-			}
 			JSONObject fnew = new JSONObject();
 			fnew.put("name", strangerName);
 			fA.put(fnew);

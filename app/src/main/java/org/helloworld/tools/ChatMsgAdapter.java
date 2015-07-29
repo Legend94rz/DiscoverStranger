@@ -106,7 +106,7 @@ public class ChatMsgAdapter extends BaseAdapter implements AbsListView.OnScrollL
 
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
-		Message entity = coll.get(position);
+		final Message entity = coll.get(position);
 		boolean isComMsg = (entity.msgType & Global.MSG_TYPE.T_RECEIVE_MSG) > 0;
 
 		ViewHolder viewHolder;
@@ -149,28 +149,37 @@ public class ChatMsgAdapter extends BaseAdapter implements AbsListView.OnScrollL
 			viewHolder.ivPic.setVisibility(View.GONE);
 			spannableString = FaceConversionUtil.getInstace().getExpressionString(context, entity.text);
 		}
-		else if ((entity.msgType & Global.MSG_TYPE.T_PIC_MSG) > 0)
+		else if ((entity.msgType & Global.MSG_TYPE.T_PIC_MSG) > 0 && entity.sendState!=2)
 		{
 			viewHolder.tvContent.setVisibility(View.GONE);
 			viewHolder.ivPic.setVisibility(View.VISIBLE);
 			String url = Global.PATH.ChatPic + entity.text;
 			viewHolder.ivPic.setTag(url);
 			viewHolder.ivPic.setImageResource(R.drawable.nopic);
-			if (!isScroll)
+			Bitmap cacheBitmap = loader.loadDrawable(Global.PATH.ChatPic,"ChatPic",entity.text,isScroll,200*Global.DPI, new AsyImageLoader.ImageCallback()
 			{
-				Bitmap cacheBitmap = loader.loadDrawable(url, new AsyImageLoader.ImageCallback()
+				@Override
+				public void imageLoaded(Bitmap bitmap, String url)
 				{
-					@Override
-					public void imageLoaded(Bitmap bitmap, String url)
-					{
-						ImageView imageView = (ImageView) listView.findViewWithTag(url);
-						if (imageView != null && bitmap != null)
+					ImageView imageView = (ImageView) listView.findViewWithTag(url);
+					if (imageView != null)
+						if(bitmap != null)
+						{
 							imageView.setImageBitmap(bitmap);
-					}
-				});
-				if (cacheBitmap != null)
-					viewHolder.ivPic.setImageBitmap(cacheBitmap);
+							entity.sendState=0;
+						}
+						else
+							entity.sendState=2;
+					notifyDataSetChanged();
+				}
+			});
+			if (cacheBitmap != null)
+			{
+				entity.sendState=0;
+				viewHolder.ivPic.setImageBitmap(cacheBitmap);
 			}
+			else
+				entity.sendState=1;
 		}
 		else if ((entity.msgType & Global.MSG_TYPE.T_VOICE_MSG) > 0)
 		{
@@ -192,7 +201,7 @@ public class ChatMsgAdapter extends BaseAdapter implements AbsListView.OnScrollL
 		else
 			viewHolder.ivHead.setImageResource(R.drawable.nohead);
 
-		viewHolder.tvSendTime.setText(entity.getDateWithFormat("yyyy-MM-dd HH:mm"));
+		viewHolder.tvSendTime.setText(Global.getShowDate(entity.sendTime));
 		if (position == 0 || entity.sendTime.getTime() - coll.get(position - 1).sendTime.getTime() > 1000 * 60)    //两条消息间隔大于1分钟才显示时间
 			viewHolder.tvSendTime.setVisibility(View.VISIBLE);
 		else
@@ -261,10 +270,13 @@ public class ChatMsgAdapter extends BaseAdapter implements AbsListView.OnScrollL
 					}
 					break;
 				case R.id.ibResendbtn:
-					android.os.Message m = new android.os.Message();
-					m.obj = msg;
-					m.what = Global.MSG_WHAT.W_RESEND_MSG;
-					ChatActivity.handler.sendMessage(m);
+					if(msg.extra!=null)	//历史消息不能重发
+					{
+						android.os.Message m = new android.os.Message();
+						m.obj = msg;
+						m.what = Global.MSG_WHAT.W_RESEND_MSG;
+						ChatActivity.handler.sendMessage(m);
+					}
 					break;
 			}
 		}

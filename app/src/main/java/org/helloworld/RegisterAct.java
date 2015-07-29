@@ -2,8 +2,6 @@ package org.helloworld;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,7 +34,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * 注册界面
- * */
+ */
 public class RegisterAct extends BaseActivity
 {
 
@@ -59,7 +57,8 @@ public class RegisterAct extends BaseActivity
 	private TextView tvError_info_password;
 
 	public static Handler handler;
-	private Boolean canRegister=true;
+	private Boolean canRegister = true;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -89,7 +88,7 @@ public class RegisterAct extends BaseActivity
 			@Override
 			public void onFocusChange(View v, boolean hasfocus)
 			{
-				if (!hasfocus && etUser_name.getText().length()>0)
+				if (!hasfocus && etUser_name.getText().length() > 0)
 				{
 					checkUserName();
 				}
@@ -117,10 +116,10 @@ public class RegisterAct extends BaseActivity
 			@Override
 			public void onClick(View view)
 			{
-				canRegister=true;
+				canRegister = true;
 				checkUserName();
 				checkPassword();
-				if(!canRegister)return;
+				if (!canRegister) return;
 				btnNext.setEnabled(false);
 				String Username = etUser_name.getText().toString();
 				String psw = etpasswords.getText().toString();
@@ -131,7 +130,7 @@ public class RegisterAct extends BaseActivity
 
 			}
 		});
-		handler=new Handler(new Handler.Callback()
+		handler = new Handler(new Handler.Callback()
 		{
 			@Override
 			public boolean handleMessage(Message message)
@@ -199,7 +198,7 @@ public class RegisterAct extends BaseActivity
 				isLegal = false;
 		}
 		if (!isLegal) error_info_username += " 用户名只能包含字母数字和下划线 ";
-		if (urname.length() > 16 || urname.length()<1) error_info_username += "用户名在1-16位之间";
+		if (urname.length() > 16 || urname.length() < 1) error_info_username += "用户名在1-16位之间";
 		if (error_info_username.length() > 0)
 		{
 			ivUsernameError.setVisibility(View.VISIBLE);
@@ -228,29 +227,28 @@ public class RegisterAct extends BaseActivity
 		@Override
 		public void onClick(View v)
 		{
-			final SweetAlertDialog dialog = new SweetAlertDialog(RegisterAct.this);
-			dialog.setTitleText("请选择头像图片的来源");
-			dialog.setConfirmText("相册");
-			dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
-			{
-				@Override
-				public void onClick(SweetAlertDialog sweetAlertDialog)
+			SweetAlertDialog dialog = new SweetAlertDialog(RegisterAct.this);
+			dialog.setTitleText("请选择头像图片的来源")
+				.setConfirmText("相册")
+				.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
 				{
-					dialog.dismiss();
-					getPicFromPhoto();
-				}
-			});
-			dialog.setCancelText("拍照");
-			dialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener()
-			{
-				@Override
-				public void onClick(SweetAlertDialog sweetAlertDialog)
+					@Override
+					public void onClick(SweetAlertDialog sweetAlertDialog)
+					{
+						sweetAlertDialog.dismiss();
+						getPicFromPhoto();
+					}
+				})
+				.setCancelText("拍照")
+				.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener()
 				{
-					dialog.dismiss();
-					getPicFromCamera();
-				}
-			});
-			dialog.show();
+					@Override
+					public void onClick(SweetAlertDialog sweetAlertDialog)
+					{
+						sweetAlertDialog.dismiss();
+						getPicFromCamera();
+					}
+				}).show();
 		}
 	}
 
@@ -274,7 +272,7 @@ public class RegisterAct extends BaseActivity
 			try
 			{
 				SoapObject result = check.call();
-				return result.getPropertyCount()==0;
+				return result.getPropertyCount() == 0;
 			}
 			catch (NullPointerException e)
 			{
@@ -286,9 +284,9 @@ public class RegisterAct extends BaseActivity
 		@Override
 		protected void onPostExecute(Boolean aBoolean)
 		{
-			Message m=new Message();
-			m.what=Global.MSG_WHAT.W_CHECKED_USERNAME;
-			m.obj=aBoolean;
+			Message m = new Message();
+			m.what = Global.MSG_WHAT.W_CHECKED_USERNAME;
+			m.obj = aBoolean;
 			canRegister &= aBoolean;
 			handler.sendMessage(m);
 			pbcheckname.setVisibility(View.INVISIBLE);
@@ -317,23 +315,24 @@ public class RegisterAct extends BaseActivity
 		protected Byte doInBackground(Void... voids)
 		{
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			if(photo==null)
-				return 2;		//No photo
+			if (photo == null)
+				return 2;        //No photo
 			else
 				photo.compress(Bitmap.CompressFormat.PNG, 100, baos);
 			byte[] bytes = baos.toByteArray();
-			UploadTask uploadTask=new UploadTask("HeadImg",Username+".png",Global.BLOCK_SIZE,bytes);
-			if(!uploadTask.call())return 3;
+			UploadTask uploadTask = new UploadTask("HeadImg", Username + ".png", Global.BLOCK_SIZE, bytes);
+			if (!uploadTask.call()) return 3;
 			WebService register = new WebService("SignUp");
 			register.addProperty("name", Username).addProperty("pass", Password).addProperty("sex", Gender).addProperty("nickName", Nickname);
 			try
 			{
 				SoapObject result = register.call();
-				if(!result.getPropertyAsString(0).equals(Global.OPT_SUCCEED)) return 4;
+				if (!result.getPropertyAsString(0).equals(Global.OPT_SUCCEED)) return 4;
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();return 4;
+				e.printStackTrace();
+				return 4;
 			}
 			return 1;
 		}
@@ -383,9 +382,10 @@ public class RegisterAct extends BaseActivity
 					Toast.makeText(RegisterAct.this, "请先选择一张照片作为头像", Toast.LENGTH_SHORT).show();
 					break;
 				}
-				case 3:case 4:
+				case 3:
+				case 4:
 				{
-					Toast.makeText(RegisterAct.this, String.format("注册失败，错误%d",aByte), Toast.LENGTH_SHORT).show();
+					Toast.makeText(RegisterAct.this, String.format("注册失败，错误%d", aByte), Toast.LENGTH_SHORT).show();
 					break;
 				}
 			}
@@ -414,17 +414,13 @@ public class RegisterAct extends BaseActivity
 		switch (requestCode)
 		{
 			case CAMERA_REQUEST:
-				switch (resultCode)
+				if (resultCode == -1)// -1表示拍照成功
 				{
-					case -1:// -1表示拍照成功
-						File file = new File(Global.PATH.HeadImg, "temp.png");
-						if (file.exists())
-						{
-							photoClip(Uri.fromFile(file));
-						}
-						break;
-					default:
-						break;
+					File file = new File(Global.PATH.HeadImg, "temp.png");
+					if (file.exists())
+					{
+						photoClip(Uri.fromFile(file));
+					}
 				}
 				break;
 			case PHOTO_REQUEST:
@@ -465,20 +461,6 @@ public class RegisterAct extends BaseActivity
 		intent.putExtra("outputY", 150);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, PHOTO_CLIP);
-	}
-
-	/**
-	 * 保存裁剪之后的图片数据
-	 */
-	private void getImageToView(Intent data)
-	{
-		Bundle extras = data.getExtras();
-		if (extras != null)
-		{
-			Bitmap photo = extras.getParcelable("data");
-			Drawable drawable = new BitmapDrawable(photo);
-			ivAvatarimg.setImageDrawable(drawable);
-		}
 	}
 
 }

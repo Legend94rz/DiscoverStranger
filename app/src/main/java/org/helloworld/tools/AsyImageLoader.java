@@ -4,37 +4,43 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
-
-import java.lang.ref.SoftReference;
-import java.util.HashMap;
-import java.util.Map;
+import android.util.LruCache;
 
 /**
  * Created by Administrator on 2015/7/22.
  */
 public class AsyImageLoader
 {
-	private Map<String, SoftReference<Bitmap>> imageCache;
+	private LruCache<String,Bitmap> imageCache;
 	private Context context;
 
 	public AsyImageLoader(Context context)
 	{
-		imageCache = new HashMap<>();
+		int catchSize= ((int) Runtime.getRuntime().maxMemory())/1024;
+		imageCache = new LruCache<String,Bitmap>(catchSize){
+			@Override
+			protected int sizeOf(String key,Bitmap bitmap)
+			{
+				return bitmap.getByteCount()/1024;
+			}
+		};
 		this.context = context;
 	}
 
-	public Bitmap loadDrawable(final String url, final ImageCallback whenLoaded)
+	public Bitmap loadDrawable(final String localFolder, final String remoteFolder, final String fileName,boolean onlyMemCache, final int restrictSize, final ImageCallback whenLoaded)
 	{
-		if (imageCache.containsKey(url))
+		Bitmap tmp=imageCache.get(localFolder+fileName);
+		if (tmp!=null)
 		{
-			return imageCache.get(url).get();
+			return tmp;
 		}
+		if(onlyMemCache)return null;
 		final Handler handler = new Handler(new Handler.Callback()
 		{
 			@Override
 			public boolean handleMessage(Message message)
 			{
-				whenLoaded.imageLoaded((Bitmap) message.obj, url);
+				whenLoaded.imageLoaded((Bitmap) message.obj, localFolder+fileName);
 				return true;
 			}
 		});
@@ -43,8 +49,9 @@ public class AsyImageLoader
 			@Override
 			public void run()
 			{
-				Bitmap bitmap = loadImageFromUrl(url);
-				imageCache.put(url, new SoftReference<>(bitmap));
+				Bitmap bitmap = loadImageFromUrl(localFolder,remoteFolder,fileName,restrictSize);
+				if(bitmap!=null)
+					imageCache.put(localFolder+fileName, bitmap);
 				Message m = handler.obtainMessage(0, bitmap);
 				handler.sendMessage(m);
 			}
@@ -52,11 +59,13 @@ public class AsyImageLoader
 		return null;
 	}
 
-	public Bitmap loadImageFromUrl(String url)
+	private Bitmap loadImageFromUrl(String localFolder,String remoteFolder,String fileName,int restrictSize)
 	{
-		if (FileUtils.Exist(url))
-			return FileUtils.getOptimalBitmap(context, url, true);
-
+		String localPath=localFolder+fileName;
+		if (FileUtils.Exist(localPath))
+			return FileUtils.getOptimalBitmap(context, localPath, restrictSize);
+		else if(DownloadTask.DownloadFile(remoteFolder,fileName,Global.BLOCK_SIZE,localFolder))
+			return FileUtils.getOptimalBitmap(context, localPath, restrictSize);
 		return null;
 	}
 

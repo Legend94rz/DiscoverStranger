@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ToggleButton;
 
+import org.helloworld.interfaces.OnCorpusSelectedListener;
 import org.helloworld.tools.ChatEmoji;
 import org.helloworld.tools.FaceAdapter;
 import org.helloworld.tools.FaceConversionUtil;
@@ -140,20 +141,6 @@ public class FaceRelativeLayout extends RelativeLayout implements OnItemClickLis
 		}
 		else
 			v.setVisibility(GONE);
-	}
-
-	/**
-	 * 表情选择监听
-	 *
-	 * @author naibo-liao
-	 * @时间： 2013-1-15下午04:32:54
-	 */
-	public interface OnCorpusSelectedListener
-	{
-
-		void onCorpusSelected(ChatEmoji emoji);
-
-		void onCorpusDeleted();
 	}
 
 	@Override

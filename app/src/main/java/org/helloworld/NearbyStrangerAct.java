@@ -1,5 +1,6 @@
 package org.helloworld;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -130,7 +132,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 					SayHello(NearbyStrangerAct.this, strangerName, handler);
 				}
 			});
-		InfoWindow infoWindow = new InfoWindow(windowView, pos, -65 * (int)getResources().getDisplayMetrics().density);
+		InfoWindow infoWindow = new InfoWindow(windowView, pos, -65 * (int) getResources().getDisplayMetrics().density);
 		map.showInfoWindow(infoWindow);
 		lastClick = marker;
 		isShow = true;
@@ -420,37 +422,14 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 					}
 					break;
 					case Global.MSG_WHAT.W_SENDED_REQUEST:
+						DealSendRequestResult(NearbyStrangerAct.this, message);
 						final Bundle data = message.getData();
 						if (data.getBoolean("result"))
 						{
-							MainActivity.handler.sendEmptyMessage(Global.MSG_WHAT.W_REFRESH_DEEP);
-							Global.map2Friend.put(data.getString("strangerName"), new UserInfo(data.getString("strangerName")));
-							final SweetAlertDialog n = new SweetAlertDialog(NearbyStrangerAct.this, SweetAlertDialog.SUCCESS_TYPE);
-							n.setContentText(getString(R.string.FinishAndAddFriendSuc));
-							n.setConfirmText("好");
-							n.show();
 							lastClick.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pin));
 							isShow = false;
 							lastClick = null;
 							map.hideInfoWindow();
-						}
-						else
-						{
-							final SweetAlertDialog n = new SweetAlertDialog(NearbyStrangerAct.this, SweetAlertDialog.ERROR_TYPE);
-							n.setContentText("请求发送失败，是否重试?");
-							n.setConfirmText("好");
-							n.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
-							{
-								@Override
-								public void onClick(SweetAlertDialog sweetAlertDialog)
-								{
-									NearbyStrangerAct.SuccessFinishGame(NearbyStrangerAct.this, handler, data.getString("strangerName"));
-									n.dismiss();
-								}
-							});
-							n.setCancelText("算了");
-							n.setCancelClickListener(null);
-							n.show();
 						}
 						break;
 					case Global.MSG_WHAT.W_DELETE_POSITION:
@@ -478,27 +457,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 					break;
 					case Global.MSG_WHAT.W_GOT_USER_SETTING:
 					{
-						Settings settings = (Settings) message.obj;
-						if (message.getData().getBoolean("result"))
-						{
-							Intent intent;
-							if (settings.game == 1)
-								intent = new Intent(NearbyStrangerAct.this, GameSplash.class);
-							else
-							{
-								//Todo 启动另外的游戏
-								intent = new Intent();
-							}
-							intent.putExtra("strangerName", message.getData().getString("strangerName"));
-							startActivityForResult(intent, PLAY_GAME);
-						}
-						else
-						{
-							SweetAlertDialog dialog2 = new SweetAlertDialog(NearbyStrangerAct.this, SweetAlertDialog.ERROR_TYPE);
-							dialog2.setTitleText("错误").setContentText(Global.ERROR_HINT.HINT_ERROR_NETWORD);
-							dialog2.setConfirmClickListener(null);
-							dialog2.show();
-						}
+						DealGetSettingResult(NearbyStrangerAct.this, message);
 					}
 					break;
 				}
@@ -519,6 +478,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 		});
 
 	}
+
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, final Intent data)
@@ -618,55 +578,58 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 	}
 
 	/**
-	 * 弹对话框显示玩游戏提示
+	 * 弹对话框显示玩游戏提示,这个函数开始获取用户设置,获取之后对handler发送Global.MSG_WHAT.W_GOT_USER_SETTING
+	 * @param handler 必须处理Global.MSG_WHAT.W_GOT_USER_SETTING、Global.MSG_WHAT.W_SENDED_REQUEST
+	 * @see org.helloworld.tools.Global.MSG_WHAT
 	 */
 	public static void SayHello(final Context context, final String strangerName, final Handler handler)
 	{
+		if(TextUtils.equals(strangerName,Global.mySelf.username))return;
 		SweetAlertDialog dialog = new SweetAlertDialog(context)
 									  .setTitleText(context.getString(R.string.HintTitle))
 									  .setConfirmText(context.getString(R.string.playGame))
 									  .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
-		{
-			@Override
-			public void onClick(SweetAlertDialog sweetAlertDialog)
-			{
-				sweetAlertDialog.dismiss();
+									  {
+										  @Override
+										  public void onClick(SweetAlertDialog sweetAlertDialog)
+										  {
+											  sweetAlertDialog.dismiss();
 
-				final SweetAlertDialog dialog1 = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
-				dialog1.setCancelable(false);
-				dialog1.setTitleText("正在获取...");
-				dialog1.getProgressHelper().setBarColor(context.getResources().getColor(R.color.blue));
-				dialog1.show();
-				Thread thread = new Thread(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						Message message = new Message();
-						message.what = Global.MSG_WHAT.W_GOT_USER_SETTING;
-						Bundle data = new Bundle();
-						data.putString("strangerName", strangerName);
-						message.setData(data);
-						WebService getUserSetting = new WebService("getUserSetting");
-						try
-						{
-							SoapObject soapObject = getUserSetting.addProperty("username", strangerName).call();
-							if (soapObject.getPropertyCount() > 0)
-								message.obj = Settings.parse((SoapObject) soapObject.getProperty(0));
-							else
-								message.obj = new Settings();
-							data.putBoolean("result", true);
-						}
-						catch (NullPointerException e)
-						{
-							data.putBoolean("result", false);
-						}
-						dialog1.dismiss();
-						handler.sendMessage(message);
-					}
-				});
-				thread.start();
-			}
+											  final SweetAlertDialog dialog1 = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
+											  dialog1.setCancelable(false);
+											  dialog1.setTitleText("正在获取...");
+											  dialog1.getProgressHelper().setBarColor(context.getResources().getColor(R.color.blue));
+											  dialog1.show();
+											  Thread thread = new Thread(new Runnable()
+											  {
+												  @Override
+												  public void run()
+												  {
+													  Message message = new Message();
+													  message.what = Global.MSG_WHAT.W_GOT_USER_SETTING;
+													  Bundle data = new Bundle();
+													  data.putString("strangerName", strangerName);
+													  message.setData(data);
+													  WebService getUserSetting = new WebService("getUserSetting");
+													  try
+													  {
+														  SoapObject soapObject = getUserSetting.addProperty("username", strangerName).call();
+														  if (soapObject.getPropertyCount() > 0)
+															  message.obj = Settings.parse((SoapObject) soapObject.getProperty(0));
+														  else
+															  message.obj = new Settings();
+														  data.putBoolean("result", true);
+													  }
+													  catch (NullPointerException e)
+													  {
+														  data.putBoolean("result", false);
+													  }
+													  dialog1.dismiss();
+													  handler.sendMessage(message);
+												  }
+											  });
+											  thread.start();
+										  }
 									  }).setCancelText(context.getString(R.string.dontwant))
 									  .setCancelClickListener(null)
 									  .setContentText(context.getString(R.string.MustPlayGame));
@@ -674,6 +637,75 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 		dialog.show();
 	}
 
+	/**
+	 * 是handler对Global.MSG_WHAT.W_GOT_USER_SETTING的处理。
+	 * 这个过程中启动游戏，游戏结束后在onActivityResult中处理
+	 * */
+	public static void DealGetSettingResult(Context context, Message message)
+	{
+		Settings settings = (Settings) message.obj;
+		if (message.getData().getBoolean("result"))
+		{
+			Intent intent;
+			if (settings.game == 1)
+				intent = new Intent(context, GameSplash.class);
+			else
+			{
+				//Todo 启动另外的游戏
+				intent = new Intent();
+			}
+			intent.putExtra("strangerName", message.getData().getString("strangerName"));
+			((Activity) context).startActivityForResult(intent, PLAY_GAME);
+		}
+		else
+		{
+			SweetAlertDialog dialog2 = new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE);
+			dialog2.setTitleText("错误").setContentText(Global.ERROR_HINT.HINT_ERROR_NETWORD);
+			dialog2.setConfirmClickListener(null);
+			dialog2.show();
+		}
+	}
+
+	/**
+	 * 是handler对Global.MSG_WHAT.W_SENDED_REQUEST的处理
+	 * 如果该请求发送失败则询问是否重试
+	 * */
+	public static void DealSendRequestResult(final Context context, Message message)
+	{
+		final Bundle data = message.getData();
+		if (data.getBoolean("result"))
+		{
+			MainActivity.handler.sendEmptyMessage(Global.MSG_WHAT.W_REFRESH_DEEP);
+			Global.map2Friend.put(data.getString("strangerName"), new UserInfo(data.getString("strangerName")));
+			final SweetAlertDialog n = new SweetAlertDialog(context, SweetAlertDialog.SUCCESS_TYPE);
+			n.setContentText(context.getString(R.string.FinishAndAddFriendSuc));
+			n.setConfirmText("好");
+			n.show();
+		}
+		else
+		{
+			final SweetAlertDialog n = new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE);
+			n.setContentText("请求发送失败，是否重试?");
+			n.setConfirmText("好");
+			n.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
+			{
+				@Override
+				public void onClick(SweetAlertDialog sweetAlertDialog)
+				{
+					SuccessFinishGame(context, handler, data.getString("strangerName"));
+					n.dismiss();
+				}
+			});
+			n.setCancelText("算了");
+			n.setCancelClickListener(null);
+			n.show();
+		}
+	}
+
+	/**
+	 * 分析并处理游戏结果。
+	 * 如果游戏通过，则向对方发送加好友提醒
+	 * */
 	public static void DealGameResult(int requestCode, int resultCode, Intent data, Handler handler, Context context)
 	{
 		if (requestCode == PLAY_GAME)
@@ -693,9 +725,9 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 	}
 
 	/**
-	 * 完成游戏之后发送加好友请求
+	 * 完成游戏之后发送加好友请求，发送请求的结果会向handler发送Global.MSG_WHAT.W_SENDED_REQUEST
 	 */
-	public static void SuccessFinishGame(final Context context, final Handler handler, final String strangerName)
+	private static void SuccessFinishGame(final Context context, final Handler handler, final String strangerName)
 	{
 		//final ProgressDialog dialog=ProgressDialog.show(context, "稍候", "正在发送请求...");
 		final SweetAlertDialog dialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
@@ -712,7 +744,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 				try
 				{
 					jobj.put("userName", Global.mySelf.username);
-					jobj.put("Text", Global.mySelf.nickName + " 通过了你的游戏，现在你们已经是好友啦！");
+					jobj.put("Text", String.format("%s(ID:%s) 通过了你的游戏，现在你们已经是好友啦！",Global.mySelf.nickName,Global.mySelf.username));
 				}
 				catch (JSONException e)
 				{
@@ -787,5 +819,4 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 			}
 		}).start();
 	}
-
 }

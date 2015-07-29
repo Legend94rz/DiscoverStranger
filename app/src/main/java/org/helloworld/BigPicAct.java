@@ -25,7 +25,7 @@ public class BigPicAct extends Activity
 		try
 		{
 			if (imgsrc != null && FileUtils.Exist(imgsrc))
-				ivImg.setImageBitmap(FileUtils.getOptimalBitmap(BigPicAct.this, imgsrc, false));
+				ivImg.setImageBitmap(FileUtils.getOptimalBitmap(BigPicAct.this, imgsrc, 0));
 		}
 		catch (Exception e)
 		{

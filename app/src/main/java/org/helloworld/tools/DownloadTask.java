@@ -40,24 +40,31 @@ public class DownloadTask extends AsyncTask<Void, Void, Boolean>
 	@Override
 	protected Boolean doInBackground(Void... voids)
 	{
+		return DownloadFile(remotePath,fileName,blockSize,savePath);
+	}
+	/**
+	 * 同步方式下载
+	 * */
+	public static Boolean DownloadFile(String remoteFolder,String fileName,int blockSize,String saveFolder)
+	{
 		FileOutputStream fos = null;
 		try
 		{
 			WebService getSize=new WebService("getFileSize");
-			getSize.addProperty("path",remotePath).addProperty("fileName",fileName);
+			getSize.addProperty("path",remoteFolder).addProperty("fileName",fileName);
 			SoapObject soSize = getSize.call();
 			long size=Long.parseLong(soSize.getPropertyAsString(0));
 			int blockNum= ((int) (size / blockSize))+1;
 
-			FileUtils.mkDir(new File(savePath));
-			File file = new File(savePath, fileName);
+			FileUtils.mkDir(new File(saveFolder));
+			File file = new File(saveFolder, fileName);
 			file.createNewFile();
 
 			for(int i=0;i<blockNum;i++)
 			{
 				fos = new FileOutputStream(file,i!=0);
 				WebService download = new WebService("downloadFileByBlock");
-				download.addProperty("path", remotePath).addProperty("fileName", fileName).addProperty("blockSize",blockSize).addProperty("blockSerial",i);
+				download.addProperty("path", remoteFolder).addProperty("fileName", fileName).addProperty("blockSize",blockSize).addProperty("blockSerial",i);
 				SoapObject result = download.call();
 				byte[] bytes = Base64.decode(result.getPropertyAsString(0), Base64.DEFAULT);
 				fos.write(bytes);

@@ -106,7 +106,7 @@ public class HistoryAdapter extends BaseAdapter
 			h.msgCount.setText(String.valueOf(history.unreadMsg.size()));
 			h.msgCount.setVisibility(View.VISIBLE);
 		}
-		h.time.setText(Global.formatDate(history.lastHistoryMsg.sendTime, "HH:mm"));
+		h.time.setText(Global.getShowDate(history.lastHistoryMsg.sendTime));
 		return view;
 	}
 

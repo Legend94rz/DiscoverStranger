@@ -99,13 +99,14 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 	public static Handler handler;
 
 	@Override
-	protected void onDestroy()
+	public void goback(View view)
 	{
-		super.onDestroy();
+		super.goback(view);
 		totalRec = -1;
 		history.unreadMsg.clear();
 		MsgPullService.handlers.remove(handler);
 		handler = null;
+		if(history.lastHistoryMsg==null) Global.historyList.remove(history);
 	}
 
 	public class SendTask extends AsyncTask<Void, Void, Boolean>
@@ -185,12 +186,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 						ArrayList<Message> msgs = ((ArrayList<Message>) message.obj);
 						for (Message m : msgs)
 						{
-							if ((m.msgType & Global.MSG_TYPE.T_PIC_MSG) > 0)
-							{
-								m.sendState = 1;
-								DownloadTask task = new DownloadTask("ChatPic", Global.PATH.ChatPic, m.text, Global.BLOCK_SIZE, handler, Global.MSG_WHAT.W_REFRESH, m);
-								task.execute();
-							}
 							if ((m.msgType & Global.MSG_TYPE.T_VOICE_MSG) > 0)
 							{
 								m.sendState = 1;
@@ -501,6 +496,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 		btnSendVoice.setOnClickListener(this);
 		pbPlayRecord = (ProgressBar) findViewById(R.id.pbPlayProgress);
 
+		//Todo 检查是否有效
 		lvMsg.setOnScrollListener(new AbsListView.OnScrollListener()
 		{
 			@Override

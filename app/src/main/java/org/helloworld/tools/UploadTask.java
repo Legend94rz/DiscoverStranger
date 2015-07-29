@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class UploadTask
 {
-	private String remotePath;
+	private String remoteFolder;
 	private String remoteName;
 	/**
 	 * 以Byte为单位
@@ -26,14 +26,14 @@ public class UploadTask
 	/**
 	 * @param blockSize 块大小,单位byte
 	 * @param localFile 本地文件全路径
-	 * @param remotePath 远程文件夹路径
+	 * @param remoteFolder 远程文件夹路径
 	 * @param remoteName 远程文件夹名称
 	 * */
-	public UploadTask(long blockSize, String localFile, String remoteName, String remotePath) throws IOException
+	public UploadTask(long blockSize, String localFile, String remoteName, String remoteFolder) throws IOException
 	{
 		this.blockSize = blockSize;
 		this.remoteName = remoteName;
-		this.remotePath = remotePath;
+		this.remoteFolder = remoteFolder;
 		File f = new File(localFile);
 		blockNum = (int) (f.length() / blockSize) + 1;
 		FileInputStream fin;
@@ -52,16 +52,16 @@ public class UploadTask
 	}
 	/**
 	 * @param blockSize 块大小,单位byte
-	 * @param remotePath 远程文件夹路径
+	 * @param remoteFolder 远程文件夹路径
 	 * @param remoteName 远程文件夹名称
 	 * @param bytes 以字节数组表示的整个文件内容
 	 * */
-	public UploadTask(String remotePath, String remoteName, long blockSize, byte[] bytes)
+	public UploadTask(String remoteFolder, String remoteName, long blockSize, byte[] bytes)
 	{
 		this.blockNum = ((int) (bytes.length / blockSize))+1;
 		this.bytes = bytes;
 		this.remoteName = remoteName;
-		this.remotePath = remotePath;
+		this.remoteFolder = remoteFolder;
 		this.blockSize = blockSize;
 	}
 
@@ -77,7 +77,7 @@ public class UploadTask
 					base64 = Base64.encodeToString(bytes, ((int) (i * blockSize)), (int) blockSize, Base64.DEFAULT);
 				else
 					base64 = Base64.encodeToString(bytes, ((int) (i * blockSize)), (int) (bytes.length - i * blockSize), Base64.DEFAULT);
-				upload.addProperty("path", remotePath).addProperty("fileName", remoteName).addProperty("base64", base64).addProperty("blockSerial", i);
+				upload.addProperty("path", remoteFolder).addProperty("fileName", remoteName).addProperty("base64", base64).addProperty("blockSerial", i);
 
 				SoapObject soapObject = upload.call();
 				if (!Boolean.parseBoolean(soapObject.getPropertyAsString(0))) return false;

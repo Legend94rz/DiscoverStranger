@@ -64,7 +64,7 @@
 		android:layout_marginTop="5dp"
 		android:background="@drawable/main_btn"
 		android:textColor="@color/white"
-		android:textSize="20dp"/>
+		android:textSize="20sp"/>
 
 	<TextView
 		android:layout_width="wrap_content"
@@ -82,7 +82,8 @@
 		android:clickable="true"
 		android:enabled="true"
 		android:autoText="false"
-		android:background="@drawable/img_btn_mask"/>
+		android:background="@drawable/img_btn_mask"
+		android:gravity="center"/>
 
 	<ProgressBar
 		android:layout_width="wrap_content"

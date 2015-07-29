@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				xmlns:tools="http://schemas.android.com/tools"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				tools:context="org.helloworld.HotKeyActivity">
+
+	<RelativeLayout
+		android:id="@+id/relativeLayout13"
+		android:layout_width="fill_parent"
+		android:layout_height="55dp"
+		android:background="@color/actionbar_bg"
+		android:clickable="false"
+		android:gravity="center_vertical">
+
+		<RelativeLayout
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:background="@drawable/img_btn_mask"
+			android:clickable="true"
+			android:onClick="goback"
+			android:paddingRight="15dp">
+
+			<TextView
+				android:id="@+id/textView22"
+				android:layout_width="25dp"
+				android:layout_height="25dp"
+				android:layout_alignParentBottom="false"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="15dp"
+				android:background="@drawable/goback"
+				android:clickable="false"
+				android:textColor="#fff"
+				android:textSize="14sp"/>
+
+			<TextView
+				android:id="@+id/textView23"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="20dp"
+				android:layout_toRightOf="@+id/textView22"
+				android:textColor="#ffffff"
+				android:textSize="20sp"
+				android:text="他们都在说"/>
+		</RelativeLayout>
+
+	</RelativeLayout>
+
+	<ListView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/listView2"
+		android:layout_below="@+id/relativeLayout13"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"/>
+</RelativeLayout>

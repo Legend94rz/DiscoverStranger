@@ -1,8 +1,11 @@
 package org.helloworld.tools;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Base64;
 
 import java.io.BufferedReader;
@@ -31,7 +34,7 @@ public class FileUtils
 		{
 			List<String> list = new ArrayList<String>();
 			InputStream in = context.getResources().getAssets().open("emoji");
-			BufferedReader br = new BufferedReader(new InputStreamReader(in,"UTF-8"));
+			BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
 			String str = null;
 			while ((str = br.readLine()) != null)
 			{
@@ -46,18 +49,21 @@ public class FileUtils
 		}
 		return null;
 	}
+
 	/**
 	 * 判断给定的文件(夹)路径是否存在
+	 *
 	 * @return true表示存在
-	 * */
+	 */
 	public static boolean Exist(String path)
 	{
 		File f = new File(path);
 		return f.exists();
 	}
+
 	/**
 	 * 递归创建文件夹
-	 * */
+	 */
 	public static void mkDir(File folder)
 	{
 		if (folder.getParentFile().exists())
@@ -70,10 +76,9 @@ public class FileUtils
 			folder.mkdir();
 		}
 	}
-	private static int getImageScale(Context context, String imagePath) {
-		final int IMAGE_MAX_WIDTH = 200 * (int) context.getApplicationContext().getResources().getDisplayMetrics().density;
-		final int IMAGE_MAX_HEIGHT = 200 * (int) context.getApplicationContext().getResources().getDisplayMetrics().density;
 
+	private static int getImageScale(Context context, String imagePath, int restrictSize)
+	{
 		BitmapFactory.Options option = new BitmapFactory.Options();
 		// set inJustDecodeBounds to true, allowing the caller to query the bitmap info without having to allocate the
 		// memory for its pixels.
@@ -81,25 +86,54 @@ public class FileUtils
 		BitmapFactory.decodeFile(imagePath, option);
 
 		int scale = 1;
-		while (option.outWidth / scale >= IMAGE_MAX_WIDTH || option.outHeight / scale >= IMAGE_MAX_HEIGHT) {
+		while (option.outWidth / scale > restrictSize || option.outHeight / scale > restrictSize)
+		{
 			scale *= 2;
 		}
 		return scale;
 	}
+
 	/**
 	 * bitmap优化
-	 * @param filePath 路径
-	 * @param restrictSize 传true将会使bitmap强制缩放到200 * 200
-	 * */
-	public static Bitmap getOptimalBitmap(Context context,String filePath,boolean restrictSize)
+	 *
+	 * @param filePath     路径
+	 * @param restrictSize 缩放bitmap到该大小,<=0表示不缩放
+	 */
+	public static Bitmap getOptimalBitmap(Context context, String filePath, int restrictSize)
 	{
 		BitmapFactory.Options opt = new BitmapFactory.Options();
 		opt.inPreferredConfig = Bitmap.Config.RGB_565;
 		opt.inPurgeable = true;
 		opt.inInputShareable = true;
-		if(restrictSize)
-			opt.inSampleSize=getImageScale(context,filePath);
+		if (restrictSize > 0)
+			opt.inSampleSize = getImageScale(context, filePath, restrictSize);
+		return BitmapFactory.decodeFile(filePath, opt);
+	}
+
+	public static Bitmap scaleBitmap(int inSampleSize,String filePath)
+	{
+		BitmapFactory.Options opt = new BitmapFactory.Options();
+		opt.inPreferredConfig = Bitmap.Config.RGB_565;
+		opt.inPurgeable = true;
+		opt.inInputShareable = true;
+		opt.inSampleSize=inSampleSize;
 		return BitmapFactory.decodeFile(filePath,opt);
+	}
+	public static void saveToFile(Bitmap bitmap,String savePath)
+	{
+		File f = new File(savePath);
+		if (f.exists()) {
+			f.delete();
+		}
+		try {
+			FileOutputStream out = new FileOutputStream(f);
+			bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+			out.flush();
+			out.close();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+	}
 	}
 	/**
 	 * 以字符串形式返回文件的base64编码
@@ -170,6 +204,72 @@ public class FileUtils
 			catch (IOException e)
 			{
 				e.printStackTrace();
+			}
+		}
+	}
+	/**
+	 * 删除目录（文件夹）以及目录下的文件
+	 * @param   sPath 被删除目录的文件路径
+	 * @return  目录删除成功返回true，否则返回false
+	 */
+	public static boolean deleteDirectory(String sPath) {
+		//如果sPath不以文件分隔符结尾，自动添加文件分隔符
+		if (!sPath.endsWith(File.separator)) {
+			sPath = sPath + File.separator;
+		}
+		File dirFile = new File(sPath);
+		//如果dir对应的文件不存在，或者不是一个目录，则退出
+		if (!dirFile.exists() || !dirFile.isDirectory()) {
+			return false;
+		}
+		boolean flag = true;
+		//删除文件夹下的所有文件(包括子目录)
+		File[] files = dirFile.listFiles();
+		for (int i = 0; i < files.length; i++) {
+			//删除子文件
+			if (files[i].isFile()) {
+				flag = deleteFile(files[i].getAbsolutePath());
+				if (!flag) break;
+			} //删除子目录
+			else {
+				flag = deleteDirectory(files[i].getAbsolutePath());
+				if (!flag) break;
+			}
+		}
+		if (!flag) return false;
+		//删除当前目录
+		if (dirFile.delete()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	/**
+	 * 删除单个文件
+	 * @param   sPath    被删除文件的文件名
+	 * @return 单个文件删除成功返回true，否则返回false
+	 */
+	public static boolean deleteFile(String sPath) {
+		boolean flag = false;
+		File file = new File(sPath);
+		// 路径为文件且不为空则进行删除
+		if (file.isFile() && file.exists()) {
+			file.delete();
+			flag = true;
+		}
+		return flag;
+	}
+	public static String getRealPathFromURI(Context context, Uri contentUri) {
+		Cursor cursor = null;
+		try {
+			String[] proj = { MediaStore.Images.Media.DATA };
+			cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+			int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+			cursor.moveToFirst();
+			return cursor.getString(column_index);
+		} finally {
+			if (cursor != null) {
+				cursor.close();
 			}
 		}
 	}

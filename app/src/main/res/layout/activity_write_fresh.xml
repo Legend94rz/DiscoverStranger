@@ -1,0 +1,225 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				xmlns:tools="http://schemas.android.com/tools"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				tools:context="org.helloworld.WriteFreshAct">
+
+	<ScrollView
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent"
+		android:id="@+id/scrollView2"
+		android:layout_below="@+id/relativeLayout11">
+
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:padding="20dp"
+				android:id="@+id/relativeLayout12">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="正文:"
+					android:id="@+id/textView19"
+					/>
+
+				<EditText
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/etText"
+					android:background="@drawable/bg_editbox"
+					android:layout_below="@+id/textView19"
+					android:layout_alignLeft="@+id/textView19"
+					android:layout_alignStart="@+id/textView19"
+					android:layout_marginTop="10dp"
+					android:layout_marginBottom="5dp"
+					android:minHeight="150dp"
+					android:padding="8dp"
+					android:gravity="top|left"
+					android:hint="不多于140字"/>
+
+				<ToggleButton
+					android:layout_width="36dp"
+					android:layout_height="36dp"
+					android:id="@+id/tbFace"
+					android:background="@drawable/face_button"
+					android:textOn=" "
+					android:textOff=" "
+					android:layout_below="@+id/etText"
+					android:layout_alignRight="@+id/etText"
+					android:layout_alignEnd="@+id/etText"
+					android:checked="false"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="添加图片(最多4张):"
+					android:id="@+id/textView20"
+					android:layout_below="@+id/tbFace"
+					android:layout_alignStart="@+id/etText"/>
+
+				<LinearLayout
+					android:orientation="horizontal"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="10dp"
+					android:id="@+id/llcontet"
+					android:layout_below="@+id/textView20"
+					android:layout_alignLeft="@+id/textView20"
+					android:layout_alignStart="@+id/textView20">
+
+					<LinearLayout
+						android:orientation="horizontal"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:id="@+id/llImages">
+
+					</LinearLayout>
+
+					<ImageButton
+						android:layout_width="48dp"
+						android:layout_height="48dp"
+						android:id="@+id/ibAddImg"
+						android:src="@drawable/plus"
+						android:background="@drawable/img_btn_mask"
+						android:scaleType="fitXY"
+						android:layout_marginBottom="10dp"/>
+				</LinearLayout>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/editText2"
+					android:layout_below="@+id/llcontet"
+					android:layout_alignLeft="@+id/llcontet"
+					android:layout_alignStart="@+id/llcontet"
+					android:text="添加标签(让其他人更容易发现你~):"/>
+
+				<EditText
+					android:layout_width="match_parent"
+					android:layout_height="48dp"
+					android:id="@+id/etTag"
+					android:layout_below="@+id/editText2"
+					android:layout_alignLeft="@+id/editText2"
+					android:layout_alignStart="@+id/editText2"
+					android:layout_marginTop="8dp"
+					android:layout_marginBottom="8dp"
+					android:layout_toLeftOf="@+id/tvHot"
+					android:layout_toStartOf="@+id/tvHot"
+					android:layout_marginRight="10dp"
+					android:background="@drawable/bg_editbox"
+					android:hint="不多于4个字"
+					android:padding="8dp"
+					android:singleLine="true"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/tvHot"
+					android:text="他们都在说..."
+					android:layout_alignBottom="@+id/etTag"
+					android:layout_alignRight="@+id/etText"
+					android:layout_alignEnd="@+id/etText"
+					android:textColor="#ff0084ff"
+					android:padding="8dp"
+					android:background="@drawable/img_btn_mask"
+					android:gravity="center"
+					android:clickable="true"/>
+
+			</RelativeLayout>
+
+		</LinearLayout>
+	</ScrollView>
+
+	<RelativeLayout
+		android:id="@+id/ll_facechoose"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/PanelHeight"
+		android:background="#ffdfdfdf"
+		android:visibility="gone"
+		android:layout_alignParentEnd="false"
+		android:layout_alignParentBottom="true">
+
+		<android.support.v4.view.ViewPager
+			android:id="@+id/vp_contains"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentTop="true"
+			>
+		</android.support.v4.view.ViewPager>
+
+		<LinearLayout
+			android:id="@+id/iv_image"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentBottom="true"
+			android:layout_marginBottom="6dip"
+			android:gravity="center"
+			android:orientation="horizontal">
+		</LinearLayout>
+
+
+	</RelativeLayout>
+
+	<RelativeLayout
+		android:id="@+id/relativeLayout11"
+		android:layout_width="fill_parent"
+		android:layout_height="55dp"
+		android:background="@color/actionbar_bg"
+		android:clickable="false"
+		android:gravity="center_vertical">
+
+		<RelativeLayout
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:background="@drawable/img_btn_mask"
+			android:clickable="true"
+			android:onClick="goback"
+			android:paddingRight="15dp">
+
+			<TextView
+				android:id="@+id/textView17"
+				android:layout_width="25dp"
+				android:layout_height="25dp"
+				android:layout_alignParentBottom="false"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="15dp"
+				android:background="@drawable/goback"
+				android:clickable="false"
+				android:textColor="#fff"
+				android:textSize="14sp"/>
+
+			<TextView
+				android:id="@+id/textView18"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="20dp"
+				android:layout_toRightOf="@+id/textView17"
+				android:textColor="#ffffff"
+				android:textSize="20sp"
+				android:text="分享新鲜事"/>
+
+		</RelativeLayout>
+
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:text="发表"
+			android:id="@+id/btnSend"
+			android:background="@drawable/img_btn_mask"
+			android:textColor="@color/white"
+			android:layout_alignParentTop="true"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true"
+			android:textSize="20dp"
+			android:padding="10dp"/>
+	</RelativeLayout>
+
+</RelativeLayout>

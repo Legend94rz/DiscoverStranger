@@ -7,7 +7,7 @@
 	<RelativeLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:paddingBottom="30dp">
+		>
 
 		<ImageView
 			android:layout_width="wrap_content"
@@ -20,12 +20,30 @@
 			android:layout_alignParentTop="true"
 			android:adjustViewBounds="true"/>
 
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:text="设置我的兴趣"
+			android:id="@+id/tvSetInterest"
+			android:layout_weight="0.69"
+			android:gravity="left|center_vertical"
+			android:paddingLeft="30dp"
+			android:textColor="@color/white"
+			android:layout_alignBottom="@+id/ivHead"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true"
+			android:layout_below="@+id/imageView5"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true"
+			android:background="#ad33ac71"
+			android:clickable="true"/>
+
 		<ImageView
 			android:layout_width="64dp"
 			android:layout_height="64dp"
 			android:id="@+id/ivHead"
 			android:src="@drawable/brand_default_head"
-			android:scaleType="fitCenter"
+			android:scaleType="fitXY"
 			android:layout_alignParentRight="true"
 			android:layout_below="@+id/imageView5"
 			android:layout_marginTop="-32dp"
@@ -41,5 +59,6 @@
 			android:layout_centerHorizontal="true"
 			android:layout_marginBottom="44dp"
 			android:textColor="@color/white"/>
+
 	</RelativeLayout>
 </LinearLayout>
