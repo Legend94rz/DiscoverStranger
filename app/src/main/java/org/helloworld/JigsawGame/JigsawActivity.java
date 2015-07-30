@@ -1,4 +1,4 @@
-package org.helloworld.game;
+package org.helloworld.JigsawGame;
 
 import android.app.Activity;
 import android.content.Context;
@@ -27,61 +27,9 @@ import java.util.Collections;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-class GridViewAdapter extends BaseAdapter
-{
-	private Context context;
-	private ArrayList<PicItem> PicList;
 
-	public GridViewAdapter(Context context, ArrayList<PicItem> piclist)
-	{
-		this.context = context;
-		this.PicList = piclist;
-	}
 
-	@Override
-	public long getItemId(int position)
-	{
-		return position;
-	}
-
-	@Override
-	public View getView(int i, View convertView, ViewGroup parent)
-	{
-		Holder holder;
-		if (convertView == null)
-		{
-			holder = new Holder();
-			convertView = LayoutInflater.from(context).inflate(R.layout.item, null);
-			holder.image = (ImageView) convertView.findViewById(R.id.image_game);
-			convertView.setTag(holder);
-		}
-		else
-		{
-			holder = (Holder) convertView.getTag();
-		}
-		holder.image.setImageBitmap(PicList.get(i).GetBitmap());
-		return convertView;
-	}
-
-	@Override
-	public int getCount()
-	{
-		return PicList.size();
-	}
-
-	@Override
-	public Object getItem(int i)
-	{
-		return PicList.get(i);
-	}
-
-	public static class Holder
-	{
-		ImageView image;
-	}
-}
-
-public class GameActivity extends Activity
+public class JigsawActivity extends Activity
 {
 
 	private ArrayList<PicItem> PicList = new ArrayList<PicItem>();
@@ -92,7 +40,59 @@ public class GameActivity extends Activity
 	PicItem TheLastPiece;
 	ImageView Iv;
 	ToggleButton tbSwith;
+	class GridViewAdapter extends BaseAdapter
+	{
+		private Context context;
+		private ArrayList<PicItem> PicList;
 
+		public GridViewAdapter(Context context, ArrayList<PicItem> piclist)
+		{
+			this.context = context;
+			this.PicList = piclist;
+		}
+
+		@Override
+		public long getItemId(int position)
+		{
+			return position;
+		}
+
+		@Override
+		public View getView(int i, View convertView, ViewGroup parent)
+		{
+			Holder holder;
+			if (convertView == null)
+			{
+				holder = new Holder();
+				convertView = LayoutInflater.from(context).inflate(R.layout.item, null);
+				holder.image = (ImageView) convertView.findViewById(R.id.image_game);
+				convertView.setTag(holder);
+			}
+			else
+			{
+				holder = (Holder) convertView.getTag();
+			}
+			holder.image.setImageBitmap(PicList.get(i).GetBitmap());
+			return convertView;
+		}
+
+		@Override
+		public int getCount()
+		{
+			return PicList.size();
+		}
+
+		@Override
+		public Object getItem(int i)
+		{
+			return PicList.get(i);
+		}
+
+		public class Holder
+		{
+			ImageView image;
+		}
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -140,7 +140,7 @@ public class GameActivity extends Activity
 			@Override
 			public void onClick(View view)
 			{
-				final SweetAlertDialog dialog = new SweetAlertDialog(GameActivity.this, SweetAlertDialog.WARNING_TYPE);
+				final SweetAlertDialog dialog = new SweetAlertDialog(JigsawActivity.this, SweetAlertDialog.WARNING_TYPE);
 				dialog.setContentText("放弃游戏，不加好友了吗？");
 				dialog.setConfirmText("确定");
 				dialog.setCancelText("取消");

@@ -54,6 +54,8 @@
 	<string name="title_activity_write_fresh">WriteFresh</string>
 	<string name="title_activity_hot_key">HotKeyActivity</string>
 	<string name="title_activity_my_interest">MyInterest</string>
+	<string name="title_start_speed_match">启动</string>
+	<string name="title_speed_match">快速匹配</string>
 
 
 </resources>

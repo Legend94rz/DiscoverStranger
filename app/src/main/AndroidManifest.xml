@@ -96,11 +96,11 @@
             android:label="@string/title_activity_modify_friend_info" >
         </activity>
         <activity
-            android:name=".game.GameActivity"
+            android:name=".JigsawGame.JigsawActivity"
             android:label="@string/title_activity_game" >
         </activity>
         <activity
-            android:name=".game.GameSplash"
+            android:name=".JigsawGame.JigsawSplash"
             android:label="@string/title_activity_game" >
         </activity>
         <activity
@@ -146,6 +146,14 @@
         <activity
             android:name=".MyInterestAct"
             android:label="@string/title_activity_my_interest" >
+        </activity>
+        <activity
+            android:name=".SpeedMatchGame.SpeedMatchActivity"
+            android:label="@string/title_speed_match" >
+        </activity>
+        <activity
+            android:name=".SpeedMatchGame.StartSpeedMatchActivity"
+            android:label="@string/title_start_speed_match" >
         </activity>
     </application>
 

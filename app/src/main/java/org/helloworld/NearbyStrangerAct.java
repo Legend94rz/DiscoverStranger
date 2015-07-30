@@ -41,7 +41,8 @@ import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 
-import org.helloworld.game.GameSplash;
+import org.helloworld.JigsawGame.JigsawSplash;
+import org.helloworld.SpeedMatchGame.StartSpeedMatchActivity;
 import org.helloworld.tools.FileUtils;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.PositionInfo;
@@ -648,11 +649,14 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 		{
 			Intent intent;
 			if (settings.game == 1)
-				intent = new Intent(context, GameSplash.class);
+				intent = new Intent(context, JigsawSplash.class);
+			else if(settings.game==2)
+			{
+				intent = new Intent(context, StartSpeedMatchActivity.class);
+			}
 			else
 			{
-				//Todo 启动另外的游戏
-				intent = new Intent();
+				return;
 			}
 			intent.putExtra("strangerName", message.getData().getString("strangerName"));
 			((Activity) context).startActivityForResult(intent, PLAY_GAME);
@@ -660,8 +664,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 		else
 		{
 			SweetAlertDialog dialog2 = new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE);
-			dialog2.setTitleText("错误").setContentText(Global.ERROR_HINT.HINT_ERROR_NETWORD);
-			dialog2.setConfirmClickListener(null);
+			dialog2.setTitleText("错误").setContentText(Global.ERROR_HINT.HINT_ERROR_NETWORD).setConfirmClickListener(null);
 			dialog2.show();
 		}
 	}

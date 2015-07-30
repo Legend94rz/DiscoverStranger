@@ -1,4 +1,4 @@
-package org.helloworld.game;
+package org.helloworld.JigsawGame;
 
 import android.graphics.Bitmap;
 
@@ -25,7 +25,7 @@ class PicItem implements Comparable<PicItem> {
     @Override
     public int compareTo(PicItem o) {
         if (this.value == o.getValue()) return 0;
-         if (this.value < o.getValue()) return -1 ;
+        if (this.value < o.getValue()) return -1 ;
         return 1;
     }
 }

@@ -1,4 +1,4 @@
-package org.helloworld.game;
+package org.helloworld.JigsawGame;
 
 import android.graphics.Bitmap;
 

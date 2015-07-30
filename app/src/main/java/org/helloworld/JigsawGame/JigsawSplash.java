@@ -1,4 +1,4 @@
-package org.helloworld.game;
+package org.helloworld.JigsawGame;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,7 +9,7 @@ import android.widget.Button;
 import org.helloworld.R;
 
 
-public class GameSplash extends Activity {
+public class JigsawSplash extends Activity {
     String strangerName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class GameSplash extends Activity {
 			@Override
 			public void onClick(View view)
 			{
-				startActivityForResult(new Intent(GameSplash.this, GameActivity.class), 1);
+				startActivityForResult(new Intent(JigsawSplash.this, JigsawActivity.class), 1);
 			}
 		});
     }
