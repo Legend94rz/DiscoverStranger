@@ -226,7 +226,7 @@ public class SpeedMatchActivity extends Activity implements View.OnClickListener
 	void finishAct()
 	{
 		Intent intent = new Intent();
-		intent.putExtra("result", _grade);
+		intent.putExtra("result", _grade>0);
 		SpeedMatchActivity.this.setResult(RESULT_OK, intent);
 		SpeedMatchActivity.this.finish();
 	}

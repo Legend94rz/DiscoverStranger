@@ -3,6 +3,8 @@ package org.helloworld;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -64,7 +66,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 	View drawerContent;
 	private ListView lvFriends;
 	private ListView lvHistory;
-	public static int updateCount = 0;
 	private ContactAdapter contactAdapter;
 	myViewPagerAdapter pagerAdapter;
 	HistoryAdapter hisAdapter;
@@ -80,7 +81,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 	ViewPager viewPager;
 	List<View> pages;
 	SwipeRefreshLayout refreshLayout1, refreshLayout2;
-
+	SoundPool soundPool;
+	boolean isLoaded=false;
+	int soundId;
 	/**
 	 * 处理导航标签的点击事件
 	 */
@@ -147,8 +150,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		RefreshMyInfo();
 	}
 
-
-
 	public class parserWithExtraAsync extends AsyncTask<Void, Void, Void>
 	{
 		private String incompleteName;
@@ -164,11 +165,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		protected Void doInBackground(Void... voids)
 		{
 			WebService getUser = new WebService("GetUser");
-			String userName = null;
-			UserInfo u = null;
+			UserInfo u;
 			try
 			{
-				userName = jsonUser.getString("name");
 				SoapObject result = getUser.addProperty("name", jsonUser.getString("name")).call();
 				u = UserInfo.parse(result);
 			}
@@ -186,17 +185,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 				u.Ex_remark = null;
 			}
 			Global.map2Friend.put(incompleteName, u);
-			new DownloadTask("HeadImg", Global.PATH.HeadImg, userName + ".png", Global.BLOCK_SIZE, handler, Global.MSG_WHAT.W_REFRESH, null).execute();
-			synchronized ((Object) updateCount)
-			{
-				updateCount++;
-				if (updateCount >= Global.friendList.size())
-				{
-					updateCount = 0;
-					MainActivity.handler.sendEmptyMessage(Global.MSG_WHAT.W_REFRESH);
-				}
-			}
+			MainActivity.handler.sendEmptyMessage(Global.MSG_WHAT.W_REFRESH);
 			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void aVoid)
+		{
+			String userName;
+			try
+			{
+				userName = jsonUser.getString("name");
+			}
+			catch (JSONException e)
+			{
+				e.printStackTrace();
+				return;
+			}
+			new DownloadTask("HeadImg", Global.PATH.HeadImg, userName + ".png", Global.BLOCK_SIZE, handler, Global.MSG_WHAT.W_REFRESH, null).execute();
 		}
 	}
 
@@ -255,6 +261,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 					case Global.MSG_WHAT.W_RECEIVED_NEW_MSG:
 						ArrayList<Message> received = (ArrayList<Message>) msg.obj;
 						if (Global.settings.vibrate) RemindUser();
+						if(Global.settings.sound) Beep();
 						for (Message m : received)
 						{
 							History h;
@@ -314,13 +321,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		//更新用户配置
 		new WebTask(handler, Global.MSG_WHAT.W_GOT_USER_SETTING).execute("getUserSetting", 1, "username", Global.mySelf.username);
         ivSetting=(ImageView)findViewById(R.id.ivSettingImg);
-        ivSetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,Alter.class);
-                startActivity(intent);
-            }
-        });
+        ivSetting.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				Intent intent = new Intent(MainActivity.this, Alter.class);
+				startActivity(intent);
+			}
+		});
+		soundPool=new SoundPool(3, AudioManager.STREAM_ALARM,0);
+		soundId = soundPool.load(this,R.raw.msg,1);
+		soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener()
+		{
+			@Override
+			public void onLoadComplete(SoundPool soundPool, int i, int i1)
+			{
+				isLoaded=true;
+			}
+		});
+	}
+	/**
+	 * 声音提醒
+	 * */
+	private void Beep()
+	{
+		if(isLoaded)
+			soundPool.play(soundId,1,1,0,0,1);
 	}
 
 	/**
@@ -523,7 +550,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 	void FlushState()
 	{
 		RefreshMyInfo();
-		updateCount = 0;
 		new WebTask(MainActivity.handler, Global.MSG_WHAT.W_GOT_FRIENDS_LIST).execute("getFriends", 1, "name", Global.mySelf.username);
 	}
 

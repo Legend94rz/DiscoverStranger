@@ -42,7 +42,7 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 
 import org.helloworld.JigsawGame.JigsawSplash;
-import org.helloworld.SpeedMatchGame.StartSpeedMatchActivity;
+import org.helloworld.SpeedMatchGame.SpeedMatchSplash;
 import org.helloworld.tools.FileUtils;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.PositionInfo;
@@ -652,7 +652,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 				intent = new Intent(context, JigsawSplash.class);
 			else if(settings.game==2)
 			{
-				intent = new Intent(context, StartSpeedMatchActivity.class);
+				intent = new Intent(context, SpeedMatchSplash.class);
 			}
 			else
 			{
