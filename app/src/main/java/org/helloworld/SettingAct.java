@@ -70,7 +70,7 @@ public class SettingAct extends BaseActivity {
                 {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog)
-                    {
+                    {21
                         dialog.dismiss();
 
                     }
@@ -113,7 +113,8 @@ public class SettingAct extends BaseActivity {
         for (int i = 0; i < files.length; i++) {
             if (files[i].isFile()) {
                 //删除子文件
-                flag = deleteFile(files[i].getAbsolutePath());
+              //  flag = deleteFile(files[i].getAbsolutePath());
+                flag=files[i].delete();
                 if (!flag) break;
             } else {
                 //删除子目录

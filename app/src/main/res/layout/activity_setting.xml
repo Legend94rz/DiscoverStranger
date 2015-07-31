@@ -90,12 +90,19 @@
             android:layout_margin="15dp"/>
 
         <Switch
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:textOff="震动关闭"
             android:textOn="震动开启"
             android:id="@+id/switch1"
-            android:layout_marginLeft="100dp" />
+            android:layout_marginLeft="100dp"
+            android:layout_weight="0.65"
+            android:button="@android:color/holo_purple"
+            android:checked="true"
+            android:clickable="true"
+            android:enabled="true"
+            android:longClickable="false"
+            android:textSize="20sp" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -103,7 +110,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout_ChatBackground"
         android:background="@color/white"
-        android:layout_below="@+id/linearLayout_Vibrate"
+        android:layout_below="@+id/linearLayout_Sound"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
@@ -132,5 +139,39 @@
             android:id="@+id/textView5"
             android:textSize="25dp"
             android:layout_margin="15dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout_Sound"
+        android:background="@color/white"
+        android:weightSum="1"
+        android:layout_below="@+id/linearLayout_Vibrate"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="声音"
+            android:id="@+id/textSound"
+            android:textSize="25dp"
+            android:layout_margin="15dp"/>
+
+        <Switch
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textOff="声音关闭"
+            android:textOn="声音开启"
+            android:id="@+id/switch2"
+            android:layout_marginLeft="100dp"
+            android:layout_weight="0.65"
+            android:button="@android:color/holo_purple"
+            android:checked="true"
+            android:clickable="true"
+            android:enabled="true"
+            android:longClickable="false"
+            android:textSize="20sp" />
     </LinearLayout>
 </RelativeLayout>
