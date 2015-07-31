@@ -152,7 +152,7 @@
             android:label="@string/title_speed_match" >
         </activity>
         <activity
-            android:name=".SpeedMatchGame.StartSpeedMatchActivity"
+            android:name=".SpeedMatchGame.SpeedMatchSplash"
             android:label="@string/title_start_speed_match" >
         </activity>
     </application>

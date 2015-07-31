@@ -16,9 +16,11 @@ public class Settings
 	public int background;            	//聊天背景图片资源id(目前只支持app内部资源).0表示无图片
 	public int game;                	//游戏索引
 	public ArrayList<String> interests;	//兴趣
+	public boolean sound;				//开启/关闭声音提醒
 	public Settings()
 	{
 		vibrate = true;
+		sound=true;
 		notification = true;
 		background = 0;
 		game = 1;
@@ -34,6 +36,7 @@ public class Settings
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			return new Settings();
 		}
 	}

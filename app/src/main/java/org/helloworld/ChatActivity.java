@@ -3,8 +3,10 @@ package org.helloworld;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.media.SoundPool;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,7 +21,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -91,12 +92,15 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 	//录音相关
 	File soundFile;
 	MediaRecorder recorder;
+	SoundPool soundPool;
 
 	private View faceRelativeLayout;
 	private TextView tvChatTitle;
 	private GridView gvMoreInput;
 
 	public static Handler handler;
+	private int soundId;
+	private boolean isLoaded;
 
 	@Override
 	public void goback(View view)
@@ -177,23 +181,13 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 		handler = new Handler(new Handler.Callback()
 		{
 			@Override
-			public boolean handleMessage(android.os.Message message)
+			public boolean handleMessage(final android.os.Message message)
 			{
 				switch (message.what)
 				{
 					case Global.MSG_WHAT.W_RECEIVED_NEW_MSG:
 					{
 						ArrayList<Message> msgs = ((ArrayList<Message>) message.obj);
-						for (Message m : msgs)
-						{
-							if ((m.msgType & Global.MSG_TYPE.T_VOICE_MSG) > 0)
-							{
-								m.sendState = 1;
-								String fileName = m.text.split("~")[0];
-								DownloadTask t = new DownloadTask("soundMsg", Global.PATH.SoundMsg, fileName, Global.BLOCK_SIZE, handler, Global.MSG_WHAT.W_REFRESH, m);
-								t.execute();
-							}
-						}
 						messages.addAll(msgs);
 						mAdapter.notifyDataSetChanged();
 						history.unreadMsg.clear();
@@ -234,29 +228,54 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 					break;
 					case Global.MSG_WHAT.W_PLAY_SOUND:
 					{
+						final String fileName=message.getData().getString("content");
 						final ProgressBar pbPlayVoice = (ProgressBar) message.obj;
-						pbPlayVoice.setVisibility(View.VISIBLE);
-						pbPlayVoice.setMax(Integer.parseInt(message.getData().getString("length")) * 5);
-						pbPlayVoice.setProgress(0);
-						final Handler h = new Handler();
-						Runnable r = new Runnable()
+						if(FileUtils.Exist(Global.PATH.SoundMsg+fileName))
 						{
-							@Override
-							public void run()
+							pbPlayVoice.setIndeterminate(false);
+							pbPlayVoice.setVisibility(View.VISIBLE);
+							pbPlayVoice.setMax(Integer.parseInt(message.getData().getString("length")) * 5);
+							pbPlayVoice.setProgress(0);
+							final Handler h = new Handler();
+							Runnable r = new Runnable()
 							{
-								if (pbPlayVoice.getProgress() < pbPlayVoice.getMax())
+								@Override
+								public void run()
 								{
-									pbPlayVoice.incrementProgressBy(1);
-									h.postDelayed(this, 200);
+									if (pbPlayVoice.getProgress() < pbPlayVoice.getMax())
+									{
+										pbPlayVoice.incrementProgressBy(1);
+										h.postDelayed(this, 200);
+									}
+									else
+									{
+										pbPlayVoice.setVisibility(View.INVISIBLE);
+									}
 								}
-								else
+							};
+							h.postDelayed(r, 200);
+							playSound(fileName);
+						}
+						else
+						{
+							pbPlayVoice.setIndeterminate(true);
+							pbPlayVoice.setVisibility(View.VISIBLE);
+							new Thread(new Runnable()
+							{
+								@Override
+								public void run()
 								{
-									pbPlayVoice.setVisibility(View.INVISIBLE);
+									if(DownloadTask.DownloadFile("SoundMsg",fileName,Global.BLOCK_SIZE,Global.PATH.SoundMsg))
+									{
+										android.os.Message message1 = new android.os.Message();
+										message1.obj = pbPlayVoice;
+										message1.what = Global.MSG_WHAT.W_PLAY_SOUND;
+										message1.setData(message.getData());
+										handler.sendMessage(message1);
+									}
 								}
-							}
-						};
-						h.postDelayed(r, 200);
-						playSound(message.getData().getString("content"));
+							}).start();
+						}
 						break;
 					}
 					case Global.MSG_WHAT.W_GOT_MSG_HISTORY_LIST:
@@ -284,6 +303,16 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 			}
 		});
 		MsgPullService.handlers.add(handler);
+		soundPool=new SoundPool(3, AudioManager.STREAM_ALARM,0);
+		soundId = soundPool.load(this,R.raw.beep,1);
+		soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener()
+		{
+			@Override
+			public void onLoadComplete(SoundPool soundPool, int i, int i1)
+			{
+				isLoaded = true;
+			}
+		});
 		initView();
 		initData();
 	}
@@ -495,25 +524,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 		btnSendVoice = (Button) findViewById(R.id.btnSendVoice);
 		btnSendVoice.setOnClickListener(this);
 		pbPlayRecord = (ProgressBar) findViewById(R.id.pbPlayProgress);
-
-		//Todo 检查是否有效
-		lvMsg.setOnScrollListener(new AbsListView.OnScrollListener()
-		{
-			@Override
-			public void onScrollStateChanged(AbsListView absListView, int scrollState)
-			{
-
-			}
-
-			@Override
-			public void onScroll(AbsListView absListView, int i, int i1, int i2)
-			{
-				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-				if (imm.isActive())
-					imm.toggleSoftInput(0, InputMethodManager.RESULT_HIDDEN);
-				HideAndReset();
-			}
-		});
 	}
 
 	private void HideAndReset()
@@ -583,6 +593,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 				entity.msgType = Global.MSG_TYPE.T_SEND_MSG | Global.MSG_TYPE.T_TEXT_MSG;
 				entity.text = contString;
 				entity.sendState = 1;
+				entity.extra=new Bundle();	//区分是否是历史消息
 				send(entity);
 				break;
 			case R.id.btnSendVoice:
@@ -632,9 +643,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 					timerEnable = true;
 					h.postDelayed(r, 1000);
 
-					String path = Global.PATH.SoundMsg;
-					FileUtils.mkDir(new File(path));
-					soundFile = new File(path + String.format("%s-%s-%tQ.amr", Global.mySelf.username, chatTo, Global.getDate()));
+					String folder = Global.PATH.SoundMsg;
+					FileUtils.mkDir(new File(folder));
+					soundFile = new File(folder + String.format("%s-%s-%tQ.amr", Global.mySelf.username, chatTo, Global.getDate()));
 					recorder = new MediaRecorder();
 					recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
 					recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -645,13 +656,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 						recorder.prepare();
 						recorder.start();
 					}
-					catch (IOException e)
+					catch (IOException | IllegalStateException e)
 					{
 						e.printStackTrace();
-					}
-					catch (IllegalStateException e1)
-					{
-						e1.printStackTrace();
 					}
 				}
 				else if (btnRec.getTag().equals("停止"))
@@ -717,7 +724,18 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 	{
 		if (FileUtils.Exist(Global.PATH.SoundMsg + fileName))
 		{
+			if(isLoaded)
+				soundPool.play(soundId,1,1,0,0,1);
 			MediaPlayer player = new MediaPlayer();
+			player.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
+			{
+				@Override
+				public void onCompletion(MediaPlayer mediaPlayer)
+				{
+					if(isLoaded)
+						soundPool.play(soundId,0.5f,0.5f,0,0,1);
+				}
+			});
 			try
 			{
 				File tempFile = new File(Global.PATH.SoundMsg + fileName);
