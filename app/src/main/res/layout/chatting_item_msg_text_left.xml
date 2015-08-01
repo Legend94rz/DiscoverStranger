@@ -116,7 +116,7 @@
 			android:layout_width="15dp"
 			android:layout_height="15dp"
 			android:id="@+id/ibResendbtn"
-			android:src="@drawable/emoji_210"
+			android:src="@drawable/error"
 			android:scaleType="fitCenter"
 			android:background="#00806946"
 			android:visibility="visible"

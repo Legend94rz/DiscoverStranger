@@ -1,8 +1,14 @@
 package org.helloworld.tools;
 
+import android.content.Context;
 import android.os.Environment;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 
 import com.google.gson.Gson;
+
+import org.helloworld.R;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -167,7 +173,7 @@ public class Global
 			else if (date.getDay() + 1 == now.getDay())
 				return "昨天 " + formatDate(date, "HH:mm");
 		}
-		return formatDate(date,"MM-dd HH:mm");
+		return formatDate(date, "MM-dd HH:mm");
 	}
 	/**
 	 * 初始化用户数据
@@ -230,5 +236,10 @@ public class Global
 		{
 			e.printStackTrace();
 		}
+	}
+	public static void Shake(Context context, EditText editText)
+	{
+		Animation animation = AnimationUtils.loadAnimation(context, R.anim.shake);
+		editText.startAnimation(animation);
 	}
 }

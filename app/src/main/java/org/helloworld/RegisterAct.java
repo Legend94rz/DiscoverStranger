@@ -41,14 +41,12 @@ public class RegisterAct extends BaseActivity
 	private static final int PHOTO_REQUEST = 1;
 	private static final int CAMERA_REQUEST = 2;
 	private static final int PHOTO_CLIP = 3;
-	private ImageView iv2;
 	private ImageView ivAvatarimg;
 	private ProgressBar pbcheckname;
 	private EditText etUser_name;
 	private EditText etpasswords;
 	private EditText etconfirmpasswords;
 	private Button btnNext;
-	private RadioButton rbmale;
 	private RadioButton rbfemale;
 	private Bitmap photo;
 	private ImageView ivUsernameError;
@@ -69,9 +67,7 @@ public class RegisterAct extends BaseActivity
 		etpasswords = (EditText) findViewById(R.id.password);
 		etconfirmpasswords = (EditText) findViewById(R.id.confirmPassword);
 		pbcheckname = (ProgressBar) findViewById(R.id.check_name);
-		iv2 = (ImageView) findViewById(R.id.imageView2);
 		final EditText etnick_name = (EditText) findViewById(R.id.nickname);
-		rbmale = (RadioButton) findViewById(R.id.maleButton);
 		rbfemale = (RadioButton) findViewById(R.id.femaleButton);
 		btnNext = (Button) findViewById(R.id.next);
 		ivPassError = (ImageView) findViewById(R.id.password_error);
@@ -138,7 +134,7 @@ public class RegisterAct extends BaseActivity
 				switch (message.what)
 				{
 					case Global.MSG_WHAT.W_CHECKED_USERNAME:
-						pbcheckname.setVisibility(View.INVISIBLE);
+						pbcheckname.setVisibility(View.GONE);
 						if (!((Boolean) message.obj))
 						{
 							ivUsernameError.setVisibility(View.VISIBLE);
@@ -259,6 +255,12 @@ public class RegisterAct extends BaseActivity
 	{
 		public String Username;
 
+		@Override
+		protected void onPreExecute()
+		{
+			btnNext.setEnabled(false);
+		}
+
 		public Check_online(String username)
 		{
 			Username = username;
@@ -284,12 +286,13 @@ public class RegisterAct extends BaseActivity
 		@Override
 		protected void onPostExecute(Boolean aBoolean)
 		{
+			btnNext.setEnabled(true);
 			Message m = new Message();
 			m.what = Global.MSG_WHAT.W_CHECKED_USERNAME;
 			m.obj = aBoolean;
 			canRegister &= aBoolean;
 			handler.sendMessage(m);
-			pbcheckname.setVisibility(View.INVISIBLE);
+			pbcheckname.setVisibility(View.GONE);
 		}
 	}
 

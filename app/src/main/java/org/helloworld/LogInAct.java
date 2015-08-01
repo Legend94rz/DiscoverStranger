@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +30,7 @@ public class LogInAct extends BaseActivity
 {
 	private ProgressBar pbLogInBar;
 	private Button btnLogIn;
-	private EditText etName;
+	private EditText etName,etPassword;
 	private ImageView ivHeadImg;
 
 	public class SignInTask extends AsyncTask<Void, Void, Boolean>
@@ -88,6 +89,7 @@ public class LogInAct extends BaseActivity
 		}
 	}
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -99,8 +101,10 @@ public class LogInAct extends BaseActivity
 			@Override
 			public void onClick(View view)
 			{
-				String username = (etName).getText().toString();
-				String password = ((TextView) findViewById(R.id.etPassword)).getText().toString();
+				String username = etName.getText().toString();
+				if(TextUtils.isEmpty(username)){Global.Shake(LogInAct.this,etName);return;}
+				String password = etPassword.getText().toString();
+				if(TextUtils.isEmpty(password)){Global.Shake(LogInAct.this,etPassword);return;}
 				SignInTask task = new SignInTask(username, password);
 				pbLogInBar.setVisibility(View.VISIBLE);
 				btnLogIn.setEnabled(false);
@@ -110,20 +114,28 @@ public class LogInAct extends BaseActivity
 
         //Jump to Register Activity
         TextView toRegister=(TextView)findViewById(R.id.tvToRegister);
-        toRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(LogInAct.this,RegisterAct.class);
-                startActivity(intent);
-            }
-        });
+        toRegister.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				Intent intent = new Intent(LogInAct.this, RegisterAct.class);
+				startActivity(intent);
+			}
+		});
 
 		etName.addTextChangedListener(new TextWatcher()
 		{
 			@Override
-			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)	{}
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+			{
+			}
+
 			@Override
-			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2){}
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+			{
+			}
+
 			@Override
 			public void afterTextChanged(Editable editable)
 			{
@@ -145,6 +157,7 @@ public class LogInAct extends BaseActivity
 		btnLogIn = (Button) findViewById(R.id.btnLogin);
 		pbLogInBar = (ProgressBar) findViewById(R.id.pbLoginProgress);
 		etName = (EditText) findViewById(R.id.etName);
+		etPassword=(EditText) findViewById(R.id.etPassword);
 		ivHeadImg = (ImageView) findViewById(R.id.ivHeadImg);
 	}
 

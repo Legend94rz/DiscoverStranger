@@ -117,7 +117,7 @@
 			android:id="@+id/ibResendbtn"
 			android:layout_toLeftOf="@+id/pbSendbar"
 			android:layout_alignTop="@+id/pbSendbar"
-			android:src="@drawable/emoji_210"
+			android:src="@drawable/error"
 			android:scaleType="fitCenter"
 			android:background="#00008007"
 			android:layout_alignBottom="@+id/relativeLayout5"

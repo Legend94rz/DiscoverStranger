@@ -35,10 +35,10 @@
 
 			android:layout_below="@+id/following"
 			android:layout_marginLeft="48dp"
-			android:layout_toLeftOf="@+id/check_name"
 			android:singleLine="true"
 			style="@style/fill_width_edit_text_style"
-			android:layout_centerHorizontal="true"/>
+			android:layout_centerHorizontal="true"
+			android:layout_marginRight="48dp"/>
 
 		<TextView
 			android:layout_width="wrap_content"
@@ -95,7 +95,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:id="@+id/check_name"
-			android:visibility="invisible"
+			android:visibility="gone"
 			android:layout_alignTop="@+id/username"
 			android:layout_alignParentRight="true"
 			android:indeterminateDuration="2000"
@@ -109,18 +109,20 @@
 			android:layout_alignTop="@+id/username"
 			android:src="@drawable/error"
 			android:layout_alignBottom="@+id/username"
-			android:visibility="gone"/>
+			android:visibility="gone"
+			android:padding="8dp"/>
 
 		<ImageView
 			android:layout_width="48dp"
 			android:layout_height="wrap_content"
 			android:id="@+id/password_error"
-			android:visibility="invisible"
+			android:visibility="gone"
 			android:layout_alignTop="@id/confirmPassword"
 			android:layout_toRightOf="@+id/confirmPassword"
 			android:layout_alignBottom="@+id/confirmPassword"
 			android:layout_alignRight="@+id/username_error"
-			android:src="@drawable/error"/>
+			android:src="@drawable/error"
+			android:padding="8dp"/>
 
 		<EditText
 			android:layout_width="match_parent"
@@ -172,13 +174,6 @@
 				android:layout_weight="1"/>
 		</RadioGroup>
 
-		<ImageView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:id="@+id/imageView2"
-			android:layout_above="@+id/following"
-			android:layout_toLeftOf="@+id/Avatar" />
-
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -199,7 +194,7 @@
 			android:visibility="visible"
 			android:background="@drawable/main_btn"
 			android:textColor="@color/white"
-			android:textSize="20dp"
+			android:textSize="20sp"
 			android:layout_centerHorizontal="true"
 			android:layout_marginLeft="10dp"
 			android:layout_marginTop="20dp"/>
