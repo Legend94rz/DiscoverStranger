@@ -70,7 +70,7 @@ public class SettingAct extends BaseActivity {
                 {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog)
-                    {21
+                    {
                         dialog.dismiss();
 
                     }

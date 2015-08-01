@@ -62,6 +62,12 @@ public class SetChatBackground extends BaseActivity {
 
             }
         });
+        gView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Global.settings.background=background[position];
+            }
+        });
     }
 
     public List<Map<String,Object>> getData(){

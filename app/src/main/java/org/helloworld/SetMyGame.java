@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class SetMyGame extends ActionBarActivity {
+public class SetMyGame extends BaseActivity {
 
     private GridView gView;
     private List<Map<String,Object>> data_list;
