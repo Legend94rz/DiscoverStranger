@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.helloworld.AlterAvatarAct">
+    tools:context="org.helloworld.SetChatBackground">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -43,34 +43,27 @@
                 android:layout_toRightOf="@+id/button3"
                 android:layout_marginLeft="20dp"/>
         </RelativeLayout>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="修改头像"
+            android:text="设置聊天背景"
             android:textSize="25dp"
             android:id="@+id/textView18"
             android:textColor="#ffffffff"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
-    <ImageView
-        android:layout_width="200dip"
-        android:layout_height="200dip"
-        android:id="@+id/Avatar"
-        android:src="@drawable/default_avatar"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:text="确定"
-        android:id="@+id/confirm"
-        android:visibility="visible"
-        android:background="@drawable/main_btn"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+
+    <GridView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gridView2"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="5dp"
+        android:numColumns="3"
+        android:layout_centerHorizontal="true"
+        android:stretchMode="columnWidth"
+        android:layout_below="@+id/relativeLayout2"
+        android:fadingEdge="horizontal"
+        android:gravity="center"/>
 </RelativeLayout>

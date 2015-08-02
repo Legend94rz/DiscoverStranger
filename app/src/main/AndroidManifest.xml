@@ -155,6 +155,18 @@
             android:name=".SpeedMatchGame.SpeedMatchSplash"
             android:label="@string/title_start_speed_match" >
         </activity>
+        <activity
+            android:name=".SetMyGame"
+            android:label="@string/title_activity_set_my_game" >
+        </activity>
+        <activity
+            android:name=".SettingAct"
+            android:label="@string/title_activity_setting" >
+        </activity>
+        <activity
+            android:name=".SetChatBackground"
+            android:label="@string/title_activity_set_chat_background" >
+        </activity>
     </application>
 
 </manifest>
