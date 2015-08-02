@@ -20,6 +20,8 @@ import org.ksoap2.serialization.SoapObject;
 
 import java.util.ArrayList;
 
+import static org.helloworld.NearbyStrangerAct.DealDownloadGame;
+
 
 public class MomentsActivity extends BaseActivity implements View.OnClickListener
 {
@@ -33,10 +35,11 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 	LinearLayout llLoading;
 	public static final int PLAY_GAME = 3;
 	private static final int COUNT = 15;
+
 	@Override
 	public void onClick(View view)
 	{
-		if(view.getId()==R.id.tvMore)
+		if (view.getId() == R.id.tvMore)
 		{
 			tvMore.setVisibility(View.GONE);
 			llLoading.setVisibility(View.VISIBLE);
@@ -50,12 +53,13 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 			}
 			new WebTask(handler, Global.MSG_WHAT.W_GOT_FRESHES_OLD).execute("getFreshBy", 2, "count", COUNT, "where", where);
 		}
-		else if(view.getId()==R.id.tvSetInterest)
+		else if (view.getId() == R.id.tvSetInterest)
 		{
-			Intent i=new Intent(this,MyInterestAct.class);
+			Intent i = new Intent(this, MyInterestAct.class);
 			startActivity(i);
 		}
 	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -66,25 +70,25 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 			@Override
 			public void onClick(View view)
 			{
-				Intent I=new Intent(MomentsActivity.this,WriteFreshAct.class);
+				Intent I = new Intent(MomentsActivity.this, WriteFreshAct.class);
 				startActivity(I);
 			}
 		});
 
-		listView= (ListView) findViewById(R.id.listview);
-		View footView=View.inflate(this,R.layout.foot_view,null);
-		listView.addFooterView(footView,null,false);
-		tvMore= (TextView) footView.findViewById(R.id.tvMore);
-		llLoading= (LinearLayout) footView.findViewById(R.id.llLoading);
+		listView = (ListView) findViewById(R.id.listview);
+		View footView = View.inflate(this, R.layout.foot_view, null);
+		listView.addFooterView(footView, null, false);
+		tvMore = (TextView) footView.findViewById(R.id.tvMore);
+		llLoading = (LinearLayout) footView.findViewById(R.id.llLoading);
 		tvMore.setOnClickListener(this);
-		View headView = View.inflate(this,R.layout.moments_head,null);
+		View headView = View.inflate(this, R.layout.moments_head, null);
 		((TextView) headView.findViewById(R.id.tvNickName)).setText(Global.mySelf.nickName);
 		headView.findViewById(R.id.tvSetInterest).setOnClickListener(this);
-		ivMyHead= (ImageView)headView.findViewById(R.id.ivHead);
-		ivMyHead.setImageBitmap(FileUtils.getOptimalBitmap(this,Global.PATH.HeadImg+Global.mySelf.username+".png",48*Global.DPI));
-		listView.addHeaderView(headView,null,false);
-		freshs=new ArrayList<>();
-		handler=new Handler(new Handler.Callback()
+		ivMyHead = (ImageView) headView.findViewById(R.id.ivHead);
+		ivMyHead.setImageBitmap(FileUtils.getOptimalBitmap(this, Global.PATH.HeadImg + Global.mySelf.username + ".png", 48 * Global.DPI));
+		listView.addHeaderView(headView, null, false);
+		freshs = new ArrayList<>();
+		handler = new Handler(new Handler.Callback()
 		{
 			@Override
 			public boolean handleMessage(Message message)
@@ -97,19 +101,22 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 					case Global.MSG_WHAT.W_GOT_USER_SETTING:
 						NearbyStrangerAct.DealGetSettingResult(MomentsActivity.this, message);
 						break;
+					case Global.MSG_WHAT.W_DOWNLOADED_A_FILE:
+						DealDownloadGame(MomentsActivity.this, message);
+						break;
 					case Global.MSG_WHAT.W_GOT_FRESHES_OLD:
 						tvMore.setVisibility(View.VISIBLE);
 						llLoading.setVisibility(View.GONE);
 						if (message.obj != null)
 						{
-							SoapObject soapObject= (SoapObject) ((SoapObject) message.obj).getProperty(0);
-							int count=soapObject.getPropertyCount();
-							for(int i=0;i<count;i++)
+							SoapObject soapObject = (SoapObject) ((SoapObject) message.obj).getProperty(0);
+							int count = soapObject.getPropertyCount();
+							for (int i = 0; i < count; i++)
 							{
 								freshs.add(Fresh.parse((SoapObject) soapObject.getProperty(i)));
 							}
 							adapter.notifyDataSetChanged();
-							if(count<COUNT)
+							if (count < COUNT)
 							{
 								tvMore.setEnabled(false);
 								tvMore.setText("没有更多了");
@@ -118,11 +125,11 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 						break;
 					case Global.MSG_WHAT.W_GOT_FRESHES_NEW:
 						swipeRefreshLayout.setRefreshing(false);
-						if(message.obj!=null)
+						if (message.obj != null)
 						{
-							SoapObject soapObject= (SoapObject) ((SoapObject) message.obj).getProperty(0);
-							int count=soapObject.getPropertyCount();
-							if(count>0)
+							SoapObject soapObject = (SoapObject) ((SoapObject) message.obj).getProperty(0);
+							int count = soapObject.getPropertyCount();
+							if (count > 0)
 							{
 								ArrayList<Fresh> tmp = new ArrayList<>();
 								for (int i = 0; i < count; i++)
@@ -138,32 +145,33 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 				return false;
 			}
 		});
-		adapter=new MomentsAdapter(this,freshs,listView,handler);
+		adapter = new MomentsAdapter(this, freshs, listView, handler);
 		listView.setAdapter(adapter);
-		swipeRefreshLayout= (SwipeRefreshLayout) findViewById(R.id.pullrefresh);
+		swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.pullrefresh);
 		swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
 		{
 			@Override
 			public void onRefresh()
 			{
-				if(tvMore.getVisibility()!=View.GONE)
+				if (tvMore.getVisibility() != View.GONE)
 				{
 					swipeRefreshLayout.setRefreshing(false);
 					return;
 				}
-				String where="";
-				if(Global.settings.interests.size()>0)
-					where="tag in" + Global.settings.getInterestList();
-				if(freshs.size()>0)
+				String where = "";
+				if (Global.settings.interests.size() > 0)
+					where = "tag in" + Global.settings.getInterestList();
+				if (freshs.size() > 0)
 				{
-					if(where.length()>0)where+=" and ";
+					if (where.length() > 0) where += " and ";
 					where += String.format("id>%s", freshs.get(0).id);
 				}
-				new WebTask(handler,Global.MSG_WHAT.W_GOT_FRESHES_OLD).execute("getFreshBy", 2, "count", COUNT, "where", where);
+				new WebTask(handler, Global.MSG_WHAT.W_GOT_FRESHES_OLD).execute("getFreshBy", 2, "count", COUNT, "where", where);
 			}
 		});
 		onClick(tvMore);
 	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{

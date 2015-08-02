@@ -11,36 +11,37 @@ import android.util.LruCache;
  */
 public class AsyImageLoader
 {
-	private LruCache<String,Bitmap> imageCache;
+	private LruCache<String, Bitmap> imageCache;
 	private Context context;
 
 	public AsyImageLoader(Context context)
 	{
-		int catchSize= ((int) Runtime.getRuntime().maxMemory())/1024;
-		imageCache = new LruCache<String,Bitmap>(catchSize){
+		int catchSize = ((int) Runtime.getRuntime().maxMemory()) / 1024;
+		imageCache = new LruCache<String, Bitmap>(catchSize)
+		{
 			@Override
-			protected int sizeOf(String key,Bitmap bitmap)
+			protected int sizeOf(String key, Bitmap bitmap)
 			{
-				return bitmap.getByteCount()/1024;
+				return bitmap.getByteCount() / 1024;
 			}
 		};
 		this.context = context;
 	}
 
-	public Bitmap loadDrawable(final String localFolder, final String remoteFolder, final String fileName,boolean onlyMemCache, final int restrictSize, final ImageCallback whenLoaded)
+	public Bitmap loadDrawable(final String localFolder, final String remoteFolder, final String fileName, boolean onlyMemCache, final int restrictSize, final ImageCallback whenLoaded)
 	{
-		Bitmap tmp=imageCache.get(localFolder+fileName);
-		if (tmp!=null)
+		Bitmap tmp = imageCache.get(localFolder + fileName);
+		if (tmp != null)
 		{
 			return tmp;
 		}
-		if(onlyMemCache)return null;
+		if (onlyMemCache) return null;
 		final Handler handler = new Handler(new Handler.Callback()
 		{
 			@Override
 			public boolean handleMessage(Message message)
 			{
-				whenLoaded.imageLoaded((Bitmap) message.obj, localFolder+fileName);
+				whenLoaded.imageLoaded((Bitmap) message.obj, localFolder + fileName);
 				return true;
 			}
 		});
@@ -49,9 +50,9 @@ public class AsyImageLoader
 			@Override
 			public void run()
 			{
-				Bitmap bitmap = loadImageFromUrl(localFolder,remoteFolder,fileName,restrictSize);
-				if(bitmap!=null)
-					imageCache.put(localFolder+fileName, bitmap);
+				Bitmap bitmap = loadImageFromUrl(localFolder, remoteFolder, fileName, restrictSize);
+				if (bitmap != null)
+					imageCache.put(localFolder + fileName, bitmap);
 				Message m = handler.obtainMessage(0, bitmap);
 				handler.sendMessage(m);
 			}
@@ -59,12 +60,12 @@ public class AsyImageLoader
 		return null;
 	}
 
-	private Bitmap loadImageFromUrl(String localFolder,String remoteFolder,String fileName,int restrictSize)
+	private Bitmap loadImageFromUrl(String localFolder, String remoteFolder, String fileName, int restrictSize)
 	{
-		String localPath=localFolder+fileName;
+		String localPath = localFolder + fileName;
 		if (FileUtils.Exist(localPath))
 			return FileUtils.getOptimalBitmap(context, localPath, restrictSize);
-		else if(DownloadTask.DownloadFile(remoteFolder,fileName,Global.BLOCK_SIZE,localFolder))
+		else if (DownloadTask.DownloadFile(remoteFolder, fileName, Global.BLOCK_SIZE, localFolder))
 			return FileUtils.getOptimalBitmap(context, localPath, restrictSize);
 		return null;
 	}

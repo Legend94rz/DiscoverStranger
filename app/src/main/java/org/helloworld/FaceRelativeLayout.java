@@ -87,10 +87,11 @@ public class FaceRelativeLayout extends RelativeLayout implements OnItemClickLis
 	private ToggleButton swiFace;
 	private ToggleButton swiMoreInput;
 	private ToggleButton swiInput;
-	private View vSelFace;					//表情区域
+	private View vSelFace;                    //表情区域
 	private View recordLayout;        //录音界面
 	private GridView gvMoreInput;    //+号 更多输入方式 的界面。目前里面只有发送图片
 	private Button btnSend;
+
 	public FaceRelativeLayout(Context context)
 	{
 		super(context);
@@ -117,24 +118,30 @@ public class FaceRelativeLayout extends RelativeLayout implements OnItemClickLis
 	@Override
 	public void onCheckedChanged(CompoundButton compoundButton, boolean b)
 	{
-		View v= (View) compoundButton.getTag();
-		if(b)
+		View v = (View) compoundButton.getTag();
+		if (b)
 		{
 			switch (compoundButton.getId())
 			{
 				case R.id.btnSwitchInput:
 					recordLayout.setVisibility(VISIBLE);
-					vSelFace.setVisibility(GONE);		swiFace.setChecked(false);
-					gvMoreInput.setVisibility(GONE);	swiMoreInput.setChecked(false);
+					vSelFace.setVisibility(GONE);
+					swiFace.setChecked(false);
+					gvMoreInput.setVisibility(GONE);
+					swiMoreInput.setChecked(false);
 					break;
 				case R.id.btnFace:
-					recordLayout.setVisibility(GONE);	swiInput.setChecked(false);
+					recordLayout.setVisibility(GONE);
+					swiInput.setChecked(false);
 					vSelFace.setVisibility(VISIBLE);
-					gvMoreInput.setVisibility(GONE);	swiMoreInput.setChecked(false);
+					gvMoreInput.setVisibility(GONE);
+					swiMoreInput.setChecked(false);
 					break;
 				case R.id.ibMoreInput:
-					recordLayout.setVisibility(GONE);	swiInput.setChecked(false);
-					vSelFace.setVisibility(GONE);		swiFace.setChecked(false);
+					recordLayout.setVisibility(GONE);
+					swiInput.setChecked(false);
+					vSelFace.setVisibility(GONE);
+					swiFace.setChecked(false);
 					gvMoreInput.setVisibility(VISIBLE);
 					break;
 			}
@@ -158,6 +165,7 @@ public class FaceRelativeLayout extends RelativeLayout implements OnItemClickLis
 		Init_Point();
 		Init_Data();
 	}
+
 	/**
 	 * 隐藏表情选择框
 	 */
@@ -185,7 +193,7 @@ public class FaceRelativeLayout extends RelativeLayout implements OnItemClickLis
 		vSelFace = findViewById(R.id.ll_facechoose);
 		recordLayout = findViewById(R.id.recordView);
 		swiMoreInput = (ToggleButton) findViewById(R.id.ibMoreInput);
-		swiInput= (ToggleButton) findViewById(R.id.btnSwitchInput);
+		swiInput = (ToggleButton) findViewById(R.id.btnSwitchInput);
 		gvMoreInput = (GridView) findViewById(R.id.gvMoreInput);
 		swiFace.setTag(vSelFace);
 		swiFace.setOnCheckedChangeListener(this);
@@ -193,17 +201,19 @@ public class FaceRelativeLayout extends RelativeLayout implements OnItemClickLis
 		swiMoreInput.setOnCheckedChangeListener(this);
 		swiInput.setTag(recordLayout);
 		swiInput.setOnCheckedChangeListener(this);
-		btnSend= (Button) findViewById(R.id.btnSend);
+		btnSend = (Button) findViewById(R.id.btnSend);
 		etSendmessage.addTextChangedListener(new TextWatcher()
 		{
 			@Override
 			public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3)
 			{
 			}
+
 			@Override
 			public void onTextChanged(CharSequence charSequence, int i, int i2, int i3)
 			{
 			}
+
 			@Override
 			public void afterTextChanged(Editable editable)
 			{
@@ -211,18 +221,18 @@ public class FaceRelativeLayout extends RelativeLayout implements OnItemClickLis
 				{
 					btnSend.setVisibility(VISIBLE);
 					swiInput.setVisibility(GONE);
-					LayoutParams lp=new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-					lp.addRule(RelativeLayout.LEFT_OF,R.id.btnSend);
-					lp.addRule(RelativeLayout.RIGHT_OF,R.id.ibMoreInput);
+					LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+					lp.addRule(RelativeLayout.LEFT_OF, R.id.btnSend);
+					lp.addRule(RelativeLayout.RIGHT_OF, R.id.ibMoreInput);
 					etSendmessage.setLayoutParams(lp);
 				}
 				else
 				{
 					btnSend.setVisibility(GONE);
 					swiInput.setVisibility(VISIBLE);
-					LayoutParams lp=new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-					lp.addRule(LEFT_OF,R.id.btnSwitchInput);
-					lp.addRule(RelativeLayout.RIGHT_OF,R.id.ibMoreInput);
+					LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+					lp.addRule(LEFT_OF, R.id.btnSwitchInput);
+					lp.addRule(RelativeLayout.RIGHT_OF, R.id.ibMoreInput);
 					etSendmessage.setLayoutParams(lp);
 				}
 			}
@@ -331,7 +341,8 @@ public class FaceRelativeLayout extends RelativeLayout implements OnItemClickLis
 					{
 						vp_face.setCurrentItem(arg0 + 1);// 第二屏 会再次实现该回调方法实现跳转.
 						pointViews.get(1).setBackgroundResource(R.drawable.d2);
-					} else
+					}
+					else
 					{
 						vp_face.setCurrentItem(arg0 - 1);// 倒数第二屏
 						pointViews.get(arg0 - 1).setBackgroundResource(
@@ -365,7 +376,8 @@ public class FaceRelativeLayout extends RelativeLayout implements OnItemClickLis
 			if (index == i)
 			{
 				pointViews.get(i).setBackgroundResource(R.drawable.d2);
-			} else
+			}
+			else
 			{
 				pointViews.get(i).setBackgroundResource(R.drawable.d1);
 			}
@@ -399,8 +411,8 @@ public class FaceRelativeLayout extends RelativeLayout implements OnItemClickLis
 				mListener.onCorpusSelected(emoji);
 			SpannableString spannableString = FaceConversionUtil.getInstace().addFace(getContext(), emoji.getId(), emoji.getCharacter());
 			Editable content = etSendmessage.getText();
-			int start =etSendmessage.getSelectionStart();
-			content.insert(start,spannableString);
+			int start = etSendmessage.getSelectionStart();
+			content.insert(start, spannableString);
 			etSendmessage.setSelection(start + spannableString.length());
 		}
 

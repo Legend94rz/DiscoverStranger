@@ -75,15 +75,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 	private TextView liaotian;
 	private TextView faxian;
 	private TextView tongxunlu;
-    private ImageView ivSetting;
+	private ImageView ivSetting;
 	TextView emptyNotice;
 
 	ViewPager viewPager;
 	List<View> pages;
 	SwipeRefreshLayout refreshLayout1, refreshLayout2;
 	SoundPool soundPool;
-	boolean isLoaded=false;
+	boolean isLoaded = false;
 	int soundId;
+
 	/**
 	 * 处理导航标签的点击事件
 	 */
@@ -242,7 +243,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		init();
-        Global.mySelf.SetOnModifyListener(this);
+		Global.mySelf.SetOnModifyListener(this);
 
 		handler = new android.os.Handler()
 		{
@@ -261,7 +262,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 					case Global.MSG_WHAT.W_RECEIVED_NEW_MSG:
 						ArrayList<Message> received = (ArrayList<Message>) msg.obj;
 						if (Global.settings.vibrate) RemindUser();
-						if(Global.settings.sound) Beep();
+						if (Global.settings.sound) Beep();
 						for (Message m : received)
 						{
 							History h;
@@ -320,9 +321,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		startService(I);
 		//更新用户配置
 		new WebTask(handler, Global.MSG_WHAT.W_GOT_USER_SETTING).execute("getUserSetting", 1, "username", Global.mySelf.username);
-        //修改用户信息按钮
-        ivSetting=(ImageView)findViewById(R.id.ivSettingImg);
-        ivSetting.setOnClickListener(new View.OnClickListener()
+		//修改用户信息按钮
+		ivSetting = (ImageView) findViewById(R.id.ivSettingImg);
+		ivSetting.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
@@ -331,24 +332,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 				startActivity(intent);
 			}
 		});
-		soundPool=new SoundPool(3, AudioManager.STREAM_ALARM,0);
-		soundId = soundPool.load(this,R.raw.msg,1);
+		soundPool = new SoundPool(3, AudioManager.STREAM_ALARM, 0);
+		soundId = soundPool.load(this, R.raw.msg, 1);
 		soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener()
 		{
 			@Override
 			public void onLoadComplete(SoundPool soundPool, int i, int i1)
 			{
-				isLoaded=true;
+				isLoaded = true;
 			}
 		});
 	}
+
 	/**
 	 * 声音提醒
-	 * */
+	 */
 	private void Beep()
 	{
-		if(isLoaded)
-			soundPool.play(soundId,1,1,0,0,1);
+		if (isLoaded)
+			soundPool.play(soundId, 1, 1, 0, 0, 1);
 	}
 
 	/**
@@ -667,9 +669,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		Intent I = new Intent(this, ShakeActivity.class);
 		startActivity(I);
 	}
+
 	public void llMoments_Click(View view)
 	{
-		Intent I=new Intent(this,MomentsActivity.class);
+		Intent I = new Intent(this, MomentsActivity.class);
 		startActivity(I);
 	}
 
@@ -679,13 +682,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		startActivity(I);
 	}
 
-    public void llSettings_Click(View view)
-    {
-        Intent I = new Intent(this, SettingAct.class);
-        startActivity(I);
-    }
+	public void llSettings_Click(View view)
+	{
+		Intent I = new Intent(this, SettingAct.class);
+		startActivity(I);
+	}
 
-    //按两次退出主界面
+	//按两次退出主界面
 	private long exitTime = 0;
 
 	@Override

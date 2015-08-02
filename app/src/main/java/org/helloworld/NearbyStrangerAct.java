@@ -1,6 +1,7 @@
 package org.helloworld;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -43,7 +44,10 @@ import com.baidu.mapapi.model.LatLng;
 
 import org.helloworld.JigsawGame.JigsawSplash;
 import org.helloworld.SpeedMatchGame.SpeedMatchSplash;
+import org.helloworld.tools.APKUtils;
+import org.helloworld.tools.DownloadTask;
 import org.helloworld.tools.FileUtils;
+import org.helloworld.tools.Game;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.PositionInfo;
 import org.helloworld.tools.Settings;
@@ -382,7 +386,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 		handler = new android.os.Handler(new android.os.Handler.Callback()
 		{
 			@Override
-			public boolean handleMessage(Message message)
+			public boolean handleMessage(final Message message)
 			{
 				switch (message.what)
 				{
@@ -461,6 +465,9 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 						DealGetSettingResult(NearbyStrangerAct.this, message);
 					}
 					break;
+					case Global.MSG_WHAT.W_DOWNLOADED_A_FILE:
+						DealDownloadGame(NearbyStrangerAct.this, message);
+						break;
 				}
 				return true;
 			}
@@ -478,6 +485,30 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 			}
 		});
 
+	}
+
+	public static void DealDownloadGame(final Context context, final Message message)
+	{
+		SweetAlertDialog dialog= (SweetAlertDialog) message.obj;
+		if(message.arg1==1)
+		{
+			dialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+			dialog.setTitleText("提示").setContentText("下载成功，是否立刻安装？")
+				.setConfirmText("确定").setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
+			{
+				@Override
+				public void onClick(SweetAlertDialog sweetAlertDialog)
+				{
+					sweetAlertDialog.dismiss();
+					APKUtils.install(context, Global.PATH.APK + message.getData().getString("fileName"));
+				}
+			}).setCancelText("稍候");
+		}
+		else
+		{
+			dialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+			dialog.setTitleText("下载失败");
+		}
 	}
 
 
@@ -580,12 +611,13 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 
 	/**
 	 * 弹对话框显示玩游戏提示,这个函数开始获取用户设置,获取之后对handler发送Global.MSG_WHAT.W_GOT_USER_SETTING
+	 *
 	 * @param handler 必须处理Global.MSG_WHAT.W_GOT_USER_SETTING、Global.MSG_WHAT.W_SENDED_REQUEST
 	 * @see org.helloworld.tools.Global.MSG_WHAT
 	 */
 	public static void SayHello(final Context context, final String strangerName, final Handler handler)
 	{
-		if(TextUtils.equals(strangerName,Global.mySelf.username))return;
+		if (TextUtils.equals(strangerName, Global.mySelf.username)) return;
 		SweetAlertDialog dialog = new SweetAlertDialog(context)
 									  .setTitleText(context.getString(R.string.HintTitle))
 									  .setConfirmText(context.getString(R.string.playGame))
@@ -641,23 +673,91 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 	/**
 	 * 是handler对Global.MSG_WHAT.W_GOT_USER_SETTING的处理。
 	 * 这个过程中启动游戏，游戏结束后在onActivityResult中处理
-	 * */
-	public static void DealGetSettingResult(Context context, Message message)
+	 */
+	public static void DealGetSettingResult(Context context, final Message message)
 	{
-		Settings settings = (Settings) message.obj;
+		final Settings settings = (Settings) message.obj;
 		if (message.getData().getBoolean("result"))
 		{
-			Intent intent;
-			if (settings.game == 1)
+			Intent intent=null;
+			if (TextUtils.equals(settings.game, Global.JigsawGame.pakageName))
 				intent = new Intent(context, JigsawSplash.class);
-			else if(settings.game==2)
+			else if (TextUtils.equals(settings.game, Global.SpeedMatchGame.pakageName))
 			{
 				intent = new Intent(context, SpeedMatchSplash.class);
 			}
 			else
 			{
-				return;
+				if(APKUtils.isPakageInstalled(context,settings.game))
+				{
+					intent = new Intent(Intent.ACTION_MAIN);
+					intent.addCategory(Intent.CATEGORY_LAUNCHER);
+					ComponentName cn = new ComponentName(settings.game,settings.game+".SplashAct");
+					intent.setComponent(cn);
+				}
+				else
+				{
+					SweetAlertDialog dialog=new SweetAlertDialog(context,SweetAlertDialog.NORMAL_TYPE);
+					dialog.setTitleText("提示").setContentText("你没有安装此游戏，是否下载并安装?")
+						.setConfirmText("确定").setCancelText("取消")
+						.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
+						{
+							@Override
+							public void onClick(final SweetAlertDialog sweetAlertDialog)
+							{
+								sweetAlertDialog.changeAlertType(SweetAlertDialog.PROGRESS_TYPE);
+								sweetAlertDialog.setTitleText("正在下载");
+								sweetAlertDialog.setCancelable(false);
+								new Thread(new Runnable()
+								{
+									@Override
+									public void run()
+									{
+										boolean f1=true,f;
+										WebService getGame=new WebService("getGames");
+										getGame.addProperty("where",String.format("pakageName='%s'",settings.game));
+										Game g = null;
+										try
+										{
+											SoapObject so = ((SoapObject) getGame.call().getProperty(0));
+											g = Game.parse((SoapObject) so.getProperty(0));
+										}
+										catch (Exception e)
+										{
+											e.printStackTrace();
+											f1=false;
+										}
+										Message msg = new Message();
+										msg.what = Global.MSG_WHAT.W_DOWNLOADED_A_FILE;
+										if(f1)
+										{
+											String fileName=g.fileName+".apk";
+											f = FileUtils.Exist(Global.PATH.APK + g.fileName);
+											if (!f)
+											{
+												f = DownloadTask.DownloadFile("apk", fileName, Global.BLOCK_SIZE, Global.PATH.APK);
+											}
+											if(f)
+											{
+												msg.arg1 = 1;
+												Bundle data = new Bundle();
+												data.putString("fileName", fileName);
+												data.putString("pakageName", g.pakageName);
+												msg.setData(data);
+											}
+										}
+										msg.obj=sweetAlertDialog;
+										handler.sendMessage(message);
+									}
+								}).start();
+
+
+							}
+						}).show();
+
+				}
 			}
+			if(intent==null)return;
 			intent.putExtra("strangerName", message.getData().getString("strangerName"));
 			((Activity) context).startActivityForResult(intent, PLAY_GAME);
 		}
@@ -672,7 +772,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 	/**
 	 * 是handler对Global.MSG_WHAT.W_SENDED_REQUEST的处理
 	 * 如果该请求发送失败则询问是否重试
-	 * */
+	 */
 	public static void DealSendRequestResult(final Context context, Message message)
 	{
 		final Bundle data = message.getData();
@@ -708,7 +808,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 	/**
 	 * 分析并处理游戏结果。
 	 * 如果游戏通过，则向对方发送加好友提醒
-	 * */
+	 */
 	public static void DealGameResult(int requestCode, int resultCode, Intent data, Handler handler, Context context)
 	{
 		if (requestCode == PLAY_GAME)
@@ -747,7 +847,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 				try
 				{
 					jobj.put("userName", Global.mySelf.username);
-					jobj.put("Text", String.format("%s(ID:%s) 通过了你的游戏，现在你们已经是好友啦！",Global.mySelf.nickName,Global.mySelf.username));
+					jobj.put("Text", String.format("%s(ID:%s) 通过了你的游戏，现在你们已经是好友啦！", Global.mySelf.nickName, Global.mySelf.username));
 				}
 				catch (JSONException e)
 				{

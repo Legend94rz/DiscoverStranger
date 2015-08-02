@@ -56,7 +56,8 @@ public class Global
 	 */
 	public static final int BLOCK_SIZE = 30000;
 	public static int DPI;
-
+	public static final Game JigsawGame=new Game("","1","","拼图游戏");
+	public static final Game SpeedMatchGame=new Game("","2","","快速匹配");
 	/**
 	 * Message消息类型
 	 *
@@ -83,6 +84,7 @@ public class Global
 		public static final int W_GOT_HOTKEYLIST = 18;
 		public static final int W_GOT_FRESHES_OLD = 19;
 		public static final int W_GOT_FRESHES_NEW = 20;
+		public static final int W_SET_GAME = 21;
 	}
 
 	/**
@@ -138,6 +140,7 @@ public class Global
 		 * 配置文件
 		 */
 		public static final String Setting = root + "setting/";
+		public static final	String APK = root+"apk/";
 	}
 
 	/**
@@ -158,15 +161,16 @@ public class Global
 		SimpleDateFormat format = new SimpleDateFormat(patten);
 		return format.format(date);
 	}
+
 	/**
 	 * 返回一个更加人性化的日期显示
-	 * */
+	 */
 	public static String getShowDate(Date date)
 	{
-		Date now=getDate();
-		if(date.getYear()!=now.getYear())
-			return formatDate(date,"yyyy-MM-dd");
-		else if(date.getMonth()==now.getMonth())
+		Date now = getDate();
+		if (date.getYear() != now.getYear())
+			return formatDate(date, "yyyy-MM-dd");
+		else if (date.getMonth() == now.getMonth())
 		{
 			if (date.getDay() == now.getDay())
 				return "今天 " + formatDate(date, "HH:mm");
@@ -175,6 +179,7 @@ public class Global
 		}
 		return formatDate(date, "MM-dd HH:mm");
 	}
+
 	/**
 	 * 初始化用户数据
 	 */
@@ -184,7 +189,7 @@ public class Global
 		friendList = new ArrayList<>();
 		map2Friend = new HashMap<>();
 		map = new HashMap<>();
-		settings=new Settings();
+		settings = new Settings();
 		Gson g = new Gson();
 
 		try
@@ -228,15 +233,16 @@ public class Global
 		}
 		try
 		{
-			BufferedReader reader3=new BufferedReader(new FileReader(new File(PATH.Setting,mySelf.username+"_settings.txt")));
-			String line=reader3.readLine();
-			settings=g.fromJson(line, Settings.class);
+			BufferedReader reader3 = new BufferedReader(new FileReader(new File(PATH.Setting, mySelf.username + "_settings.txt")));
+			String line = reader3.readLine();
+			settings = g.fromJson(line, Settings.class);
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
 	}
+
 	public static void Shake(Context context, EditText editText)
 	{
 		Animation animation = AnimationUtils.loadAnimation(context, R.anim.shake);

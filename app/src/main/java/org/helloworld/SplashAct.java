@@ -9,7 +9,7 @@ import org.helloworld.tools.Global;
 
 /**
  * 启动界面
- * */
+ */
 public class SplashAct extends BaseActivity
 {
 
@@ -18,7 +18,7 @@ public class SplashAct extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
-		Global.DPI=(int)getApplicationContext().getResources().getDisplayMetrics().density;
+		Global.DPI = (int) getApplicationContext().getResources().getDisplayMetrics().density;
 		new Thread(new Runnable()
 		{
 			@Override
@@ -41,7 +41,7 @@ public class SplashAct extends BaseActivity
 	{
 		//Todo 为实现自动登录功能，在这里判断进入哪个Activity
 		//if auto-login then enter MainAct; else:
-		Intent i=new Intent(SplashAct.this,LogInAct.class);
+		Intent i = new Intent(SplashAct.this, LogInAct.class);
 		startActivity(i);
 		//Intent I = new Intent(this, MsgPullService.class);
 		//startService(I);

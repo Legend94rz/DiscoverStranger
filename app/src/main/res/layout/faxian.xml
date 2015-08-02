@@ -21,7 +21,8 @@
 		android:layout_height="wrap_content"
 		android:id="@+id/llMoments"
 		android:clickable="true"
-		android:onClick="llMoments_Click">
+		android:onClick="llMoments_Click"
+		android:background="@drawable/img_btn_mask">
 
 		<ImageView
 			android:layout_width="35dp"
@@ -34,7 +35,7 @@
 			android:layout_height="fill_parent"
 			android:layout_marginLeft="10dp"
 			android:text="圈子"
-			android:textSize="15sp"
+			android:textSize="16sp"
 			android:gravity="center"
 			android:textColor="@color/black"/>
 	</LinearLayout>
@@ -54,7 +55,8 @@
 	              android:layout_height="wrap_content"
 				  android:id="@+id/llShake"
 				  android:clickable="true"
-				  android:onClick="llShack_Click">
+				  android:onClick="llShack_Click"
+				  android:background="@drawable/img_btn_mask">
 		          <ImageView
 		              android:layout_width="35dp"
 	              	  android:layout_height="35dp"
@@ -66,7 +68,7 @@
 	              	  android:layout_height="fill_parent"
 	              	  android:layout_marginLeft="10dp"
 	              	  android:text="@string/shake"
-	              	  android:textSize="15sp"
+	              	  android:textSize="16sp"
 	              	  android:gravity="center"
 	              	  android:textColor="@color/black"
 		              />
@@ -87,7 +89,8 @@
 		android:layout_height="wrap_content"
 		android:id="@+id/llNearStanger"
 		android:clickable="true"
-		android:onClick="llNearStranger_Click">
+		android:onClick="llNearStranger_Click"
+		android:background="@drawable/img_btn_mask">
 
 		<ImageView
 			android:layout_width="35dp"
@@ -100,16 +103,10 @@
 			android:layout_height="fill_parent"
 			android:layout_marginLeft="10dp"
 			android:text="@string/nearstranger"
-			android:textSize="15sp"
+			android:textSize="16sp"
 			android:gravity="center"
 			android:textColor="@color/black"/>
 	</LinearLayout>
-
-	<TextView
-		          android:layout_width="fill_parent"
-	              android:layout_height="1.5dp"
-	              android:background="@color/lightgray"
-		          />
 
 	<TextView
 		          android:layout_width="fill_parent"
@@ -126,7 +123,8 @@
 		android:layout_height="wrap_content"
 		android:id="@+id/llSettings"
 		android:clickable="true"
-        android:onClick="llSettings_Click">
+        android:onClick="llSettings_Click"
+		android:background="@drawable/img_btn_mask">
 
 		<ImageView
 			android:layout_width="35dp"
@@ -139,7 +137,7 @@
 			android:layout_height="fill_parent"
 			android:layout_marginLeft="10dp"
 			android:text="设置"
-			android:textSize="15sp"
+			android:textSize="16sp"
 			android:gravity="center"
 			android:textColor="@color/black"/>
 	</LinearLayout>

@@ -26,7 +26,7 @@ public class DownloadTask extends AsyncTask<Void, Void, Boolean>
 	private int what;
 	private Object obj;
 
-	public DownloadTask(String remotePath, String savePath, String fileName,int blockSize, Handler handler, int what,@Nullable Object obj)
+	public DownloadTask(String remotePath, String savePath, String fileName, int blockSize, Handler handler, int what, @Nullable Object obj)
 	{
 		this.remotePath = remotePath;
 		this.savePath = savePath;
@@ -34,37 +34,38 @@ public class DownloadTask extends AsyncTask<Void, Void, Boolean>
 		this.blockSize = blockSize;
 		this.handler = handler;
 		this.what = what;
-		this.obj=obj;
+		this.obj = obj;
 	}
 
 	@Override
 	protected Boolean doInBackground(Void... voids)
 	{
-		return DownloadFile(remotePath,fileName,blockSize,savePath);
+		return DownloadFile(remotePath, fileName, blockSize, savePath);
 	}
+
 	/**
 	 * 同步方式下载
-	 * */
-	public static Boolean DownloadFile(String remoteFolder,String fileName,int blockSize,String saveFolder)
+	 */
+	public static Boolean DownloadFile(String remoteFolder, String fileName, int blockSize, String saveFolder)
 	{
 		FileOutputStream fos = null;
 		try
 		{
-			WebService getSize=new WebService("getFileSize");
-			getSize.addProperty("path",remoteFolder).addProperty("fileName",fileName);
+			WebService getSize = new WebService("getFileSize");
+			getSize.addProperty("path", remoteFolder).addProperty("fileName", fileName);
 			SoapObject soSize = getSize.call();
-			long size=Long.parseLong(soSize.getPropertyAsString(0));
-			int blockNum= ((int) (size / blockSize))+1;
+			long size = Long.parseLong(soSize.getPropertyAsString(0));
+			int blockNum = ((int) (size / blockSize)) + 1;
 
 			FileUtils.mkDir(new File(saveFolder));
 			File file = new File(saveFolder, fileName);
 			file.createNewFile();
 
-			for(int i=0;i<blockNum;i++)
+			for (int i = 0; i < blockNum; i++)
 			{
-				fos = new FileOutputStream(file,i!=0);
+				fos = new FileOutputStream(file, i != 0);
 				WebService download = new WebService("downloadFileByBlock");
-				download.addProperty("path", remoteFolder).addProperty("fileName", fileName).addProperty("blockSize",blockSize).addProperty("blockSerial",i);
+				download.addProperty("path", remoteFolder).addProperty("fileName", fileName).addProperty("blockSize", blockSize).addProperty("blockSerial", i);
 				SoapObject result = download.call();
 				byte[] bytes = Base64.decode(result.getPropertyAsString(0), Base64.DEFAULT);
 				fos.write(bytes);

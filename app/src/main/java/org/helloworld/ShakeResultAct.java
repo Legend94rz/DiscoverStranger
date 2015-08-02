@@ -103,6 +103,9 @@ public class ShakeResultAct extends BaseActivity
 					case Global.MSG_WHAT.W_GOT_USER_SETTING:
 						NearbyStrangerAct.DealGetSettingResult(ShakeResultAct.this, message);
 						break;
+					case Global.MSG_WHAT.W_DOWNLOADED_A_FILE:
+						NearbyStrangerAct.DealDownloadGame(ShakeResultAct.this, message);
+						break;
 				}
 				return true;
 			}

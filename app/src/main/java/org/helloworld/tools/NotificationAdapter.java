@@ -20,9 +20,10 @@ public class NotificationAdapter extends BaseAdapter
 {
 	private ArrayList<Message> msglist;
 	private Context context;
+
 	public NotificationAdapter(Context context, ArrayList<Message> msglist)
 	{
-		this.context=context;
+		this.context = context;
 		this.msglist = msglist;
 	}
 
@@ -47,27 +48,28 @@ public class NotificationAdapter extends BaseAdapter
 	@Override
 	public View getView(int i, View view, ViewGroup viewGroup)
 	{
-		Message m=msglist.get(i);
+		Message m = msglist.get(i);
 		H h;
-		if(view==null)
+		if (view == null)
 		{
-			h=new H();
-			view= LayoutInflater.from(context).inflate(R.layout.notification_item,viewGroup,false);
+			h = new H();
+			view = LayoutInflater.from(context).inflate(R.layout.notification_item, viewGroup, false);
 			h.ivHeadImg = (ImageView) view.findViewById(R.id.ivHeadImg);
-			h.tvHint= (TextView) view.findViewById(R.id.tvHint);
-			h.tvTime= (TextView) view.findViewById(R.id.tvTime);
-			h.tvName= (TextView) view.findViewById(R.id.tvName);
+			h.tvHint = (TextView) view.findViewById(R.id.tvHint);
+			h.tvTime = (TextView) view.findViewById(R.id.tvTime);
+			h.tvName = (TextView) view.findViewById(R.id.tvName);
 			view.setTag(h);
 		}
 		else
-			h= (H) view.getTag();
+			h = (H) view.getTag();
 		h.tvName.setText(m.text.split(" ")[0]);
-		if(FileUtils.Exist(Global.PATH.HeadImg+m.fromId+".png"))
-			h.ivHeadImg.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg+m.fromId+".png"));
+		if (FileUtils.Exist(Global.PATH.HeadImg + m.fromId + ".png"))
+			h.ivHeadImg.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg + m.fromId + ".png"));
 		h.tvHint.setText(m.text);
 		h.tvTime.setText(m.getDateWithFormat("yyyy-MM-dd HH:mm:ss"));
 		return view;
 	}
+
 	class H
 	{
 		ImageView ivHeadImg;

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 /**
  * 摇一摇界面
- * */
+ */
 
 public class ShakeActivity extends BaseActivity
 {
@@ -39,7 +39,7 @@ public class ShakeActivity extends BaseActivity
 
 		mImgUp = (RelativeLayout) findViewById(R.id.shakeImgUp);
 		mImgDn = (RelativeLayout) findViewById(R.id.shakeImgDown);
-		handler=new Handler(new Handler.Callback()
+		handler = new Handler(new Handler.Callback()
 		{
 			@Override
 			public boolean handleMessage(Message message)
@@ -67,7 +67,7 @@ public class ShakeActivity extends BaseActivity
 						for (int i = 0; i < count; i++)
 						{
 							ShakeRecord record = ShakeRecord.parse(((SoapObject) T.getProperty(i)));
-							if( !Global.map2Friend.containsKey(record.username) )
+							if (!Global.map2Friend.containsKey(record.username))
 								records.add(record);
 						}
 						if (records.size() == 0)
@@ -92,7 +92,7 @@ public class ShakeActivity extends BaseActivity
 	protected void onResume()
 	{
 		super.onResume();
-		mVibrator = (Vibrator)getApplication().getSystemService(VIBRATOR_SERVICE);
+		mVibrator = (Vibrator) getApplication().getSystemService(VIBRATOR_SERVICE);
 		mShakeListener = new ShakeListener(this);
 		mShakeListener.setOnShakeListener(new ShakeListener.OnShakeListener()
 		{
@@ -108,7 +108,7 @@ public class ShakeActivity extends BaseActivity
 					@Override
 					public void run()
 					{
-						if(mVibrator!=null && mShakeListener!=null)
+						if (mVibrator != null && mShakeListener != null)
 						{
 							mVibrator.cancel();
 							mShakeListener.start();
@@ -125,17 +125,18 @@ public class ShakeActivity extends BaseActivity
 	{
 		super.onPause();
 		mShakeListener.stop();
-		mShakeListener=null;
+		mShakeListener = null;
 
 		mVibrator.cancel();
-		mVibrator=null;
+		mVibrator = null;
 	}
 
-	public void startAnim () {   //定义摇一摇动画动画
+	public void startAnim()
+	{   //定义摇一摇动画动画
 		AnimationSet animup = new AnimationSet(true);
-		TranslateAnimation mytranslateanimup0 = new TranslateAnimation(Animation.RELATIVE_TO_SELF,0f,Animation.RELATIVE_TO_SELF,0f,Animation.RELATIVE_TO_SELF,0f,Animation.RELATIVE_TO_SELF,-0.5f);
+		TranslateAnimation mytranslateanimup0 = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, -0.5f);
 		mytranslateanimup0.setDuration(1000);
-		TranslateAnimation mytranslateanimup1 = new TranslateAnimation(Animation.RELATIVE_TO_SELF,0f,Animation.RELATIVE_TO_SELF,0f,Animation.RELATIVE_TO_SELF,0f,Animation.RELATIVE_TO_SELF,+0.5f);
+		TranslateAnimation mytranslateanimup1 = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, +0.5f);
 		mytranslateanimup1.setDuration(1000);
 		mytranslateanimup1.setStartOffset(1000);
 		animup.addAnimation(mytranslateanimup0);
@@ -143,16 +144,18 @@ public class ShakeActivity extends BaseActivity
 		mImgUp.startAnimation(animup);
 
 		AnimationSet animdn = new AnimationSet(true);
-		TranslateAnimation mytranslateanimdn0 = new TranslateAnimation(Animation.RELATIVE_TO_SELF,0f,Animation.RELATIVE_TO_SELF,0f,Animation.RELATIVE_TO_SELF,0f,Animation.RELATIVE_TO_SELF,+0.5f);
+		TranslateAnimation mytranslateanimdn0 = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, +0.5f);
 		mytranslateanimdn0.setDuration(1000);
-		TranslateAnimation mytranslateanimdn1 = new TranslateAnimation(Animation.RELATIVE_TO_SELF,0f,Animation.RELATIVE_TO_SELF,0f,Animation.RELATIVE_TO_SELF,0f,Animation.RELATIVE_TO_SELF,-0.5f);
+		TranslateAnimation mytranslateanimdn1 = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, -0.5f);
 		mytranslateanimdn1.setDuration(1000);
 		mytranslateanimdn1.setStartOffset(1000);
 		animdn.addAnimation(mytranslateanimdn0);
 		animdn.addAnimation(mytranslateanimdn1);
 		mImgDn.startAnimation(animdn);
 	}
-	private void startVibrato(){		//定义震动
+
+	private void startVibrato()
+	{        //定义震动
 		mVibrator.vibrate(new long[]{500, 200, 500, 200}, -1); //第一个｛｝里面是节奏数组， 第二个参数是重复次数，-1为不重复，非-1俄日从pattern的指定下标开始重复
 	}
 

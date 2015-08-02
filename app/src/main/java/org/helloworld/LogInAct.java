@@ -24,13 +24,13 @@ import java.io.File;
 
 /**
  * 登录界面
- * */
+ */
 
 public class LogInAct extends BaseActivity
 {
 	private ProgressBar pbLogInBar;
 	private Button btnLogIn;
-	private EditText etName,etPassword;
+	private EditText etName, etPassword;
 	private ImageView ivHeadImg;
 
 	public class SignInTask extends AsyncTask<Void, Void, Boolean>
@@ -52,7 +52,7 @@ public class LogInAct extends BaseActivity
 			try
 			{
 				SoapObject result = login.call();
-				if(Boolean.parseBoolean(result.getProperty(0).toString()))
+				if (Boolean.parseBoolean(result.getProperty(0).toString()))
 				{
 					WebService getUser = new WebService("GetUser");
 					result = getUser.addProperty("name", Username).call();
@@ -75,7 +75,7 @@ public class LogInAct extends BaseActivity
 		{
 			pbLogInBar.setVisibility(View.INVISIBLE);
 			btnLogIn.setEnabled(true);
-			if(aBoolean)
+			if (aBoolean)
 			{
 				Toast.makeText(LogInAct.this, "登录成功", Toast.LENGTH_SHORT).show();
 				Intent i = new Intent(LogInAct.this, MainActivity.class);
@@ -84,7 +84,7 @@ public class LogInAct extends BaseActivity
 			}
 			else
 			{
-				Toast.makeText(LogInAct.this,"登录失败",Toast.LENGTH_SHORT).show();
+				Toast.makeText(LogInAct.this, "登录失败", Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
@@ -102,9 +102,17 @@ public class LogInAct extends BaseActivity
 			public void onClick(View view)
 			{
 				String username = etName.getText().toString();
-				if(TextUtils.isEmpty(username)){Global.Shake(LogInAct.this,etName);return;}
+				if (TextUtils.isEmpty(username))
+				{
+					Global.Shake(LogInAct.this, etName);
+					return;
+				}
 				String password = etPassword.getText().toString();
-				if(TextUtils.isEmpty(password)){Global.Shake(LogInAct.this,etPassword);return;}
+				if (TextUtils.isEmpty(password))
+				{
+					Global.Shake(LogInAct.this, etPassword);
+					return;
+				}
 				SignInTask task = new SignInTask(username, password);
 				pbLogInBar.setVisibility(View.VISIBLE);
 				btnLogIn.setEnabled(false);
@@ -112,9 +120,9 @@ public class LogInAct extends BaseActivity
 			}
 		});
 
-        //Jump to Register Activity
-        TextView toRegister=(TextView)findViewById(R.id.tvToRegister);
-        toRegister.setOnClickListener(new View.OnClickListener()
+		//Jump to Register Activity
+		TextView toRegister = (TextView) findViewById(R.id.tvToRegister);
+		toRegister.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View view)
@@ -157,7 +165,7 @@ public class LogInAct extends BaseActivity
 		btnLogIn = (Button) findViewById(R.id.btnLogin);
 		pbLogInBar = (ProgressBar) findViewById(R.id.pbLoginProgress);
 		etName = (EditText) findViewById(R.id.etName);
-		etPassword=(EditText) findViewById(R.id.etPassword);
+		etPassword = (EditText) findViewById(R.id.etPassword);
 		ivHeadImg = (ImageView) findViewById(R.id.ivHeadImg);
 	}
 

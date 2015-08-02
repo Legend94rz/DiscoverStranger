@@ -41,24 +41,28 @@
                 android:id="@+id/tvToId"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/button4"
-                android:layout_marginLeft="20dp"/>
+                android:layout_marginLeft="20dp"
+                android:text="我的游戏"/>
         </RelativeLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="设置我的游戏"
-            android:textSize="25dp"
-            android:id="@+id/textgame"
-            android:textColor="#ffffffff"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+
     </RelativeLayout>
 
     <GridView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/gridView3"
+        android:id="@+id/gvGame"
         android:numColumns="auto_fit"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/relativeLayou" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView26"
+        android:columnWidth="150dp"/>
+
+    <TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="当其他人想加你为好友时会进入该游戏"
+		android:id="@+id/textView26"
+		android:padding="5dp"
+        android:layout_below="@+id/relativeLayou"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

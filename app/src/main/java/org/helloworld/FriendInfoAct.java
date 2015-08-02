@@ -33,7 +33,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * 好友详细信息界面
- * */
+ */
 
 public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 {
@@ -45,6 +45,7 @@ public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 	private TextView tvRemark;
 	public static Handler handler;
 	public static final int MODIFY_RETURENED = 0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -211,7 +212,7 @@ public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 
 	public static void DelFriend(String friendName)
 	{
-		if(!Global.map2Friend.containsKey(friendName))return;
+		if (!Global.map2Friend.containsKey(friendName)) return;
 		UserInfo u = Global.map2Friend.get(friendName);
 		Global.map2Friend.remove(friendName);
 		Global.friendList.remove(u);
@@ -229,25 +230,25 @@ public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 	public void modifyRemark(View view)
 	{
 		Intent intent = new Intent(this, ModifyFriendInfoAct.class);
-		final UserInfo u= Global.map2Friend.get(friendName);
-		if(u.Ex_remark==null)
-			intent.putExtra("oldRemark","");
+		final UserInfo u = Global.map2Friend.get(friendName);
+		if (u.Ex_remark == null)
+			intent.putExtra("oldRemark", "");
 		else
-			intent.putExtra("oldRemark",u.Ex_remark);
-		startActivityForResult(intent,MODIFY_RETURENED);
+			intent.putExtra("oldRemark", u.Ex_remark);
+		startActivityForResult(intent, MODIFY_RETURENED);
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		if(requestCode==MODIFY_RETURENED)
+		if (requestCode == MODIFY_RETURENED)
 		{
 			if (resultCode == ModifyFriendInfoAct.MODIFY_SUCCESS)
 			{
-				final UserInfo u= Global.map2Friend.get(friendName);
+				final UserInfo u = Global.map2Friend.get(friendName);
 				u.Ex_remark = data.getStringExtra("newRemark");
 				String jsonStr = constructFriends2JSON().toString();
-				if(u.Ex_remark.length()>0)
+				if (u.Ex_remark.length() > 0)
 					tvRemark.setText(u.Ex_remark);
 				else
 					tvRemark.setText("无备注");
@@ -282,7 +283,8 @@ public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 
 	public static void AddFriend(String strangerName)
 	{
-		if(Global.map2Friend.containsKey(strangerName)|| TextUtils.equals(Global.mySelf.username,strangerName))return;
+		if (Global.map2Friend.containsKey(strangerName) || TextUtils.equals(Global.mySelf.username, strangerName))
+			return;
 		JSONObject fL = FriendInfoAct.constructFriends2JSON();
 		try
 		{

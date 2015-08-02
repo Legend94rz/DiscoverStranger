@@ -11,20 +11,21 @@ import java.util.ArrayList;
  */
 public class Settings
 {
-	public boolean vibrate;            	//开启/关闭震动
-	public boolean notification;    	//开启/关闭通知栏
-	public int background;            	//聊天背景图片资源id(目前只支持app内部资源).0表示无图片
-	public int game;                	//游戏索引
-	public ArrayList<String> interests;	//兴趣
-	public boolean sound;				//开启/关闭声音提醒
+	public boolean vibrate;                //开启/关闭震动
+	public boolean notification;        //开启/关闭通知栏
+	public int background;                //聊天背景图片资源id(目前只支持app内部资源).0表示无图片
+	public String game;                    //游戏索引
+	public ArrayList<String> interests;    //兴趣
+	public boolean sound;                //开启/关闭声音提醒
+
 	public Settings()
 	{
 		vibrate = true;
-		sound=true;
+		sound = true;
 		notification = true;
 		background = 0;
-		game = 1;
-		interests=new ArrayList<>();
+		game = Global.JigsawGame.pakageName;
+		interests = new ArrayList<>();
 	}
 
 	public static Settings parse(SoapObject soapObject)
@@ -40,16 +41,18 @@ public class Settings
 			return new Settings();
 		}
 	}
+
 	public String getInterestList()
 	{
-		if(interests.size()==0)return "";
-		String s="("+String.format("N'%s'",interests.get(0)) ;
-		for(String string:interests)
+		if (interests.size() == 0) return "";
+		String s = "(" + String.format("N'%s'", interests.get(0));
+		for (String string : interests)
 		{
-			s=s+","+String.format("N'%s'",string);
+			s = s + "," + String.format("N'%s'", string);
 		}
-		return s+")";
+		return s + ")";
 	}
+
 	public String toJson()
 	{
 		Gson g = new Gson();

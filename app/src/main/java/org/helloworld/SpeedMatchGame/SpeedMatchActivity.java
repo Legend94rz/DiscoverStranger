@@ -22,34 +22,36 @@ import java.util.Random;
 public class SpeedMatchActivity extends Activity implements View.OnClickListener, ViewPager.OnPageChangeListener
 {
 	TextView clock;
-	TextView grade,tvHint;
+	TextView grade, tvHint;
 	Button same, diff, start;
 	int now, _grade;
 	noTouchPager pager;
 	Handler mHandler;
-	static final int[] imgRes = {R.drawable.speed_match_pic1,R.drawable.speed_match_pic2,R.drawable.speed_match_pic3,R.drawable.speed_match_pic4};
+	static final int[] imgRes = {R.drawable.speed_match_pic1, R.drawable.speed_match_pic2, R.drawable.speed_match_pic3, R.drawable.speed_match_pic4};
 	ArrayList<View> pages;
-	ImageView last,cur;
+	ImageView last, cur;
 	SpeedMatchAdapter adapter;
 	Thread mThread;
 	LinearLayout llContaner;
-	boolean judgeResult=false;
+	boolean judgeResult = false;
 
 	@Override
 	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
 	{
 	}
+
 	@Override
 	public void onPageSelected(int position)
 	{
 	}
+
 	@Override
 	public void onPageScrollStateChanged(int state)
 	{
 		switch (state)
 		{
 			case ViewPager.SCROLL_STATE_DRAGGING:
-				if(judgeResult)
+				if (judgeResult)
 					pager.setBackgroundResource(R.drawable.green_round_rect);
 				else
 					pager.setBackgroundResource(R.drawable.red_round_rect);
@@ -77,9 +79,10 @@ public class SpeedMatchActivity extends Activity implements View.OnClickListener
 		public PicItem()
 		{
 			Random r = new Random();
-			number=r.nextInt(4);
+			number = r.nextInt(4);
 		}
 	}
+
 	@Override
 	public void onClick(View view)
 	{
@@ -98,11 +101,13 @@ public class SpeedMatchActivity extends Activity implements View.OnClickListener
 				same.setVisibility(View.VISIBLE);
 				diff.setVisibility(View.VISIBLE);
 				tvHint.setText("图案与之前的相同吗？");
-				cur=new ImageView(SpeedMatchActivity.this);
+				cur = new ImageView(SpeedMatchActivity.this);
 				PicItem item = new PicItem();
-				cur.setImageResource(item.getDrawable());cur.setTag(item);
-				pages.add(cur);adapter.notifyDataSetChanged();
-				pager.setCurrentItem(1,true);
+				cur.setImageResource(item.getDrawable());
+				cur.setTag(item);
+				pages.add(cur);
+				adapter.notifyDataSetChanged();
+				pager.setCurrentItem(1, true);
 				mThread.start();
 				break;
 		}
@@ -110,14 +115,17 @@ public class SpeedMatchActivity extends Activity implements View.OnClickListener
 
 	private void Scroll()
 	{
-		pages.remove(last); adapter.notifyDataSetChanged();
+		pages.remove(last);
+		adapter.notifyDataSetChanged();
 		ImageView tmp = new ImageView(SpeedMatchActivity.this);
-		PicItem item=new PicItem();
+		PicItem item = new PicItem();
 		tmp.setImageResource(item.getDrawable());
 		tmp.setTag(item);
-		pages.add(tmp);adapter.notifyDataSetChanged();
+		pages.add(tmp);
+		adapter.notifyDataSetChanged();
 		pager.setCurrentItem(1, true);
-		last = (ImageView) pages.get(0);cur= (ImageView) pages.get(1);
+		last = (ImageView) pages.get(0);
+		cur = (ImageView) pages.get(1);
 	}
 
 	class myThread implements Runnable
@@ -157,22 +165,23 @@ public class SpeedMatchActivity extends Activity implements View.OnClickListener
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_speed_match);
-		llContaner= (LinearLayout) findViewById(R.id.llContainer);
+		llContaner = (LinearLayout) findViewById(R.id.llContainer);
 		clock = (TextView) findViewById(R.id.clock);
 		grade = (TextView) findViewById(R.id.grade);
 		same = (Button) findViewById(R.id.same);
 		diff = (Button) findViewById(R.id.diff);
 		start = (Button) findViewById(R.id.start);
-		tvHint= (TextView) findViewById(R.id.tvHint);
-		pager= (noTouchPager) findViewById(R.id.view);
+		tvHint = (TextView) findViewById(R.id.tvHint);
+		pager = (noTouchPager) findViewById(R.id.view);
 
 		pager.setOnPageChangeListener(this);
 
-		pages=new ArrayList<>();
-		adapter = new SpeedMatchAdapter(this,pages);
-		last=new ImageView(this);
-		PicItem item=new PicItem();
-		last.setImageResource(item.getDrawable());last.setTag(item);
+		pages = new ArrayList<>();
+		adapter = new SpeedMatchAdapter(this, pages);
+		last = new ImageView(this);
+		PicItem item = new PicItem();
+		last.setImageResource(item.getDrawable());
+		last.setTag(item);
 		pages.add(last);
 		pager.setAdapter(adapter);
 
@@ -208,7 +217,7 @@ public class SpeedMatchActivity extends Activity implements View.OnClickListener
 
 	void work(boolean flag)
 	{
-		judgeResult=flag==(((PicItem) last.getTag()).getNumber() == ((PicItem) cur.getTag()).getNumber());
+		judgeResult = flag == (((PicItem) last.getTag()).getNumber() == ((PicItem) cur.getTag()).getNumber());
 		if (judgeResult)
 		{
 			_grade += 10;
@@ -226,7 +235,7 @@ public class SpeedMatchActivity extends Activity implements View.OnClickListener
 	void finishAct()
 	{
 		Intent intent = new Intent();
-		intent.putExtra("result", _grade>0);
+		intent.putExtra("result", _grade > 0);
 		SpeedMatchActivity.this.setResult(RESULT_OK, intent);
 		SpeedMatchActivity.this.finish();
 	}

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 /**
  * 查看通知界面
- * */
+ */
 
 public class NotificationAct extends BaseActivity
 {
@@ -24,16 +24,17 @@ public class NotificationAct extends BaseActivity
 	private ArrayList<org.helloworld.tools.Message> messages;
 	private History history;
 	public static Handler handler;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_notification);
-		history= Global.map.get("通知");
+		history = Global.map.get("通知");
 		messages = new ArrayList<>(history.unreadMsg);
 		history.unreadMsg.clear();
 		initView();
-		handler=new Handler(new Handler.Callback()
+		handler = new Handler(new Handler.Callback()
 		{
 			@Override
 			public boolean handleMessage(Message message)
@@ -41,7 +42,7 @@ public class NotificationAct extends BaseActivity
 				switch (message.what)
 				{
 					case Global.MSG_WHAT.W_REFRESH:
-						if(adapter!=null)
+						if (adapter != null)
 							adapter.notifyDataSetChanged();
 						break;
 				}
@@ -52,13 +53,13 @@ public class NotificationAct extends BaseActivity
 
 	private void initView()
 	{
-		lvNotification= (ListView) findViewById(R.id.lvNotification);
+		lvNotification = (ListView) findViewById(R.id.lvNotification);
 		adapter = new NotificationAdapter(this, messages);
 		lvNotification.setAdapter(adapter);
 		for (org.helloworld.tools.Message m : messages)
 		{
-			if(!FileUtils.Exist(Global.PATH.HeadImg + m.fromId + ".png"))
-				new DownloadTask("HeadImg",Global.PATH.HeadImg,m.fromId +".png",Global.BLOCK_SIZE,handler,Global.MSG_WHAT.W_REFRESH,null);
+			if (!FileUtils.Exist(Global.PATH.HeadImg + m.fromId + ".png"))
+				new DownloadTask("HeadImg", Global.PATH.HeadImg, m.fromId + ".png", Global.BLOCK_SIZE, handler, Global.MSG_WHAT.W_REFRESH, null);
 		}
 	}
 

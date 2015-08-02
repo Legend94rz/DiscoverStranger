@@ -15,8 +15,6 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -63,28 +61,29 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 	ViewPager vp_face;
 	LinearLayout layout_point;
 	Button btnSend;
-	EditText etText,etTag;
+	EditText etText, etTag;
 	LinearLayout llImages;
 	ImageButton ibAddImage;
 	TextView tvHot;
-	
+
 	ArrayList<View> pageViews;
 	private List<FaceAdapter> faceAdapters;
 	private List<List<ChatEmoji>> emojis;
 	private int current = 0;
 	private ArrayList<ImageView> pointViews;
 
-	int PicNum=0;
+	int PicNum = 0;
 	Fresh fresh;
 	private UUID id;
 	Handler handler;
+
 	@Override
 	public void goback(final View v)
 	{
 
-		if(etTag.getText().length()>0||etText.getText().length()>0||llImages.getChildCount()>0)
+		if (etTag.getText().length() > 0 || etText.getText().length() > 0 || llImages.getChildCount() > 0)
 		{
-			SweetAlertDialog dialog=new SweetAlertDialog(this,SweetAlertDialog.WARNING_TYPE);
+			SweetAlertDialog dialog = new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE);
 			dialog.setTitleText("真的要离开吗？")
 				.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
 				{
@@ -92,7 +91,7 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 					public void onClick(SweetAlertDialog sweetAlertDialog)
 					{
 						sweetAlertDialog.dismiss();
-						for(int i=0;i<llImages.getChildCount();i++)
+						for (int i = 0; i < llImages.getChildCount(); i++)
 						{
 							FileUtils.deleteFile(((String) llImages.getChildAt(i).getTag()));
 						}
@@ -113,14 +112,14 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_write_fresh);
 		emojis = FaceConversionUtil.getInstace().emojiLists;
-		fresh=new Fresh();
-		id=UUID.randomUUID();
+		fresh = new Fresh();
+		id = UUID.randomUUID();
 		InitView();
 		Init_viewPager();
 		Init_Point();
 		Init_Data();
 		SetListener();
-		handler=new Handler(new Handler.Callback()
+		handler = new Handler(new Handler.Callback()
 		{
 			@Override
 			public boolean handleMessage(Message message)
@@ -128,13 +127,13 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 				switch (message.what)
 				{
 					case Global.MSG_WHAT.W_SENDED_REQUEST:
-						if(((boolean) message.obj))
+						if (((boolean) message.obj))
 						{
-							Toast.makeText(WriteFreshAct.this,"发表成功",Toast.LENGTH_SHORT).show();
+							Toast.makeText(WriteFreshAct.this, "发表成功", Toast.LENGTH_SHORT).show();
 							finish();
 						}
 						else
-							Toast.makeText(WriteFreshAct.this,"发表失败",Toast.LENGTH_SHORT).show();
+							Toast.makeText(WriteFreshAct.this, "发表失败", Toast.LENGTH_SHORT).show();
 						break;
 				}
 				return false;
@@ -144,17 +143,18 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 
 	private void InitView()
 	{
-		tbFace= (ToggleButton) findViewById(R.id.tbFace);
+		tbFace = (ToggleButton) findViewById(R.id.tbFace);
 		layout_point = (LinearLayout) findViewById(R.id.iv_image);
 		vp_face = (ViewPager) findViewById(R.id.vp_contains);
-		btnSend= (Button) findViewById(R.id.btnSend);
-		llImages= (LinearLayout) findViewById(R.id.llImages);
+		btnSend = (Button) findViewById(R.id.btnSend);
+		llImages = (LinearLayout) findViewById(R.id.llImages);
 		ibAddImage = (ImageButton) findViewById(R.id.ibAddImg);
-		etTag= (EditText) findViewById(R.id.etTag);
-		etText= (EditText) findViewById(R.id.etText);
-		tvHot= (TextView) findViewById(R.id.tvHot);
-		rl_facechoose= (RelativeLayout) findViewById(R.id.ll_facechoose);
+		etTag = (EditText) findViewById(R.id.etTag);
+		etText = (EditText) findViewById(R.id.etText);
+		tvHot = (TextView) findViewById(R.id.tvHot);
+		rl_facechoose = (RelativeLayout) findViewById(R.id.ll_facechoose);
 	}
+
 	private void Init_viewPager()
 	{
 		pageViews = new ArrayList<View>();
@@ -194,6 +194,7 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 		nullView2.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 		pageViews.add(nullView2);
 	}
+
 	private void Init_Point()
 	{
 		pointViews = new ArrayList<ImageView>();
@@ -220,6 +221,7 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 
 		}
 	}
+
 	private void Init_Data()
 	{
 		vp_face.setAdapter(new emojiAdapter(pageViews));
@@ -243,7 +245,8 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 					{
 						vp_face.setCurrentItem(arg0 + 1);// 第二屏 会再次实现该回调方法实现跳转.
 						pointViews.get(1).setBackgroundResource(R.drawable.d2);
-					} else
+					}
+					else
 					{
 						vp_face.setCurrentItem(arg0 - 1);// 倒数第二屏
 						pointViews.get(arg0 - 1).setBackgroundResource(
@@ -266,6 +269,7 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 		});
 
 	}
+
 	public void draw_Point(int index)
 	{
 		for (int i = 1; i < pointViews.size(); i++)
@@ -273,7 +277,8 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 			if (index == i)
 			{
 				pointViews.get(i).setBackgroundResource(R.drawable.d2);
-			} else
+			}
+			else
 			{
 				pointViews.get(i).setBackgroundResource(R.drawable.d1);
 			}
@@ -287,7 +292,7 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 			@Override
 			public void onCheckedChanged(CompoundButton compoundButton, boolean b)
 			{
-				if(b)
+				if (b)
 					rl_facechoose.setVisibility(View.VISIBLE);
 				else
 					rl_facechoose.setVisibility(View.GONE);
@@ -332,7 +337,7 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 							PicNum++;
 							Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 							// 下面这句指定调用相机拍照后的照片存储的路径
-							intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Global.PATH.Cache,"temp.png")));
+							intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Global.PATH.Cache, "temp.png")));
 							startActivityForResult(intent, CAMERA_REQUEST);
 						}
 					}).show();
@@ -344,12 +349,12 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 			@Override
 			public void onClick(View view)
 			{
-				if(etText.getText().length()==0)
+				if (etText.getText().length() == 0)
 				{
-					Toast.makeText(WriteFreshAct.this,"请输入正文",Toast.LENGTH_SHORT).show();
+					Toast.makeText(WriteFreshAct.this, "请输入正文", Toast.LENGTH_SHORT).show();
 					return;
 				}
-				if(etTag.length()>4||etText.length()>140)return;
+				if (etTag.length() > 4 || etText.length() > 140) return;
 				fresh.username = Global.mySelf.username;
 				fresh.text = etText.getText().toString();
 				fresh.tag = etTag.getText().toString();
@@ -360,7 +365,7 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 				}
 				fresh.time = Global.getDate();
 				final AtomicBoolean[] flag = new AtomicBoolean[]{new AtomicBoolean(true)};
-				final SweetAlertDialog dialog=new SweetAlertDialog(WriteFreshAct.this,SweetAlertDialog.PROGRESS_TYPE);
+				final SweetAlertDialog dialog = new SweetAlertDialog(WriteFreshAct.this, SweetAlertDialog.PROGRESS_TYPE);
 				dialog.setTitleText("请稍候...").setCancelable(false);
 				dialog.show();
 				Thread t = new Thread(new Runnable()
@@ -383,7 +388,7 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 									catch (IOException e)
 									{
 										e.printStackTrace();
-										flag[0].set( false );
+										flag[0].set(false);
 									}
 								}
 							});
@@ -397,7 +402,7 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 								e.printStackTrace();
 							}
 						}
-						if(flag[0].get())
+						if (flag[0].get())
 						{
 							WebService addFresh = new WebService("addFresh");
 							addFresh.addProperty("username", fresh.username)
@@ -412,9 +417,9 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 							}
 						}
 						dialog.dismiss();
-						Message message=new Message();
-						message.what=Global.MSG_WHAT.W_SENDED_REQUEST;
-						message.obj=flag[0].get();
+						Message message = new Message();
+						message.what = Global.MSG_WHAT.W_SENDED_REQUEST;
+						message.obj = flag[0].get();
 						handler.sendMessage(message);
 					}
 				});
@@ -424,9 +429,15 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 		etText.addTextChangedListener(new TextWatcher()
 		{
 			@Override
-			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+			{
+			}
+
 			@Override
-			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2){}
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+			{
+			}
+
 			@Override
 			public void afterTextChanged(Editable editable)
 			{
@@ -439,9 +450,15 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 		etTag.addTextChangedListener(new TextWatcher()
 		{
 			@Override
-			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+			{
+			}
+
 			@Override
-			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+			{
+			}
+
 			@Override
 			public void afterTextChanged(Editable editable)
 			{
@@ -457,32 +474,32 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		super.onActivityResult(requestCode, resultCode, data);
-		String name=String.format("%s,%s.png", id, PicNum);
-		String targetPath=Global.PATH.ChatPic+name;
+		String name = String.format("%s,%s.png", id, PicNum);
+		String targetPath = Global.PATH.ChatPic + name;
 		switch (requestCode)
 		{
 			case CAMERA_REQUEST:
-				if(resultCode==-1)
+				if (resultCode == -1)
 				{
-					String path=Global.PATH.Cache+"temp.png";
-					Bitmap optBitmap=FileUtils.scaleBitmap(3,path);
+					String path = Global.PATH.Cache + "temp.png";
+					Bitmap optBitmap = FileUtils.scaleBitmap(3, path);
 					FileUtils.saveToFile(optBitmap, targetPath);
-					Bitmap bitmap= FileUtils.getOptimalBitmap(this,targetPath,128*Global.DPI);
+					Bitmap bitmap = FileUtils.getOptimalBitmap(this, targetPath, 128 * Global.DPI);
 					FileUtils.deleteFile(path);
-					addImageView(targetPath,name, bitmap);
+					addImageView(targetPath, name, bitmap);
 				}
 				break;
 			case PHOTO_REQUEST:
-				if(data!=null)
+				if (data != null)
 				{
 					Uri u = data.getData();
-					FileUtils.FastCopy(new File(FileUtils.getRealPathFromURI(this,u)), new File(Global.PATH.ChatPic,name));
-					Bitmap bitmap=FileUtils.getOptimalBitmap(this,Global.PATH.ChatPic + name,128*Global.DPI);
-					addImageView(targetPath,name,bitmap);
+					FileUtils.FastCopy(new File(FileUtils.getRealPathFromURI(this, u)), new File(Global.PATH.ChatPic, name));
+					Bitmap bitmap = FileUtils.getOptimalBitmap(this, Global.PATH.ChatPic + name, 128 * Global.DPI);
+					addImageView(targetPath, name, bitmap);
 				}
 				break;
 			case HOTKEY_REQUEST:
-				if(data!=null && resultCode==HotKeyActivity.GET_HOT_KEY)
+				if (data != null && resultCode == HotKeyActivity.GET_HOT_KEY)
 				{
 					etTag.setText(data.getStringExtra("result"));
 				}
@@ -490,13 +507,13 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 		}
 	}
 
-	private void addImageView(final String path,String fileName, Bitmap bitmap)
+	private void addImageView(final String path, String fileName, Bitmap bitmap)
 	{
-		if(bitmap!=null)
+		if (bitmap != null)
 		{
-			ImageView view=new ImageView(this);
-			LinearLayout.LayoutParams params=new LinearLayout.LayoutParams((int)(68* Global.DPI+0.5f),(int)(68*Global.DPI+0.5f));
-			int t=(int)(5*Global.DPI+0.5f);
+			ImageView view = new ImageView(this);
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) (68 * Global.DPI + 0.5f), (int) (68 * Global.DPI + 0.5f));
+			int t = (int) (5 * Global.DPI + 0.5f);
 			params.setMargins(0, 0, t, 0);
 			view.setScaleType(ImageView.ScaleType.FIT_XY);
 			view.setTag(fileName);
@@ -513,7 +530,7 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 						public void onClick(SweetAlertDialog sweetAlertDialog)
 						{
 							sweetAlertDialog.dismiss();
-							FileUtils.deleteFile( path );
+							FileUtils.deleteFile(path);
 							llImages.removeView(view);
 							if (llImages.getChildCount() < 4)
 								ibAddImage.setVisibility(View.VISIBLE);
@@ -523,34 +540,9 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 			});
 			view.setImageBitmap(bitmap);
 			llImages.addView(view);
-			if(llImages.getChildCount()>=4)
+			if (llImages.getChildCount() >= 4)
 				ibAddImage.setVisibility(View.GONE);
 		}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.menu_write_fresh, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-
-		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_settings)
-		{
-			return true;
-		}
-
-		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
@@ -577,8 +569,8 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 		{
 			SpannableString spannableString = FaceConversionUtil.getInstace().addFace(this, emoji.getId(), emoji.getCharacter());
 			Editable content = etText.getText();
-			int start =etText.getSelectionStart();
-			content.insert(start,spannableString);
+			int start = etText.getSelectionStart();
+			content.insert(start, spannableString);
 			etText.setSelection(start + spannableString.length());
 		}
 

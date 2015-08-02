@@ -11,13 +11,14 @@ public class ModifyFriendInfoAct extends BaseActivity
 	Button btnFinish;
 	EditText etRemark;
 	public static final int MODIFY_SUCCESS = 1;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_modify_friend_info);
-		btnFinish= (Button) findViewById(R.id.btnFinish);
-		etRemark= (EditText) findViewById(R.id.etRemark);
+		btnFinish = (Button) findViewById(R.id.btnFinish);
+		etRemark = (EditText) findViewById(R.id.etRemark);
 		etRemark.setText(getIntent().getStringExtra("oldRemark"));
 		etRemark.setSelection(etRemark.getBottom());
 		btnFinish.setOnClickListener(new View.OnClickListener()

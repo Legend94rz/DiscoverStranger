@@ -41,17 +41,9 @@
                 android:id="@+id/tvToId"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/button3"
-                android:layout_marginLeft="20dp"/>
+                android:layout_marginLeft="20dp"
+                android:text="设置聊天背景"/>
         </RelativeLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="设置聊天背景"
-            android:textSize="25dp"
-            android:id="@+id/textView18"
-            android:textColor="#ffffffff"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
     <GridView

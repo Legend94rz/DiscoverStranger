@@ -24,11 +24,11 @@ public class UploadTask
 	int blockNum;
 
 	/**
-	 * @param blockSize 块大小,单位byte
-	 * @param localFile 本地文件全路径
+	 * @param blockSize    块大小,单位byte
+	 * @param localFile    本地文件全路径
 	 * @param remoteFolder 远程文件夹路径
-	 * @param remoteName 远程文件夹名称
-	 * */
+	 * @param remoteName   远程文件夹名称
+	 */
 	public UploadTask(long blockSize, String localFile, String remoteName, String remoteFolder) throws IOException
 	{
 		this.blockSize = blockSize;
@@ -50,15 +50,16 @@ public class UploadTask
 		out.close();
 		bytes = out.toByteArray();
 	}
+
 	/**
-	 * @param blockSize 块大小,单位byte
+	 * @param blockSize    块大小,单位byte
 	 * @param remoteFolder 远程文件夹路径
-	 * @param remoteName 远程文件夹名称
-	 * @param bytes 以字节数组表示的整个文件内容
-	 * */
+	 * @param remoteName   远程文件夹名称
+	 * @param bytes        以字节数组表示的整个文件内容
+	 */
 	public UploadTask(String remoteFolder, String remoteName, long blockSize, byte[] bytes)
 	{
-		this.blockNum = ((int) (bytes.length / blockSize))+1;
+		this.blockNum = ((int) (bytes.length / blockSize)) + 1;
 		this.bytes = bytes;
 		this.remoteName = remoteName;
 		this.remoteFolder = remoteFolder;

@@ -112,7 +112,7 @@
             android:label="@string/title_activity_alter_basic_info" >
         </activity>
         <activity
-            android:name=".Oldpassword"
+            android:name=".OldpasswordAct"
             android:label="@string/title_activity_oldpassword" >
         </activity>
         <activity

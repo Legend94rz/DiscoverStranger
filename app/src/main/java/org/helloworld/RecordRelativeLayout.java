@@ -16,22 +16,23 @@ public class RecordRelativeLayout extends RelativeLayout
 	private Button btnCancel;
 	private ImageButton btnRecord;
 	public boolean isHidden;
+
 	public RecordRelativeLayout(Context context)
 	{
 		super(context);
-		this.context=context;
+		this.context = context;
 	}
 
 	public RecordRelativeLayout(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
-		this.context=context;
+		this.context = context;
 	}
 
 	public RecordRelativeLayout(Context context, AttributeSet attrs, int defStyle)
 	{
 		super(context, attrs, defStyle);
-		this.context=context;
+		this.context = context;
 	}
 
 	@Override
@@ -39,13 +40,13 @@ public class RecordRelativeLayout extends RelativeLayout
 	{
 		super.onFinishInflate();
 		onCreate();
-		isHidden=true;
+		isHidden = true;
 	}
 
 	private void onCreate()
 	{
-		btnCancel= (Button) findViewById(R.id.btnCancel);
-		btnRecord= (ImageButton) findViewById(R.id.btnRec);
-		btnSendVoice= (Button) findViewById(R.id.btnSendVoice);
+		btnCancel = (Button) findViewById(R.id.btnCancel);
+		btnRecord = (ImageButton) findViewById(R.id.btnRec);
+		btnSendVoice = (Button) findViewById(R.id.btnSendVoice);
 	}
 }

@@ -61,9 +61,10 @@ public class HistoryAdapter extends BaseAdapter
 			h.msgCount = (TextView) view.findViewById(R.id.tvCount);
 			h.lastMsg = (TextView) view.findViewById(R.id.tvLastmsg);
 			view.setTag(h);
-		} else
+		}
+		else
 			h = (H) view.getTag();
-		if(history.headId!=-1)
+		if (history.headId != -1)
 			h.pic.setImageResource(history.headId);
 		else
 		{
@@ -76,32 +77,33 @@ public class HistoryAdapter extends BaseAdapter
 		}
 
 		UserInfo temp = Global.map2Friend.get(history.partner);
-		if(temp!=null)
+		if (temp != null)
 		{
 			String showName = temp.Ex_remark;
 			if (showName == null || showName.equals("")) showName = temp.nickName;
 			h.name.setText(showName);
 		}
-		else		//发消息的人不在好友列表中
+		else        //发消息的人不在好友列表中
 		{
 			h.name.setText(history.partner);
 		}
 
 		Message lastMessage = history.lastHistoryMsg;
-		if((lastMessage.msgType& Global.MSG_TYPE.T_TEXT_MSG)>0)
+		if ((lastMessage.msgType & Global.MSG_TYPE.T_TEXT_MSG) > 0)
 		{
 			SpannableString spannableString = FaceConversionUtil.getInstace().getExpressionString(context, lastMessage.text);
-			h.lastMsg.setText( spannableString );
+			h.lastMsg.setText(spannableString);
 		}
-		else if((lastMessage.msgType & Global.MSG_TYPE.T_PIC_MSG)>0)
+		else if ((lastMessage.msgType & Global.MSG_TYPE.T_PIC_MSG) > 0)
 			h.lastMsg.setText("[图片]");
-		else if((lastMessage.msgType & Global.MSG_TYPE.T_VOICE_MSG)>0)
+		else if ((lastMessage.msgType & Global.MSG_TYPE.T_VOICE_MSG) > 0)
 			h.lastMsg.setText("[语音]");
 
 		if (history.unreadMsg.size() == 0)
 		{
 			h.msgCount.setVisibility(View.INVISIBLE);
-		} else
+		}
+		else
 		{
 			h.msgCount.setText(String.valueOf(history.unreadMsg.size()));
 			h.msgCount.setVisibility(View.VISIBLE);

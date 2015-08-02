@@ -35,27 +35,31 @@ public class Fresh
 
 	public static Fresh parse(SoapObject soapObject)
 	{
-		Fresh fresh=new Fresh();
-		fresh.id=Integer.parseInt(soapObject.getPropertyAsString("id"));
-		fresh.username=soapObject.getPropertyAsString("username");
-		fresh.text=soapObject.getPropertyAsString("text");
-		fresh.tag=soapObject.getPropertyAsString("tag");
-		try{
-			fresh.picName=new Gson().fromJson(soapObject.getPropertyAsString("pics"), new TypeToken<ArrayList<String>>(){}.getType());
+		Fresh fresh = new Fresh();
+		fresh.id = Integer.parseInt(soapObject.getPropertyAsString("id"));
+		fresh.username = soapObject.getPropertyAsString("username");
+		fresh.text = soapObject.getPropertyAsString("text");
+		fresh.tag = soapObject.getPropertyAsString("tag");
+		try
+		{
+			fresh.picName = new Gson().fromJson(soapObject.getPropertyAsString("pics"), new TypeToken<ArrayList<String>>()
+			{
+			}.getType());
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			fresh.picName=new ArrayList<>();
+			fresh.picName = new ArrayList<>();
 		}
-		String time=soapObject.getPropertyAsString("time").replace('T',' ');
-		try{
-			fresh.time=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(time);
+		String time = soapObject.getPropertyAsString("time").replace('T', ' ');
+		try
+		{
+			fresh.time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(time);
 		}
 		catch (ParseException e)
 		{
 			e.printStackTrace();
-			fresh.time=Global.getDate();
+			fresh.time = Global.getDate();
 		}
 		return fresh;
 	}

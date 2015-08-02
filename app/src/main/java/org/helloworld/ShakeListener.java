@@ -9,7 +9,8 @@ import android.hardware.SensorManager;
 /**
  * 摇一摇监听器
  */
-public class ShakeListener implements SensorEventListener {
+public class ShakeListener implements SensorEventListener
+{
 	// 速度阈值，当摇晃速度达到这值后产生作用
 	private static final int SPEED_SHRESHOLD = 3000;
 	// 两次检测的时间间隔
@@ -30,44 +31,51 @@ public class ShakeListener implements SensorEventListener {
 	private long lastUpdateTime;
 
 	// 构造器
-	public ShakeListener(Context c) {
+	public ShakeListener(Context c)
+	{
 		// 获得监听对象
 		mContext = c;
 		start();
 	}
 
 	// 开始
-	public void start() {
+	public void start()
+	{
 		// 获得传感器管理器
 		sensorManager = (SensorManager) mContext
-				.getSystemService(Context.SENSOR_SERVICE);
-		if (sensorManager != null) {
+											.getSystemService(Context.SENSOR_SERVICE);
+		if (sensorManager != null)
+		{
 			// 获得重力传感器
 			sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		}
 		// 注册
-		if (sensor != null) {
+		if (sensor != null)
+		{
 			if (sensorManager != null)
 			{
 				sensorManager.registerListener(this, sensor,
-						SensorManager.SENSOR_DELAY_GAME);
+												  SensorManager.SENSOR_DELAY_GAME);
 			}
 		}
 
 	}
 
 	// 停止检测
-	public void stop() {
+	public void stop()
+	{
 		sensorManager.unregisterListener(this);
 	}
 
 	// 设置重力感应监听器
-	public void setOnShakeListener(OnShakeListener listener) {
+	public void setOnShakeListener(OnShakeListener listener)
+	{
 		onShakeListener = listener;
 	}
 
 	// 重力感应器感应获得变化数据
-	public void onSensorChanged(SensorEvent event) {
+	public void onSensorChanged(SensorEvent event)
+	{
 		// 现在检测时间
 		long currentUpdateTime = System.currentTimeMillis();
 		// 两次检测的时间间隔
@@ -94,20 +102,23 @@ public class ShakeListener implements SensorEventListener {
 		lastZ = z;
 
 		double speed = Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ
-				* deltaZ)
-				/ timeInterval * 10000;
+																		 * deltaZ)
+						   / timeInterval * 10000;
 		// 达到速度阀值，发出提示
-		if (speed >= SPEED_SHRESHOLD) {
+		if (speed >= SPEED_SHRESHOLD)
+		{
 			onShakeListener.onShake();
 		}
 	}
 
-	public void onAccuracyChanged(Sensor sensor, int accuracy) {
+	public void onAccuracyChanged(Sensor sensor, int accuracy)
+	{
 
 	}
 
 	// 摇晃监听接口
-	public interface OnShakeListener {
+	public interface OnShakeListener
+	{
 		public void onShake();
 	}
 

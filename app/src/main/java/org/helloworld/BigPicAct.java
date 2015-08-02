@@ -8,20 +8,22 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.helloworld.tools.FileUtils;
+
 /**
  * 查看大图 界面
- * */
+ */
 
 public class BigPicAct extends Activity
 {
 	ImageView ivImg;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_big_pic);
-		ivImg= (ImageView) findViewById(R.id.ivImg);
-		String imgsrc=getIntent().getStringExtra("imgsrc");
+		ivImg = (ImageView) findViewById(R.id.ivImg);
+		String imgsrc = getIntent().getStringExtra("imgsrc");
 		try
 		{
 			if (imgsrc != null && FileUtils.Exist(imgsrc))
@@ -30,7 +32,7 @@ public class BigPicAct extends Activity
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			Toast.makeText(this,"图片太大，不予查看",Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "图片太大，不予查看", Toast.LENGTH_SHORT).show();
 			finish();
 		}
 	}

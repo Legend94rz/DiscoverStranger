@@ -30,7 +30,7 @@ public class SpeedMatchAdapter extends PagerAdapter
 	@Override
 	public void destroyItem(ViewGroup container, int position, Object object)
 	{
-		if(position>= views.size())return;
+		if (position >= views.size()) return;
 		container.removeView(views.get(position));
 	}
 
@@ -50,6 +50,6 @@ public class SpeedMatchAdapter extends PagerAdapter
 	@Override
 	public boolean isViewFromObject(View view, Object object)
 	{
-		return view==object;
+		return view == object;
 	}
 }

@@ -110,7 +110,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 		history.unreadMsg.clear();
 		MsgPullService.handlers.remove(handler);
 		handler = null;
-		if(history.lastHistoryMsg==null) Global.historyList.remove(history);
+		if (history.lastHistoryMsg == null) Global.historyList.remove(history);
 	}
 
 	public class SendTask extends AsyncTask<Void, Void, Boolean>
@@ -228,9 +228,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 					break;
 					case Global.MSG_WHAT.W_PLAY_SOUND:
 					{
-						final String fileName=message.getData().getString("content");
+						final String fileName = message.getData().getString("content");
 						final ProgressBar pbPlayVoice = (ProgressBar) message.obj;
-						if(FileUtils.Exist(Global.PATH.SoundMsg+fileName))
+						if (FileUtils.Exist(Global.PATH.SoundMsg + fileName))
 						{
 							pbPlayVoice.setIndeterminate(false);
 							pbPlayVoice.setVisibility(View.VISIBLE);
@@ -265,7 +265,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 								@Override
 								public void run()
 								{
-									if(DownloadTask.DownloadFile("SoundMsg",fileName,Global.BLOCK_SIZE,Global.PATH.SoundMsg))
+									if (DownloadTask.DownloadFile("SoundMsg", fileName, Global.BLOCK_SIZE, Global.PATH.SoundMsg))
 									{
 										android.os.Message message1 = new android.os.Message();
 										message1.obj = pbPlayVoice;
@@ -303,8 +303,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 			}
 		});
 		MsgPullService.handlers.add(handler);
-		soundPool=new SoundPool(3, AudioManager.STREAM_ALARM,0);
-		soundId = soundPool.load(this,R.raw.beep,1);
+		soundPool = new SoundPool(3, AudioManager.STREAM_ALARM, 0);
+		soundId = soundPool.load(this, R.raw.beep, 1);
 		soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener()
 		{
 			@Override
@@ -498,7 +498,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 			map.put("ItemDes", des[i]);
 			lstItem.add(map);
 		}
-		SimpleAdapter simpleAdapter = new SimpleAdapter(this, lstItem, R.layout.input_item, new String[]{"ItemPic", "ItemDes"}, new int[]{R.id.ivInputImg, R.id.tvInputName});
+		SimpleAdapter simpleAdapter = new SimpleAdapter(this, lstItem, R.layout.item_input, new String[]{"ItemPic", "ItemDes"}, new int[]{R.id.ivInputImg, R.id.tvInputName});
 		gvMoreInput.setAdapter(simpleAdapter);
 		gvMoreInput.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
@@ -593,7 +593,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 				entity.msgType = Global.MSG_TYPE.T_SEND_MSG | Global.MSG_TYPE.T_TEXT_MSG;
 				entity.text = contString;
 				entity.sendState = 1;
-				entity.extra=new Bundle();	//区分是否是历史消息
+				entity.extra = new Bundle();    //区分是否是历史消息
 				send(entity);
 				break;
 			case R.id.btnSendVoice:
@@ -724,16 +724,16 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 	{
 		if (FileUtils.Exist(Global.PATH.SoundMsg + fileName))
 		{
-			if(isLoaded)
-				soundPool.play(soundId,1,1,0,0,1);
+			if (isLoaded)
+				soundPool.play(soundId, 1, 1, 0, 0, 1);
 			MediaPlayer player = new MediaPlayer();
 			player.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
 			{
 				@Override
 				public void onCompletion(MediaPlayer mediaPlayer)
 				{
-					if(isLoaded)
-						soundPool.play(soundId,0.5f,0.5f,0,0,1);
+					if (isLoaded)
+						soundPool.play(soundId, 0.5f, 0.5f, 0, 0, 1);
 				}
 			});
 			try

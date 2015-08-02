@@ -15,7 +15,7 @@ public class myViewPagerAdapter extends PagerAdapter
 	private List<View> views;
 	private Context context;
 
-	public myViewPagerAdapter(Context context,List<View> views)
+	public myViewPagerAdapter(Context context, List<View> views)
 	{
 		this.views = views;
 		this.context = context;
@@ -43,6 +43,6 @@ public class myViewPagerAdapter extends PagerAdapter
 	@Override
 	public boolean isViewFromObject(View view, Object object)
 	{
-		return view==object;
+		return view == object;
 	}
 }

@@ -14,18 +14,19 @@ public class CMDParser
 	{
 		parser(message);
 	}
+
 	private static void parser(Message message)
 	{
 		try
 		{
-			JSONObject j=new JSONObject(message.text);
-			JSONArray params=j.getJSONArray("param");
-			String cmdName=j.getString("cmdName");
-			if(cmdName.equals("addFriend"))
+			JSONObject j = new JSONObject(message.text);
+			JSONArray params = j.getJSONArray("param");
+			String cmdName = j.getString("cmdName");
+			if (cmdName.equals("addFriend"))
 			{
 				FriendInfoAct.AddFriend(params.getString(0));
 			}
-			else if(cmdName.equals("delFriend"))
+			else if (cmdName.equals("delFriend"))
 			{
 				FriendInfoAct.DelFriend(params.getString(0));
 			}

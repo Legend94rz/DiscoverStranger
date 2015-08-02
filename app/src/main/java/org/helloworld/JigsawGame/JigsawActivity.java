@@ -28,7 +28,6 @@ import java.util.Collections;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
-
 public class JigsawActivity extends Activity
 {
 
@@ -40,6 +39,7 @@ public class JigsawActivity extends Activity
 	PicItem TheLastPiece;
 	ImageView Iv;
 	ToggleButton tbSwith;
+
 	class GridViewAdapter extends BaseAdapter
 	{
 		private Context context;
@@ -93,6 +93,7 @@ public class JigsawActivity extends Activity
 			ImageView image;
 		}
 	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{

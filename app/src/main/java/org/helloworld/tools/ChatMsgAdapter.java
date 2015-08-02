@@ -46,6 +46,7 @@ public class ChatMsgAdapter extends BaseAdapter implements AbsListView.OnScrollL
 	public void onScroll(AbsListView absListView, int i, int i1, int i2)
 	{
 	}
+
 	public interface IMsgViewType
 	{
 		int IMVT_COM_MSG = 0;
@@ -149,37 +150,37 @@ public class ChatMsgAdapter extends BaseAdapter implements AbsListView.OnScrollL
 			viewHolder.ivPic.setVisibility(View.GONE);
 			spannableString = FaceConversionUtil.getInstace().getExpressionString(context, entity.text);
 		}
-		else if ((entity.msgType & Global.MSG_TYPE.T_PIC_MSG) > 0 && entity.sendState!=2)
+		else if ((entity.msgType & Global.MSG_TYPE.T_PIC_MSG) > 0 && entity.sendState != 2)
 		{
 			viewHolder.tvContent.setVisibility(View.GONE);
 			viewHolder.ivPic.setVisibility(View.VISIBLE);
 			String url = Global.PATH.ChatPic + entity.text;
 			viewHolder.ivPic.setTag(url);
 			viewHolder.ivPic.setImageResource(R.drawable.nopic);
-			Bitmap cacheBitmap = loader.loadDrawable(Global.PATH.ChatPic,"ChatPic",entity.text,isScroll,200*Global.DPI, new AsyImageLoader.ImageCallback()
+			Bitmap cacheBitmap = loader.loadDrawable(Global.PATH.ChatPic, "ChatPic", entity.text, isScroll, 200 * Global.DPI, new AsyImageLoader.ImageCallback()
 			{
 				@Override
 				public void imageLoaded(Bitmap bitmap, String url)
 				{
 					ImageView imageView = (ImageView) listView.findViewWithTag(url);
 					if (imageView != null)
-						if(bitmap != null)
+						if (bitmap != null)
 						{
 							imageView.setImageBitmap(bitmap);
-							entity.sendState=0;
+							entity.sendState = 0;
 						}
 						else
-							entity.sendState=2;
+							entity.sendState = 2;
 					notifyDataSetChanged();
 				}
 			});
 			if (cacheBitmap != null)
 			{
-				entity.sendState=0;
+				entity.sendState = 0;
 				viewHolder.ivPic.setImageBitmap(cacheBitmap);
 			}
 			else
-				entity.sendState=1;
+				entity.sendState = 1;
 		}
 		else if ((entity.msgType & Global.MSG_TYPE.T_VOICE_MSG) > 0)
 		{
@@ -270,7 +271,7 @@ public class ChatMsgAdapter extends BaseAdapter implements AbsListView.OnScrollL
 					}
 					break;
 				case R.id.ibResendbtn:
-					if(msg.extra!=null)	//历史消息不能重发
+					if (msg.extra != null)    //历史消息不能重发
 					{
 						android.os.Message m = new android.os.Message();
 						m.obj = msg;

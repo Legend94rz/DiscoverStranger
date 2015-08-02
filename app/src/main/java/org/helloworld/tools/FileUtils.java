@@ -110,34 +110,39 @@ public class FileUtils
 		return BitmapFactory.decodeFile(filePath, opt);
 	}
 
-	public static Bitmap scaleBitmap(int inSampleSize,String filePath)
+	public static Bitmap scaleBitmap(int inSampleSize, String filePath)
 	{
 		BitmapFactory.Options opt = new BitmapFactory.Options();
 		opt.inPreferredConfig = Bitmap.Config.RGB_565;
 		opt.inPurgeable = true;
 		opt.inInputShareable = true;
-		opt.inSampleSize=inSampleSize;
-		return BitmapFactory.decodeFile(filePath,opt);
+		opt.inSampleSize = inSampleSize;
+		return BitmapFactory.decodeFile(filePath, opt);
 	}
-	public static void saveToFile(Bitmap bitmap,String savePath)
+
+	public static void saveToFile(Bitmap bitmap, String savePath)
 	{
 		File f = new File(savePath);
-		if (f.exists()) {
+		if (f.exists())
+		{
 			f.delete();
 		}
-		try {
+		try
+		{
 			FileOutputStream out = new FileOutputStream(f);
 			bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
 			out.flush();
 			out.close();
 		}
-		catch (IOException e) {
+		catch (IOException e)
+		{
 			e.printStackTrace();
+		}
 	}
-	}
+
 	/**
 	 * 以字符串形式返回文件的base64编码
-	 * */
+	 */
 	public static String toBase64(String filePath)
 	{
 		String base64 = null;
@@ -207,68 +212,89 @@ public class FileUtils
 			}
 		}
 	}
+
 	/**
 	 * 删除目录（文件夹）以及目录下的文件
-	 * @param   sPath 被删除目录的文件路径
-	 * @return  目录删除成功返回true，否则返回false
+	 *
+	 * @param sPath 被删除目录的文件路径
+	 * @return 目录删除成功返回true，否则返回false
 	 */
-	public static boolean deleteDirectory(String sPath) {
+	public static boolean deleteDirectory(String sPath)
+	{
 		//如果sPath不以文件分隔符结尾，自动添加文件分隔符
-		if (!sPath.endsWith(File.separator)) {
+		if (!sPath.endsWith(File.separator))
+		{
 			sPath = sPath + File.separator;
 		}
 		File dirFile = new File(sPath);
 		//如果dir对应的文件不存在，或者不是一个目录，则退出
-		if (!dirFile.exists() || !dirFile.isDirectory()) {
+		if (!dirFile.exists() || !dirFile.isDirectory())
+		{
 			return false;
 		}
 		boolean flag = true;
 		//删除文件夹下的所有文件(包括子目录)
 		File[] files = dirFile.listFiles();
-		for (int i = 0; i < files.length; i++) {
+		for (int i = 0; i < files.length; i++)
+		{
 			//删除子文件
-			if (files[i].isFile()) {
+			if (files[i].isFile())
+			{
 				flag = deleteFile(files[i].getAbsolutePath());
 				if (!flag) break;
 			} //删除子目录
-			else {
+			else
+			{
 				flag = deleteDirectory(files[i].getAbsolutePath());
 				if (!flag) break;
 			}
 		}
 		if (!flag) return false;
 		//删除当前目录
-		if (dirFile.delete()) {
+		if (dirFile.delete())
+		{
 			return true;
-		} else {
+		}
+		else
+		{
 			return false;
 		}
 	}
+
 	/**
 	 * 删除单个文件
-	 * @param   sPath    被删除文件的文件名
+	 *
+	 * @param sPath 被删除文件的文件名
 	 * @return 单个文件删除成功返回true，否则返回false
 	 */
-	public static boolean deleteFile(String sPath) {
+	public static boolean deleteFile(String sPath)
+	{
 		boolean flag = false;
 		File file = new File(sPath);
 		// 路径为文件且不为空则进行删除
-		if (file.isFile() && file.exists()) {
+		if (file.isFile() && file.exists())
+		{
 			file.delete();
 			flag = true;
 		}
 		return flag;
 	}
-	public static String getRealPathFromURI(Context context, Uri contentUri) {
+
+	public static String getRealPathFromURI(Context context, Uri contentUri)
+	{
 		Cursor cursor = null;
-		try {
-			String[] proj = { MediaStore.Images.Media.DATA };
-			cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+		try
+		{
+			String[] proj = {MediaStore.Images.Media.DATA};
+			cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
 			int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
 			cursor.moveToFirst();
 			return cursor.getString(column_index);
-		} finally {
-			if (cursor != null) {
+		}
+		finally
+		{
+			if (cursor != null)
+			{
 				cursor.close();
 			}
 		}
