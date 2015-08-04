@@ -63,7 +63,8 @@
 				android:layout_below="@+id/linearLayout_MyGame"
 				android:layout_alignParentLeft="true"
 				android:layout_alignParentStart="true"
-				android:weightSum="1">
+				android:weightSum="1"
+				android:padding="15dp">
 
 				<TextView
 					android:layout_width="wrap_content"
@@ -71,22 +72,22 @@
 					android:text="震动提醒"
 					android:id="@+id/textVibrate"
 					android:textSize="16sp"
-					android:layout_margin="15dp"
-					android:layout_alignParentLeft="true"
-					android:layout_marginLeft="23dp"
-					android:layout_alignParentTop="true"
-					android:layout_marginTop="23dp"/>
+					android:layout_alignParentLeft="false"
+					android:layout_alignParentTop="false"
+					/>
 
 				<ToggleButton
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="New ToggleButton"
 					android:id="@+id/tbVib"
 					android:layout_centerVertical="true"
 					android:layout_alignParentRight="true"
 					android:layout_alignParentEnd="true"
 					android:layout_marginRight="20dp"
-					android:checked="false"/>
+					android:checked="false"
+					android:background="@drawable/switch_btn"
+					android:textOff=" "
+					android:textOn=" "/>
 
 			</RelativeLayout>
 
@@ -99,7 +100,8 @@
 				android:weightSum="1"
 				android:layout_below="@+id/linearLayout_Vibrate"
 				android:layout_alignParentLeft="true"
-				android:layout_alignParentStart="true">
+				android:layout_alignParentStart="true"
+				android:padding="15dp">
 
 				<TextView
 					android:layout_width="wrap_content"
@@ -107,22 +109,23 @@
 					android:text="声音提醒"
 					android:id="@+id/textSound"
 					android:textSize="16sp"
-					android:layout_margin="15dp"
+					android:layout_alignBottom="@+id/tbVoi"
 					android:layout_alignParentLeft="true"
-					android:layout_marginLeft="23dp"
-					android:layout_alignParentTop="true"
-					android:layout_marginTop="23dp"/>
+					android:layout_alignParentStart="true"/>
 
 				<ToggleButton
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="New ToggleButton"
 					android:id="@+id/tbVoi"
-					android:layout_centerVertical="true"
+					android:layout_marginRight="20dp"
+					android:checked="false"
+					android:background="@drawable/switch_btn"
+					android:textOn=" "
+					android:textOff=" "
+					android:layout_alignParentTop="true"
 					android:layout_alignParentRight="true"
 					android:layout_alignParentEnd="true"
-					android:layout_marginRight="20dp"
-					android:checked="false"/>
+					android:layout_marginEnd="31dp"/>
 
 			</RelativeLayout>
 

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-public class SpeedMatchActivity extends Activity implements View.OnClickListener, ViewPager.OnPageChangeListener
+public class SpeedMatchActivity extends Activity implements View.OnClickListener
 {
 	TextView clock;
 	TextView grade, tvHint;
@@ -35,31 +34,20 @@ public class SpeedMatchActivity extends Activity implements View.OnClickListener
 	LinearLayout llContaner;
 	boolean judgeResult = false;
 
-	@Override
-	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+	public void changeBackground(boolean result)
 	{
-	}
-
-	@Override
-	public void onPageSelected(int position)
-	{
-	}
-
-	@Override
-	public void onPageScrollStateChanged(int state)
-	{
-		switch (state)
+		if(result)
+			llContaner.setBackgroundResource(R.drawable.green_round_rect);
+		else
+			llContaner.setBackgroundResource(R.drawable.red_round_rect);
+		llContaner.postDelayed(new Runnable()
 		{
-			case ViewPager.SCROLL_STATE_DRAGGING:
-				if (judgeResult)
-					pager.setBackgroundResource(R.drawable.green_round_rect);
-				else
-					pager.setBackgroundResource(R.drawable.red_round_rect);
-				break;
-			case ViewPager.SCROLL_STATE_SETTLING:
-				pager.setBackgroundResource(R.drawable.black_round_rect);
-				break;
-		}
+			@Override
+			public void run()
+			{
+				llContaner.setBackgroundResource(R.drawable.black_round_rect);
+			}
+		},200);
 	}
 
 	class PicItem
@@ -174,7 +162,7 @@ public class SpeedMatchActivity extends Activity implements View.OnClickListener
 		tvHint = (TextView) findViewById(R.id.tvHint);
 		pager = (noTouchPager) findViewById(R.id.view);
 
-		pager.setOnPageChangeListener(this);
+		//pager.setOnPageChangeListener(this);
 
 		pages = new ArrayList<>();
 		adapter = new SpeedMatchAdapter(this, pages);
@@ -223,6 +211,7 @@ public class SpeedMatchActivity extends Activity implements View.OnClickListener
 			_grade += 10;
 			grade.setText(String.valueOf(_grade));
 		}
+		changeBackground(judgeResult);
 	}
 
 	void Prepare()

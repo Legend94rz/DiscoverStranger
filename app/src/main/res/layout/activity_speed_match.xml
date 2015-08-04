@@ -69,14 +69,15 @@
         android:gravity="center"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:animateLayoutChanges="false">
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="不同"
             android:id="@+id/diff"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_weight="1"
             android:background="@drawable/red_button"
             android:textColor="@color/antiquewhite"/>
@@ -86,7 +87,7 @@
             android:layout_height="48dp"
             android:text="相同"
             android:id="@+id/same"
-            android:visibility="visible"
+            android:visibility="gone"
             android:background="@drawable/lightgreenrectbutton"
             android:layout_weight="1"
             android:textColor="@color/antiquewhite"/>
@@ -98,7 +99,6 @@
 			android:id="@+id/start"
 			android:layout_alignParentBottom="true"
 			android:layout_centerHorizontal="true"
-            android:visibility="gone"
             android:background="@drawable/main_btn"
             android:textColor="@color/white"/>
 

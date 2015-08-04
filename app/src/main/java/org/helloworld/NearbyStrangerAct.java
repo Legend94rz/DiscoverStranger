@@ -61,6 +61,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.ksoap2.serialization.SoapObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -370,12 +371,14 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 												  // 此处设置开发者获取到的方向信息，顺时针0-360
 											 .direction(bdLocation.getDirection()).latitude(latitude)
 											 .longitude(longitude).build();
-				map.setMyLocationData(locData);
+				if(map!=null)
+					map.setMyLocationData(locData);
 				if (isFirstLoc)
 				{
 					isFirstLoc = false;
 					MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(position);
-					map.animateMapStatus(u);
+					if(map!=null)
+						map.animateMapStatus(u);
 				}
 
 				UpdateLocationTask updateMyPosition = new UpdateLocationTask(latitude, longitude);
@@ -427,7 +430,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 					}
 					break;
 					case Global.MSG_WHAT.W_SENDED_REQUEST:
-						DealSendRequestResult(NearbyStrangerAct.this, message);
+						DealSendRequestResult(NearbyStrangerAct.this,handler, message);
 						final Bundle data = message.getData();
 						if (data.getBoolean("result"))
 						{
@@ -462,7 +465,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 					break;
 					case Global.MSG_WHAT.W_GOT_USER_SETTING:
 					{
-						DealGetSettingResult(NearbyStrangerAct.this, message);
+						DealGetSettingResult(NearbyStrangerAct.this,handler , message);
 					}
 					break;
 					case Global.MSG_WHAT.W_DOWNLOADED_A_FILE:
@@ -489,9 +492,10 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 
 	public static void DealDownloadGame(final Context context, final Message message)
 	{
-		SweetAlertDialog dialog= (SweetAlertDialog) message.obj;
+		SweetAlertDialog dialog = new SweetAlertDialog(context);
 		if(message.arg1==1)
 		{
+			final String fileName=message.getData().getString("fileName");
 			dialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
 			dialog.setTitleText("提示").setContentText("下载成功，是否立刻安装？")
 				.setConfirmText("确定").setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
@@ -500,14 +504,14 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 				public void onClick(SweetAlertDialog sweetAlertDialog)
 				{
 					sweetAlertDialog.dismiss();
-					APKUtils.install(context, Global.PATH.APK + message.getData().getString("fileName"));
+					APKUtils.install(context,new File( Global.PATH.APK , fileName ));
 				}
-			}).setCancelText("稍候");
+			}).setCancelText("稍候").show();
 		}
 		else
 		{
 			dialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
-			dialog.setTitleText("下载失败");
+			dialog.setTitleText("下载失败").show();
 		}
 	}
 
@@ -674,7 +678,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 	 * 是handler对Global.MSG_WHAT.W_GOT_USER_SETTING的处理。
 	 * 这个过程中启动游戏，游戏结束后在onActivityResult中处理
 	 */
-	public static void DealGetSettingResult(Context context, final Message message)
+	public static void DealGetSettingResult(Context context, final Handler handler, final Message message)
 	{
 		final Settings settings = (Settings) message.obj;
 		if (message.getData().getBoolean("result"))
@@ -690,9 +694,10 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 			{
 				if(APKUtils.isPakageInstalled(context,settings.game))
 				{
-					intent = new Intent(Intent.ACTION_MAIN);
+					intent = new Intent();
+					//intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					intent.addCategory(Intent.CATEGORY_LAUNCHER);
-					ComponentName cn = new ComponentName(settings.game,settings.game+".SplashAct");
+					ComponentName cn = new ComponentName(settings.game,settings.game + ".MainActivity");
 					intent.setComponent(cn);
 				}
 				else
@@ -706,7 +711,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 							public void onClick(final SweetAlertDialog sweetAlertDialog)
 							{
 								sweetAlertDialog.changeAlertType(SweetAlertDialog.PROGRESS_TYPE);
-								sweetAlertDialog.setTitleText("正在下载");
+								sweetAlertDialog.setTitleText("正在下载").setContentText("").showCancelButton(false);
 								sweetAlertDialog.setCancelable(false);
 								new Thread(new Runnable()
 								{
@@ -746,12 +751,10 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 												msg.setData(data);
 											}
 										}
-										msg.obj=sweetAlertDialog;
-										handler.sendMessage(message);
+										sweetAlertDialog.dismiss();
+										handler.sendMessage(msg);
 									}
 								}).start();
-
-
 							}
 						}).show();
 
@@ -773,7 +776,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 	 * 是handler对Global.MSG_WHAT.W_SENDED_REQUEST的处理
 	 * 如果该请求发送失败则询问是否重试
 	 */
-	public static void DealSendRequestResult(final Context context, Message message)
+	public static void DealSendRequestResult(final Context context, final Handler handler, Message message)
 	{
 		final Bundle data = message.getData();
 		if (data.getBoolean("result"))

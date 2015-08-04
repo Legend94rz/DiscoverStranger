@@ -96,10 +96,10 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 				switch (message.what)
 				{
 					case Global.MSG_WHAT.W_SENDED_REQUEST:
-						NearbyStrangerAct.DealSendRequestResult(MomentsActivity.this, message);
+						NearbyStrangerAct.DealSendRequestResult(MomentsActivity.this,handler, message);
 						break;
 					case Global.MSG_WHAT.W_GOT_USER_SETTING:
-						NearbyStrangerAct.DealGetSettingResult(MomentsActivity.this, message);
+						NearbyStrangerAct.DealGetSettingResult(MomentsActivity.this,handler, message);
 						break;
 					case Global.MSG_WHAT.W_DOWNLOADED_A_FILE:
 						DealDownloadGame(MomentsActivity.this, message);

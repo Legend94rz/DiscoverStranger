@@ -98,7 +98,7 @@ public class JigsawActivity extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_game);
+		setContentView(R.layout.activity_jigsaw);
 		gridView = (GridView) findViewById(R.id.gridView);
 		gestureDetector = new GestureDetector(this, new gestureListener());
 		UpdateData();
@@ -142,7 +142,7 @@ public class JigsawActivity extends Activity
 			public void onClick(View view)
 			{
 				final SweetAlertDialog dialog = new SweetAlertDialog(JigsawActivity.this, SweetAlertDialog.WARNING_TYPE);
-				dialog.setContentText("放弃游戏，不加好友了吗？");
+				dialog.setContentText("放弃游戏吗？");
 				dialog.setConfirmText("确定");
 				dialog.setCancelText("取消");
 				dialog.setCancelClickListener(null);
@@ -305,7 +305,7 @@ public class JigsawActivity extends Activity
 
 		//Toast.makeText(getApplicationContext(),"Congratulations",Toast.LENGTH_SHORT) ;
 		final SweetAlertDialog dialog = new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE);
-		dialog.setContentText("成功完成了对方的游戏，点击确定退出~");
+		dialog.setContentText("成功完成游戏，点击确定退出~");
 		dialog.setConfirmText("确定");
 		dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
 		{

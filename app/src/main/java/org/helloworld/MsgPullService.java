@@ -8,8 +8,6 @@ import android.os.IBinder;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.Message;
 import org.helloworld.tools.WebService;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.ksoap2.serialization.SoapObject;
 
 import java.util.ArrayList;
@@ -43,19 +41,6 @@ public class MsgPullService extends Service
 					for (int i = 0; i < T; i++)
 					{
 						Message m = Message.parse((SoapObject) result.getProperty(i));
-						if (m.fromId.equals("通知"))
-						{
-							try
-							{
-								JSONObject j = new JSONObject(m.text);
-								m.fromId = j.getString("userName");
-								m.text = j.getString("Text");
-							}
-							catch (JSONException e)
-							{
-								e.printStackTrace();
-							}
-						}
 						if (m.fromId.equals("cmd"))
 						{
 							listOfCmd.add(m);

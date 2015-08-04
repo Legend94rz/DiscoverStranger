@@ -41,18 +41,10 @@
                 android:id="@+id/tvToId"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/button3"
-                android:layout_marginLeft="20dp"/>
+                android:layout_marginLeft="20dp"
+                android:text="修改头像"/>
         </RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="修改头像"
-            android:textSize="25dp"
-            android:id="@+id/textView18"
-            android:textColor="#ffffffff"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
     </RelativeLayout>
     <ImageView
         android:layout_width="200dip"

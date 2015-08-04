@@ -21,17 +21,27 @@ public class NotificationAct extends BaseActivity
 {
 	private ListView lvNotification;
 	private NotificationAdapter adapter;
-	private ArrayList<org.helloworld.tools.Message> messages;
+	private static ArrayList<org.helloworld.tools.Message> messages;
 	private History history;
 	public static Handler handler;
+
+	@Override
+	public void finish()
+	{
+		super.finish();
+		//MsgPullService.handlers.remove(handler);
+		handler=null;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_notification);
+		if(messages==null)
+			messages=new ArrayList<>();
 		history = Global.map.get("通知");
-		messages = new ArrayList<>(history.unreadMsg);
+		messages.addAll(history.unreadMsg);
 		history.unreadMsg.clear();
 		initView();
 		handler = new Handler(new Handler.Callback()
@@ -49,6 +59,7 @@ public class NotificationAct extends BaseActivity
 				return true;
 			}
 		});
+		//MsgPullService.handlers.add(handler);
 	}
 
 	private void initView()

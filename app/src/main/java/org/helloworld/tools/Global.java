@@ -51,6 +51,7 @@ public class Global
 	 * @see ContactAdapter
 	 */
 	public static ArrayList<UserInfo> friendList;
+	public static final Boolean[] refreshing =new Boolean[]{ false };	//联系人列表正在刷新
 	/**
 	 * 分块上传 下载的大小
 	 */
@@ -84,7 +85,8 @@ public class Global
 		public static final int W_GOT_HOTKEYLIST = 18;
 		public static final int W_GOT_FRESHES_OLD = 19;
 		public static final int W_GOT_FRESHES_NEW = 20;
-		public static final int W_SET_GAME = 21;
+		public static final int W_DELETEED_FILE = 21;
+		public static final int W_GOT_GAME_LIST = 22;
 	}
 
 	/**
@@ -192,25 +194,26 @@ public class Global
 		settings = new Settings();
 		Gson g = new Gson();
 
-		try
-		{
-			BufferedReader reader1 = new BufferedReader(new FileReader(new File(PATH.Cache, mySelf.username + "contact.txt")));
-			String line = reader1.readLine();
-			while (line != null)
-			{
-				UserInfo u = g.fromJson(line, UserInfo.class);
-				friendList.add(u);
-				map2Friend.put(u.username, u);
-				line = reader1.readLine();
-			}
-		}
-		catch (FileNotFoundException ignored)
-		{
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		//try
+		//{
+		//	BufferedReader reader1 = new BufferedReader(new FileReader(new File(PATH.Cache, mySelf.username + "contact.txt")));
+		//	String line = reader1.readLine();
+		//	while (line != null)
+		//	{
+		//		UserInfo u = g.fromJson(line, UserInfo.class);
+		//		friendList.add(u);
+		//		map2Friend.put(u.username, u);
+		//		line = reader1.readLine();
+		//	}
+		//}
+		//catch (FileNotFoundException ignored)
+		//{
+		//}
+		//catch (IOException e)
+		//{
+		//	e.printStackTrace();
+		//}
+
 		try
 		{
 			BufferedReader reader2 = new BufferedReader(new FileReader(new File(PATH.Cache, mySelf.username + "history.txt")));

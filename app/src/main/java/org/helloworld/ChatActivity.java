@@ -103,9 +103,10 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 	private boolean isLoaded;
 
 	@Override
-	public void goback(View view)
+	public void finish()
 	{
-		super.goback(view);
+		//Todo 测试
+		super.finish();
 		totalRec = -1;
 		history.unreadMsg.clear();
 		MsgPullService.handlers.remove(handler);

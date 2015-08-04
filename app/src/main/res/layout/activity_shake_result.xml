@@ -51,7 +51,8 @@
 		android:layout_below="@+id/relativeLayout7"
 		android:layout_alignParentLeft="true"
 		android:layout_above="@+id/btnClose"
-		android:background="#ffefeff4"/>
+		android:background="#ffefeff4"
+		android:listSelector="@null"/>
 
 	<Button
 		android:layout_width="match_parent"

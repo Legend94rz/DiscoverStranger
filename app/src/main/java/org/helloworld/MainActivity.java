@@ -185,8 +185,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 			{
 				u.Ex_remark = null;
 			}
-			Global.map2Friend.put(incompleteName, u);
-			MainActivity.handler.sendEmptyMessage(Global.MSG_WHAT.W_REFRESH);
+			if(Global.map2Friend.containsKey(incompleteName))
+			{
+				Global.map2Friend.put(incompleteName, u);
+				MainActivity.handler.sendEmptyMessage(Global.MSG_WHAT.W_REFRESH);
+			}
 			return null;
 		}
 
@@ -256,7 +259,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 					{
 						ArrayList<Message> cmds = ((ArrayList<Message>) msg.obj);
 						for (Message m : cmds)
-							CMDParser.Execute(m);
+							CMDParser.getInstant().AddCMD(m);
 					}
 					break;
 					case Global.MSG_WHAT.W_RECEIVED_NEW_MSG:
@@ -269,6 +272,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 							h = Global.map.get(m.fromId);
 							if (h == null)
 								h = new History(m.fromId);
+							if(h.partner.equals("通知"))
+							{
+								try
+								{
+									JSONObject j = new JSONObject(m.text);
+									m.fromId = j.getString("userName");
+									m.text = j.getString("Text");
+								}
+								catch (JSONException e)
+								{
+									e.printStackTrace();
+								}
+							}
 							h.unreadMsg.add(m);
 							h.lastHistoryMsg = m;
 							Global.map.put(h.partner, h);
@@ -287,9 +303,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 							{
 								JSONObject userInfo = array.getJSONObject(i);
 								UserInfo friend = new UserInfo(userInfo.getString("name"));
-								Global.map2Friend.put(userInfo.getString("name"), friend);
+								Global.map2Friend.put(friend.username, friend);
 								new parserWithExtraAsync(friend.username, userInfo).execute();
 							}
+							//Todo 同步会话与联系人
 						}
 						catch (NullPointerException | ArrayIndexOutOfBoundsException ignored)
 						{
@@ -297,6 +314,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 						catch (JSONException e)
 						{
 							e.printStackTrace();
+						}
+						synchronized (Global.refreshing)
+						{
+							Global.refreshing[0] = false;
+							Global.refreshing.notify();
 						}
 						break;
 					case Global.MSG_WHAT.W_ERROR_NETWORK:
@@ -322,16 +344,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		//更新用户配置
 		new WebTask(handler, Global.MSG_WHAT.W_GOT_USER_SETTING).execute("getUserSetting", 1, "username", Global.mySelf.username);
 		//修改用户信息按钮
-		ivSetting = (ImageView) findViewById(R.id.ivSettingImg);
-		ivSetting.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				Intent intent = new Intent(MainActivity.this, Alter.class);
-				startActivity(intent);
-			}
-		});
+		//ivSetting = (ImageView) findViewById(R.id.ivSettingImg);
+		//ivSetting.setOnClickListener(new View.OnClickListener()
+		//{
+		//	@Override
+		//	public void onClick(View v)
+		//	{
+		//		Intent intent = new Intent(MainActivity.this, Alter.class);
+		//		startActivity(intent);
+		//	}
+		//});
 		soundPool = new SoundPool(3, AudioManager.STREAM_ALARM, 0);
 		soundId = soundPool.load(this, R.raw.msg, 1);
 		soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener()
@@ -480,12 +502,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 				Intent I;
 				switch (i)
 				{
-					case 0:
-						I = new Intent(MainActivity.this, ShakeActivity.class);
+					case 0:	//编辑资料
+						I = new Intent(MainActivity.this, Alter.class);
 						startActivity(I);
 						break;
 					case 1:
-						I = new Intent(MainActivity.this, NearbyStrangerAct.class);
+						I = new Intent(MainActivity.this, SettingAct.class);
 						startActivity(I);
 						break;
 					case 2:
@@ -520,12 +542,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 	{
 		List<HashMap<String, Object>> data = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("icon", R.drawable.find_more_friend_shake);
-		map.put("desc", "摇一摇");
+		map.put("icon", R.drawable.user);
+		map.put("desc", "编辑个人资料");
 		data.add(map);
 		map = new HashMap<String, Object>();
-		map.put("icon", R.drawable.find_more_friend_near_icon);
-		map.put("desc", "附近的人");
+		map.put("icon", R.drawable.settings);
+		map.put("desc", "设置");
 		data.add(map);
 		map = new HashMap<String, Object>();
 		map.put("icon", R.drawable.exit);
@@ -552,6 +574,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
 	void FlushState()
 	{
+		synchronized (Global.refreshing)
+		{
+			Global.refreshing[0] = true;
+		}
 		RefreshMyInfo();
 		new WebTask(MainActivity.handler, Global.MSG_WHAT.W_GOT_FRIENDS_LIST).execute("getFriends", 1, "name", Global.mySelf.username);
 	}
@@ -593,23 +619,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		Gson g = new Gson();
 		File path = new File(Global.PATH.Cache);
 		FileUtils.mkDir(path);
-		String contactfile = Global.mySelf.username + "contact.txt";
+		//String contactfile = Global.mySelf.username + "contact.txt";
 		String historyfile = Global.mySelf.username + "history.txt";
 		//把Global.friendList挨个保存
-		try
-		{
-			BufferedWriter writer1 = new BufferedWriter(new FileWriter(new File(path, contactfile)));
-			for (UserInfo u : Global.friendList)
-			{
-				writer1.write(g.toJson(u));
-				writer1.newLine();
-			}
-			writer1.close();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		//try
+		//{
+		//	BufferedWriter writer1 = new BufferedWriter(new FileWriter(new File(path, contactfile)));
+		//	for (UserInfo u : Global.friendList)
+		//	{
+		//		writer1.write(g.toJson(u));
+		//		writer1.newLine();
+		//	}
+		//	writer1.close();
+		//}
+		//catch (IOException e)
+		//{
+		//	e.printStackTrace();
+		//}
 		//把Global.historyList中不是系统Id的保存
 		try
 		{
@@ -682,11 +708,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		startActivity(I);
 	}
 
-	public void llSettings_Click(View view)
-	{
-		Intent I = new Intent(this, SettingAct.class);
-		startActivity(I);
-	}
+	//public void llSettings_Click(View view)
+	//{
+	//	Intent I = new Intent(this, SettingAct.class);
+	//	startActivity(I);
+	//}
 
 	//按两次退出主界面
 	private long exitTime = 0;

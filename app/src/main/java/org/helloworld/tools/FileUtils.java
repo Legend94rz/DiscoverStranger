@@ -77,7 +77,7 @@ public class FileUtils
 		}
 	}
 
-	private static int getImageScale(Context context, String imagePath, int restrictSize)
+	private static int getImageScale(String imagePath, int restrictSize)
 	{
 		BitmapFactory.Options option = new BitmapFactory.Options();
 		// set inJustDecodeBounds to true, allowing the caller to query the bitmap info without having to allocate the
@@ -106,7 +106,7 @@ public class FileUtils
 		opt.inPurgeable = true;
 		opt.inInputShareable = true;
 		if (restrictSize > 0)
-			opt.inSampleSize = getImageScale(context, filePath, restrictSize);
+			opt.inSampleSize = getImageScale(filePath, restrictSize);
 		return BitmapFactory.decodeFile(filePath, opt);
 	}
 

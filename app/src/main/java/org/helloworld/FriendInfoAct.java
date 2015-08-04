@@ -25,7 +25,6 @@ import org.json.JSONObject;
 import org.ksoap2.serialization.SoapObject;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -81,10 +80,6 @@ public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 					catch (NullPointerException ignored)
 					{
 					}
-					catch (FileNotFoundException e)
-					{
-						e.printStackTrace();
-					}
 					catch (IOException e)
 					{
 						e.printStackTrace();
@@ -117,8 +112,8 @@ public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 		tvNickName.setText(friend.nickName);
 		if (friend.Ex_remark != null && !friend.Ex_remark.equals(""))
 			tvRemark.setText(friend.Ex_remark);
-/*		else
-			tvRemark.setVisibility(View.GONE);*/
+		if(friend.birthday.getYear()>1900)
+			tvAge.setText(String.format("%s",friend.getAge()));
 	}
 
 	@Override

@@ -43,7 +43,8 @@
 				android:id="@+id/tvToId"
 				android:layout_centerVertical="true"
 				android:layout_toRightOf="@+id/button3"
-				android:layout_marginLeft="20dp"/>
+				android:layout_marginLeft="20dp"
+				android:text="编辑个人资料"/>
 		</RelativeLayout>
 	</RelativeLayout>
 
@@ -60,17 +61,18 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:id="@+id/linearLayout_AlterPassword"
-		android:background="@color/white"
+		android:background="@drawable/img_btn_mask"
 		android:layout_below="@+id/linearLayout_AlterBasicInfo"
 		android:layout_alignParentLeft="true"
-		android:layout_alignParentStart="true">
+		android:layout_alignParentStart="true"
+		android:clickable="true">
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="修改密码"
 			android:id="@+id/textView3"
-			android:textSize="25dp"
+			android:textSize="16sp"
 			android:layout_margin="15dp"/>
 	</LinearLayout>
 
@@ -79,7 +81,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:id="@+id/linearLayout_AlterAvatar"
-		android:background="@color/white"
+		android:background="@drawable/img_btn_mask"
 		android:layout_below="@+id/linearLayout_AlterPassword"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentStart="true">
@@ -89,7 +91,7 @@
 			android:layout_height="wrap_content"
 			android:text="修改头像"
 			android:id="@+id/textView4"
-			android:textSize="25dp"
+			android:textSize="16sp"
 			android:layout_margin="15dp"/>
 	</LinearLayout>
 
@@ -98,17 +100,18 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:id="@+id/linearLayout_AlterBasicInfo"
-		android:background="@color/white"
+		android:background="@drawable/img_btn_mask"
 		android:layout_below="@+id/relativeLayout2"
 		android:layout_alignParentLeft="true"
-		android:layout_alignParentStart="true">
+		android:layout_alignParentStart="true"
+		android:clickable="true">
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="修改基本资料"
 			android:id="@+id/textView2"
-			android:textSize="25dp"
+			android:textSize="16sp"
 			android:layout_margin="15dp"/>
 	</LinearLayout>
 </RelativeLayout>

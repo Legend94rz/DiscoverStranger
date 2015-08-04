@@ -8,8 +8,9 @@
 
 	<RelativeLayout
 		android:layout_width="300dp"
-		android:layout_height="220dp"
-		android:background="@drawable/navigation_bg">
+		android:layout_height="160dp"
+		android:background="@drawable/navigation_bg"
+		>
 
 		<ImageView
 			android:layout_width="48dp"
@@ -18,17 +19,8 @@
 			android:layout_marginLeft="30dp"
 			android:layout_marginTop="30dp"
 			android:layout_alignParentTop="true"
-			android:layout_alignParentLeft="true"/>
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/ivSettingImg"
-            android:src="@drawable/settings"
-            android:layout_alignTop="@+id/ivHeadImg"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="26dp"
-            android:layout_marginEnd="26dp" />
+			android:layout_alignParentLeft="true"
+			android:background="@drawable/img_btn_mask"/>
 
 		<TextView
 			android:layout_width="wrap_content"
@@ -48,6 +40,9 @@
 		android:id="@+id/lvDrawerMenu"
 		android:fastScrollAlwaysVisible="false"
 		android:smoothScrollbar="true"
+		android:divider="@null"
+		android:longClickable="false"
+		android:listSelector="@drawable/img_btn_mask"
 		/>
 
 </LinearLayout>

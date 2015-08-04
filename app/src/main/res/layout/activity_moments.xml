@@ -29,7 +29,7 @@
 		android:layout_height="55dp"
 		android:layout_alignParentLeft="true"
 		android:background="#933030ff"
-		android:clickable="false"
+		android:clickable="true"
 		android:gravity="center_vertical">
 
 		<RelativeLayout

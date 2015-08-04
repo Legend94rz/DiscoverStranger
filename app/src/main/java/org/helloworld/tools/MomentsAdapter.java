@@ -87,6 +87,8 @@ public class MomentsAdapter extends BaseAdapter implements AbsListView.OnScrollL
 			h = (H) view.getTag();
 		h.tvTime.setText(Global.getShowDate(fresh.time));
 		h.tvTag.setText(fresh.tag);
+		if(fresh.tag.equals(""))
+			h.tvTag.setVisibility(View.GONE);
 		if (fresh.tag.length() == 0)
 			h.tvTag.setVisibility(View.GONE);
 		else

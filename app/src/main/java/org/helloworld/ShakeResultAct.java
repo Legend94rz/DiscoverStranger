@@ -98,10 +98,10 @@ public class ShakeResultAct extends BaseActivity
 				switch (message.what)
 				{
 					case Global.MSG_WHAT.W_SENDED_REQUEST:
-						NearbyStrangerAct.DealSendRequestResult(ShakeResultAct.this, message);
+						NearbyStrangerAct.DealSendRequestResult(ShakeResultAct.this,handler, message);
 						break;
 					case Global.MSG_WHAT.W_GOT_USER_SETTING:
-						NearbyStrangerAct.DealGetSettingResult(ShakeResultAct.this, message);
+						NearbyStrangerAct.DealGetSettingResult(ShakeResultAct.this,handler, message);
 						break;
 					case Global.MSG_WHAT.W_DOWNLOADED_A_FILE:
 						NearbyStrangerAct.DealDownloadGame(ShakeResultAct.this, message);

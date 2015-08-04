@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 
 public class SetChatBackground extends BaseActivity
 {
@@ -20,8 +22,7 @@ public class SetChatBackground extends BaseActivity
 	private GridView gView;
 	private List<Map<String, Object>> data_list;
 	private SimpleAdapter sim_adapter;
-	//Todo 测试
-	private int[] background = {0,R.drawable.background1, R.drawable.background2};
+	private int[] background = {R.drawable.background_blank,R.drawable.background1, R.drawable.background2};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -30,7 +31,7 @@ public class SetChatBackground extends BaseActivity
 		setContentView(R.layout.activity_set_chat_background);
 		gView = (GridView) findViewById(R.id.gridView2);
 
-		data_list = new ArrayList<Map<String, Object>>();
+		data_list = new ArrayList<>();
 
 		getData();
 
@@ -44,20 +45,28 @@ public class SetChatBackground extends BaseActivity
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 			{
 				Global.settings.background = background[position];
+				SweetAlertDialog dialog=new SweetAlertDialog(SetChatBackground.this);
+				dialog.setTitleText("提示").setContentText("设置成功").setConfirmText("确定").setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
+				{
+					@Override
+					public void onClick(SweetAlertDialog sweetAlertDialog)
+					{
+						sweetAlertDialog.dismiss();
+						finish();
+					}
+				}).show();
 			}
 		});
 	}
 
 	public List<Map<String, Object>> getData()
 	{
-
 		for (int i = 0; i < background.length; i++)
 		{
-			Map<String, Object> map = new HashMap<String, Object>();
+			Map<String, Object> map = new HashMap<>();
 			map.put("image", background[i]);
 			data_list.add(map);
 		}
 		return data_list;
 	}
-
 }

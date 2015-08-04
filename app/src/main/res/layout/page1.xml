@@ -13,7 +13,8 @@
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
 			android:layout_alignParentLeft="true"
-			android:layout_alignParentTop="true"/>
+			android:layout_alignParentTop="true"
+			android:listSelector="@drawable/img_btn_mask"/>
 	</android.support.v4.widget.SwipeRefreshLayout>
 
 	<TextView

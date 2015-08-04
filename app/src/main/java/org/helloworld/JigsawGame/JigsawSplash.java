@@ -17,7 +17,7 @@ public class JigsawSplash extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_game2);
+		setContentView(R.layout.activity_jigsaw_splash);
 		strangerName = getIntent().getStringExtra("strangerName");
 		Button Btn = (Button) findViewById(R.id.button);
 		Btn.setOnClickListener(new View.OnClickListener()
@@ -32,6 +32,8 @@ public class JigsawSplash extends Activity
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
+		if(strangerName!=null)
+			data.putExtra("strangerName", strangerName);
 		data.putExtra("strangerName", strangerName);
 		setResult(RESULT_OK, data);
 		finish();

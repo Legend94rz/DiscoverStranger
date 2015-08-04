@@ -39,7 +39,9 @@ public class Fresh
 		fresh.id = Integer.parseInt(soapObject.getPropertyAsString("id"));
 		fresh.username = soapObject.getPropertyAsString("username");
 		fresh.text = soapObject.getPropertyAsString("text");
-		fresh.tag = soapObject.getPropertyAsString("tag");
+		fresh.tag = soapObject.getProperty("tag").toString();
+		if(fresh.tag.equals("anyType{}"))
+			fresh.tag="";
 		try
 		{
 			fresh.picName = new Gson().fromJson(soapObject.getPropertyAsString("pics"), new TypeToken<ArrayList<String>>()
