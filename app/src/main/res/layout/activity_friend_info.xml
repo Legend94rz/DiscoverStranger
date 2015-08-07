@@ -57,13 +57,11 @@
 
 			</RelativeLayout>
 
-			<LinearLayout
-				android:orientation="horizontal"
-				android:layout_width="match_parent"
-				android:layout_height="0.5dp"
-				android:background="#ff000000"
-				android:id="@+id/linearLayout3"
-				/>
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="1px"
+				android:background="@color/lightgray"
+				android:id="@+id/textView40"/>
 
 			<LinearLayout
 				android:orientation="horizontal"
@@ -91,14 +89,11 @@
 
 			</LinearLayout>
 
-			<LinearLayout
-				android:orientation="horizontal"
-				android:layout_width="match_parent"
-				android:layout_height="0.5dp"
-				android:background="#ff000000"
-				android:id="@+id/linearLayout4"
-				>
-			</LinearLayout>
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="1px"
+				android:background="@color/lightgray"
+				android:id="@+id/textView41"/>
 
 			<LinearLayout
 				android:orientation="horizontal"
@@ -124,13 +119,11 @@
 
 			</LinearLayout>
 
-			<LinearLayout
-				android:orientation="horizontal"
-				android:layout_width="match_parent"
-				android:layout_height="0.5dp"
-				android:background="#ff000000"
-				android:id="@+id/linearLayout5"
-				/>
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="1px"
+				android:background="@color/lightgray"
+				android:id="@+id/textView42"/>
 
 			<LinearLayout
 				android:orientation="horizontal"
@@ -155,6 +148,12 @@
 					android:layout_margin="15dp"
 					android:text="未填写"/>
 			</LinearLayout>
+
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="1px"
+				android:background="@color/lightgray"
+				android:id="@+id/textView43"/>
 
 			<Button
 				android:layout_width="match_parent"

@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -101,6 +102,10 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 	private static final int PAGE_SIZE = 5;
 	private Map<String, Marker> map2Marker;
 
+	int selTab;
+	LinearLayout llTabhost;
+	LinearLayout[] tabs;
+
 	@Override
 	public boolean onMarkerClick(Marker marker)
 	{
@@ -158,16 +163,19 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 
 	public void setCursorPos(int position)
 	{
-		if (position < 0 || position > 1) return;
+		if (position < 0 || position > llTabhost.getChildCount() || position==selTab) return;
+		tabs[position].setEnabled(false);
+		tabs[selTab].setEnabled(true);
+		selTab=position;
 		if (position == 0)
 		{
-			tvMap.setTextColor(getResources().getColor(R.color.green));
-			tvList.setTextColor(getResources().getColor(R.color.black));
+			tvMap.setTextColor(0xff228B22);
+			tvList.setTextColor(Color.BLACK);
 		}
 		else
 		{
-			tvMap.setTextColor(getResources().getColor(R.color.black));
-			tvList.setTextColor(getResources().getColor(R.color.green));
+			tvMap.setTextColor(Color.BLACK);
+			tvList.setTextColor(0xff228B22);
 		}
 	}
 
@@ -290,12 +298,28 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 		pager.setAdapter(viewPagerAdapter);
 		pager.setCurrentItem(0);
 		pager.setOnPageChangeListener(this);
+
+		llTabhost = (LinearLayout) findViewById(R.id.llTabhost);
+		tabs=new LinearLayout[llTabhost.getChildCount()];
+		for(int i=0;i<tabs.length;i++)
+		{
+			tabs[i]= (LinearLayout) llTabhost.getChildAt(i);
+			tabs[i].setEnabled(true);
+			tabs[i].setTag(i);
+			tabs[i].setOnClickListener(this);
+		}
+		selTab=0;
+		tabs[selTab].setEnabled(false);
 		tvMap = (TextView) findViewById(R.id.tvMap);
-		tvMap.setTag(0);
-		tvMap.setOnClickListener(this);
 		tvList = (TextView) findViewById(R.id.tvList);
-		tvList.setTag(1);
-		tvList.setOnClickListener(this);
+
+		//{
+		//llTabhost.setOnClickListener(this);
+		//tvList.setOnClickListener(this);
+		//tvList.setTag(1);
+		//tvMap.setOnClickListener(this);
+		//tvMap.setTag(0);
+		//}
 
 		mMapView = (MapView) v1.findViewById(R.id.bmapView);
 		map = mMapView.getMap();

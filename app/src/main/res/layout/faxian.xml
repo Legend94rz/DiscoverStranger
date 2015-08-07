@@ -40,7 +40,7 @@
 
 	<TextView
 		android:layout_width="fill_parent"
-		android:layout_height="1.5dp"
+		android:layout_height="1px"
 		android:background="@color/lightgray"
 		android:id="@+id/textView16"/>
 
@@ -74,7 +74,7 @@
 
 	<TextView
 		android:layout_width="fill_parent"
-		android:layout_height="1.5dp"
+		android:layout_height="1px"
 		android:background="@color/lightgray"
 		android:id="@+id/textView"/>
 
@@ -105,6 +105,12 @@
 			android:gravity="center"
 			android:textColor="@color/black"/>
 	</LinearLayout>
+
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="1px"
+		android:background="@color/lightgray"
+		android:id="@+id/textView33"/>
 
 </LinearLayout>
 </LinearLayout>

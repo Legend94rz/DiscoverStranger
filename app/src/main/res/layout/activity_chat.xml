@@ -7,14 +7,42 @@
 	android:background="#f3f7f8"
 	android:animateLayoutChanges="true">
 
+	<android.support.v4.widget.SwipeRefreshLayout
+		android:id="@+id/swipeRefresh"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/rl_bottom"
+		android:layout_below="@+id/relativeLayout2"
+        android:background="#ffff939c">
+
+		<ListView
+			android:id="@+id/lvChatMsg"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:cacheColorHint="#0000"
+			android:divider="@null"
+			android:scrollbarStyle="outsideOverlay"
+			android:stackFromBottom="false"
+			android:background="#ffefeff4"
+			android:clipToPadding="false"
+			android:scrollingCache="true"
+			android:transcriptMode="normal"
+			android:listSelector="@null"/>
+	</android.support.v4.widget.SwipeRefreshLayout>
+
+
 	<RelativeLayout
 		android:id="@+id/relativeLayout2"
 		android:layout_width="fill_parent"
-		android:layout_height="55dp"
+		android:layout_height="67dp"
 		android:layout_alignParentLeft="true"
-		android:background="@color/actionbar_bg"
+		android:background="@drawable/actionbar_bg"
 		android:clickable="false"
-		android:gravity="center_vertical">
+		android:gravity="center_vertical"
+		android:layout_marginBottom="-8dp"
+		android:layout_marginLeft="-8dp"
+		android:layout_marginRight="-8dp"
+		android:layout_marginTop="-2dp">
 
 		<RelativeLayout
 			android:layout_width="wrap_content"
@@ -22,7 +50,7 @@
 			android:background="@drawable/img_btn_mask"
 			android:clickable="true"
 			android:onClick="goback"
-			android:paddingRight="15dp">
+			>
 
 			<TextView
 				android:id="@+id/button3"
@@ -48,31 +76,6 @@
 				android:textSize="20sp"/>
 		</RelativeLayout>
 	</RelativeLayout>
-
-	<android.support.v4.widget.SwipeRefreshLayout
-		android:id="@+id/swipeRefresh"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_above="@+id/rl_bottom"
-		android:layout_below="@+id/relativeLayout2"
-        android:background="#ffff939c">
-
-		<ListView
-			android:id="@+id/lvChatMsg"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			android:cacheColorHint="#0000"
-			android:divider="@null"
-			android:dividerHeight="5dp"
-			android:scrollbarStyle="outsideOverlay"
-			android:stackFromBottom="false"
-			android:background="#ffefeff4"
-			android:clipToPadding="false"
-			android:scrollingCache="true"
-			android:transcriptMode="normal"
-			android:listSelector="@null"/>
-	</android.support.v4.widget.SwipeRefreshLayout>
-
 
 	<LinearLayout
 		android:id="@+id/rl_bottom"

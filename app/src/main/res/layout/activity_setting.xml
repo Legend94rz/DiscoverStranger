@@ -18,13 +18,14 @@
 			android:id="@+id/linearLayout15">
 
 			<LinearLayout
-				android:orientation="horizontal"
+				android:orientation="vertical"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:id="@+id/linearLayout_MyGame"
 				android:layout_below="@+id/relativeLayout2"
 				android:layout_alignParentLeft="true"
-				android:layout_alignParentStart="true">
+				android:layout_alignParentStart="true"
+				android:background="@drawable/img_btn_mask">
 
 				<TextView
 					android:layout_width="wrap_content"
@@ -33,17 +34,24 @@
 					android:id="@+id/textView4"
 					android:textSize="16sp"
 					android:layout_margin="15dp"/>
+
 			</LinearLayout>
 
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="1px"
+				android:background="@color/lightgray"
+				android:id="@+id/textView34"/>
+
 			<LinearLayout
-				android:orientation="horizontal"
+				android:orientation="vertical"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:id="@+id/linearLayout_ChatBackground"
-				android:background="@color/white"
 				android:layout_below="@+id/linearLayout_Sound"
 				android:layout_alignParentLeft="true"
-				android:layout_alignParentStart="true">
+				android:layout_alignParentStart="true"
+				android:background="@drawable/img_btn_mask">
 
 				<TextView
 					android:layout_width="wrap_content"
@@ -52,14 +60,20 @@
 					android:id="@+id/textView2"
 					android:textSize="16sp"
 					android:layout_margin="15dp"/>
+
 			</LinearLayout>
+
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="1px"
+				android:background="@color/lightgray"
+				android:id="@+id/textView35"/>
 
 			<RelativeLayout
 				android:orientation="horizontal"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:id="@+id/linearLayout_Vibrate"
-				android:background="@color/white"
 				android:layout_below="@+id/linearLayout_MyGame"
 				android:layout_alignParentLeft="true"
 				android:layout_alignParentStart="true"
@@ -91,12 +105,17 @@
 
 			</RelativeLayout>
 
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="1px"
+				android:background="@color/lightgray"
+				android:id="@+id/textView36"/>
+
 			<RelativeLayout
 				android:orientation="horizontal"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:id="@+id/linearLayout_Sound"
-				android:background="@color/white"
 				android:weightSum="1"
 				android:layout_below="@+id/linearLayout_Vibrate"
 				android:layout_alignParentLeft="true"
@@ -129,15 +148,21 @@
 
 			</RelativeLayout>
 
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="1px"
+				android:background="@color/lightgray"
+				android:id="@+id/textView37"/>
+
 			<LinearLayout
-				android:orientation="horizontal"
+				android:orientation="vertical"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:id="@+id/linearLayout_DeleteCache"
-				android:background="@color/white"
 				android:layout_below="@+id/linearLayout_ChatBackground"
 				android:layout_alignParentLeft="true"
-				android:layout_alignParentStart="true">
+				android:layout_alignParentStart="true"
+				android:background="@drawable/img_btn_mask">
 
 				<TextView
 					android:layout_width="wrap_content"
@@ -149,17 +174,27 @@
 					android:textIsSelectable="false"/>
 			</LinearLayout>
 
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="1px"
+				android:background="@color/lightgray"
+				android:id="@+id/textView38"/>
+
 		</LinearLayout>
     </ScrollView>
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="55dp"
-        android:background="@color/actionbar_bg"
+        android:layout_height="67dp"
+        android:background="@drawable/actionbar_bg"
         android:gravity="center_vertical"
         android:layout_alignParentLeft="true"
         android:id="@+id/relativeLayout2"
-        android:clickable="false">
+        android:clickable="false"
+		android:layout_marginLeft="-8dp"
+		android:layout_marginRight="-8dp"
+		android:layout_marginBottom="-8dp"
+		android:layout_marginTop="-2dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"

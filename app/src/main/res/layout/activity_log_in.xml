@@ -8,11 +8,15 @@
 				android:background="@color/azure">
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="55dp"
-        android:background="@color/actionbar_bg"
+        android:layout_height="67dp"
+        android:background="@drawable/actionbar_bg"
         android:gravity="center_vertical"
         android:layout_alignParentLeft="true"
-        android:id="@+id/relativeLayout2">
+        android:id="@+id/relativeLayout2"
+		android:layout_marginLeft="-8dp"
+		android:layout_marginRight="-8dp"
+		android:layout_marginBottom="-8dp"
+		android:layout_marginTop="-2dp">
 
 
 
@@ -62,9 +66,10 @@
 		android:layout_marginLeft="15dp"
 		android:layout_marginRight="15dp"
 		android:layout_marginTop="5dp"
-		android:background="@drawable/main_btn"
+		android:background="@drawable/btn_rect_blue"
 		android:textColor="@color/white"
-		android:textSize="20sp"/>
+		android:textSize="20sp"
+		/>
 
 	<TextView
 		android:layout_width="wrap_content"
@@ -83,7 +88,8 @@
 		android:enabled="true"
 		android:autoText="false"
 		android:background="@drawable/img_btn_mask"
-		android:gravity="center"/>
+		android:gravity="center"
+		/>
 
 	<ProgressBar
 		android:layout_width="wrap_content"

@@ -26,7 +26,8 @@
 			android:layout_alignParentLeft="true"
 			android:layout_alignParentTop="true"
 			android:visibility="visible"
-			android:listSelector="@drawable/img_btn_mask"/>
+			android:listSelector="@drawable/img_btn_mask"
+			android:divider="@null"/>
 	</android.support.v4.widget.SwipeRefreshLayout>
 
 

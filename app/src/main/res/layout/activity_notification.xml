@@ -5,13 +5,27 @@
 				tools:context="org.helloworld.NotificationAct"
 				android:background="#ffefeff4">
 
+	<ListView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/lvNotification"
+		android:layout_below="@+id/relativeLayout6"
+		android:layout_alignParentLeft="true"
+		android:background="#ffefeff4"
+		android:divider="@null"
+		android:listSelector="@null"/>
+
 	<RelativeLayout
 		android:layout_width="fill_parent"
-		android:layout_height="55dp"
-		android:background="@color/actionbar_bg"
+		android:layout_height="67dp"
+		android:background="@drawable/actionbar_bg"
 		android:gravity="center_vertical"
 		android:layout_alignParentLeft="true"
-		android:id="@+id/relativeLayout6">
+		android:id="@+id/relativeLayout6"
+		android:layout_marginLeft="-8dp"
+		android:layout_marginRight="-8dp"
+		android:layout_marginBottom="-8dp"
+		android:layout_marginTop="-2dp">
 
 		<LinearLayout
 			android:orientation="horizontal"
@@ -46,13 +60,4 @@
 		</LinearLayout>
 	</RelativeLayout>
 
-	<ListView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/lvNotification"
-		android:layout_below="@+id/relativeLayout6"
-		android:layout_alignParentLeft="true"
-		android:background="#ffefeff4"
-		android:divider="@null"
-		android:listSelector="@null"/>
 </RelativeLayout>

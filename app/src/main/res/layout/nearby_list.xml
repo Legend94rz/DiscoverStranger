@@ -8,5 +8,6 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:id="@+id/lvStrangers"
-		android:listSelector="@drawable/img_btn_mask"/>
+		android:listSelector="@drawable/img_btn_mask"
+		android:divider="@null"/>
 </LinearLayout>

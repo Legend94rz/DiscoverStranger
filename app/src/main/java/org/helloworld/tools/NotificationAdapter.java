@@ -53,7 +53,7 @@ public class NotificationAdapter extends BaseAdapter
 		if (view == null)
 		{
 			h = new H();
-			view = LayoutInflater.from(context).inflate(R.layout.notification_item, viewGroup, false);
+			view = LayoutInflater.from(context).inflate(R.layout.item_notification, viewGroup, false);
 			h.ivHeadImg = (ImageView) view.findViewById(R.id.ivHeadImg);
 			h.tvHint = (TextView) view.findViewById(R.id.tvHint);
 			h.tvTime = (TextView) view.findViewById(R.id.tvTime);

@@ -1,16 +1,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.helloworld.SetMyGame">
+    tools:context="org.helloworld.SetMyGame"
+    >
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="55dp"
-        android:background="@color/actionbar_bg"
+        android:layout_height="67dp"
+        android:background="@drawable/actionbar_bg"
         android:gravity="center_vertical"
         android:layout_alignParentLeft="true"
         android:id="@+id/relativeLayou"
-        android:clickable="false">
+        android:clickable="false"
+        android:layout_marginLeft="-8dp"
+        android:layout_marginRight="-8dp"
+        android:layout_marginBottom="-12dp"
+        android:layout_marginTop="-2dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -56,7 +61,8 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView26"
         android:columnWidth="150dp"
-        android:layout_above="@+id/linearLayout16"/>
+        android:layout_above="@+id/linearLayout16"
+        android:listSelector="@drawable/img_btn_mask"/>
 
     <TextView
 		android:layout_width="wrap_content"
@@ -66,7 +72,8 @@
 		android:padding="5dp"
         android:layout_below="@+id/relativeLayou"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"/>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -87,7 +94,7 @@
 			android:layout_alignParentEnd="true"
             android:layout_weight="1"
             android:textSize="16dp"
-            android:background="@drawable/deletebtn"
+            android:background="@drawable/btn_rect_white"
             android:layout_margin="3dp"/>
 
         <Button
@@ -99,7 +106,7 @@
 			android:layout_alignParentLeft="true"
 			android:layout_alignParentStart="true"
             android:layout_weight="1"
-            android:background="@drawable/main_btn"
+            android:background="@drawable/btn_rect_blue"
             android:textColor="@color/white"
             android:textSize="16dp"
             android:layout_margin="3dp"/>

@@ -55,11 +55,11 @@
 			android:background="@drawable/bg_editbox"
 			android:padding="8dp"
 			android:layout_alignParentLeft="true"
-			android:layout_marginLeft="0dp"
 			android:layout_alignParentTop="true"
-			android:layout_marginTop="0dp"
 			android:layout_toLeftOf="@+id/btnOK"
-			android:layout_toStartOf="@+id/btnOK"/>
+			android:layout_toStartOf="@+id/btnOK"
+			android:layout_marginRight="8dp"
+			android:layout_marginLeft="8dp"/>
 
 		<Button
 			android:layout_width="wrap_content"
@@ -67,13 +67,14 @@
 			android:text="取消"
 			android:id="@+id/btnOK"
 			android:layout_weight="1"
-			android:background="@drawable/main_btn"
+			android:background="@drawable/btn_rect_blue"
 			android:textColor="@color/white"
 			android:layout_alignParentTop="true"
 			android:layout_alignParentRight="true"
 			android:layout_alignParentEnd="true"
 			android:paddingLeft="16dp"
-			android:paddingRight="16dp"/>
+			android:paddingRight="16dp"
+			/>
 	</RelativeLayout>
 
 </LinearLayout>

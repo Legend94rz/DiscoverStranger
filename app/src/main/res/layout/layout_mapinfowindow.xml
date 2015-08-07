@@ -24,7 +24,7 @@
 			android:layout_width="48dp"
 			android:layout_height="48dp"
 			android:id="@+id/ivHeadImg"
-			android:src="@drawable/brand_default_head"
+			android:src="@drawable/nohead"
 			android:scaleType="fitCenter"/>
 
 		<RelativeLayout

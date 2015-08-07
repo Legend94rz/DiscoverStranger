@@ -7,14 +7,70 @@
 				android:rowCount="2">
 
 
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/relativeLayout9"
+		android:layout_centerHorizontal="true"
+		android:id="@+id/llTabhost"
+		android:background="#F5F5F5">
+
+
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:gravity="center"
+			android:background="@drawable/guide_round"
+			android:clickable="true">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="地图"
+				android:id="@+id/tvMap"
+				android:textSize="15sp"
+				android:padding="10dp"
+				android:gravity="center"
+				android:textColor="@color/green"
+				android:clickable="false"/>
+		</LinearLayout>
+
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:gravity="center"
+			android:background="@drawable/guide_round"
+			android:clickable="true">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="列表"
+				android:id="@+id/tvList"
+				android:padding="10dp"
+				android:gravity="center"
+				android:clickable="false"/>
+		</LinearLayout>
+
+	</LinearLayout>
+
 	<RelativeLayout
 		android:layout_width="fill_parent"
-		android:layout_height="55dp"
-		android:background="@color/actionbar_bg"
+		android:layout_height="67dp"
+		android:background="@drawable/actionbar_bg"
 		android:gravity="center_vertical"
 		android:layout_alignParentLeft="true"
 		android:id="@+id/relativeLayout9"
-		android:clickable="false">
+		android:clickable="false"
+		android:layout_marginLeft="-8dp"
+		android:layout_marginRight="-8dp"
+		android:layout_marginBottom="-8dp"
+		android:layout_marginTop="-2dp">
 
 		<RelativeLayout
 			android:layout_width="wrap_content"
@@ -22,7 +78,8 @@
 			android:onClick="goback"
 			android:clickable="true"
 			android:background="@drawable/img_btn_mask"
-			android:paddingRight="15dp">
+			android:paddingRight="15dp"
+			android:layout_centerVertical="true">
 
 			<TextView
 				android:layout_width="25dp"
@@ -54,51 +111,18 @@
 			android:id="@+id/ibHome"
 			android:src="@drawable/target"
 			android:background="@drawable/img_btn_mask"
-			android:layout_alignParentTop="true"
+			android:layout_centerVertical="true"
 			android:layout_alignParentRight="true"
 			android:layout_alignParentEnd="true"/>
 
 	</RelativeLayout>
-
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/relativeLayout9"
-		android:layout_centerHorizontal="true"
-		android:id="@+id/linearLayout12"
-		android:background="#F5F5F5">
-
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="地图"
-			android:id="@+id/tvMap"
-			android:layout_weight="1"
-			android:textSize="15sp"
-			android:padding="10dp"
-			android:gravity="center"
-			android:textColor="@color/green"
-			android:clickable="true"/>
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="列表"
-			android:id="@+id/tvList"
-			android:layout_weight="1"
-			android:padding="10dp"
-			android:gravity="center"
-			android:clickable="true"/>
-	</LinearLayout>
 
 	<view
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		class="org.helloworld.tools.noTouchPager"
 		android:id="@+id/viewpager"
-		android:layout_below="@+id/linearLayout12"
+		android:layout_below="@+id/llTabhost"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentStart="true"/>
 

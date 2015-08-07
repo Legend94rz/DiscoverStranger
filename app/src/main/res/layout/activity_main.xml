@@ -12,22 +12,128 @@
 		android:background="@color/white">
 
 		<LinearLayout
-			android:id="@+id/llayout"
+			android:orientation="horizontal"
+			android:background="#F5F5F5"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_alignParentTop="true"
-			android:orientation="vertical">
+			android:id="@+id/lllayout"
+			android:baselineAligned="false"
+			android:layout_below="@+id/relativeLayout15"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true">
 
-			<include layout="@layout/top1"/>
+			<LinearLayout
+				android:orientation="vertical"
+				android:layout_weight="1"
+				android:gravity="center"
+				android:background="@drawable/guide_round"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
 
-			<include layout="@layout/top2"/>
+				<TextView
+					android:padding="10dip"
+					android:id="@+id/tvLiaotian"
+					android:text="聊天"
+					android:gravity="center"
+					android:textSize="15sp"
+					android:textColor="@color/green"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+			</LinearLayout>
 
-			<android.support.v4.view.ViewPager
-				android:id="@+id/viewpager"
-				android:layout_width="fill_parent"
-				android:layout_height="fill_parent">
-			</android.support.v4.view.ViewPager>
+			<LinearLayout
+				android:orientation="vertical"
+				android:layout_weight="1"
+				android:gravity="center"
+				android:background="@drawable/guide_round"
+				android:clickable="true"
+				android:saveEnabled="false"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<TextView
+					android:padding="10dip"
+					android:id="@+id/tvFaxian"
+					android:text="发现"
+					android:gravity="center"
+					android:textSize="15sp"
+					android:textColor="@color/black"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+			</LinearLayout>
+
+			<LinearLayout
+				android:orientation="vertical"
+				android:layout_weight="1"
+				android:gravity="center"
+				android:background="@drawable/guide_round"
+				android:focusable="false"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<TextView
+					android:padding="10dip"
+					android:id="@+id/tvTongxunlu"
+					android:text="通讯录"
+					android:gravity="center"
+					android:textSize="15sp"
+					android:textColor="@color/black"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+			</LinearLayout>
 		</LinearLayout>
+
+		<RelativeLayout
+			android:background="@drawable/actionbar_bg"
+			android:layout_width="match_parent"
+			android:layout_height="67dp"
+			android:layout_marginLeft="-8dp"
+			android:layout_marginRight="-8dp"
+			android:layout_marginBottom="-8dp"
+			android:keepScreenOn="false"
+			android:clipToPadding="false"
+			android:layout_marginTop="-2dp"
+			android:id="@+id/relativeLayout15"
+			>
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:layout_alignParentLeft="false"
+				android:gravity="center_vertical"
+				android:clickable="true"
+				android:background="@drawable/img_btn_mask"
+				android:id="@+id/linearLayout9"
+				android:paddingRight="10dp"
+				android:onClick="openDrawer">
+
+				<TextView
+					android:layout_width="46dp"
+					android:layout_height="46dp"
+					android:scaleType="fitXY"
+					android:id="@+id/textView31"
+					android:background="@drawable/actionbar_icon_v2"
+					android:clickable="false"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="解密陌生人"
+					android:layout_marginLeft="10dip"
+					android:textSize="18sp"
+					android:textColor="@color/white"/>
+			</LinearLayout>
+
+		</RelativeLayout>
+
+		<android.support.v4.view.ViewPager
+			android:id="@+id/viewpager"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:layout_below="@+id/lllayout">
+		</android.support.v4.view.ViewPager>
+
 	</RelativeLayout>
 
 	<!--The Navigation Drawer-->

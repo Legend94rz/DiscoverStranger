@@ -192,7 +192,7 @@
 			android:layout_alignParentLeft="false"
 			android:layout_below="@+id/radioGroup"
 			android:visibility="visible"
-			android:background="@drawable/main_btn"
+			android:background="@drawable/btn_rect_blue"
 			android:textColor="@color/white"
 			android:textSize="20sp"
 			android:layout_centerHorizontal="true"

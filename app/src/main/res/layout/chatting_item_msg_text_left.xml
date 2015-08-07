@@ -9,8 +9,7 @@
 
 	<RelativeLayout
 		android:layout_width="fill_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1.12"
+		android:layout_height="wrap_content"
 		android:layout_margin="3dp"
 		>
 
@@ -28,8 +27,7 @@
 			android:id="@+id/tv_sendtime"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:background="@drawable/chat_send_time_bg"
-			android:textColor="#ffffff"
+			android:textColor="@color/lightgrey"
 			android:textSize="12sp"
 			android:layout_alignParentTop="true"
 			android:layout_centerHorizontal="true"
@@ -39,7 +37,7 @@
 			android:paddingRight="8dp"
 			android:paddingTop="2dp"
 			android:paddingBottom="2dp"
-			/>
+			android:text="yyyy-mm-dd"/>
 
 		<RelativeLayout
 			android:layout_width="wrap_content"
@@ -66,7 +64,7 @@
 				android:singleLine="false"
 				android:paddingTop="3dp"
 				android:visibility="visible"
-				/>
+				android:text="2333333"/>
 
 			<ImageView
 				android:layout_width="wrap_content"

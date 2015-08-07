@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/azure">
+				android:orientation="vertical"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:background="@color/azure">
 
-    <RelativeLayout
+	<RelativeLayout
 		android:layout_width="fill_parent"
-		android:layout_height="55dp"
-		android:background="@color/actionbar_bg"
+		android:layout_height="67dp"
+		android:background="@drawable/actionbar_bg"
 		android:gravity="center_vertical"
 		android:layout_alignParentLeft="true"
-		android:id="@+id/relativeLayout2">
+		android:id="@+id/relativeLayout2"
+		android:layout_marginLeft="-8dp"
+		android:layout_marginRight="-8dp"
+		android:layout_marginBottom="-8dp"
+		android:paddingLeft="8dp"
+		android:paddingRight="8dp"
+		android:paddingBottom="4dp"
+		android:layout_marginTop="-2dp">
 
 
 		<TextView
@@ -25,18 +32,18 @@
 			android:layout_centerHorizontal="true" />
 	</RelativeLayout>
 
-    <ScrollView
+	<ScrollView
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
-        android:layout_alignParentBottom="false"
-        android:layout_below="@+id/relativeLayout2"
-        android:fillViewport="true">
+		android:layout_alignParentBottom="false"
+		android:layout_below="@+id/relativeLayout2"
+		android:fillViewport="true">
 
-        <include
+		<include
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			layout="@layout/register_include"
 			/>
-    </ScrollView>
+	</ScrollView>
 
 </RelativeLayout>

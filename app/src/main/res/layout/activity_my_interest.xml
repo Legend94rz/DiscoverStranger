@@ -7,11 +7,15 @@
 	<RelativeLayout
 		android:id="@+id/relativeLayout14"
 		android:layout_width="fill_parent"
-		android:layout_height="55dp"
+		android:layout_height="67dp"
 		android:layout_alignParentLeft="true"
-		android:background="@color/actionbar_bg"
+		android:background="@drawable/actionbar_bg"
 		android:clickable="false"
-		android:gravity="center_vertical">
+		android:gravity="center_vertical"
+		android:layout_marginLeft="-8dp"
+		android:layout_marginRight="-8dp"
+		android:layout_marginBottom="-8dp"
+		android:layout_marginTop="-2dp">
 
 		<RelativeLayout
 			android:layout_width="wrap_content"
@@ -54,7 +58,8 @@
 		android:layout_below="@+id/relativeLayout14"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentStart="true"
-		android:padding="8dp"/>
+		android:padding="8dp"
+		android:layout_marginTop="5dp"/>
 
 	<Button
 		android:layout_width="match_parent"
@@ -64,7 +69,7 @@
 		android:layout_alignParentBottom="true"
 		android:layout_alignParentRight="true"
 		android:layout_alignParentEnd="true"
-		android:background="@drawable/main_btn"
+		android:background="@drawable/btn_rect_blue"
 		android:textColor="@color/white"
 		android:textSize="20sp"/>
 
@@ -76,5 +81,7 @@
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentStart="true"
 		android:layout_above="@+id/btnOK"
-		android:layout_marginBottom="16dp"/>
+		android:layout_marginBottom="16dp"
+		android:listSelector="@null"
+		/>
 </RelativeLayout>

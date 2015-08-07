@@ -58,7 +58,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 /**
  * 主界面
  */
-
 public class MainActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, OnUserInfoModifyListener
 {
 	public static android.os.Handler handler;
@@ -75,7 +74,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 	private TextView liaotian;
 	private TextView faxian;
 	private TextView tongxunlu;
-	private ImageView ivSetting;
 	TextView emptyNotice;
 
 	ViewPager viewPager;
