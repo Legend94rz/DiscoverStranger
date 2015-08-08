@@ -31,6 +31,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import org.helloworld.tools.ChatEmoji;
+import org.helloworld.tools.CustomToast;
 import org.helloworld.tools.FaceAdapter;
 import org.helloworld.tools.FaceConversionUtil;
 import org.helloworld.tools.FileUtils;
@@ -129,11 +130,11 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 					case Global.MSG_WHAT.W_SENDED_REQUEST:
 						if (((boolean) message.obj))
 						{
-							Toast.makeText(WriteFreshAct.this, "发表成功", Toast.LENGTH_SHORT).show();
+							CustomToast.show(WriteFreshAct.this, "发表成功", Toast.LENGTH_SHORT);
 							finish();
 						}
 						else
-							Toast.makeText(WriteFreshAct.this, "发表失败", Toast.LENGTH_SHORT).show();
+							CustomToast.show(WriteFreshAct.this, "发表失败", Toast.LENGTH_SHORT);
 						break;
 				}
 				return false;
@@ -351,7 +352,7 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 			{
 				if (etText.getText().length() == 0)
 				{
-					Toast.makeText(WriteFreshAct.this, "请输入正文", Toast.LENGTH_SHORT).show();
+					CustomToast.show(WriteFreshAct.this, "请输入正文", Toast.LENGTH_SHORT);
 					return;
 				}
 				if (etTag.length() > 4 || etText.length() > 140) return;

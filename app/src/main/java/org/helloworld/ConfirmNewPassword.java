@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.helloworld.tools.CustomToast;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.WebService;
 import org.ksoap2.serialization.SoapObject;
@@ -124,14 +125,14 @@ public class ConfirmNewPassword extends BaseActivity
 			{
 				case 1:
 				{
-					Toast.makeText(ConfirmNewPassword.this, "修改成功", Toast.LENGTH_SHORT).show();
+					CustomToast.show(ConfirmNewPassword.this, "修改成功", Toast.LENGTH_SHORT);
 					Global.mySelf.password = Password;
 					finish();
 					break;
 				}
 				case 4:
 				{
-					Toast.makeText(ConfirmNewPassword.this, "修改失败", Toast.LENGTH_SHORT).show();
+					CustomToast.show(ConfirmNewPassword.this, "修改失败", Toast.LENGTH_SHORT);
 					break;
 				}
 			}

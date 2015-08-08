@@ -17,6 +17,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.helloworld.tools.CustomToast;
 import org.helloworld.tools.FileUtils;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.UploadTask;
@@ -348,7 +349,7 @@ public class RegisterAct extends BaseActivity
 			{
 				case 1:
 				{
-					Toast.makeText(RegisterAct.this, "注册成功", Toast.LENGTH_SHORT).show();
+					CustomToast.show(RegisterAct.this, "注册成功", Toast.LENGTH_SHORT);
 					String path = Global.PATH.HeadImg;
 					String filename = Username + ".png";
 					File file = new File(path, filename);
@@ -382,13 +383,13 @@ public class RegisterAct extends BaseActivity
 				}
 				case 2:
 				{
-					Toast.makeText(RegisterAct.this, "请先选择一张照片作为头像", Toast.LENGTH_SHORT).show();
+					CustomToast.show(RegisterAct.this, "请先选择一张照片作为头像", Toast.LENGTH_SHORT);
 					break;
 				}
 				case 3:
 				case 4:
 				{
-					Toast.makeText(RegisterAct.this, String.format("注册失败，错误%d", aByte), Toast.LENGTH_SHORT).show();
+					CustomToast.show(RegisterAct.this, String.format("注册失败，错误%d", aByte), Toast.LENGTH_SHORT);
 					break;
 				}
 			}

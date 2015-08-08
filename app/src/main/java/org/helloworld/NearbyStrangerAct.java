@@ -46,12 +46,14 @@ import com.baidu.mapapi.model.LatLng;
 import org.helloworld.JigsawGame.JigsawSplash;
 import org.helloworld.SpeedMatchGame.SpeedMatchSplash;
 import org.helloworld.tools.APKUtils;
+import org.helloworld.tools.CustomToast;
 import org.helloworld.tools.DownloadTask;
 import org.helloworld.tools.FileUtils;
 import org.helloworld.tools.Game;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.PositionInfo;
 import org.helloworld.tools.Settings;
+import org.helloworld.tools.StrangerAdapter;
 import org.helloworld.tools.UserInfo;
 import org.helloworld.tools.WebService;
 import org.helloworld.tools.WebTask;
@@ -109,7 +111,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 	@Override
 	public boolean onMarkerClick(Marker marker)
 	{
-		//Toast.makeText(NearbyStrangerAct.this, p.strangerName, Toast.LENGTH_SHORT).show();
+		//CustomToast.show(NearbyStrangerAct.this, p.strangerName, Toast.LENGTH_SHORT);
 		map.hideInfoWindow();
 		if (marker == lastClick && isShow)
 		{
@@ -267,7 +269,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 			}
 			catch (Exception ignored)
 			{
-				Toast.makeText(NearbyStrangerAct.this, Global.ERROR_HINT.HINT_ERROR_NETWORD, Toast.LENGTH_SHORT).show();
+				CustomToast.show(NearbyStrangerAct.this, Global.ERROR_HINT.HINT_ERROR_NETWORD, Toast.LENGTH_SHORT);
 			}
 		}
 	}
@@ -282,7 +284,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 		}
 		catch (NullPointerException e)
 		{
-			Toast.makeText(this, "无法初始化定位数据.", Toast.LENGTH_SHORT).show();
+			CustomToast.show(this, "无法初始化定位数据.", Toast.LENGTH_SHORT);
 			finish();
 		}
 		setContentView(R.layout.activity_nearby_stranger);
@@ -312,14 +314,6 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 		tabs[selTab].setEnabled(false);
 		tvMap = (TextView) findViewById(R.id.tvMap);
 		tvList = (TextView) findViewById(R.id.tvList);
-
-		//{
-		//llTabhost.setOnClickListener(this);
-		//tvList.setOnClickListener(this);
-		//tvList.setTag(1);
-		//tvMap.setOnClickListener(this);
-		//tvMap.setTag(0);
-		//}
 
 		mMapView = (MapView) v1.findViewById(R.id.bmapView);
 		map = mMapView.getMap();
@@ -403,10 +397,9 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 					MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(position);
 					if(map!=null)
 						map.animateMapStatus(u);
+					UpdateLocationTask updateMyPosition = new UpdateLocationTask(latitude, longitude);
+					updateMyPosition.execute();
 				}
-
-				UpdateLocationTask updateMyPosition = new UpdateLocationTask(latitude, longitude);
-				updateMyPosition.execute();
 			}
 		});
 		locationClient.start();
@@ -420,7 +413,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 					case Global.MSG_WHAT.W_GOT_STRANGERS:
 					{
 						ArrayList<PositionInfo> strangerInfos = (ArrayList<PositionInfo>) message.obj;
-						//Toast.makeText(NearbyStrangerAct.this, String.format("共发现%d个附近的人\n点击陌生人标记可加好友哦~", strangerInfos.size()), Toast.LENGTH_SHORT).show();
+						//CustomToast.show(NearbyStrangerAct.this, String.format("共发现%d个附近的人\n点击陌生人标记可加好友哦~", strangerInfos.size()), Toast.LENGTH_SHORT);
 						if (strangerInfos.size() > 0)
 						{
 							strangers.addAll(strangerInfos);
@@ -428,7 +421,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 							curPage++;
 						}
 						else
-							Toast.makeText(NearbyStrangerAct.this, "没有更多了", Toast.LENGTH_SHORT).show();
+							CustomToast.show(NearbyStrangerAct.this, "没有更多了", Toast.LENGTH_SHORT);
 						llLoading.setVisibility(View.GONE);
 						tvMore.setVisibility(View.VISIBLE);
 						for (final PositionInfo p : strangerInfos)

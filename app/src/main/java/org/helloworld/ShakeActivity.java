@@ -11,6 +11,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import org.helloworld.tools.CustomToast;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.ShakeRecord;
 import org.helloworld.tools.WebTask;
@@ -72,9 +73,7 @@ public class ShakeActivity extends BaseActivity
 						}
 						if (records.size() == 0)
 						{
-							Toast mtoast;
-							mtoast = Toast.makeText(getApplicationContext(), "抱歉，暂时没有找到在同一时刻摇一摇的人。\n再试一次吧", Toast.LENGTH_SHORT);
-							mtoast.show();
+							CustomToast.show(getApplicationContext(), "抱歉，暂时没有找到在同一时刻摇一摇的人。\n再试一次吧", Toast.LENGTH_SHORT);
 						}
 						else
 						{
@@ -102,7 +101,7 @@ public class ShakeActivity extends BaseActivity
 				mShakeListener.stop();
 				startVibrato(); //开始 震动
 				new WebTask(null, -1).execute("addShake", 2, "name", Global.mySelf.username, "time", Global.formatDate(Global.getDate(), "yyyy-MM-dd HH:mm:ss"));
-				Toast.makeText(ShakeActivity.this, "正在搜索同一时刻摇动手机的人...", Toast.LENGTH_SHORT).show();
+				CustomToast.show(ShakeActivity.this, "正在搜索同一时刻摇动手机的人...", Toast.LENGTH_SHORT);
 				new Handler().postDelayed(new Runnable()
 				{
 					@Override

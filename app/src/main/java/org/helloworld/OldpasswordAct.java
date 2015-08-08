@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.helloworld.tools.CustomToast;
 import org.helloworld.tools.Global;
 
 
@@ -34,7 +35,7 @@ public class OldpasswordAct extends BaseActivity
 				}
 				else if (!TextUtils.equals(etPassword.getText(),Global.mySelf.password))
 				{
-					Toast.makeText(OldpasswordAct.this, "密码错误", Toast.LENGTH_SHORT).show();
+					CustomToast.show(OldpasswordAct.this, "密码错误", Toast.LENGTH_SHORT);
 					etPassword.setText("");
 				}
 				else

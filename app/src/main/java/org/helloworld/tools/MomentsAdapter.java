@@ -196,7 +196,15 @@ public class MomentsAdapter extends BaseAdapter implements AbsListView.OnScrollL
 	public void onScroll(AbsListView absListView, int i, int i1, int i2)
 	{
 	}
+	public boolean areAllItemsEnabled()
+	{
+		return false;
+	}
 
+	public boolean isEnabled(int position)
+	{
+		return false;
+	}
 	class H
 	{
 		ImageView ivHead;

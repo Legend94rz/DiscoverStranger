@@ -69,7 +69,14 @@ public class NotificationAdapter extends BaseAdapter
 		h.tvTime.setText(m.getDateWithFormat("yyyy-MM-dd HH:mm:ss"));
 		return view;
 	}
-
+	public boolean areAllItemsEnabled()
+	{
+		return false;
+	}
+	public boolean isEnabled(int position)
+	{
+		return false;
+	}
 	class H
 	{
 		ImageView ivHeadImg;

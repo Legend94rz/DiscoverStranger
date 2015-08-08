@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.helloworld.tools.CustomToast;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.UserInfo;
 import org.helloworld.tools.WebService;
@@ -77,14 +78,14 @@ public class LogInAct extends BaseActivity
 			btnLogIn.setEnabled(true);
 			if (aBoolean)
 			{
-				Toast.makeText(LogInAct.this, "登录成功", Toast.LENGTH_SHORT).show();
+				CustomToast.show(LogInAct.this, "登录成功", Toast.LENGTH_SHORT);
 				Intent i = new Intent(LogInAct.this, MainActivity.class);
 				startActivity(i);
 				finish();
 			}
 			else
 			{
-				Toast.makeText(LogInAct.this, "登录失败", Toast.LENGTH_SHORT).show();
+				CustomToast.show(LogInAct.this, "登录失败", Toast.LENGTH_SHORT);
 			}
 		}
 	}

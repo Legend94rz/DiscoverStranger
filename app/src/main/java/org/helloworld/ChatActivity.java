@@ -34,6 +34,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import org.helloworld.tools.ChatMsgAdapter;
+import org.helloworld.tools.CustomToast;
 import org.helloworld.tools.DownloadTask;
 import org.helloworld.tools.FileUtils;
 import org.helloworld.tools.Global;
@@ -192,7 +193,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 						messages.addAll(msgs);
 						mAdapter.notifyDataSetChanged();
 						history.unreadMsg.clear();
-						if (lvMsg.getSelectedItemPosition() != lvMsg.getCount() - 1)
+						if (lvMsg.getSelectedItemPosition() != lvMsg.getCount() - 1 && (lvMsg.getLastVisiblePosition()-lvMsg.getFirstVisiblePosition()+1<lvMsg.getCount()) )
 						{
 							btnNewMsg.setText(messages.get(messages.size() - 1).toString());
 							btnNewMsg.setVisibility(View.VISIBLE);
@@ -459,7 +460,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 					{
 						e.printStackTrace();
 						swipeRefreshLayout.setRefreshing(false);
-						Toast.makeText(ChatActivity.this, Global.ERROR_HINT.HINT_ERROR_NETWORD, Toast.LENGTH_SHORT).show();
+						CustomToast.show(ChatActivity.this, Global.ERROR_HINT.HINT_ERROR_NETWORD, Toast.LENGTH_SHORT);
 						return;
 					}
 					totalPage = totalRec / PAGE_SIZE;
@@ -507,7 +508,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
 			{
 				HashMap<String, Object> p = (HashMap<String, Object>) adapterView.getItemAtPosition(i);
-				//Toast.makeText(ChatActivity.this, p.get("ItemDes").toString(), Toast.LENGTH_SHORT).show();
+				//CustomToast.show(ChatActivity.this, p.get("ItemDes").toString(), Toast.LENGTH_SHORT);
 				if (p.get("ItemDes").equals("图片"))
 				{
 					Intent choostPhoto = new Intent(Intent.ACTION_PICK, null);
@@ -753,7 +754,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 		}
 		else
 		{
-			Toast.makeText(this, "文件不存在", Toast.LENGTH_SHORT).show();
+			CustomToast.show(this, "文件不存在", Toast.LENGTH_SHORT);
 		}
 	}
 

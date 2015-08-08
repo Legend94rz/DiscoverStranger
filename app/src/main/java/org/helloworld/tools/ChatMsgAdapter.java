@@ -231,6 +231,18 @@ public class ChatMsgAdapter extends BaseAdapter implements AbsListView.OnScrollL
 		return convertView;
 	}
 
+	@Override
+	public boolean isEnabled(int position)
+	{
+		return false;
+	}
+
+	@Override
+	public boolean areAllItemsEnabled()
+	{
+		return false;
+	}
+
 	class ViewHolder implements View.OnClickListener
 	{
 		public TextView tvSendTime;
@@ -246,7 +258,7 @@ public class ChatMsgAdapter extends BaseAdapter implements AbsListView.OnScrollL
 		@Override
 		public void onClick(View view)
 		{
-			//Toast.makeText(context, view.toString(), Toast.LENGTH_SHORT).show();
+			//CustomToast.show(context, view.toString(), Toast.LENGTH_SHORT);
 
 			switch (view.getId())
 			{

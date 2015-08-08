@@ -1,5 +1,6 @@
 package org.helloworld;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,7 +11,7 @@ import org.helloworld.tools.Global;
 /**
  * 启动界面
  */
-public class SplashAct extends BaseActivity
+public class SplashAct extends Activity
 {
 
 	@Override

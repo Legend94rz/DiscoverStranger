@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.helloworld.tools.CustomToast;
 import org.helloworld.tools.FileUtils;
 
 /**
@@ -32,7 +33,7 @@ public class BigPicAct extends Activity
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			Toast.makeText(this, "图片太大，不予查看", Toast.LENGTH_SHORT).show();
+			CustomToast.show(this, "图片太大，不予查看", Toast.LENGTH_SHORT);
 			finish();
 		}
 	}

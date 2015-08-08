@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import org.helloworld.tools.CustomToast;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.UserInfo;
 import org.helloworld.tools.WebService;
@@ -105,7 +106,7 @@ public class AlterBasicInfo extends BaseActivity
 			{
 				case 1:
 				{
-					Toast.makeText(AlterBasicInfo.this, "修改成功", Toast.LENGTH_SHORT).show();
+					CustomToast.show(AlterBasicInfo.this, "修改成功", Toast.LENGTH_SHORT);
 					UserInfo userInfo = new UserInfo();
 					userInfo.username = Username;
 					userInfo.nickName = Nickname;
@@ -125,7 +126,7 @@ public class AlterBasicInfo extends BaseActivity
 				}
 				case 4:
 				{
-					Toast.makeText(AlterBasicInfo.this, "修改失败", Toast.LENGTH_SHORT).show();
+					CustomToast.show(AlterBasicInfo.this, "修改失败", Toast.LENGTH_SHORT);
 					break;
 				}
 			}

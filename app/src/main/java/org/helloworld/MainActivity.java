@@ -24,11 +24,15 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.helloworld.interfaces.OnUserInfoModifyListener;
 import org.helloworld.tools.CMDParser;
 import org.helloworld.tools.ContactAdapter;
+import org.helloworld.tools.CustomToast;
 import org.helloworld.tools.DownloadTask;
 import org.helloworld.tools.FileUtils;
 import org.helloworld.tools.Global;
@@ -320,7 +324,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 						}
 						break;
 					case Global.MSG_WHAT.W_ERROR_NETWORK:
-						Toast.makeText(MainActivity.this, Global.ERROR_HINT.HINT_ERROR_NETWORD, Toast.LENGTH_SHORT).show();
+						CustomToast.show(MainActivity.this, Global.ERROR_HINT.HINT_ERROR_NETWORD, Toast.LENGTH_SHORT);
 						break;
 					case Global.MSG_WHAT.W_REFRESH_DEEP:
 						FlushState();
@@ -567,7 +571,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 			lvFriends.setAdapter(contactAdapter);
 		}
 		contactAdapter.notifyDataSetChanged();
-		//Toast.makeText(this, "已更新", Toast.LENGTH_SHORT).show();
+		//CustomToast.show(this, "已更新", Toast.LENGTH_SHORT);
 	}
 
 	void FlushState()
@@ -638,10 +642,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		try
 		{
 			BufferedWriter writer2 = new BufferedWriter(new FileWriter(new File(path, historyfile)));
+			ExclusionStrategy strategy = new ExclusionStrategy()
+			{
+				@Override
+				public boolean shouldSkipField(FieldAttributes fieldAttributes)
+				{
+					return fieldAttributes.getName().equals("extra");
+				}
+
+				@Override
+				public boolean shouldSkipClass(Class<?> aClass)
+				{
+					return false;
+				}
+			};
+			Gson gson= new GsonBuilder().setExclusionStrategies(strategy).create();
 			for (History h : Global.historyList)
 				if (h.headId == -1)
 				{
-					writer2.write(g.toJson(h));
+					writer2.write(gson.toJson(h));
 					writer2.newLine();
 				}
 			writer2.close();
@@ -722,7 +741,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		{
 			if ((System.currentTimeMillis() - exitTime) > 2000)  //System.currentTimeMillis()无论何时调用，肯定大于2000
 			{
-				Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+				CustomToast.show(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT);
 				exitTime = System.currentTimeMillis();
 			}
 			else

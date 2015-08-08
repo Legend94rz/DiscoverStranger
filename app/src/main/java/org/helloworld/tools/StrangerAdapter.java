@@ -1,4 +1,4 @@
-package org.helloworld;
+package org.helloworld.tools;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -9,8 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.helloworld.tools.Global;
-import org.helloworld.tools.PositionInfo;
+import org.helloworld.R;
 
 import java.util.ArrayList;
 

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.helloworld.tools.CustomToast;
 import org.helloworld.tools.FileUtils;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.UploadTask;
@@ -121,7 +122,7 @@ public class AlterAvatarAct extends BaseActivity
 			{
 				case 1:
 				{
-					Toast.makeText(AlterAvatarAct.this, "修改成功", Toast.LENGTH_SHORT).show();
+					CustomToast.show(AlterAvatarAct.this, "修改成功", Toast.LENGTH_SHORT);
 					String path = Global.PATH.HeadImg;
 					String filename = Username + ".png";
 					File file = new File(path, filename);
@@ -147,13 +148,13 @@ public class AlterAvatarAct extends BaseActivity
 				}
 				case 2:
 				{
-					Toast.makeText(AlterAvatarAct.this, "请先选择一张照片作为头像", Toast.LENGTH_SHORT).show();
+					CustomToast.show(AlterAvatarAct.this, "请先选择一张照片作为头像", Toast.LENGTH_SHORT);
 					break;
 				}
 				case 3:
 				case 4:
 				{
-					Toast.makeText(AlterAvatarAct.this, String.format("修改失败，错误%d", aByte), Toast.LENGTH_SHORT).show();
+					CustomToast.show(AlterAvatarAct.this, String.format("修改失败，错误%d", aByte), Toast.LENGTH_SHORT);
 					break;
 				}
 			}

@@ -32,7 +32,6 @@ public class JigsawActivity extends Activity
 {
 
 	private ArrayList<PicItem> PicList = new ArrayList<PicItem>();
-	private ArrayList<PicItem> PicListSave;
 	public GridView gridView;
 	private GestureDetector gestureDetector;
 	private GridViewAdapter gridViewAdapter;
@@ -111,7 +110,7 @@ public class JigsawActivity extends Activity
 			@Override
 			public boolean onTouch(View view, MotionEvent motionEvent)
 			{
-				//Toast.makeText(getApplicationContext(), "touching", Toast.LENGTH_SHORT).show();
+				//CustomToast.show(getApplicationContext(), "touching", Toast.LENGTH_SHORT);
 				return gestureDetector.onTouchEvent(motionEvent);
 			}
 		});
@@ -226,7 +225,7 @@ public class JigsawActivity extends Activity
 		@Override
 		public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent2, float v, float v2)
 		{
-			//Toast.makeText(getApplicationContext(), "fling", Toast.LENGTH_SHORT).show();
+			//CustomToast.show(getApplicationContext(), "fling", Toast.LENGTH_SHORT);
 			float posX = motionEvent.getX(), posY = motionEvent.getY();
 			float posX2 = motionEvent2.getX(), posY2 = motionEvent2.getY();
 			float difX = Math.abs(posX - posX2), difY = Math.abs(posY - posY2);
@@ -303,7 +302,7 @@ public class JigsawActivity extends Activity
 
 		SwitchVisibility();
 
-		//Toast.makeText(getApplicationContext(),"Congratulations",Toast.LENGTH_SHORT) ;
+		//CustomToast.show(getApplicationContext(),"Congratulations",Toast.LENGTH_SHORT) ;
 		final SweetAlertDialog dialog = new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE);
 		dialog.setContentText("成功完成游戏，点击确定退出~");
 		dialog.setConfirmText("确定");

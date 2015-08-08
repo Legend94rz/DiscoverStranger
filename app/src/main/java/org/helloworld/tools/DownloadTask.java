@@ -49,6 +49,7 @@ public class DownloadTask extends AsyncTask<Void, Void, Boolean>
 	public static Boolean DownloadFile(String remoteFolder, String fileName, int blockSize, String saveFolder)
 	{
 		FileOutputStream fos = null;
+		File file;
 		try
 		{
 			WebService getSize = new WebService("getFileSize");
@@ -58,7 +59,7 @@ public class DownloadTask extends AsyncTask<Void, Void, Boolean>
 			int blockNum = ((int) (size / blockSize)) + 1;
 
 			FileUtils.mkDir(new File(saveFolder));
-			File file = new File(saveFolder, fileName);
+			file = new File(saveFolder, fileName);
 			file.createNewFile();
 
 			for (int i = 0; i < blockNum; i++)
@@ -76,6 +77,7 @@ public class DownloadTask extends AsyncTask<Void, Void, Boolean>
 		catch (Exception e)
 		{
 			e.printStackTrace();
+			FileUtils.deleteFile(saveFolder+fileName);
 		}
 		finally
 		{
