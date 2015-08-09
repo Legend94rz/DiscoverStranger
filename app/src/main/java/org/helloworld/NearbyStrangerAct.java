@@ -51,9 +51,9 @@ import org.helloworld.tools.DownloadTask;
 import org.helloworld.tools.FileUtils;
 import org.helloworld.tools.Game;
 import org.helloworld.tools.Global;
+import org.helloworld.tools.NearbyStrangerAdapter;
 import org.helloworld.tools.PositionInfo;
 import org.helloworld.tools.Settings;
-import org.helloworld.tools.StrangerAdapter;
 import org.helloworld.tools.UserInfo;
 import org.helloworld.tools.WebService;
 import org.helloworld.tools.WebTask;
@@ -98,7 +98,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 	private myViewPagerAdapter viewPagerAdapter;
 	private ArrayList<View> pages;
 	private ListView lvStrangers;
-	private StrangerAdapter strangerAdapter;
+	private NearbyStrangerAdapter nearbyStrangerAdapter;
 	private TextView tvMap, tvList;
 	private int curPage = 1;
 	private static final int PAGE_SIZE = 5;
@@ -336,7 +336,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 
 		lvStrangers = (ListView) v2.findViewById(R.id.lvStrangers);
 		strangers = new ArrayList<>();
-		strangerAdapter = new StrangerAdapter(this, strangers);
+		nearbyStrangerAdapter = new NearbyStrangerAdapter(this, strangers);
 		final View v = View.inflate(this, R.layout.foot_view, null);
 		lvStrangers.addFooterView(v, null, false);
 		final TextView tvMore = (TextView) v.findViewById(R.id.tvMore);
@@ -351,7 +351,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 				new GetNearStrangerTask(latitude, longitude).execute();
 			}
 		});
-		lvStrangers.setAdapter(strangerAdapter);
+		lvStrangers.setAdapter(nearbyStrangerAdapter);
 		lvStrangers.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
 			@Override
@@ -417,7 +417,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 						if (strangerInfos.size() > 0)
 						{
 							strangers.addAll(strangerInfos);
-							strangerAdapter.notifyDataSetChanged();
+							nearbyStrangerAdapter.notifyDataSetChanged();
 							curPage++;
 						}
 						else

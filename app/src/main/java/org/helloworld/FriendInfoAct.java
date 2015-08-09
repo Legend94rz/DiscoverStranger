@@ -1,19 +1,17 @@
 package org.helloworld;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.helloworld.tools.DownloadTask;
 import org.helloworld.tools.FileUtils;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.History;
@@ -22,11 +20,6 @@ import org.helloworld.tools.WebTask;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.ksoap2.serialization.SoapObject;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -60,43 +53,21 @@ public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 			{
 				if (message.what == Global.MSG_WHAT.W_DOWNLOADED_A_FILE)
 				{
-					try
+					if(message.getData().getBoolean("result"))
 					{
-						SoapObject obj = (SoapObject) message.obj;
-						byte[] bytes = Base64.decode(obj.getPropertyAsString(0), Base64.DEFAULT);
-						Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-						if (bmp.getByteCount() > 0)
-						{
-							ivHeadImg.setImageBitmap(bmp);
-							FileUtils.mkDir(new File(Global.PATH.HeadImg));
-							File headFile = new File(Global.PATH.HeadImg, friendName + ".png");
-							headFile.createNewFile();
-							FileOutputStream fos = new FileOutputStream(headFile);
-							bmp.compress(Bitmap.CompressFormat.PNG, 100, fos);
-							fos.flush();
-							fos.close();
-						}
-					}
-					catch (NullPointerException ignored)
-					{
-					}
-					catch (IOException e)
-					{
-						e.printStackTrace();
+						ivHeadImg.setImageBitmap(FileUtils.getOptimalBitmap(FriendInfoAct.this,Global.PATH.HeadImg+friendName+".png",128*Global.DPI));
 					}
 				}
 				return true;
 			}
 		});
 		String path = Global.PATH.HeadImg + friendName + ".png";
-		File file = new File(path);
-		if (file.exists())
+		if (FileUtils.Exist(path))
 		{
-			Bitmap bmp = BitmapFactory.decodeFile(path);
-			ivHeadImg.setImageBitmap(bmp);
+			ivHeadImg.setImageBitmap(FileUtils.getOptimalBitmap(FriendInfoAct.this,path,128*Global.DPI));
 		}
-		WebTask task = new WebTask(handler, Global.MSG_WHAT.W_DOWNLOADED_A_FILE);
-		task.execute("downloadFile", 2, "path", "HeadImg", "fileName", friendName + ".png");
+		DownloadTask downloadTask=new DownloadTask("HeadImg",Global.PATH.HeadImg,friendName+".png",Global.BLOCK_SIZE,handler,Global.MSG_WHAT.W_DOWNLOADED_A_FILE,null);
+		downloadTask.execute();
 
 	}
 
@@ -112,8 +83,8 @@ public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 		tvNickName.setText(friend.nickName);
 		if (friend.Ex_remark != null && !friend.Ex_remark.equals(""))
 			tvRemark.setText(friend.Ex_remark);
-		if(friend.birthday.getYear()>1900)
-			tvAge.setText(String.format("%s",friend.getAge()));
+		if(friend.birthday.getYear()>0)
+			tvAge.setText(String.format("%d",friend.getAge()));
 	}
 
 	@Override

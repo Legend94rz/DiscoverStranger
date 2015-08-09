@@ -95,7 +95,7 @@ public class MomentsAdapter extends BaseAdapter implements AbsListView.OnScrollL
 			h.tvText.setVisibility(View.VISIBLE);
 		SpannableString spannableString = FaceConversionUtil.getInstace().getExpressionString(context, fresh.text);
 		h.tvText.setText(spannableString);
-		h.ivHead.setImageResource(R.drawable.brand_default_head);
+		h.ivHead.setImageResource(R.drawable.nohead);
 		h.ivHead.setTag(Global.PATH.HeadImg + fresh.username);
 		if (Global.map2Friend.containsKey(fresh.username) || TextUtils.equals(Global.mySelf.username, fresh.username))
 		{
@@ -196,11 +196,12 @@ public class MomentsAdapter extends BaseAdapter implements AbsListView.OnScrollL
 	public void onScroll(AbsListView absListView, int i, int i1, int i2)
 	{
 	}
+	@Override
 	public boolean areAllItemsEnabled()
 	{
 		return false;
 	}
-
+	@Override
 	public boolean isEnabled(int position)
 	{
 		return false;

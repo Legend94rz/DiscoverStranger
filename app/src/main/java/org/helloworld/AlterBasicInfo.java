@@ -18,6 +18,8 @@ import org.ksoap2.serialization.SoapObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 
 public class AlterBasicInfo extends BaseActivity
 {
@@ -25,6 +27,7 @@ public class AlterBasicInfo extends BaseActivity
 	private Button btEnsure;
 	private EditText etNickname;
 	private DatePicker dpBirthday;
+	private RadioButton rbFemale;
 	private RadioButton rbMale;
 
 	@Override
@@ -36,9 +39,12 @@ public class AlterBasicInfo extends BaseActivity
 		btEnsure = (Button) findViewById(R.id.confirm);
 		etNickname = (EditText) findViewById(R.id.nickname);
 		dpBirthday = (DatePicker) findViewById(R.id.datePicker);
+		dpBirthday.updateDate(Global.mySelf.birthday.getYear()+1900,Global.mySelf.birthday.getMonth(),Global.mySelf.birthday.getDate());
+		rbFemale = (RadioButton) findViewById(R.id.femaleButton);
 		rbMale = (RadioButton) findViewById(R.id.maleButton);
 		etNickname.setText(Global.mySelf.nickName);
-		rbMale.setChecked(Global.mySelf.sex);
+		etNickname.setSelection(etNickname.length());
+		rbFemale.setChecked(Global.mySelf.sex);rbMale.setChecked(!Global.mySelf.sex);
 		btEnsure.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -47,10 +53,8 @@ public class AlterBasicInfo extends BaseActivity
 				String nickname = etNickname.getText().toString();
 				String username = Global.mySelf.username;
 				String password = Global.mySelf.password;
-
-				//Todo 测试
-				String birthday = dpBirthday.getYear() + "-" + dpBirthday.getMonth() + "-" + dpBirthday.getDayOfMonth();
-				boolean usergender = rbMale.isChecked();
+				String birthday = String.format("%4d-%02d-%02d",dpBirthday.getYear(),dpBirthday.getMonth()+1,dpBirthday.getDayOfMonth());
+				boolean usergender = rbFemale.isChecked();
 				AlterBasicInfo_online task = new AlterBasicInfo_online(username, password, usergender, nickname, birthday);
 				task.execute();
 
@@ -64,6 +68,7 @@ public class AlterBasicInfo extends BaseActivity
 		public boolean Gender;
 		public String Nickname;
 		public String Birthday;
+		private SweetAlertDialog dialog;
 
 		public AlterBasicInfo_online(String username, String password, boolean gender, String nickname, String birthday)
 		{
@@ -78,6 +83,10 @@ public class AlterBasicInfo extends BaseActivity
 		protected void onPreExecute()
 		{
 			btEnsure.setEnabled(false);
+			dialog=new SweetAlertDialog(AlterBasicInfo.this,SweetAlertDialog.PROGRESS_TYPE);
+			dialog.setCancelable(false);
+			dialog.setTitleText("请稍候...");
+			dialog.show();
 		}
 
 		@Override
@@ -102,6 +111,7 @@ public class AlterBasicInfo extends BaseActivity
 		protected void onPostExecute(Byte aByte)
 		{
 			btEnsure.setEnabled(true);
+			dialog.dismiss();
 			switch (aByte)
 			{
 				case 1:

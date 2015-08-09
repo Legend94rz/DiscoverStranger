@@ -87,6 +87,7 @@ public class Global
 		public static final int W_GOT_FRESHES_NEW = 20;
 		public static final int W_DELETEED_FILE = 21;
 		public static final int W_GOT_GAME_LIST = 22;
+		public static final int W_DATA_CHANGED = 23;
 	}
 
 	/**
@@ -174,9 +175,9 @@ public class Global
 			return formatDate(date, "yyyy-MM-dd");
 		else if (date.getMonth() == now.getMonth())
 		{
-			if (date.getDay() == now.getDay())
+			if (date.getDate() == now.getDate())
 				return "今天 " + formatDate(date, "HH:mm");
-			else if (date.getDay() + 1 == now.getDay())
+			else if (date.getDate() + 1 == now.getDate())
 				return "昨天 " + formatDate(date, "HH:mm");
 		}
 		return formatDate(date, "MM-dd HH:mm");

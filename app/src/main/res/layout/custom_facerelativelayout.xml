@@ -103,7 +103,8 @@
 			android:stackFromBottom="false"
 			android:scrollingCache="true"
 			android:minHeight="200dp"
-			android:background="#ffdfdfdf"/>
+			android:background="#ffdfdfdf"
+			android:listSelector="@drawable/img_btn_mask"/>
 
 		<RelativeLayout
 			android:id="@+id/ll_facechoose"

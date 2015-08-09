@@ -18,10 +18,10 @@ public class PositionInfo
 	public static PositionInfo parse(SoapObject so)
 	{
 		PositionInfo model = new PositionInfo();
-		model.strangerName = so.getProperty("strangerName").toString();
-		model.latitude = Double.parseDouble(so.getProperty("latitude").toString());
-		model.longitude = Double.parseDouble(so.getProperty("longitude").toString());
-		model.distance = Double.parseDouble(so.getProperty("distance").toString());
+		model.strangerName = so.getPropertyAsString("strangerName");
+		model.latitude = Double.parseDouble(so.getPropertyAsString("latitude"));
+		model.longitude = Double.parseDouble(so.getPropertyAsString("longitude"));
+		model.distance = Double.parseDouble(so.getPropertyAsString("distance"));
 		return model;
 	}
 }

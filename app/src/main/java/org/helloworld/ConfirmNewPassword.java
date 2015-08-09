@@ -15,6 +15,8 @@ import org.ksoap2.serialization.SoapObject;
 
 import java.text.SimpleDateFormat;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 
 public class ConfirmNewPassword extends BaseActivity
 {
@@ -82,12 +84,16 @@ public class ConfirmNewPassword extends BaseActivity
 	{
 		public String Username;
 		public String Password;
-
+		private SweetAlertDialog dialog;
 
 		public AlterBasicInfo_online(String username, String password)
 		{
 			Username = username;
 			Password = password;
+			dialog=new SweetAlertDialog(ConfirmNewPassword.this,SweetAlertDialog.PROGRESS_TYPE);
+			dialog.setTitleText("请稍候...");
+			dialog.setCancelable(false);
+			dialog.show();
 		}
 
 		@Override
@@ -121,6 +127,7 @@ public class ConfirmNewPassword extends BaseActivity
 		protected void onPostExecute(Byte aByte)
 		{
 			btConfirm.setEnabled(true);
+			dialog.dismiss();
 			switch (aByte)
 			{
 				case 1:

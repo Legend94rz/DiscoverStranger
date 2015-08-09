@@ -16,12 +16,12 @@ import java.util.ArrayList;
 /**
  * Created by Administrator on 2015/7/19.
  */
-public class StrangerAdapter extends BaseAdapter
+public class NearbyStrangerAdapter extends BaseAdapter
 {
 	private ArrayList<PositionInfo> positionInfos;
 	private Context context;
 
-	public StrangerAdapter(Context context, ArrayList<PositionInfo> positionInfos)
+	public NearbyStrangerAdapter(Context context, ArrayList<PositionInfo> positionInfos)
 	{
 		this.context = context;
 		this.positionInfos = positionInfos;

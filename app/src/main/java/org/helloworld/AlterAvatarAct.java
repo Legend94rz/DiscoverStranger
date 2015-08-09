@@ -94,10 +94,20 @@ public class AlterAvatarAct extends BaseActivity
 	public class AlterAvatar_online extends AsyncTask<Void, Void, Byte>
 	{
 		public String Username;
-
+		private SweetAlertDialog dialog;
 		public AlterAvatar_online(String username)
 		{
 			Username = username;
+		}
+
+		@Override
+		protected void onPreExecute()
+		{
+			btnNext.setEnabled(false);
+			dialog=new SweetAlertDialog(AlterAvatarAct.this,SweetAlertDialog.PROGRESS_TYPE);
+			dialog.setCancelable(false);
+			dialog.setTitleText("请稍候...");
+			dialog.show();
 		}
 
 		@Override
@@ -118,6 +128,7 @@ public class AlterAvatarAct extends BaseActivity
 		protected void onPostExecute(Byte aByte)
 		{
 			btnNext.setEnabled(true);
+			dialog.dismiss();
 			switch (aByte)
 			{
 				case 1:
@@ -143,6 +154,7 @@ public class AlterAvatarAct extends BaseActivity
 					{
 						e.printStackTrace();
 					}
+					MainActivity.handler.sendEmptyMessage(Global.MSG_WHAT.W_DATA_CHANGED);
 					finish();
 					break;
 				}
@@ -152,9 +164,8 @@ public class AlterAvatarAct extends BaseActivity
 					break;
 				}
 				case 3:
-				case 4:
 				{
-					CustomToast.show(AlterAvatarAct.this, String.format("修改失败，错误%d", aByte), Toast.LENGTH_SHORT);
+					CustomToast.show(AlterAvatarAct.this, "上传文件失败", Toast.LENGTH_SHORT);
 					break;
 				}
 			}

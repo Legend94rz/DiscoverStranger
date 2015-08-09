@@ -198,17 +198,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		@Override
 		protected void onPostExecute(Void aVoid)
 		{
-			String userName;
-			try
-			{
-				userName = jsonUser.getString("name");
-			}
-			catch (JSONException e)
-			{
-				e.printStackTrace();
-				return;
-			}
-			new DownloadTask("HeadImg", Global.PATH.HeadImg, userName + ".png", Global.BLOCK_SIZE, handler, Global.MSG_WHAT.W_REFRESH, null).execute();
+
 		}
 	}
 
@@ -226,7 +216,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 	{
 		if (hisAdapter == null)
 		{
-			hisAdapter = new HistoryAdapter(Global.historyList, MainActivity.this);
+			hisAdapter = new HistoryAdapter(Global.historyList, MainActivity.this,lvHistory);
 			lvHistory.setAdapter(hisAdapter);
 		}
 		if (hisAdapter.getCount() == 0)
@@ -308,7 +298,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 								Global.map2Friend.put(friend.username, friend);
 								new parserWithExtraAsync(friend.username, userInfo).execute();
 							}
-							//Todo 同步会话与联系人
 						}
 						catch (NullPointerException | ArrayIndexOutOfBoundsException ignored)
 						{
@@ -335,6 +324,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 						SoapObject result = (SoapObject) msg.obj;
 						if (result.getPropertyCount() > 0)
 							Global.settings = Settings.parse((SoapObject) result.getProperty(0));
+						break;
+					case Global.MSG_WHAT.W_DATA_CHANGED:
+						hisAdapter.notifyDataSetChanged();
+						contactAdapter.notifyDataSetChanged();
+						RefreshMyInfo();
 						break;
 				}
 			}
@@ -567,7 +561,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		}
 		if (contactAdapter == null)
 		{
-			contactAdapter = new ContactAdapter(this, Global.friendList);
+			contactAdapter = new ContactAdapter(this, Global.friendList,lvFriends);
 			lvFriends.setAdapter(contactAdapter);
 		}
 		contactAdapter.notifyDataSetChanged();

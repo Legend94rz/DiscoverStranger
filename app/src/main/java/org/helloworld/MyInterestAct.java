@@ -97,7 +97,17 @@ public class MyInterestAct extends BaseActivity
 			h.textView.setText(s);
 			return view;
 		}
+		@Override
+		public boolean isEnabled(int position)
+		{
+			return false;
+		}
 
+		@Override
+		public boolean areAllItemsEnabled()
+		{
+			return false;
+		}
 		class H
 		{
 			TextView textView;

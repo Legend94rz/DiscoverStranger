@@ -49,7 +49,7 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 			if (freshs.size() > 0)
 			{
 				if (where.length() > 0) where += " and ";
-				where += String.format("id<%s", freshs.get(freshs.size() - 1).id);
+				where += String.format("id<%d", freshs.get(freshs.size() - 1).id);
 			}
 			new WebTask(handler, Global.MSG_WHAT.W_GOT_FRESHES_OLD).execute("getFreshBy", 2, "count", COUNT, "where", where);
 		}
@@ -164,7 +164,7 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 				if (freshs.size() > 0)
 				{
 					if (where.length() > 0) where += " and ";
-					where += String.format("id>%s", freshs.get(0).id);
+					where += String.format("id>%d", freshs.get(0).id);
 				}
 				new WebTask(handler, Global.MSG_WHAT.W_GOT_FRESHES_OLD).execute("getFreshBy", 2, "count", COUNT, "where", where);
 			}

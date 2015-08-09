@@ -3,7 +3,6 @@ package org.helloworld;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -182,7 +181,7 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 			view.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
 			view.setCacheColorHint(0);
 			view.setPadding(5, 0, 5, 5);
-			view.setSelector(new ColorDrawable(Color.TRANSPARENT));
+			view.setSelector(R.drawable.img_btn_mask);
 			view.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
 			view.setGravity(Gravity.CENTER);
 			pageViews.add(view);

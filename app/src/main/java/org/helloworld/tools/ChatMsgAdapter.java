@@ -190,17 +190,34 @@ public class ChatMsgAdapter extends BaseAdapter implements AbsListView.OnScrollL
 			spannableString = new SpannableString(parts[1]);
 
 			Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.play_alt);
-			bitmap = Bitmap.createScaledBitmap(bitmap, 28 * (int) context.getApplicationContext().getResources().getDisplayMetrics().density, 28 * (int) context.getApplicationContext().getResources().getDisplayMetrics().density, true);
+			bitmap = Bitmap.createScaledBitmap(bitmap, 28 * Global.DPI, 28 * Global.DPI, true);
 
 			ImageSpan imageSpan = new ImageSpan(context, bitmap);
 			spannableString.setSpan(imageSpan, 0, 7, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
 		}
 		viewHolder.tvContent.setText(spannableString);
 
-		if (FileUtils.Exist(Global.PATH.HeadImg + entity.fromId + ".png"))
-			viewHolder.ivHead.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg + entity.fromId + ".png"));
-		else
-			viewHolder.ivHead.setImageResource(R.drawable.nohead);
+		viewHolder.ivHead.setImageResource(R.drawable.nohead);
+		String url=Global.PATH.HeadImg+entity.fromId+".png";
+		viewHolder.ivHead.setTag(url);
+		Bitmap cacheHead=loader.loadDrawable(Global.PATH.HeadImg, "HeadImg", entity.fromId + ".png", isScroll, 128 * Global.DPI, new AsyImageLoader.ImageCallback()
+		{
+			@Override
+			public void imageLoaded(Bitmap bitmap, String url)
+			{
+				ImageView iv = (ImageView) listView.findViewWithTag(url);
+				if (iv != null)
+				{
+					if(bitmap!=null)
+					{
+						iv.setImageBitmap(bitmap);
+						notifyDataSetChanged();
+					}
+				}
+			}
+		});
+		if(cacheHead!=null)
+			viewHolder.ivHead.setImageBitmap(cacheHead);
 
 		viewHolder.tvSendTime.setText(Global.getShowDate(entity.sendTime));
 		if (position == 0 || entity.sendTime.getTime() - coll.get(position - 1).sendTime.getTime() > 1000 * 60)    //两条消息间隔大于1分钟才显示时间

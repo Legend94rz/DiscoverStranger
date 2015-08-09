@@ -42,7 +42,7 @@
 			android:layout_width="64dp"
 			android:layout_height="64dp"
 			android:id="@+id/ivHead"
-			android:src="@drawable/brand_default_head"
+			android:src="@drawable/nohead"
 			android:scaleType="fitXY"
 			android:layout_alignParentRight="true"
 			android:layout_below="@+id/imageView5"

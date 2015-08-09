@@ -13,9 +13,9 @@
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentStart="true"
 		android:layout_marginLeft="18dp"
-		android:layout_marginRight="15dp"
 		android:layout_marginBottom="15dp"
-		android:layout_marginTop="15dp">
+		android:layout_marginTop="15dp"
+		android:layout_marginRight="18dp">
 
 		<RelativeLayout
 			android:orientation="vertical"
@@ -124,13 +124,13 @@
 		android:layout_alignParentRight="true"
 		android:layout_alignParentEnd="true"
 		android:background="@drawable/tag"
-		android:layout_marginTop="5dp"
-		android:layout_marginRight="5dp"
 		android:textSize="16sp"
 		android:textColor="@android:color/white"
 		android:gravity="left|center_vertical"
 		android:paddingRight="20dp"
 		android:paddingBottom="3dp"
-		android:paddingTop="3dp"/>
+		android:paddingTop="3dp"
+		android:layout_marginRight="3dp"
+		android:layout_marginTop="3dp"/>
 
 </RelativeLayout>

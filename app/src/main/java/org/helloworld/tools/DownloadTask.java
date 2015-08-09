@@ -18,18 +18,28 @@ import java.io.IOException;
  */
 public class DownloadTask extends AsyncTask<Void, Void, Boolean>
 {
-	private String remotePath;
-	private String savePath;
+	private String remoteFolder;
+	private String saveFolder;
 	private String fileName;
 	private int blockSize;
 	private Handler handler;
 	private int what;
 	private Object obj;
-
-	public DownloadTask(String remotePath, String savePath, String fileName, int blockSize, Handler handler, int what, @Nullable Object obj)
+	/**
+	 * 该异步任务完成之后会向handler发送一个包含下载结果的Message,使用message.getData().getBoolean("result")获取
+	 * @see Message
+	 * @param remoteFolder 服务器文件夹
+	 * @param saveFolder 本地保存文件夹
+	 * @param fileName 文件名
+	 * @param blockSize 分块大小
+	 * @param handler 完成之后接收消息的handler
+	 * @param what 消息类型
+	 * @param obj (可选)
+	 * */
+	public DownloadTask(String remoteFolder, String saveFolder, String fileName, int blockSize, Handler handler, int what, @Nullable Object obj)
 	{
-		this.remotePath = remotePath;
-		this.savePath = savePath;
+		this.remoteFolder = remoteFolder;
+		this.saveFolder = saveFolder;
 		this.fileName = fileName;
 		this.blockSize = blockSize;
 		this.handler = handler;
@@ -40,7 +50,7 @@ public class DownloadTask extends AsyncTask<Void, Void, Boolean>
 	@Override
 	protected Boolean doInBackground(Void... voids)
 	{
-		return DownloadFile(remotePath, fileName, blockSize, savePath);
+		return DownloadFile(remoteFolder, fileName, blockSize, saveFolder);
 	}
 
 	/**

@@ -2,7 +2,6 @@ package org.helloworld;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Editable;
@@ -270,7 +269,7 @@ public class FaceRelativeLayout extends RelativeLayout implements OnItemClickLis
 			view.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
 			view.setCacheColorHint(0);
 			view.setPadding(5, 0, 5, 5);
-			view.setSelector(new ColorDrawable(Color.TRANSPARENT));
+			view.setSelector(R.drawable.img_btn_mask);
 			view.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			view.setGravity(Gravity.CENTER);
 			pageViews.add(view);
