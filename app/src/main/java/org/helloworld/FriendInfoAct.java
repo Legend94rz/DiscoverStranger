@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.helloworld.tools.DownloadTask;
@@ -31,7 +30,7 @@ public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 {
 	private TextView tvAge;
 	private TextView tvSex;
-	private ImageView ivHeadImg;
+	private CircleImageView ivHeadImg;
 	private String friendName;
 	private TextView tvNickName;
 	private TextView tvRemark;
@@ -75,7 +74,7 @@ public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 	{
 		tvAge = (TextView) findViewById(R.id.tvAge);
 		tvSex = (TextView) findViewById(R.id.tvSex);
-		ivHeadImg = (ImageView) findViewById(R.id.ivHeadImg);
+		ivHeadImg = (CircleImageView) findViewById(R.id.ivHeadImg);
 		tvNickName = (TextView) findViewById(R.id.tvNickName);
 		tvRemark = (TextView) findViewById(R.id.tvRemark);
 		UserInfo friend = Global.map2Friend.get(friendName);

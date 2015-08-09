@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.helloworld.CircleImageView;
 import org.helloworld.R;
 
 import java.util.ArrayList;
@@ -56,13 +57,13 @@ public class ContactAdapter extends BaseAdapter implements AbsListView.OnScrollL
 	@Override
 	public View getView(int position, View view, ViewGroup parent)
 	{
-		UserInfo hh = list.get(position);
+		UserInfo userInfo = list.get(position);
 		H h;
 		if (view == null)
 		{
 			h = new H();
 			view = LayoutInflater.from(context).inflate(R.layout.tongxunlu, parent, false);
-			h.pic = (ImageView) view.findViewById(R.id.tx1);
+			h.pic = (CircleImageView) view.findViewById(R.id.tx1);
 			h.name = (TextView) view.findViewById(R.id.tx2);
 
 			view.setTag(h);
@@ -72,8 +73,8 @@ public class ContactAdapter extends BaseAdapter implements AbsListView.OnScrollL
 			h = (H) view.getTag();
 		}
 		h.pic.setImageResource(R.drawable.nohead);
-		h.pic.setTag(Global.PATH.HeadImg + hh.username + ".png");
-		Bitmap bitmap=loader.loadDrawable(Global.PATH.HeadImg, "HeadImg", hh.username + ".png", isScroll, 128 * Global.DPI, new AsyImageLoader.ImageCallback()
+		h.pic.setTag(Global.PATH.HeadImg + userInfo.username + ".png");
+		Bitmap bitmap=loader.loadDrawable(Global.PATH.HeadImg, "HeadImg", userInfo.username + ".png", isScroll, 128 * Global.DPI, new AsyImageLoader.ImageCallback()
 		{
 			@Override
 			public void imageLoaded(Bitmap bitmap, String url)
@@ -92,11 +93,7 @@ public class ContactAdapter extends BaseAdapter implements AbsListView.OnScrollL
 		if(bitmap!=null)
 			h.pic.setImageBitmap(bitmap);
 
-		if (hh.Ex_remark == null || hh.Ex_remark.length() == 0)
-			h.name.setText(hh.nickName);
-		else
-			h.name.setText(hh.Ex_remark);
-
+		h.name.setText(userInfo.getShowName());
 		return view;
 	}
 
@@ -120,7 +117,7 @@ public class ContactAdapter extends BaseAdapter implements AbsListView.OnScrollL
 
 	class H
 	{
-		ImageView pic;
+		CircleImageView pic;
 		TextView name;
 	}
 }

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.helloworld.CircleImageView;
 import org.helloworld.R;
 
 import java.util.ArrayList;
@@ -63,7 +64,7 @@ public class HistoryAdapter extends BaseAdapter implements AbsListView.OnScrollL
 		{
 			h = new H();
 			view = LayoutInflater.from(context).inflate(R.layout.liaotian, viewGroup, false);
-			h.pic = (ImageView) view.findViewById(R.id.imgHead);
+			h.pic = (CircleImageView) view.findViewById(R.id.imgHead);
 			h.time = (TextView) view.findViewById(R.id.tvTime);
 			h.name = (TextView) view.findViewById(R.id.tvName);
 			h.msgCount = (TextView) view.findViewById(R.id.tvCount);
@@ -101,9 +102,7 @@ public class HistoryAdapter extends BaseAdapter implements AbsListView.OnScrollL
 		UserInfo temp = Global.map2Friend.get(history.partner);
 		if (temp != null)
 		{
-			String showName = temp.Ex_remark;
-			if (showName == null || showName.equals("")) showName = temp.nickName;
-			h.name.setText(showName);
+			h.name.setText(temp.getShowName());
 		}
 		else        //发消息的人不在好友列表中
 		{
@@ -154,7 +153,7 @@ public class HistoryAdapter extends BaseAdapter implements AbsListView.OnScrollL
 
 	class H
 	{
-		ImageView pic;
+		CircleImageView pic;
 		TextView name;
 		TextView lastMsg;
 		TextView time;

@@ -50,7 +50,7 @@
 			android:background="@drawable/img_btn_mask"
 			android:clickable="true"
 			android:onClick="goback"
-			>
+			android:paddingRight="15dp">
 
 			<TextView
 				android:id="@+id/button3"
@@ -73,7 +73,8 @@
 				android:layout_marginLeft="20dp"
 				android:layout_toRightOf="@+id/button3"
 				android:textColor="#ffffff"
-				android:textSize="20sp"/>
+				android:textSize="20sp"
+				/>
 		</RelativeLayout>
 	</RelativeLayout>
 

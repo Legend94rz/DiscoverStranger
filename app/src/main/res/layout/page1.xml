@@ -2,6 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent">
+	<TextView
+		android:id="@+id/empty"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_centerVertical="true"
+		android:text="历史记录为空哦,快去通讯录里找个人聊聊吧~"
+		android:textColor="#ff696969"/>
 
 	<android.support.v4.widget.SwipeRefreshLayout
 		android:id="@+id/swipe_container"
@@ -20,13 +28,5 @@
 			android:drawSelectorOnTop="false"/>
 	</android.support.v4.widget.SwipeRefreshLayout>
 
-	<TextView
-		android:id="@+id/empty"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_centerHorizontal="true"
-		android:layout_centerVertical="true"
-		android:text="历史记录为空哦,快去通讯录里找个人聊聊吧~"
-		android:textColor="#ff696969"
-		android:visibility="gone"/>
+
 </RelativeLayout>

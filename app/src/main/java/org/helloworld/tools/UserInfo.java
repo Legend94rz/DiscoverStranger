@@ -49,6 +49,26 @@ public class UserInfo
 		}
 		return model;
 	}
+	public static void parse(SoapObject obj,UserInfo model)
+	{
+		if(model==null)return;
+		SoapObject rawM = (SoapObject) obj.getProperty(0);
+		model.username = rawM.getPropertyAsString("username");
+		model.password = rawM.getPropertyAsString("password");
+		model.state = Integer.parseInt(rawM.getPropertyAsString("state"));
+		model.sex = Boolean.parseBoolean(rawM.getPropertyAsString("sex"));
+		model.nickName = rawM.getPropertyAsString("nickName");
+		String s = rawM.getPropertyAsString("birthday").replace('T', ' ');
+		try
+		{
+			model.birthday = new SimpleDateFormat("yyyy-MM-dd").parse(s);
+		}
+		catch (ParseException e)
+		{
+			model.birthday = Global.getDate();
+			e.printStackTrace();
+		}
+	}
 
 	public String Ex_remark;
 

@@ -33,12 +33,11 @@
 			android:layout_marginBottom="15dp"
 			android:padding="20dp">
 
-			<ImageView
+			<org.helloworld.CircleImageView
 				android:id="@+id/ivHeadImg"
 				android:layout_width="52dp"
 				android:layout_height="52dp"
 				android:clickable="true"
-				android:scaleType="fitCenter"
 				android:src="@drawable/nohead"
 				android:layout_alignParentTop="true"
 				android:layout_alignParentLeft="true"/>

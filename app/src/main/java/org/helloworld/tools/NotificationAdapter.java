@@ -6,9 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.helloworld.CircleImageView;
 import org.helloworld.R;
 
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class NotificationAdapter extends BaseAdapter
 		{
 			h = new H();
 			view = LayoutInflater.from(context).inflate(R.layout.item_notification, viewGroup, false);
-			h.ivHeadImg = (ImageView) view.findViewById(R.id.ivHeadImg);
+			h.ivHeadImg = (CircleImageView) view.findViewById(R.id.ivHeadImg);
 			h.tvHint = (TextView) view.findViewById(R.id.tvHint);
 			h.tvTime = (TextView) view.findViewById(R.id.tvTime);
 			h.tvName = (TextView) view.findViewById(R.id.tvName);
@@ -79,7 +79,7 @@ public class NotificationAdapter extends BaseAdapter
 	}
 	class H
 	{
-		ImageView ivHeadImg;
+		CircleImageView ivHeadImg;
 		TextView tvName;
 		TextView tvHint;
 		TextView tvTime;

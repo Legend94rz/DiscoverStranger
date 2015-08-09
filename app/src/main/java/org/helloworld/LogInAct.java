@@ -10,7 +10,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +31,7 @@ public class LogInAct extends BaseActivity
 	private ProgressBar pbLogInBar;
 	private Button btnLogIn;
 	private EditText etName, etPassword;
-	private ImageView ivHeadImg;
+	private CircleImageView ivHeadImg;
 
 	public class SignInTask extends AsyncTask<Void, Void, Boolean>
 	{
@@ -167,7 +166,7 @@ public class LogInAct extends BaseActivity
 		pbLogInBar = (ProgressBar) findViewById(R.id.pbLoginProgress);
 		etName = (EditText) findViewById(R.id.etName);
 		etPassword = (EditText) findViewById(R.id.etPassword);
-		ivHeadImg = (ImageView) findViewById(R.id.ivHeadImg);
+		ivHeadImg = (CircleImageView) findViewById(R.id.ivHeadImg);
 	}
 
 }

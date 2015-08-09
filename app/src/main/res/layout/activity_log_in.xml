@@ -103,7 +103,7 @@
 		android:indeterminateDrawable="@drawable/progress_circle_anim"
 		android:indeterminateDuration="1000"/>
 
-	<ImageView
+	<org.helloworld.CircleImageView
 		android:layout_width="128dp"
 		android:layout_height="128dp"
 		android:id="@+id/ivHeadImg"

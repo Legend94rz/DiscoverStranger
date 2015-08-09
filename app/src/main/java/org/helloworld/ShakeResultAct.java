@@ -26,9 +26,7 @@ public class ShakeResultAct extends BaseActivity
 	private ListView lvResult;
 	private ArrayList<ShakeRecord> result;
 	public static final int PLAY_GAME = 3;
-
 	public static Handler handler;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -71,19 +69,36 @@ public class ShakeResultAct extends BaseActivity
 				}
 				else
 					h = (H) view.getTag();
-				h.tvName.setText(r.username);
-				h.btnSayHello.setOnClickListener(new View.OnClickListener()
+				if(Global.map2Friend.containsKey(r.username))
 				{
-					@Override
-					public void onClick(View view)
+					h.tvName.setText(Global.map2Friend.get(r.username).getShowName());
+					h.btnSayHello.setVisibility(View.INVISIBLE);
+				}
+				else
+				{
+					h.tvName.setText(r.username);
+					h.btnSayHello.setOnClickListener(new View.OnClickListener()
 					{
-						NearbyStrangerAct.SayHello(ShakeResultAct.this, r.username, handler);
-					}
-				});
-
+						@Override
+						public void onClick(View view)
+						{
+							NearbyStrangerAct.SayHello(ShakeResultAct.this, r.username, handler);
+						}
+					});
+				}
 				return view;
 			}
+			@Override
+			public boolean isEnabled(int position)
+			{
+				return false;
+			}
 
+			@Override
+			public boolean areAllItemsEnabled()
+			{
+				return false;
+			}
 			class H
 			{
 				TextView tvName;
@@ -116,5 +131,6 @@ public class ShakeResultAct extends BaseActivity
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		NearbyStrangerAct.DealGameResult(requestCode, resultCode, data, handler, ShakeResultAct.this);
+		((BaseAdapter) lvResult.getAdapter()).notifyDataSetChanged();
 	}
 }

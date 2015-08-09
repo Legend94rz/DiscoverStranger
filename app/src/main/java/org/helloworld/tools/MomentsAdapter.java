@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.helloworld.BigPicAct;
+import org.helloworld.CircleImageView;
 import org.helloworld.NearbyStrangerAct;
 import org.helloworld.R;
 
@@ -74,7 +75,7 @@ public class MomentsAdapter extends BaseAdapter implements AbsListView.OnScrollL
 		{
 			h = new H();
 			view = inflater.inflate(R.layout.moments_item, viewGroup, false);
-			h.ivHead = (ImageView) view.findViewById(R.id.ivHead);
+			h.ivHead = (CircleImageView) view.findViewById(R.id.ivHead);
 			h.btnHello = (Button) view.findViewById(R.id.btnHello);
 			h.llImages = (LinearLayout) view.findViewById(R.id.llcontet);
 			h.tvNickName = (TextView) view.findViewById(R.id.tvNickname);
@@ -208,7 +209,7 @@ public class MomentsAdapter extends BaseAdapter implements AbsListView.OnScrollL
 	}
 	class H
 	{
-		ImageView ivHead;
+		CircleImageView ivHead;
 		TextView tvNickName, tvText, tvTime, tvTag;
 		Button btnHello;
 		LinearLayout llImages;

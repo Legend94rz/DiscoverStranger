@@ -5,12 +5,11 @@
 			  android:layout_height="wrap_content"
 				android:padding="18dp">
 
-	<ImageView
+	<org.helloworld.CircleImageView
 		android:layout_width="50dp"
 		android:layout_height="50dp"
 		android:id="@+id/imageView"
 		android:src="@drawable/nohead"
-		android:scaleType="fitCenter"
 		android:layout_alignParentTop="true"
 		android:layout_alignParentLeft="true"/>
 

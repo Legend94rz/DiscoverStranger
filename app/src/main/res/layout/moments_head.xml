@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  xmlns:app="http://schemas.android.com/apk/res-auto"
 			  android:orientation="vertical"
 			  android:layout_width="match_parent"
 			  android:layout_height="match_parent">
@@ -38,14 +39,16 @@
 			android:background="#ad33ac71"
 			android:clickable="true"/>
 
-		<ImageView
+		<org.helloworld.CircleImageView
 			android:layout_width="64dp"
 			android:layout_height="64dp"
 			android:id="@+id/ivHead"
 			android:src="@drawable/nohead"
-			android:scaleType="fitXY"
 			android:layout_alignParentRight="true"
 			android:layout_below="@+id/imageView5"
+			app:border_width="2dp"
+			app:border_color="@color/white"
+			app:border_overlay="true"
 			android:layout_marginTop="-32dp"
 			android:layout_marginRight="10dp"/>
 

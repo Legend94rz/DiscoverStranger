@@ -2,6 +2,7 @@
 				xmlns:tools="http://schemas.android.com/tools"
 				android:layout_width="match_parent"
 				android:layout_height="fill_parent"
+				xmlns:app="http://schemas.android.com/apk/res-auto"
 				tools:context="org.helloworld.FriendInfoAct"
 	>
 
@@ -44,16 +45,18 @@
 					android:layout_toLeftOf="@+id/ivHeadImg"
 					android:layout_marginRight="25dp"/>
 
-				<ImageView
+				<org.helloworld.CircleImageView
 					android:layout_width="64dp"
 					android:layout_height="64dp"
 					android:id="@+id/ivHeadImg"
 					android:src="@drawable/nohead"
-					android:scaleType="fitCenter"
 					android:layout_alignParentRight="true"
 					android:layout_below="@+id/imageView3"
 					android:layout_marginTop="-32dp"
-					android:layout_marginRight="10dp"/>
+					android:layout_marginRight="10dp"
+					app:border_width="2dp"
+					app:border_color="@color/white"
+					app:border_overlay="true"/>
 
 			</RelativeLayout>
 

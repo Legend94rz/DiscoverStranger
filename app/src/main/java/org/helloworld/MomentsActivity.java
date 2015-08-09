@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,7 +28,7 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 	SwipeRefreshLayout swipeRefreshLayout;
 	MomentsAdapter adapter;
 	ArrayList<Fresh> freshs;
-	ImageView ivMyHead;
+	CircleImageView ivMyHead;
 	Handler handler;
 	TextView tvMore;
 	LinearLayout llLoading;
@@ -84,8 +83,8 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 		View headView = View.inflate(this, R.layout.moments_head, null);
 		((TextView) headView.findViewById(R.id.tvNickName)).setText(Global.mySelf.nickName);
 		headView.findViewById(R.id.tvSetInterest).setOnClickListener(this);
-		ivMyHead = (ImageView) headView.findViewById(R.id.ivHead);
-		ivMyHead.setImageBitmap(FileUtils.getOptimalBitmap(this, Global.PATH.HeadImg + Global.mySelf.username + ".png", 48 * Global.DPI));
+		ivMyHead = (CircleImageView) headView.findViewById(R.id.ivHead);
+		ivMyHead.setImageBitmap(FileUtils.getOptimalBitmap(this, Global.PATH.HeadImg + Global.mySelf.username + ".png", 128 * Global.DPI));
 		listView.addHeaderView(headView, null, false);
 		freshs = new ArrayList<>();
 		handler = new Handler(new Handler.Callback()
@@ -176,5 +175,6 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		NearbyStrangerAct.DealGameResult(requestCode, resultCode, data, handler, MomentsActivity.this);
+		adapter.notifyDataSetChanged();
 	}
 }

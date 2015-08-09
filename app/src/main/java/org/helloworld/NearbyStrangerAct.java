@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -128,7 +127,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 		TextView tvDistance = (TextView) windowView.findViewById(R.id.tvDistance);
 		tvDistance.setText(extraInfo.getString("distance"));
 		Button btnSayHello = (Button) windowView.findViewById(R.id.btnSayHello);
-		ImageView ivHeadImg = (ImageView) windowView.findViewById(R.id.ivHeadImg);
+		CircleImageView ivHeadImg = (CircleImageView) windowView.findViewById(R.id.ivHeadImg);
 		if (Global.map2Friend.containsKey(strangerName))
 		{
 			btnSayHello.setEnabled(false);

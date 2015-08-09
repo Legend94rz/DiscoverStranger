@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import org.helloworld.BigPicAct;
 import org.helloworld.ChatActivity;
+import org.helloworld.CircleImageView;
 import org.helloworld.R;
 
 import java.util.List;
@@ -130,7 +131,7 @@ public class ChatMsgAdapter extends BaseAdapter implements AbsListView.OnScrollL
 			viewHolder.ivPic = (ImageView) convertView.findViewById(R.id.ivPic);
 			viewHolder.ibResendbtn = (ImageButton) convertView.findViewById(R.id.ibResendbtn);
 			viewHolder.pbSendbar = (ProgressBar) convertView.findViewById(R.id.pbSendbar);
-			viewHolder.ivHead = (ImageView) convertView.findViewById(R.id.iv_userhead);
+			viewHolder.ivHead = (CircleImageView) convertView.findViewById(R.id.iv_userhead);
 			viewHolder.tvContent.setOnClickListener(viewHolder);
 			viewHolder.ibResendbtn.setOnClickListener(viewHolder);
 			viewHolder.ivPic.setOnClickListener(viewHolder);
@@ -268,7 +269,7 @@ public class ChatMsgAdapter extends BaseAdapter implements AbsListView.OnScrollL
 		public ImageButton ibResendbtn;
 		public ProgressBar pbSendbar;
 		public ImageView ivPic;
-		public ImageView ivHead;
+		public CircleImageView ivHead;
 		public Message msg;
 		public ProgressBar pbPlayVoice;
 

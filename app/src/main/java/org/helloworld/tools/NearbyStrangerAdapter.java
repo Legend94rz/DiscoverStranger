@@ -6,9 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.helloworld.CircleImageView;
 import org.helloworld.R;
 
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class NearbyStrangerAdapter extends BaseAdapter
 			h = new H();
 			LayoutInflater inflater = LayoutInflater.from(context);
 			view = inflater.inflate(R.layout.tongxunlu, viewGroup, false);
-			h.ivHead = (ImageView) view.findViewById(R.id.tx1);
+			h.ivHead = (CircleImageView) view.findViewById(R.id.tx1);
 			h.tvName = (TextView) view.findViewById(R.id.tx2);
 			view.setTag(h);
 		}
@@ -75,7 +75,7 @@ public class NearbyStrangerAdapter extends BaseAdapter
 
 	class H
 	{
-		ImageView ivHead;
+		CircleImageView ivHead;
 		TextView tvName;
 	}
 }

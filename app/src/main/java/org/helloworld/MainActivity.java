@@ -17,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -155,12 +154,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
 	public class parserWithExtraAsync extends AsyncTask<Void, Void, Void>
 	{
-		private String incompleteName;
+		private UserInfo incompleteUser;
 		private JSONObject jsonUser;
 
-		public parserWithExtraAsync(String incompleteName, JSONObject userInfo)
+		public parserWithExtraAsync(UserInfo incompleteUser, JSONObject userInfo)
 		{
-			this.incompleteName = incompleteName;
+			this.incompleteUser = incompleteUser;
 			jsonUser = userInfo;
 		}
 
@@ -168,11 +167,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		protected Void doInBackground(Void... voids)
 		{
 			WebService getUser = new WebService("GetUser");
-			UserInfo u;
 			try
 			{
 				SoapObject result = getUser.addProperty("name", jsonUser.getString("name")).call();
-				u = UserInfo.parse(result);
+				UserInfo.parse(result,incompleteUser);
 			}
 			catch (Exception e)
 			{
@@ -181,17 +179,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 			}
 			try
 			{
-				u.Ex_remark = jsonUser.getString("remark");
+				incompleteUser.Ex_remark = jsonUser.getString("remark");
 			}
 			catch (JSONException ignored)
 			{
-				u.Ex_remark = null;
+				incompleteUser.Ex_remark = null;
 			}
-			if(Global.map2Friend.containsKey(incompleteName))
-			{
-				Global.map2Friend.put(incompleteName, u);
-				MainActivity.handler.sendEmptyMessage(Global.MSG_WHAT.W_REFRESH);
-			}
+			MainActivity.handler.sendEmptyMessage(Global.MSG_WHAT.W_REFRESH);
 			return null;
 		}
 
@@ -209,28 +203,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 	protected void onResume()
 	{
 		super.onResume();
-		updateHistoryView();
-	}
-
-	private void updateHistoryView()
-	{
-		if (hisAdapter == null)
-		{
-			hisAdapter = new HistoryAdapter(Global.historyList, MainActivity.this,lvHistory);
-			lvHistory.setAdapter(hisAdapter);
-		}
-		if (hisAdapter.getCount() == 0)
-		{
-			emptyNotice.setVisibility(View.VISIBLE);
-			lvHistory.setVisibility(View.GONE);
-		}
-		else
-		{
-			emptyNotice.setVisibility(View.GONE);
-			lvHistory.setVisibility(View.VISIBLE);
-		}
 		hisAdapter.notifyDataSetChanged();
 	}
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -283,7 +258,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 							if (!Global.historyList.contains(h))
 								Global.historyList.add(h);
 						}
-						updateHistoryView();
+						hisAdapter.notifyDataSetChanged();
 						break;
 					case Global.MSG_WHAT.W_GOT_FRIENDS_LIST:
 						try
@@ -296,7 +271,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 								JSONObject userInfo = array.getJSONObject(i);
 								UserInfo friend = new UserInfo(userInfo.getString("name"));
 								Global.map2Friend.put(friend.username, friend);
-								new parserWithExtraAsync(friend.username, userInfo).execute();
+								Global.friendList.add(friend);
+								new parserWithExtraAsync(friend, userInfo).execute();
 							}
 						}
 						catch (NullPointerException | ArrayIndexOutOfBoundsException ignored)
@@ -311,6 +287,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 							Global.refreshing[0] = false;
 							Global.refreshing.notify();
 						}
+						ArrayList<History> toRemove=new ArrayList<>();
+						for(History h:Global.historyList)
+						{
+							if(!Global.map2Friend.containsKey(h.partner))
+							{
+								toRemove.add(h);
+								Global.map.remove(h.partner);
+							}
+						}
+						Global.historyList.removeAll(toRemove);
+						hisAdapter.notifyDataSetChanged();
 						break;
 					case Global.MSG_WHAT.W_ERROR_NETWORK:
 						CustomToast.show(MainActivity.this, Global.ERROR_HINT.HINT_ERROR_NETWORD, Toast.LENGTH_SHORT);
@@ -318,7 +305,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 					case Global.MSG_WHAT.W_REFRESH_DEEP:
 						FlushState();
 					case Global.MSG_WHAT.W_REFRESH:
-						BindAdapter();
+						contactAdapter.notifyDataSetChanged();
+						hisAdapter.notifyDataSetChanged();
 						break;
 					case Global.MSG_WHAT.W_GOT_USER_SETTING:
 						SoapObject result = (SoapObject) msg.obj;
@@ -339,17 +327,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		startService(I);
 		//更新用户配置
 		new WebTask(handler, Global.MSG_WHAT.W_GOT_USER_SETTING).execute("getUserSetting", 1, "username", Global.mySelf.username);
-		//修改用户信息按钮
-		//ivSetting = (ImageView) findViewById(R.id.ivSettingImg);
-		//ivSetting.setOnClickListener(new View.OnClickListener()
-		//{
-		//	@Override
-		//	public void onClick(View v)
-		//	{
-		//		Intent intent = new Intent(MainActivity.this, Alter.class);
-		//		startActivity(intent);
-		//	}
-		//});
 		soundPool = new SoundPool(3, AudioManager.STREAM_ALARM, 0);
 		soundId = soundPool.load(this, R.raw.msg, 1);
 		soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener()
@@ -408,10 +385,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		refreshLayout1.setColorSchemeColors(R.color.blue, R.color.red, R.color.green, R.color.black);
 		refreshLayout1.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
 		{
-			//Todo 刷新消息
 			@Override
 			public void onRefresh()
 			{
+				hisAdapter.notifyDataSetChanged();
 				refreshLayout1.postDelayed(new Runnable()
 				{
 					@Override
@@ -441,6 +418,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 			}
 		});
 		lvHistory = (ListView) v1.findViewById(R.id.listView);
+		lvHistory.setEmptyView(v1.findViewById(R.id.empty));
 		emptyNotice = (TextView) v1.findViewById(R.id.empty);
 		lvHistory.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
@@ -461,6 +439,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 				}
 			}
 		});
+
+		contactAdapter = new ContactAdapter(this, Global.friendList,lvFriends);
+		lvFriends.setAdapter(contactAdapter);
+		hisAdapter = new HistoryAdapter(Global.historyList, MainActivity.this,lvHistory);
+		lvHistory.setAdapter(hisAdapter);
+
 		pages = new ArrayList<View>();
 		pages.add(v1);
 		pages.add(v2);
@@ -527,7 +511,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 	{
 		TextView tvNickname = (TextView) drawerContent.findViewById(R.id.tvNickname);
 		tvNickname.setText(Global.mySelf.nickName);
-		ImageView ivHeadImg = (ImageView) drawerContent.findViewById(R.id.ivHeadImg);
+		CircleImageView ivHeadImg = (CircleImageView) drawerContent.findViewById(R.id.ivHeadImg);
 		if (FileUtils.Exist(Global.PATH.HeadImg + Global.mySelf.username + ".png"))
 			ivHeadImg.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg + Global.mySelf.username + ".png"));
 		else
@@ -552,21 +536,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		return data;
 	}
 
-	void BindAdapter()
-	{
-		Global.friendList.clear();
-		for (UserInfo u : Global.map2Friend.values())
-		{
-			Global.friendList.add(u);
-		}
-		if (contactAdapter == null)
-		{
-			contactAdapter = new ContactAdapter(this, Global.friendList,lvFriends);
-			lvFriends.setAdapter(contactAdapter);
-		}
-		contactAdapter.notifyDataSetChanged();
-		//CustomToast.show(this, "已更新", Toast.LENGTH_SHORT);
-	}
+
 
 	void FlushState()
 	{
@@ -575,6 +545,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 			Global.refreshing[0] = true;
 		}
 		RefreshMyInfo();
+		Global.friendList.clear();
 		new WebTask(MainActivity.handler, Global.MSG_WHAT.W_GOT_FRIENDS_LIST).execute("getFriends", 1, "name", Global.mySelf.username);
 	}
 

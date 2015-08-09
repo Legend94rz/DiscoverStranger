@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  xmlns:app="http://schemas.android.com/apk/res-auto"
 			  android:orientation="vertical"
 			  android:layout_width="wrap_content"
 			  android:layout_height="fill_parent"
@@ -12,15 +13,18 @@
 		android:background="@drawable/navigation_bg"
 		>
 
-		<ImageView
-			android:layout_width="48dp"
-			android:layout_height="48dp"
+		<org.helloworld.CircleImageView
+			android:layout_width="50dp"
+			android:layout_height="50dp"
 			android:id="@+id/ivHeadImg"
 			android:layout_marginLeft="30dp"
 			android:layout_marginTop="30dp"
 			android:layout_alignParentTop="true"
 			android:layout_alignParentLeft="true"
-			android:background="@drawable/img_btn_mask"/>
+			android:src="@drawable/nohead"
+			app:border_width="2dp"
+			app:border_color="@color/white"
+			app:border_overlay="true"/>
 
 		<TextView
 			android:layout_width="wrap_content"

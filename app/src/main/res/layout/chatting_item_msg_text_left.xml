@@ -13,12 +13,11 @@
 		android:layout_margin="3dp"
 		>
 
-		<ImageView
+		<org.helloworld.CircleImageView
 			android:id="@+id/iv_userhead"
 			android:layout_width="48dp"
 			android:layout_height="48dp"
 			android:clickable="true"
-			android:scaleType="fitCenter"
 			android:layout_below="@+id/tv_sendtime"
 			android:layout_alignParentLeft="true"
 			android:src="@drawable/nohead"/>
@@ -64,7 +63,7 @@
 				android:singleLine="false"
 				android:paddingTop="3dp"
 				android:visibility="visible"
-				android:text="2333333"/>
+				/>
 
 			<ImageView
 				android:layout_width="wrap_content"

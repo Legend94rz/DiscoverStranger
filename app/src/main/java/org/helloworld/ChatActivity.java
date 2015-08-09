@@ -112,7 +112,11 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 		history.unreadMsg.clear();
 		MsgPullService.handlers.remove(handler);
 		handler = null;
-		if (history.lastHistoryMsg == null) Global.historyList.remove(history);
+		if (history.lastHistoryMsg == null)
+		{
+			Global.historyList.remove(history);
+			Global.map.remove(chatTo);
+		}
 	}
 
 	public class SendTask extends AsyncTask<Void, Void, Boolean>
