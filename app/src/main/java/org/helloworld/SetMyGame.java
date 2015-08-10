@@ -90,10 +90,10 @@ public class SetMyGame extends BaseActivity
 			switch (g.pakageName)
 			{
 				case "1":
-					h.ivThumb.setBackgroundResource(R.drawable.icon_jigsaw);
+					h.ivThumb.setBackgroundResource(R.drawable.icon_jigsaw2);
 					break;
 				case "2":
-					h.ivThumb.setBackgroundResource(R.drawable.icon_speedmatch);
+					h.ivThumb.setBackgroundResource(R.drawable.icon_speedmatch2);
 					break;
 				default:
 					h.ivThumb.setBackgroundResource(R.drawable.nopic);
