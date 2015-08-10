@@ -290,7 +290,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 						ArrayList<History> toRemove=new ArrayList<>();
 						for(History h:Global.historyList)
 						{
-							if(!Global.map2Friend.containsKey(h.partner))
+							if(!Global.map2Friend.containsKey(h.partner) && !h.isSystem())
 							{
 								toRemove.add(h);
 								Global.map.remove(h.partner);
@@ -310,8 +310,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 						break;
 					case Global.MSG_WHAT.W_GOT_USER_SETTING:
 						SoapObject result = (SoapObject) msg.obj;
-						if (result.getPropertyCount() > 0)
-							Global.settings = Settings.parse((SoapObject) result.getProperty(0));
+						if(result!=null)
+							if (result.getPropertyCount() > 0)
+								Global.settings = Settings.parse((SoapObject) result.getProperty(0));
 						break;
 					case Global.MSG_WHAT.W_DATA_CHANGED:
 						hisAdapter.notifyDataSetChanged();

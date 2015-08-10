@@ -12,13 +12,14 @@ import java.util.ArrayList;
  */
 public class CMDParser
 {
-	private final ArrayList< Message > cmds;
-	private static CMDParser cmdParser=null;
+	private final ArrayList<Message> cmds;
+	private static CMDParser cmdParser = null;
 	Thread t;
+
 	CMDParser()
 	{
 		cmds = new ArrayList<>();
-		t=new Thread(new Runnable()
+		t = new Thread(new Runnable()
 		{
 			@Override
 			public void run()
@@ -27,24 +28,23 @@ public class CMDParser
 				{
 					synchronized (cmds)
 					{
-						synchronized (Global.refreshing)
+						if (cmds.size() == 0)
 						{
-							if (cmds.size() == 0)
+							try
 							{
-								try
-								{
-									cmds.wait();
-								}
-								catch (InterruptedException e)
-								{
-									e.printStackTrace();
-								}
+								cmds.wait();
 							}
-							else
+							catch (InterruptedException e)
+							{
+								e.printStackTrace();
+							}
+						}
+						else
+							synchronized (Global.refreshing)
 							{
 								for (int i = 0; i < cmds.size(); i++)
 								{
-									Message message=cmds.get(i);
+									Message message = cmds.get(i);
 									try
 									{
 										JSONObject j = new JSONObject(message.text);
@@ -52,7 +52,7 @@ public class CMDParser
 										String cmdName = j.getString("cmdName");
 										if (cmdName.equals("addFriend"))
 										{
-											if(!Global.refreshing[0])
+											if (!Global.refreshing[0])
 												FriendInfoAct.AddFriend(params.getString(0));
 											else
 												try
@@ -66,7 +66,7 @@ public class CMDParser
 										}
 										else if (cmdName.equals("delFriend"))
 										{
-											if(!Global.refreshing[0])
+											if (!Global.refreshing[0])
 												FriendInfoAct.DelFriend(params.getString(0));
 											else
 												try
@@ -86,13 +86,13 @@ public class CMDParser
 								}
 								cmds.clear();
 							}
-						}
 					}
 				}
 			}
 		});
 		t.start();
 	}
+
 	public void AddCMD(Message cmd)
 	{
 		synchronized (cmds)
@@ -101,10 +101,11 @@ public class CMDParser
 			cmds.notify();
 		}
 	}
+
 	public static CMDParser getInstant()
 	{
-		if(cmdParser==null)
-			cmdParser=new CMDParser();
+		if (cmdParser == null)
+			cmdParser = new CMDParser();
 		return cmdParser;
 	}
 }

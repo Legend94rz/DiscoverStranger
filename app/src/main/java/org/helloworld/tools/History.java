@@ -30,4 +30,8 @@ public class History
 		unreadMsg = new ArrayList<>();
 		headId = sysHead.containsKey(partner) ? sysHead.get(partner) : -1;
 	}
+	public boolean isSystem()
+	{
+		return sysHead.containsKey(partner);
+	}
 }

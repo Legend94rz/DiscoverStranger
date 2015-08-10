@@ -152,11 +152,6 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 			@Override
 			public void onRefresh()
 			{
-				if (tvMore.getVisibility() != View.GONE)
-				{
-					swipeRefreshLayout.setRefreshing(false);
-					return;
-				}
 				String where = "";
 				if (Global.settings.interests.size() > 0)
 					where = "tag in" + Global.settings.getInterestList();
@@ -165,7 +160,7 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 					if (where.length() > 0) where += " and ";
 					where += String.format("id>%d", freshs.get(0).id);
 				}
-				new WebTask(handler, Global.MSG_WHAT.W_GOT_FRESHES_OLD).execute("getFreshBy", 2, "count", COUNT, "where", where);
+				new WebTask(handler, Global.MSG_WHAT.W_GOT_FRESHES_NEW).execute("getFreshBy", 2, "count", COUNT, "where", where);
 			}
 		});
 		onClick(tvMore);

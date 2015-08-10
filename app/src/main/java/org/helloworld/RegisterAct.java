@@ -136,17 +136,21 @@ public class RegisterAct extends BaseActivity
 				{
 					case Global.MSG_WHAT.W_CHECKED_USERNAME:
 						pbcheckname.setVisibility(View.GONE);
-						if (!((Boolean) message.obj))
+						if ((Byte) message.obj == 3)
 						{
 							ivUsernameError.setVisibility(View.VISIBLE);
 							tvError_info_username.setVisibility(View.VISIBLE);
 							tvError_info_username.setText("用户名已存在");
 						}
-						else
+						else if( ((Byte) message.obj)==1 )
 						{
 							ivUsernameError.setVisibility(View.GONE);
 							tvError_info_username.setVisibility(View.GONE);
 							tvError_info_username.setText("");
+						}
+						else if(((Byte) message.obj)==2)
+						{
+							Toast.makeText(RegisterAct.this,"网络连接失败",Toast.LENGTH_SHORT).show();
 						}
 						break;
 				}
@@ -190,8 +194,8 @@ public class RegisterAct extends BaseActivity
 		String error_info_username = "";
 		for (int i = 0; i < urname.length(); i++)
 		{
-			int s = (int) urname.charAt(i);
-			if (!((s > 47) && (s < 58) || ((s > 64) && (s < 91)) || ((s > 96) && (s < 122)) || (s == 95)))
+			char s = urname.charAt(i);
+			if ( !((s<='9' && s>='0' ) || ( s>='a' && s<='z' ) || (s>='A' && s<='Z') || (s=='_') ))
 				isLegal = false;
 		}
 		if (!isLegal) error_info_username += " 用户名只能包含字母数字和下划线 ";
@@ -252,7 +256,7 @@ public class RegisterAct extends BaseActivity
 	/**
 	 * To check if the password is the same as the confirmed_password.
 	 */
-	public class Check_online extends AsyncTask<Void, Void, Boolean>
+	public class Check_online extends AsyncTask<Void, Void, Byte>
 	{
 		public String Username;
 
@@ -268,30 +272,32 @@ public class RegisterAct extends BaseActivity
 		}
 
 		@Override
-		protected Boolean doInBackground(Void... voids)
+		protected Byte doInBackground(Void... voids)
 		{
 			WebService check = new WebService("GetUser");
 			check.addProperty("name", Username);
 			try
 			{
 				SoapObject result = check.call();
-				return result.getPropertyCount() == 0;
+				if(result.getPropertyCount() == 0)
+					return 1;	//成功
 			}
 			catch (NullPointerException e)
 			{
 				e.printStackTrace();
+				return 2;	//网络连接失败
 			}
-			return false;
+			return 3;		//用户名已存在
 		}
 
 		@Override
-		protected void onPostExecute(Boolean aBoolean)
+		protected void onPostExecute(Byte aByte)
 		{
 			btnNext.setEnabled(true);
 			Message m = new Message();
 			m.what = Global.MSG_WHAT.W_CHECKED_USERNAME;
-			m.obj = aBoolean;
-			canRegister &= aBoolean;
+			m.obj = aByte;
+			canRegister &= aByte==1;
 			handler.sendMessage(m);
 			pbcheckname.setVisibility(View.GONE);
 		}
@@ -338,6 +344,32 @@ public class RegisterAct extends BaseActivity
 				e.printStackTrace();
 				return 4;
 			}
+			String path = Global.PATH.HeadImg;
+			String filename = Username + ".png";
+			File file = new File(path, filename);
+			FileUtils.mkDir(file.getParentFile());
+			try
+			{
+				file.createNewFile();
+				FileOutputStream fileOutputStream = new FileOutputStream(file);
+				photo.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
+				fileOutputStream.flush();
+				fileOutputStream.close();
+			}
+			catch (FileNotFoundException e)
+			{
+				e.printStackTrace();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+			Global.mySelf = new UserInfo();
+			Global.mySelf.username = Username;
+			Global.mySelf.password = Password;
+			Global.mySelf.nickName = Nickname;
+			Global.mySelf.sex = Gender;
+			Global.InitData();
 			return 1;
 		}
 
@@ -350,32 +382,6 @@ public class RegisterAct extends BaseActivity
 				case 1:
 				{
 					CustomToast.show(RegisterAct.this, "注册成功", Toast.LENGTH_SHORT);
-					String path = Global.PATH.HeadImg;
-					String filename = Username + ".png";
-					File file = new File(path, filename);
-					FileUtils.mkDir(file.getParentFile());
-					try
-					{
-						file.createNewFile();
-						FileOutputStream fileOutputStream = new FileOutputStream(file);
-						photo.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
-						fileOutputStream.flush();
-						fileOutputStream.close();
-					}
-					catch (FileNotFoundException e)
-					{
-						e.printStackTrace();
-					}
-					catch (IOException e)
-					{
-						e.printStackTrace();
-					}
-					Global.mySelf = new UserInfo();
-					Global.mySelf.username = Username;
-					Global.mySelf.password = Password;
-					Global.mySelf.nickName = Nickname;
-					Global.mySelf.sex = Gender;
-					Global.InitData();
 					Intent i = new Intent(RegisterAct.this, MainActivity.class);
 					startActivity(i);
 					finish();
@@ -387,6 +393,10 @@ public class RegisterAct extends BaseActivity
 					break;
 				}
 				case 3:
+				{
+					CustomToast.show(RegisterAct.this, "失败，网络连接失败", Toast.LENGTH_SHORT);
+					break;
+				}
 				case 4:
 				{
 					CustomToast.show(RegisterAct.this, String.format("注册失败，错误%d", aByte), Toast.LENGTH_SHORT);

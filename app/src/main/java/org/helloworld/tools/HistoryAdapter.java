@@ -73,7 +73,7 @@ public class HistoryAdapter extends BaseAdapter implements AbsListView.OnScrollL
 		}
 		else
 			h = (H) view.getTag();
-		if (history.headId != -1)
+		if (history.isSystem())
 			h.pic.setImageResource(history.headId);
 		else
 		{

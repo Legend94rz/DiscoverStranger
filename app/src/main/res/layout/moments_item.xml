@@ -12,10 +12,10 @@
 		android:layout_alignParentTop="true"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentStart="true"
-		android:layout_marginLeft="18dp"
-		android:layout_marginBottom="15dp"
-		android:layout_marginTop="15dp"
-		android:layout_marginRight="18dp">
+		android:layout_marginLeft="8dp"
+		android:layout_marginBottom="5dp"
+		android:layout_marginRight="8dp"
+		android:layout_marginTop="5dp">
 
 		<RelativeLayout
 			android:orientation="vertical"
@@ -77,11 +77,12 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:id="@+id/tvText"
-					android:text="Text"
+					android:text="2333333333333333333333333333333333333333333333333"
 					android:layout_toStartOf="@+id/btnHello"
 					android:layout_marginRight="10dp"
 					android:layout_below="@+id/tvNickname"
-					android:layout_marginTop="10dp"/>
+					android:layout_marginTop="10dp"
+					android:textSize="16sp"/>
 
 				<TextView
 					android:layout_width="wrap_content"
@@ -90,7 +91,7 @@
 					android:id="@+id/tvNickname"
 					android:layout_alignStart="@+id/tvText"
 					android:textColor="#ff688390"
-					/>
+					android:layout_marginTop="3dp"/>
 
 			</RelativeLayout>
 
@@ -115,23 +116,21 @@
 				android:layout_marginBottom="15dp"/>
 		</LinearLayout>
 
-	</RelativeLayout>
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/tvTag"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true"
+			android:background="@drawable/tag"
+			android:textSize="16sp"
+			android:textColor="@android:color/white"
+			android:gravity="left|center_vertical"
+			android:paddingRight="20dp"
+			android:paddingBottom="3dp"
+			android:paddingTop="3dp"
+			/>
 
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/tvTag"
-		android:layout_alignParentRight="true"
-		android:layout_alignParentEnd="true"
-		android:background="@drawable/tag"
-		android:textSize="16sp"
-		android:textColor="@android:color/white"
-		android:gravity="left|center_vertical"
-		android:paddingRight="20dp"
-		android:paddingBottom="3dp"
-		android:paddingTop="3dp"
-		android:layout_marginRight="3dp"
-		android:layout_marginTop="3dp"
-		/>
+	</RelativeLayout>
 
 </RelativeLayout>

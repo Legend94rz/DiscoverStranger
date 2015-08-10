@@ -23,6 +23,14 @@ public class UserInfo
 
 	public UserInfo()
 	{
+		try
+		{
+			birthday=new SimpleDateFormat("yyyy-MM-dd").parse("1900-01-01");
+		}
+		catch (ParseException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**

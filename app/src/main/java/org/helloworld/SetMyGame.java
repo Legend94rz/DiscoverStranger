@@ -90,13 +90,13 @@ public class SetMyGame extends BaseActivity
 			switch (g.pakageName)
 			{
 				case "1":
-					h.ivThumb.setBackgroundResource(R.drawable.icon_jigsaw);
+					h.ivThumb.setImageResource(R.drawable.icon_jigsaw);
 					break;
 				case "2":
-					h.ivThumb.setBackgroundResource(R.drawable.icon_speedmatch);
+					h.ivThumb.setImageResource(R.drawable.icon_speedmatch);
 					break;
 				default:
-					h.ivThumb.setBackgroundResource(R.drawable.nopic);
+					h.ivThumb.setImageResource(R.drawable.nopic);
 					h.ivThumb.setTag(Global.PATH.APK + g.fileName + ".png");
 					Bitmap bitmap = loader.loadDrawable(Global.PATH.APK, "apk", g.fileName + ".png", false, 128 * Global.DPI, new AsyImageLoader.ImageCallback()
 					{
@@ -252,12 +252,16 @@ public class SetMyGame extends BaseActivity
 					{
 						Global.settings.game = selectGame.pakageName;
 						adapter.notifyDataSetChanged();
+						SweetAlertDialog dialog=new SweetAlertDialog(SetMyGame.this,SweetAlertDialog.SUCCESS_TYPE);
+						dialog.setTitleText("设置成功").show();
 					}
 				}
 				else
 				{
 					Global.settings.game = selectGame.pakageName;
 					adapter.notifyDataSetChanged();
+					SweetAlertDialog dialog=new SweetAlertDialog(SetMyGame.this,SweetAlertDialog.SUCCESS_TYPE);
+					dialog.setTitleText("设置成功").show();
 				}
 			}
 		});
