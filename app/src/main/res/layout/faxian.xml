@@ -33,9 +33,10 @@
 			android:layout_height="fill_parent"
 			android:layout_marginLeft="10dp"
 			android:text="圈子"
-			android:textSize="16sp"
+			android:textSize="20sp"
+
 			android:gravity="center"
-			android:textColor="@color/black"/>
+			android:textColor="#5bc8ec"/>
 	</LinearLayout>
 
 	<TextView
@@ -66,9 +67,9 @@
 	              	  android:layout_height="fill_parent"
 	              	  android:layout_marginLeft="10dp"
 	              	  android:text="@string/shake"
-	              	  android:textSize="16sp"
+	              	  android:textSize="20sp"
 	              	  android:gravity="center"
-	              	  android:textColor="@color/black"
+	              	  android:textColor="#ee5a92"
 		              />
 		      </LinearLayout>
 
@@ -101,9 +102,9 @@
 			android:layout_height="fill_parent"
 			android:layout_marginLeft="10dp"
 			android:text="@string/nearstranger"
-			android:textSize="16sp"
+			android:textSize="20sp"
 			android:gravity="center"
-			android:textColor="@color/black"/>
+			android:textColor="#4d6299"/>
 	</LinearLayout>
 
 	<TextView

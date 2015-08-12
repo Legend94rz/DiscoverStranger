@@ -14,6 +14,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+
 import org.helloworld.tools.CustomToast;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.UserInfo;
@@ -96,6 +98,7 @@ public class LogInAct extends BaseActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_log_in);
 		initView();
+
 		btnLogIn.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
