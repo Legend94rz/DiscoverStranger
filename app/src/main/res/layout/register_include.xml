@@ -2,70 +2,117 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			  android:orientation="vertical"
 			  android:layout_width="match_parent"
-			  android:layout_height="match_parent">
+			  android:layout_height="match_parent"
+    android:background="@drawable/bz"
+    android:baselineAligned="true">
 
 	<RelativeLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:animateLayoutChanges="true">
+		android:animateLayoutChanges="false"
+        android:background="@drawable/bz"
+        >
 
 		<ImageView
 			android:layout_width="150dip"
 			android:layout_height="150dip"
 			android:id="@+id/Avatar"
-			android:src="@drawable/default_avatar"
+			android:src="@drawable/nohead"
 			android:layout_below="@+id/relativeLayout2"
 			android:layout_centerHorizontal="true"
-			/>
+            android:layout_marginTop="30dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="点击设置头像"
+            android:id="@+id/following"
+            android:padding="0dp"
+            android:layout_below="@+id/Avatar"
+            android:layout_centerHorizontal="true" />
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="填写以下基本信息："
-			android:id="@+id/following"
-			android:padding="10dp"
-			android:layout_below="@+id/Avatar"
-			android:layout_alignLeft="@+id/username" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation =  "vertical"
+            android:layout_below="@+id/radioGroup"
+            android:id= "@+id/rgLayout1"
+            android:layout_marginTop="40dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:background="#ffe7b5ad"
+            android:autoText="false"
+            android:id="@+id/line1"/>
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignTop="@+id/username"
+            android:layout_below = "@+id/line1"
+            android:id="@+id/rgImg1"/>
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:id="@+id/username"
+                android:hint="用户名(字母/数字/下划线)"
+                android:singleLine="true"
+                style="@style/fill_width_edit_text_style"
+                android:layout_toRightOf="@+id/rgImg1"
+                android:autoText="false"
+                android:background="@null"
+                android:layout_marginTop="0dp"/>
+        </RelativeLayout>
 
-		<EditText
-			android:layout_width="match_parent"
-			android:layout_height="48dp"
-			android:id="@+id/username"
-			android:hint="用户名(字母/数字/下划线)"
 
-			android:layout_below="@+id/following"
-			android:layout_marginLeft="48dp"
-			android:singleLine="true"
-			style="@style/fill_width_edit_text_style"
-			android:layout_centerHorizontal="true"
-			android:layout_marginRight="48dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@+id/rgLayout1"
+            android:id="@+id/rgLayout2"
+            android:layout_marginTop="0dp">
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignLeft="@+id/password"
+                android:background="#ffe7b5ad"
+                android:id="@+id/line2" />
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignTop="@+id/password"
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text=""
-			android:id="@+id/error_info_username"
-			android:padding="10dp"
-			android:layout_below="@+id/username"
-			android:layout_alignLeft="@+id/username"
-			android:background="@color/azure"
-			android:textColor="#ffff3634"
-			android:visibility="gone"/>
-
+            android:id="@+id/rgImg2"/>
 		<EditText
 			android:layout_width="match_parent"
 			android:layout_height="48dp"
 			android:inputType="textPassword"
 			android:ems="10"
+            android:layout_below="@+id/line2"
 			android:id="@+id/password"
 			android:hint="密码(8-32位)"
-			android:layout_below="@+id/error_info_username"
-			android:layout_alignRight="@+id/username"
-			android:layout_alignLeft="@+id/username"
 			style="@style/fill_width_edit_text_style"
-			android:layout_marginTop="5dp"
-			android:layout_centerHorizontal="true"/>
+            android:layout_toRightOf="@+id/rgImg2"
+            android:background="@null"
+            android:autoText="true" />
+        </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/rgLayout2"
+        android:id="@+id/rgLayout3"
+        android:layout_marginTop="0dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignLeft="@+id/confirmPassword"
+            android:background="#ffe7b5ad"
+            android:id="@+id/line3" />
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignTop="@+id/confirmPassword"
 
+            android:id="@+id/rgImg3"/>
 		<EditText
 			android:layout_width="match_parent"
 			android:layout_height="48dp"
@@ -73,131 +120,104 @@
 			android:ems="10"
 			android:id="@+id/confirmPassword"
 			android:hint="重复密码"
-			android:layout_below="@+id/password"
-			android:layout_alignLeft="@+id/password"
-			android:layout_alignRight="@+id/password"
+            android:layout_below="@+id/line3"
 			style="@style/fill_width_edit_text_style"
-			android:layout_marginTop="5dp"
-			android:layout_centerHorizontal="true"/>
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:id="@+id/error_info_password"
-			android:padding="10dp"
-			android:layout_below="@+id/confirmPassword"
-			android:layout_alignLeft="@+id/confirmPassword"
-			android:background="@color/azure"
-			android:textColor="#ffff3634"
-			android:visibility="gone"/>
-
-		<ProgressBar
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:id="@+id/check_name"
-			android:visibility="gone"
-			android:layout_alignTop="@+id/username"
-			android:layout_alignParentRight="true"
-			android:indeterminateDuration="2000"
-			android:indeterminateDrawable="@drawable/progress_circle_anim"/>
-
-		<ImageView
-			android:layout_width="48dp"
-			android:layout_height="wrap_content"
-			android:id="@+id/username_error"
-			android:layout_alignParentRight="true"
-			android:layout_alignTop="@+id/username"
-			android:src="@drawable/error"
-			android:layout_alignBottom="@+id/username"
-			android:visibility="gone"
-			android:padding="8dp"/>
-
-		<ImageView
-			android:layout_width="48dp"
-			android:layout_height="wrap_content"
-			android:id="@+id/password_error"
-			android:visibility="gone"
-			android:layout_alignTop="@id/confirmPassword"
-			android:layout_toRightOf="@+id/confirmPassword"
-			android:layout_alignBottom="@+id/confirmPassword"
-			android:layout_alignRight="@+id/username_error"
-			android:src="@drawable/error"
-			android:padding="8dp"/>
-
-		<EditText
+            android:layout_toRightOf="@+id/rgImg3"
+			android:layout_centerHorizontal="true"
+            android:background="@null" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_below="@+id/rgLayout3"
+        android:id="@+id/rgLayout4"
+        android:layout_marginTop="0dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignLeft="@+id/nickname"
+            android:background="#ffe7b5ad"
+            android:id="@+id/line4" />
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignTop="@+id/nickname"
+            android:id="@+id/rgImg4"
+            android:layout_below="@+id/line4" />
+        <EditText
 			android:layout_width="match_parent"
 			android:layout_height="48dp"
 			android:inputType="textPersonName"
 			android:ems="10"
 			android:id="@+id/nickname"
 			android:hint="昵称"
-			android:layout_below="@+id/error_info_password"
-			android:layout_alignLeft="@+id/error_info_password"
-			android:layout_alignRight="@+id/confirmPassword"
 			style="@style/fill_width_edit_text_style"
-			android:layout_marginTop="5dp"
-			android:layout_centerHorizontal="true"
-			android:singleLine="true"/>
+            android:layout_toRightOf="@+id/rgImg4"
+			android:singleLine="true"
+            android:background="@null"
+            android:visibility="visible" />
 
-		<RadioGroup
+    </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/rgLayout4"
+            android:background="#ffe7b5ad" />
+
+        <RadioGroup
 			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
+			android:layout_height="48dp"
 			android:orientation="horizontal"
-			android:layout_alignLeft="@+id/nickname"
-			android:layout_alignRight="@+id/username"
-			android:id="@+id/radioGroup"
+            android:id="@+id/radioGroup"
 			android:gravity="top|left"
-			android:layout_below="@+id/textView5"
-			android:layout_marginTop="15dp">
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/following"
+            android:layout_alignLeft="@+id/Avatar"
+            android:layout_alignStart="@+id/Avatar"
+            android:layout_alignRight="@+id/Avatar"
+            android:layout_alignEnd="@+id/Avatar">
 			<RadioButton
 				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="男"
+				android:layout_height="48dp"
+				android:text=" 男"
 				android:id="@+id/maleButton"
 				android:layout_below="@id/nickname"
 				android:button="@drawable/radio_btn"
 				android:checked="true"
-				android:paddingLeft="35dp"
-				android:layout_weight="1"
-				/>
+				android:paddingLeft="0dp"
+                android:layout_marginRight="45dp"
+                />
 
-			<RadioButton
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="女"
-				android:id="@+id/femaleButton"
-				android:checked="false"
-				android:layout_toRightOf="@+id/maleButton"
-				android:layout_alignTop="@+id/maleButton"
-				android:button="@drawable/radio_btn"
-				android:paddingLeft="35dp"
-				android:layout_weight="1"/>
-		</RadioGroup>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 女"
+                android:id="@+id/femaleButton"
+                android:checked="false"
+                android:button="@drawable/radio_btn"
+                android:paddingLeft="0dp"
+                android:layout_alignTop="@+id/radioGroup"
+                android:layout_toRightOf="@+id/following"
+                android:layout_toEndOf="@+id/following" />
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="性别："
-			android:id="@+id/textView5"
-			android:layout_below="@+id/nickname"
-			android:layout_alignLeft="@+id/nickname"
-			android:textSize="18dp"
-			android:layout_marginTop="12dp"/>
+        </RadioGroup>
 
-		<Button
+        <Button
 			android:layout_width="match_parent"
 			android:layout_height="48dp"
 			android:text="完成并登录"
 			android:id="@+id/next"
 			android:layout_alignParentLeft="false"
-			android:layout_below="@+id/radioGroup"
+			android:layout_below="@+id/rgLayout4"
 			android:visibility="visible"
-			android:background="@drawable/btn_rect_blue"
+			android:background="#ff2a68ff"
 			android:textColor="@color/white"
 			android:textSize="20sp"
 			android:layout_centerHorizontal="true"
-			android:layout_marginLeft="10dp"
-			android:layout_marginTop="20dp"/>
+			android:layout_marginLeft="0dp"
+			android:layout_marginTop="0dp"/>
 
-	</RelativeLayout>
+    </RelativeLayout>
 </LinearLayout>

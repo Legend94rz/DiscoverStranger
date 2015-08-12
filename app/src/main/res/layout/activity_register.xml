@@ -3,41 +3,13 @@
 				android:orientation="vertical"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:background="@color/azure">
+				android:background="@drawable/bz">
 
-	<RelativeLayout
-		android:layout_width="fill_parent"
-		android:layout_height="67dp"
-		android:background="@drawable/actionbar_bg"
-		android:gravity="center_vertical"
-		android:layout_alignParentLeft="true"
-		android:id="@+id/relativeLayout2"
-		android:layout_marginLeft="-8dp"
-		android:layout_marginRight="-8dp"
-		android:layout_marginBottom="-8dp"
-		android:paddingLeft="8dp"
-		android:paddingRight="8dp"
-		android:paddingBottom="4dp"
-		android:layout_marginTop="-2dp">
-
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textSize="20sp"
-			android:textColor="#ffffff"
-			android:id="@+id/tvToId"
-			android:text="注册"
-			android:layout_alignBottom="@+id/button3"
-			android:layout_centerHorizontal="true" />
-	</RelativeLayout>
-
-	<ScrollView
+    <ScrollView
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
 		android:layout_alignParentBottom="false"
-		android:layout_below="@+id/relativeLayout2"
-		android:fillViewport="true">
+        android:fillViewport="true">
 
 		<include
 			android:layout_width="wrap_content"

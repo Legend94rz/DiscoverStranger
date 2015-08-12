@@ -309,6 +309,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 						hisAdapter.notifyDataSetChanged();
 						break;
 					case Global.MSG_WHAT.W_GOT_USER_SETTING:
+
 						SoapObject result = (SoapObject) msg.obj;
 						if (result.getPropertyCount() > 0)
 							Global.settings = Settings.parse((SoapObject) result.getProperty(0));

@@ -1,5 +1,6 @@
 package org.helloworld;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -54,7 +55,7 @@ public class RegisterAct extends BaseActivity
 	private ImageView ivPassError;
 	private TextView tvError_info_username;
 	private TextView tvError_info_password;
-
+    private SweetAlertDialog dialog;
 	public static Handler handler;
 	private Boolean canRegister = true;
 
@@ -67,14 +68,10 @@ public class RegisterAct extends BaseActivity
 		etUser_name = (EditText) findViewById(R.id.username);
 		etpasswords = (EditText) findViewById(R.id.password);
 		etconfirmpasswords = (EditText) findViewById(R.id.confirmPassword);
-		pbcheckname = (ProgressBar) findViewById(R.id.check_name);
 		final EditText etnick_name = (EditText) findViewById(R.id.nickname);
 		rbfemale = (RadioButton) findViewById(R.id.femaleButton);
 		btnNext = (Button) findViewById(R.id.next);
-		ivPassError = (ImageView) findViewById(R.id.password_error);
-		ivUsernameError = (ImageView) findViewById(R.id.username_error);
-		tvError_info_password = (TextView) findViewById(R.id.error_info_password);
-		tvError_info_username = (TextView) findViewById(R.id.error_info_username);
+         dialog = new SweetAlertDialog(RegisterAct.this);
 		/** To set the user's avatar by choosing image fromm gallery or taking photo
 		 * **/
 		ivAvatarimg.setOnClickListener(new setAvatar());
@@ -135,18 +132,20 @@ public class RegisterAct extends BaseActivity
 				switch (message.what)
 				{
 					case Global.MSG_WHAT.W_CHECKED_USERNAME:
-						pbcheckname.setVisibility(View.GONE);
+
 						if (!((Boolean) message.obj))
 						{
-							ivUsernameError.setVisibility(View.VISIBLE);
-							tvError_info_username.setVisibility(View.VISIBLE);
-							tvError_info_username.setText("用户名已存在");
+                            dialog.setTitleText("用户名已存在").setConfirmText("确认")
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener(){
+
+                                        public void onClick(SweetAlertDialog sweetAlertDialog)
+                                        {
+                                            sweetAlertDialog.dismiss();
+                                        }
+                                    }).show();
 						}
 						else
 						{
-							ivUsernameError.setVisibility(View.GONE);
-							tvError_info_username.setVisibility(View.GONE);
-							tvError_info_username.setText("");
 						}
 						break;
 				}
@@ -169,16 +168,20 @@ public class RegisterAct extends BaseActivity
 			error_info_password += " 密码长度为8~32位";
 		if (error_info_password.length() > 0)
 		{
-			ivPassError.setVisibility(View.VISIBLE);
-			tvError_info_password.setVisibility(View.VISIBLE);
-			tvError_info_password.setText(error_info_password);
+            SweetAlertDialog dialog = new SweetAlertDialog(RegisterAct.this);
+            dialog.setContentText(error_info_password).setConfirmText("确认")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener(){
+
+                        public void onClick(SweetAlertDialog sweetAlertDialog)
+                        {
+                            sweetAlertDialog.dismiss();
+                            etconfirmpasswords.setText("");
+                        }
+                    }).show();
 			canRegister &= false;
 		}
 		else
 		{
-			ivPassError.setVisibility(View.GONE);
-			tvError_info_password.setVisibility(View.GONE);
-			tvError_info_password.setText("");
 			canRegister &= true;
 		}
 	}
@@ -198,19 +201,22 @@ public class RegisterAct extends BaseActivity
 		if (urname.length() > 16 || urname.length() < 1) error_info_username += "用户名在1-16位之间";
 		if (error_info_username.length() > 0)
 		{
-			ivUsernameError.setVisibility(View.VISIBLE);
-			tvError_info_username.setVisibility(View.VISIBLE);
-			tvError_info_username.setText(error_info_username);
+
+            dialog.setContentText(error_info_username).setConfirmText("确认")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener(){
+
+                        public void onClick(SweetAlertDialog sweetAlertDialog)
+                        {
+                            sweetAlertDialog.dismiss();
+                            etUser_name.setText("");
+                        }
+                    }).show();
 			canRegister &= false;
 			return;
 		}
-		else
-		{
-			ivUsernameError.setVisibility(View.GONE);
-			tvError_info_username.setVisibility(View.GONE);
-			tvError_info_username.setText("");
-		}
-		pbcheckname.setVisibility(View.VISIBLE);
+		else {
+
+        }
 		Check_online task = new Check_online(urname);
 		task.execute();
 	}
@@ -293,7 +299,6 @@ public class RegisterAct extends BaseActivity
 			m.obj = aBoolean;
 			canRegister &= aBoolean;
 			handler.sendMessage(m);
-			pbcheckname.setVisibility(View.GONE);
 		}
 	}
 

@@ -5,71 +5,97 @@
 				android:layout_height="match_parent"
 				android:weightSum="1"
 				android:visibility="visible"
-				android:background="@color/azure">
+				android:background="@drawable/bz">
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="67dp"
-        android:background="@drawable/actionbar_bg"
-        android:gravity="center_vertical"
-        android:layout_alignParentLeft="true"
-        android:id="@+id/relativeLayout2"
-		android:layout_marginLeft="-8dp"
-		android:layout_marginRight="-8dp"
-		android:layout_marginBottom="-8dp"
-		android:layout_marginTop="-2dp">
-
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="#ffffff"
-            android:text="登录"
-            android:layout_alignBottom="@+id/button3"
-            android:layout_centerHorizontal="true" />
-    </RelativeLayout>
-	<EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivHeadImg"
+        android:orientation="vertical"
+        android:layout_marginTop="70dp"
+        android:id="@+id/layout1">
+     <TextView
+         android:layout_width="match_parent"
+         android:layout_height="1dp"
+         android:id="@+id/lineTop"
+         android:autoText="false"
+         android:background="@color/lightskyblue" />
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="48dp"
+        android:id="@+id/imageView4"
+        android:layout_alignTop="@+id/etName"
+        android:src="@drawable/emoji_28" />
+    <EditText
 		android:id="@+id/etName"
-		android:hint="帐号"
-		android:layout_marginTop="20dp"
-		android:layout_below="@+id/ivHeadImg"
-		style="@style/fill_width_edit_text_style"
+		android:hint="请输入您的帐号"
+        android:layout_marginLeft="5dp"
+        style="@style/fill_width_edit_text_style"
 		android:layout_width="match_parent"
 		android:layout_height="48dp"
-		android:layout_marginLeft="5dp"
-		android:layout_centerHorizontal="true"
-		android:singleLine="true"/>
-
+        android:singleLine="true"
+        android:layout_below="@+id/lineTop"
+        android:layout_marginTop="0dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:autoText="false"
+        android:background="@null"
+        android:layout_toRightOf="@+id/imageView4"
+        android:layout_toEndOf="@+id/imageView4" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout2"
+        android:layout_below="@+id/layout1">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignLeft="@+id/etPassword"
+        android:id="@+id/line"
+        android:autoText="false"
+        android:background="@color/lightskyblue" />
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="48dp"
+        android:layout_alignTop="@+id/etPassword"
+        android:id="@+id/imageView6"
+        android:src="@drawable/emoji_9" />
 	<EditText
 		android:layout_width="match_parent"
 		android:layout_height="48dp"
 		android:inputType="textPassword"
 		android:ems="10"
 		android:id="@+id/etPassword"
-		android:hint="密码"
-		android:layout_below="@+id/etName"
-		android:layout_alignParentLeft="true"
-		android:layout_centerHorizontal="true"
-		android:layout_marginLeft="5dp"
-		android:layout_marginTop="5dp"
-		style="@style/fill_width_edit_text_style"/>
-
+		android:hint="请输入您的密码"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_alignTop="@+id/line"
+		style="@style/fill_width_edit_text_style"
+        android:layout_toRightOf="@+id/imageView6"
+        android:layout_toEndOf="@+id/imageView6"
+        android:background="@null" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/etPassword"
+        android:autoText="false"
+        android:background="@color/lightskyblue" />
+    </RelativeLayout>
 	<Button
 		android:layout_width="match_parent"
 		android:layout_height="48dp"
-		android:text="登录"
+		android:text="登   录"
 		android:id="@+id/btnLogin"
-		android:layout_below="@+id/etPassword"
+		android:layout_below="@+id/layout2"
 		android:layout_alignParentLeft="true"
 		android:layout_alignRight="@+id/tvToRegister"
-		android:layout_marginLeft="15dp"
-		android:layout_marginRight="15dp"
-		android:layout_marginTop="5dp"
+		android:layout_marginLeft="0dp"
+		android:layout_marginRight="0dp"
+		android:layout_marginTop="0dp"
 		android:background="@drawable/btn_rect_blue"
 		android:textColor="@color/white"
 		android:textSize="20sp"
-		/>
+ />
 
 	<TextView
 		android:layout_width="wrap_content"
@@ -104,13 +130,13 @@
 		android:indeterminateDuration="1000"/>
 
 	<org.helloworld.CircleImageView
-		android:layout_width="128dp"
-		android:layout_height="128dp"
+		android:layout_width="160dp"
+		android:layout_height="160dp"
 		android:id="@+id/ivHeadImg"
         android:src="@drawable/nohead"
-		android:layout_marginTop="20dp"
-		android:layout_below="@+id/relativeLayout2"
-		android:layout_centerHorizontal="true"/>
+		android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+       />
 
 
 </RelativeLayout>

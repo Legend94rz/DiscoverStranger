@@ -13,164 +13,27 @@
       <config />
     </shared>
   </component>
-  <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: org.helloworld" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="435bc137-a13e-4ebb-9e11-d0c156dd324e" name="Default" comment="">
-      <change type="DELETED" beforePath="E:\DiscoverStranger\app\src\main\res\raw\Beep.mp3" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/AndroidManifest.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/AndroidManifest.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.pnikosis/materialish-progress/1.0/AndroidManifest.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.pnikosis/materialish-progress/1.0/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/generated/source/buildConfig/release/cn/pedant/SweetAlert/BuildConfig.java" afterPath="$PROJECT_DIR$/library/build/generated/source/buildConfig/release/cn/pedant/SweetAlert/BuildConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/aidl/android/support/v4/app/INotificationSideChannel.aidl" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/aidl/android/support/v4/app/INotificationSideChannel.aidl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/R.txt" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/R.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.pnikosis/materialish-progress/1.0/R.txt" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.pnikosis/materialish-progress/1.0/R.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_action_bar_title_item.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_action_bar_title_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_action_bar_up_container.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_action_bar_up_container.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_action_bar_view_list_nav_layout.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_action_bar_view_list_nav_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_action_menu_item_layout.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_action_menu_item_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_action_menu_layout.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_action_menu_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_action_mode_bar.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_action_mode_bar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_action_mode_close_item_material.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_action_mode_close_item_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_activity_chooser_view.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_activity_chooser_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_activity_chooser_view_include.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_activity_chooser_view_include.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_activity_chooser_view_list_item.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_activity_chooser_view_list_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/color/abc_background_cache_hint_selector_material_dark.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/color/abc_background_cache_hint_selector_material_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/color/abc_background_cache_hint_selector_material_light.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/color/abc_background_cache_hint_selector_material_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_btn_check_material.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_btn_check_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_btn_radio_material.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_btn_radio_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_cab_background_internal_bg.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_cab_background_internal_bg.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_cab_background_top_material.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_cab_background_top_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_edit_text_material.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_edit_text_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_expanded_menu_layout.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_expanded_menu_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/anim/abc_fade_in.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/anim/abc_fade_in.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/anim/abc_fade_out.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/anim/abc_fade_out.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_item_background_holo_dark.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_item_background_holo_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_item_background_holo_light.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_item_background_holo_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_list_menu_item_checkbox.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_list_menu_item_checkbox.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_list_menu_item_icon.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_list_menu_item_icon.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_list_menu_item_layout.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_list_menu_item_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_list_menu_item_radio.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_list_menu_item_radio.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_list_selector_background_transition_holo_dark.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_list_selector_background_transition_holo_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_list_selector_background_transition_holo_light.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_list_selector_background_transition_holo_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_list_selector_holo_dark.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_list_selector_holo_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_list_selector_holo_light.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_list_selector_holo_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_popup_menu_item_layout.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_popup_menu_item_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/color/abc_primary_text_disable_only_material_dark.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/color/abc_primary_text_disable_only_material_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/color/abc_primary_text_disable_only_material_light.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/color/abc_primary_text_disable_only_material_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/color/abc_primary_text_material_dark.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/color/abc_primary_text_material_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/color/abc_primary_text_material_light.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/color/abc_primary_text_material_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_screen_content_include.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_screen_content_include.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout-v11/abc_screen_content_include.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout-v11/abc_screen_content_include.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_screen_simple.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_screen_simple.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_screen_simple_overlay_action_mode.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_screen_simple_overlay_action_mode.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_screen_toolbar.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_screen_toolbar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_search_dropdown_item_icons_2line.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_search_dropdown_item_icons_2line.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/color/abc_search_url_text.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/color/abc_search_url_text.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_search_view.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_search_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/color/abc_secondary_text_material_dark.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/color/abc_secondary_text_material_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/color/abc_secondary_text_material_light.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/color/abc_secondary_text_material_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_simple_dropdown_hint.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/abc_simple_dropdown_hint.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/anim/abc_slide_in_bottom.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/anim/abc_slide_in_bottom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/anim/abc_slide_in_top.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/anim/abc_slide_in_top.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/anim/abc_slide_out_bottom.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/anim/abc_slide_out_bottom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/anim/abc_slide_out_top.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/anim/abc_slide_out_top.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_switch_thumb_material.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_switch_thumb_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_tab_indicator_material.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_tab_indicator_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_textfield_search_material.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/drawable/abc_textfield_search_material.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bz.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/model_data.bin" afterPath="$PROJECT_DIR$/build/intermediates/model_data.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/generated/source/buildConfig/debug/cn/pedant/SweetAlert/BuildConfig.java" afterPath="$PROJECT_DIR$/library/build/generated/source/buildConfig/debug/cn/pedant/SweetAlert/BuildConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/generated/source/buildConfig/test/debug/cn/pedant/SweetAlert/test/BuildConfig.java" afterPath="$PROJECT_DIR$/library/build/generated/source/buildConfig/test/debug/cn/pedant/SweetAlert/test/BuildConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/org/helloworld/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/helloworld/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/generated/source/r/test/debug/android/support/v7/appcompat/R.java" afterPath="$PROJECT_DIR$/library/build/generated/source/r/test/debug/android/support/v7/appcompat/R.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/generated/source/r/test/debug/cn/pedant/SweetAlert/R.java" afterPath="$PROJECT_DIR$/library/build/generated/source/r/test/debug/cn/pedant/SweetAlert/R.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/generated/source/r/test/debug/com/pnikosis/materialishprogress/R.java" afterPath="$PROJECT_DIR$/library/build/generated/source/r/test/debug/com/pnikosis/materialishprogress/R.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/org/helloworld/RegisterAct.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/helloworld/RegisterAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_log_in.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_log_in.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/beep.mp3" afterPath="$PROJECT_DIR$/app/src/main/res/raw/beep.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/library.iml" afterPath="$PROJECT_DIR$/library/library.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/support_simple_spinner_dropdown_item.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/layout/support_simple_spinner_dropdown_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-af/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-af/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-am/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-am/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ar/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ar/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-bg/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-bg/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-bn-rBD/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-bn-rBD/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ca/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ca/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-cs/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-cs/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-da/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-da/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-de/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-de/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-el/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-el/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-en-rGB/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-en-rGB/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-en-rIN/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-en-rIN/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-es/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-es/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-es-rUS/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-es-rUS/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-et-rEE/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-et-rEE/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-eu-rES/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-eu-rES/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-fa/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-fa/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-fi/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-fi/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-fr/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-fr/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-fr-rCA/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-fr-rCA/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-gl-rES/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-gl-rES/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-hi/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-hi/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-hr/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-hr/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-hu/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-hu/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-hy-rAM/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-hy-rAM/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-in/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-in/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-is-rIS/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-is-rIS/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-it/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-it/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-iw/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-iw/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ja/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ja/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ka-rGE/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ka-rGE/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-kk-rKZ/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-kk-rKZ/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-km-rKH/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-km-rKH/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-kn-rIN/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-kn-rIN/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ko/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ko/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ky-rKG/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ky-rKG/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-land/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-land/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-large/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-large/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-lo-rLA/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-lo-rLA/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-lt/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-lt/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-lv/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-lv/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-mk-rMK/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-mk-rMK/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ml-rIN/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ml-rIN/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-mn-rMN/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-mn-rMN/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-mr-rIN/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-mr-rIN/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ms-rMY/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ms-rMY/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-my-rMM/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-my-rMM/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-nb/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-nb/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ne-rNP/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ne-rNP/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-nl/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-nl/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-pl/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-pl/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-port/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-port/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-pt/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-pt/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-pt-rPT/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-pt-rPT/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ro/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ro/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ru/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ru/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-si-rLK/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-si-rLK/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-sk/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-sk/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-sl/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-sl/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-sr/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-sr/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-sv/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-sv/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-sw/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-sw/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-sw600dp/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-sw600dp/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ta-rIN/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ta-rIN/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-te-rIN/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-te-rIN/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-th/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-th/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-tl/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-tl/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-tr/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-tr/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-uk/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-uk/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ur-rPK/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-ur-rPK/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-uz-rUZ/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-uz-rUZ/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-v11/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-v11/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-v14/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-v14/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-v17/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-v17/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-v21/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-v21/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-vi/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-vi/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-w360dp/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-w360dp/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-w480dp/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-w480dp/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-w500dp/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-w500dp/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-w600dp/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-w600dp/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-w720dp/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-w720dp/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-xlarge/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-xlarge/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-xlarge-land/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-xlarge-land/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-zh-rCN/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-zh-rCN/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-zh-rHK/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-zh-rHK/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-zh-rTW/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-zh-rTW/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-zu/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values-zu/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.pnikosis/materialish-progress/1.0/res/values/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/exploded-aar/com.pnikosis/materialish-progress/1.0/res/values/values.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/register_include.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/register_include.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MOVED" beforePath="E:\DiscoverStranger\app\src\main\res\drawable\icon_Jigsaw.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/icon_jigsaw.png" />
+      <change type="MOVED" beforePath="E:\DiscoverStranger\app\src\main\res\drawable\icon_SpeedMatch.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/icon_speedmatch.png" />
     </list>
     <ignored path="DiscoverStranger.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -193,95 +56,100 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="build.gradle" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/library/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="540">
-              <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BigPicAct.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/org/helloworld/BigPicAct.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="914" max-vertical-offset="1260">
-              <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="SpeedMatchActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/org/helloworld/SpeedMatchGame/SpeedMatchActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2479" max-vertical-offset="4080">
-              <caret line="146" column="24" selection-start-line="146" selection-start-column="24" selection-end-line="146" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="4760">
+              <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SpeedMatchAdapter.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/org/helloworld/SpeedMatchGame/SpeedMatchAdapter.java">
+      <file leaf-file-name="RegisterAct.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/org/helloworld/RegisterAct.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41055718" vertical-offset="0" max-vertical-offset="940">
-              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="200" max-vertical-offset="8000">
+              <caret line="51" column="33" selection-start-line="51" selection-start-column="33" selection-end-line="51" selection-end-column="33" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SpeedMatchSplash.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/org/helloworld/SpeedMatchGame/SpeedMatchSplash.java">
+      <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/org/helloworld/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="720">
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="5140" max-vertical-offset="14540">
+              <caret line="269" column="29" selection-start-line="269" selection-start-column="29" selection-end-line="269" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="icon_Jigsaw.png" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/icon_Jigsaw.png">
-          <provider selected="true" editor-type-id="images">
+      <file leaf-file-name="activity_log_in.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_log_in.xml">
+          <provider editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2247" max-vertical-offset="2940">
+              <caret line="135" column="21" selection-start-line="135" selection-start-column="21" selection-end-line="135" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="android-designer">
             <state />
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="icon_SpeedMatch.png" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/icon_SpeedMatch.png">
-          <provider selected="true" editor-type-id="images">
+      <file leaf-file-name="activity_register.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml">
+          <provider editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="520">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="android-designer">
             <state />
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PositionInfo.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/org/helloworld/tools/PositionInfo.java">
+      <file leaf-file-name="register_include.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/register_include.xml">
+          <provider editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4560">
+              <caret line="19" column="25" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="android-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="btn_rect_blue.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/btn_rect_blue.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="160" max-vertical-offset="660">
-              <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+            <state vertical-scroll-proportion="-0.046728972" vertical-offset="25" max-vertical-offset="560">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShakeRecord.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/org/helloworld/tools/ShakeRecord.java">
+      <file leaf-file-name="btn_rect_white.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/btn_rect_white.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="900">
-              <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="560">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UploadTask.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/org/helloworld/tools/UploadTask.java">
+      <file leaf-file-name="beep.mp3" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/raw/beep.mp3">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="460" max-vertical-offset="2040">
-              <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2620">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1871,13 +1739,18 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/app/src/main/java/org/helloworld/BigPicAct.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/org/helloworld/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/org/helloworld/RegisterAct.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_log_in.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/register_include.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
+    <option name="x" value="35" />
+    <option name="y" value="22" />
+    <option name="width" value="1378" />
     <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -1891,7 +1764,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
-    <option name="STATE" value="2" />
+    <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
     <navigator currentView="AndroidView" proportions="" version="1">
@@ -1907,7 +1780,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="ProjectPane" />
       <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
@@ -2055,7 +1927,7 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="drawable" />
+              <option name="myItemId" value="layout" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2069,8 +1941,12 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2081,80 +1957,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="helloworld" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DiscoverStranger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="helloworld" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tools" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DiscoverStranger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="helloworld" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SpeedMatchGame" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DiscoverStranger" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="helloworld" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JigsawGame" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2173,6 +1975,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2187,6 +1990,16 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
     <property name="recentsLimit" value="5" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="768291a" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="phone" />
+    <property name="FullScreen" value="false" />
+    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager2.WIDTH" value="487" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\DiscoverStranger\app\src\main\res\drawable" />
+    </key>
   </component>
   <component name="RunManager" selected="Android Application.app">
     <configuration default="true" type="JUnit" factoryName="JUnit">
@@ -2358,40 +2171,93 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="35" y="22" width="1378" height="744" extended-state="1" />
     <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3298611" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3472222" sideWeight="0.49088147" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2287234" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3472222" sideWeight="0.50911856" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34375" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2530395" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3923611" sideWeight="0.48176292" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.015625" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3776596" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22942074" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39930555" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2287234" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" x="92" y="92" width="1182" height="544" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2287234" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3472222" sideWeight="0.50911856" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39930555" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3472222" sideWeight="0.49088147" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" x="92" y="92" width="1182" height="544" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2530395" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3923611" sideWeight="0.48176292" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.015625" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22942074" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2287234" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -2405,35 +2271,32 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
+    <MESSAGE value="Merge branch 'Dev' of https://git.oschina.net/legendsss/DiscoverStranger into Z&#10;&#10;Conflicts:&#10;&#9;app/src/main/res/raw/beep.mp3&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'Dev' of https://git.oschina.net/legendsss/DiscoverStranger into Z&#10;&#10;Conflicts:&#10;&#9;app/src/main/res/raw/beep.mp3&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/library/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="540">
-          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-          <folding />
-        </state>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/icon_jigsaw.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/helloworld/BigPicAct.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1060" max-vertical-offset="1260">
-          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-          <folding />
-        </state>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/icon_speedmatch.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/org/helloworld/tools/PositionInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="160" max-vertical-offset="660">
           <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2441,7 +2304,41 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="900">
           <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/helloworld/tools/UploadTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="100">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="540">
+          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/helloworld/BigPicAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1060" max-vertical-offset="1260">
+          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/helloworld/tools/PositionInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="160" max-vertical-offset="660">
+          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/helloworld/tools/ShakeRecord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="900">
+          <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -2449,7 +2346,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2040">
           <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2457,7 +2353,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="140" max-vertical-offset="640">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2465,7 +2360,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="340" max-vertical-offset="880">
           <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2473,7 +2367,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="460" max-vertical-offset="2020">
           <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2481,7 +2374,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="540">
           <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2489,7 +2381,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="960" max-vertical-offset="1180">
           <caret line="48" column="9" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2497,7 +2388,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="140" max-vertical-offset="640">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2505,7 +2395,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="340" max-vertical-offset="880">
           <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2513,7 +2402,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="460" max-vertical-offset="2020">
           <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2521,7 +2409,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="540">
           <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2529,7 +2416,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="960" max-vertical-offset="1180">
           <caret line="48" column="9" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2537,7 +2423,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="140" max-vertical-offset="640">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2545,7 +2430,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="340" max-vertical-offset="880">
           <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2553,7 +2437,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="460" max-vertical-offset="2020">
           <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2561,7 +2444,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="540">
           <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2569,7 +2451,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="960" max-vertical-offset="1180">
           <caret line="48" column="9" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2577,7 +2458,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="140" max-vertical-offset="640">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2585,7 +2465,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="340" max-vertical-offset="880">
           <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2593,7 +2472,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="460" max-vertical-offset="2020">
           <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2601,7 +2479,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="540">
           <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2609,7 +2486,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="940" max-vertical-offset="1060">
           <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2631,7 +2507,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
           <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2639,7 +2514,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="160" max-vertical-offset="660">
           <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2647,7 +2521,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="900">
           <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2655,7 +2528,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1880">
           <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2663,24 +2535,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="914" max-vertical-offset="1260">
           <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/helloworld/SpeedMatchGame/SpeedMatchActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2479" max-vertical-offset="4080">
-          <caret line="146" column="24" selection-start-line="146" selection-start-column="24" selection-end-line="146" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/icon_SpeedMatch.png">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/icon_speedmatch.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/icon_Jigsaw.png">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/icon_jigsaw.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
@@ -2689,14 +2552,98 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="720">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/org/helloworld/SpeedMatchGame/SpeedMatchAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41055718" vertical-offset="0" max-vertical-offset="940">
+        <state vertical-scroll-proportion="0.0" vertical-offset="140" max-vertical-offset="940">
           <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/raw/beep.mp3">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2620">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/helloworld/SpeedMatchGame/SpeedMatchActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4380">
+          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/btn_rect_white.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="560">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/error.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/helloworld/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3720" max-vertical-offset="12120">
+          <caret line="269" column="29" selection-start-line="269" selection-start-column="29" selection-end-line="269" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/helloworld/RegisterAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="200" max-vertical-offset="8000">
+          <caret line="51" column="33" selection-start-line="51" selection-start-column="33" selection-end-line="51" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_log_in.xml">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2247" max-vertical-offset="2940">
+          <caret line="135" column="21" selection-start-line="135" selection-start-column="21" selection-end-line="135" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1080">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/register_include.xml">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4560">
+          <caret line="19" column="25" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/btn_rect_blue.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.046728972" vertical-offset="25" max-vertical-offset="560">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
