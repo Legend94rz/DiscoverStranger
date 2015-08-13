@@ -18,19 +18,19 @@ public class Fresh
 	public int id;
 	public String username;
 	public String text;
-	public ArrayList<String> picName;
+	public ArrayList<String> picNames;
 	public String tag;
 	public Date time;
 
 	public Fresh()
 	{
-		picName = new ArrayList<>();
+		picNames = new ArrayList<>();
 	}
 
 	public String picNameToString()
 	{
 		Gson g = new Gson();
-		return g.toJson(picName);
+		return g.toJson(picNames);
 	}
 
 	public static Fresh parse(SoapObject soapObject)
@@ -44,14 +44,14 @@ public class Fresh
 			fresh.tag="";
 		try
 		{
-			fresh.picName = new Gson().fromJson(soapObject.getPropertyAsString("pics"), new TypeToken<ArrayList<String>>()
+			fresh.picNames = new Gson().fromJson(soapObject.getPropertyAsString("pics"), new TypeToken<ArrayList<String>>()
 			{
 			}.getType());
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			fresh.picName = new ArrayList<>();
+			fresh.picNames = new ArrayList<>();
 		}
 		String time = soapObject.getPropertyAsString("time").replace('T', ' ');
 		try

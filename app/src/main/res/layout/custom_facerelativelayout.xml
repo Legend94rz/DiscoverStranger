@@ -58,7 +58,8 @@
 				android:padding="5dp"
 				android:layout_toLeftOf="@+id/btnSwitchInput"
 				android:background="@drawable/bg_editbox"
-				android:minHeight="40dp"/>
+				android:minHeight="40dp"
+				android:textAllCaps="false"/>
 
 			<ToggleButton
 				android:id="@+id/ibMoreInput"

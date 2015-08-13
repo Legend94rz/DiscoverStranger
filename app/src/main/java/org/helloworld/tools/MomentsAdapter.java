@@ -117,7 +117,10 @@ public class MomentsAdapter extends BaseAdapter implements AbsListView.OnScrollL
 				{
 					ImageView imageView = (ImageView) listView.findViewWithTag(Global.PATH.HeadImg + fresh.username);
 					if (imageView != null && bitmap != null)
+					{
 						imageView.setImageBitmap(bitmap);
+						notifyDataSetChanged();
+					}
 				}
 			});
 			if (bitmap != null)
@@ -138,9 +141,9 @@ public class MomentsAdapter extends BaseAdapter implements AbsListView.OnScrollL
 			h.tvNickName.setText(fresh.username);
 		}
 		h.llImages.removeAllViews();
-		if (fresh.picName != null && fresh.picName.size() > 0)
+		if (fresh.picNames != null && fresh.picNames.size() > 0)
 		{
-			for (final String fileName : fresh.picName)
+			for (final String fileName : fresh.picNames)
 			{
 				final ImageView imageView = new ImageView(context);
 				LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(64 * Global.DPI, 64 * Global.DPI);
@@ -156,8 +159,14 @@ public class MomentsAdapter extends BaseAdapter implements AbsListView.OnScrollL
 					public void imageLoaded(Bitmap bitmap, String url)
 					{
 						ImageView view = (ImageView) h.llImages.findViewWithTag(Global.PATH.ChatPic + fileName);
-						if (view != null && bitmap != null)
-							view.setImageBitmap(bitmap);
+						if (view != null)
+							if (bitmap != null)
+							{
+								view.setImageBitmap(bitmap);
+								notifyDataSetChanged();
+							}
+							else
+								view.setImageResource(R.drawable.broken);
 					}
 				});
 				if (bitmap != null)

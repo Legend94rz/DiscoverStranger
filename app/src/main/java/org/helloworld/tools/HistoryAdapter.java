@@ -16,6 +16,9 @@ import org.helloworld.CircleImageView;
 import org.helloworld.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 /**
  * 用于历史记录列表的显示
@@ -28,13 +31,27 @@ public class HistoryAdapter extends BaseAdapter implements AbsListView.OnScrollL
 	private ListView listView;
 	private AsyImageLoader loader;
 
-	public HistoryAdapter(ArrayList<History> list, Context context,ListView listView)
+	public HistoryAdapter(ArrayList<History> list, Context context, ListView listView)
 	{
 		this.list = list;
 		this.context = context;
-		this.listView=listView;
+		this.listView = listView;
 		this.listView.setOnScrollListener(this);
-		loader=new AsyImageLoader(context);
+		loader = new AsyImageLoader(context);
+	}
+
+	@Override
+	public void notifyDataSetChanged()
+	{
+		Collections.sort(list, new Comparator<History>()
+		{
+			@Override
+			public int compare(History history, History t1)
+			{
+				return history.lastHistoryMsg.sendTime.compareTo(t1.lastHistoryMsg.sendTime);
+			}
+		});
+		super.notifyDataSetChanged();
 	}
 
 	@Override
@@ -69,6 +86,7 @@ public class HistoryAdapter extends BaseAdapter implements AbsListView.OnScrollL
 			h.name = (TextView) view.findViewById(R.id.tvName);
 			h.msgCount = (TextView) view.findViewById(R.id.tvCount);
 			h.lastMsg = (TextView) view.findViewById(R.id.tvLastmsg);
+			h.tvDay = (TextView) view.findViewById(R.id.tvDay);
 			view.setTag(h);
 		}
 		else
@@ -79,13 +97,13 @@ public class HistoryAdapter extends BaseAdapter implements AbsListView.OnScrollL
 		{
 			h.pic.setImageResource(R.drawable.nohead);
 			h.pic.setTag(Global.PATH.HeadImg + history.partner + ".png");
-			Bitmap bitmap=loader.loadDrawable(Global.PATH.HeadImg, "HeadImg", history.partner + ".png", isScroll, 128 * Global.DPI, new AsyImageLoader.ImageCallback()
+			Bitmap bitmap = loader.loadDrawable(Global.PATH.HeadImg, "HeadImg", history.partner + ".png", isScroll, 128 * Global.DPI, new AsyImageLoader.ImageCallback()
 			{
 				@Override
 				public void imageLoaded(Bitmap bitmap, String url)
 				{
-					ImageView iv= (ImageView) listView.findViewWithTag(url);
-					if(iv!=null)
+					ImageView iv = (ImageView) listView.findViewWithTag(url);
+					if (iv != null)
 					{
 						if (bitmap != null)
 						{
@@ -95,7 +113,7 @@ public class HistoryAdapter extends BaseAdapter implements AbsListView.OnScrollL
 					}
 				}
 			});
-			if(bitmap!=null)
+			if (bitmap != null)
 				h.pic.setImageBitmap(bitmap);
 		}
 
@@ -129,8 +147,33 @@ public class HistoryAdapter extends BaseAdapter implements AbsListView.OnScrollL
 			h.msgCount.setText(String.valueOf(history.unreadMsg.size()));
 			h.msgCount.setVisibility(View.VISIBLE);
 		}
-		h.time.setText(Global.getShowDate(history.lastHistoryMsg.sendTime));
+		h.time.setText(Global.formatDate(history.lastHistoryMsg.sendTime, "HH:mm"));
+		h.tvDay.setText(day(list.get(i).lastHistoryMsg.sendTime));
+		if (i == 0 || !day(list.get(i).lastHistoryMsg.sendTime).equals(day(list.get(i - 1).lastHistoryMsg.sendTime)))
+			h.tvDay.setVisibility(View.VISIBLE);
+
 		return view;
+	}
+
+	private String day(Date date)
+	{
+		Date now = Global.getDate();
+		if (date.getYear() == now.getYear())
+			if (date.getMonth() == now.getMonth())
+			{
+				if (date.getDate() == now.getDate())
+					return "今天";
+				else if (date.getDate() + 1 == now.getDate())
+					return "昨天";
+				else
+					return Global.formatDate(date,"dd");
+			}
+			else
+			{
+				return Global.formatDate(date,"MM-dd");
+			}
+		else
+			return Global.formatDate(date,"yyyy-MM-dd");
 	}
 
 	@Override
@@ -158,5 +201,6 @@ public class HistoryAdapter extends BaseAdapter implements AbsListView.OnScrollL
 		TextView lastMsg;
 		TextView time;
 		TextView msgCount;
+		TextView tvDay;
 	}
 }

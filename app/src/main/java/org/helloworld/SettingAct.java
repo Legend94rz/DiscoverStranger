@@ -49,7 +49,7 @@ public class SettingAct extends BaseActivity
 				{
 					SweetAlertDialog dialog= (SweetAlertDialog) message.obj;
 					dialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-					dialog.setContentText("").setTitleText("删除成功").setConfirmText("确定");
+					dialog.setContentText("").setTitleText("删除成功").setConfirmText("确定").setConfirmClickListener(null);
 				}
 				return false;
 			}

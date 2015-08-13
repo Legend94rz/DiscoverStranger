@@ -1,25 +1,36 @@
 package org.helloworld;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.helloworld.tools.CustomToast;
 import org.helloworld.tools.FileUtils;
 import org.helloworld.tools.Fresh;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.MomentsAdapter;
+import org.helloworld.tools.UploadTask;
+import org.helloworld.tools.WebService;
 import org.helloworld.tools.WebTask;
 import org.ksoap2.serialization.SoapObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.UUID;
 
 import static org.helloworld.NearbyStrangerAct.DealDownloadGame;
+
+
 
 
 public class MomentsActivity extends BaseActivity implements View.OnClickListener
@@ -31,10 +42,74 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 	CircleImageView ivMyHead;
 	Handler handler;
 	TextView tvMore;
+	Button btnShare;
 	LinearLayout llLoading;
+	public static final int WRITE_FRESH = 1;
 	public static final int PLAY_GAME = 3;
 	private static final int COUNT = 15;
+	static sendFreshTask t;
+	static Fresh fresh;
+	UUID id;
+	int PicNum;
+	class sendFreshTask extends AsyncTask<Void,Void,Boolean>
+	{
+		@Override
+		protected Boolean doInBackground(Void... voids)
+		{
+			for (String fileName:fresh.picNames)
+			{
+				try
+				{
+					UploadTask uploadTask=new UploadTask(Global.BLOCK_SIZE,Global.PATH.ChatPic+fileName,fileName,"ChatPic");
+					if(!uploadTask.call())return false;
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+			}
+			WebService addFresh = new WebService("addFresh");
+			addFresh.addProperty("username", fresh.username)
+				.addProperty("text", fresh.text)
+				.addProperty("pics", fresh.picNameToString())
+				.addProperty("tag", fresh.tag)
+				.addProperty("time", Global.formatDate(fresh.time, "yyyy-MM-dd HH:mm:ss"));
+			SoapObject SO = addFresh.call();
+			try
+			{
+				return Boolean.parseBoolean(SO.getPropertyAsString(0));
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				return false;
+			}
+		}
 
+		@Override
+		protected void onPostExecute(Boolean aBoolean)
+		{
+			if(aBoolean)
+			{
+				CustomToast.show(getApplication().getApplicationContext(),"发表成功", Toast.LENGTH_SHORT);
+				fresh=null;
+				btnShare.setText("分享新鲜事");
+			}
+			else
+			{
+				CustomToast.show(getApplication().getApplicationContext(),"发表失败",Toast.LENGTH_SHORT);
+				btnShare.setText("点击编辑");
+			}
+			btnShare.setEnabled(true);
+		}
+
+		@Override
+		protected void onPreExecute()
+		{
+			btnShare.setText("正在发送...");
+			btnShare.setEnabled(false);
+		}
+	}
 	@Override
 	public void onClick(View view)
 	{
@@ -64,15 +139,36 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_moments);
-		findViewById(R.id.btnShare).setOnClickListener(new View.OnClickListener()
+		btnShare = (Button) findViewById(R.id.btnShare);
+		btnShare.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View view)
 			{
 				Intent I = new Intent(MomentsActivity.this, WriteFreshAct.class);
-				startActivity(I);
+				//如果fresh!=null即表示上一次发表失败
+				I.putExtra("new", fresh == null);
+				if (fresh != null)
+				{
+					I.putExtra("picNum",PicNum);
+					I.putExtra("tag", fresh.tag);
+					I.putExtra("text", fresh.text);
+					I.putExtra("picNames", fresh.picNames);
+					I.putExtra("id",id);
+				}
+				startActivityForResult(I, WRITE_FRESH);
 			}
 		});
+		if(t==null || t.getStatus()== AsyncTask.Status.FINISHED)
+		{
+			btnShare.setText("分享新鲜事");
+			btnShare.setEnabled(true);
+		}
+		else
+		{
+			btnShare.setText("正在发送...");
+			btnShare.setEnabled(false);
+		}
 
 		listView = (ListView) findViewById(R.id.listview);
 		View footView = View.inflate(this, R.layout.foot_view, null);
@@ -84,7 +180,7 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 		((TextView) headView.findViewById(R.id.tvNickName)).setText(Global.mySelf.nickName);
 		headView.findViewById(R.id.tvSetInterest).setOnClickListener(this);
 		ivMyHead = (CircleImageView) headView.findViewById(R.id.ivHead);
-		ivMyHead.setImageBitmap(FileUtils.getOptimalBitmap(this, Global.PATH.HeadImg + Global.mySelf.username + ".png", 128 * Global.DPI));
+		ivMyHead.setImageBitmap(FileUtils.getOptimalBitmap(Global.PATH.HeadImg + Global.mySelf.username + ".png", 128 * Global.DPI));
 		listView.addHeaderView(headView, null, false);
 		freshs = new ArrayList<>();
 		handler = new Handler(new Handler.Callback()
@@ -169,7 +265,35 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		NearbyStrangerAct.DealGameResult(requestCode, resultCode, data, handler, MomentsActivity.this);
-		adapter.notifyDataSetChanged();
+		if (requestCode == PLAY_GAME)
+		{
+			NearbyStrangerAct.DealGameResult(requestCode, resultCode, data, handler, MomentsActivity.this);
+		}
+		else if(requestCode==WRITE_FRESH)
+		{
+			if(resultCode==RESULT_OK)
+			{
+				fresh = new Fresh();
+				for (int i = 0; i < data.getIntExtra("picCount", 0);i++)
+				{
+					fresh.picNames.add(data.getStringExtra(String.valueOf(i)));
+				}
+				fresh.tag=data.getStringExtra("tag");
+				fresh.text=data.getStringExtra("text");
+				fresh.time= (Date) data.getSerializableExtra("time");
+				//Todo 测试
+				fresh.username=Global.mySelf.username;
+				PicNum=data.getIntExtra("picNum",fresh.picNames.size()+10000);
+				id= (UUID) data.getSerializableExtra("id");
+				t=new sendFreshTask();
+				t.execute();
+			}
+			else
+			{
+				fresh=null;
+				btnShare.setText("分享新鲜事");
+				btnShare.setEnabled(true);
+			}
+		}
 	}
 }

@@ -82,7 +82,8 @@
 					android:layout_marginRight="10dp"
 					android:layout_below="@+id/tvNickname"
 					android:layout_marginTop="10dp"
-					android:textSize="16sp"/>
+					android:textSize="16sp"
+					android:textAllCaps="false"/>
 
 				<TextView
 					android:layout_width="wrap_content"

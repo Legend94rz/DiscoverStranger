@@ -65,7 +65,7 @@
 				android:textColor="@color/white"
 				android:visibility="visible"
 				android:paddingTop="3dp"
-				/>
+				android:textAllCaps="false"/>
 
 			<ImageView
 				android:layout_width="wrap_content"

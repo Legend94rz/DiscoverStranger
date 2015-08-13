@@ -1,9 +1,11 @@
 package org.helloworld;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -14,7 +16,7 @@ import org.helloworld.tools.FileUtils;
  * 查看大图 界面
  */
 
-public class BigPicAct extends Activity
+public class BigPicAct extends BaseActivity
 {
 	ImageView ivImg;
 
@@ -28,7 +30,13 @@ public class BigPicAct extends Activity
 		try
 		{
 			if (imgsrc != null && FileUtils.Exist(imgsrc))
-				ivImg.setImageBitmap(FileUtils.getOptimalBitmap(BigPicAct.this, imgsrc, 0));
+			{
+				Bitmap bitmap=FileUtils.getOptimalBitmap(imgsrc, 0);
+				if(bitmap!=null)
+					ivImg.setImageBitmap(bitmap);
+				else
+					ivImg.setImageResource(R.drawable.broken);
+			}
 		}
 		catch (Exception e)
 		{

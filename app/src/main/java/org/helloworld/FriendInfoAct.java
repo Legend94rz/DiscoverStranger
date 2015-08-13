@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.helloworld.tools.DownloadTask;
@@ -29,7 +30,8 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 {
 	private TextView tvAge;
-	private TextView tvSex;
+	private TextView tvID;
+	private ImageView ivGender;
 	private CircleImageView ivHeadImg;
 	private String friendName;
 	private TextView tvNickName;
@@ -54,7 +56,7 @@ public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 				{
 					if(message.getData().getBoolean("result"))
 					{
-						ivHeadImg.setImageBitmap(FileUtils.getOptimalBitmap(FriendInfoAct.this,Global.PATH.HeadImg+friendName+".png",128*Global.DPI));
+						ivHeadImg.setImageBitmap(FileUtils.getOptimalBitmap(Global.PATH.HeadImg+friendName+".png",128*Global.DPI));
 					}
 				}
 				return true;
@@ -63,7 +65,7 @@ public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 		String path = Global.PATH.HeadImg + friendName + ".png";
 		if (FileUtils.Exist(path))
 		{
-			ivHeadImg.setImageBitmap(FileUtils.getOptimalBitmap(FriendInfoAct.this,path,128*Global.DPI));
+			ivHeadImg.setImageBitmap(FileUtils.getOptimalBitmap(path,128*Global.DPI));
 		}
 		DownloadTask downloadTask=new DownloadTask("HeadImg",Global.PATH.HeadImg,friendName+".png",Global.BLOCK_SIZE,handler,Global.MSG_WHAT.W_DOWNLOADED_A_FILE,null);
 		downloadTask.execute();
@@ -73,12 +75,17 @@ public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 	private void initView()
 	{
 		tvAge = (TextView) findViewById(R.id.tvAge);
-		tvSex = (TextView) findViewById(R.id.tvSex);
+		ivGender = (ImageView) findViewById(R.id.ivGender);
+		tvID = (TextView) findViewById(R.id.tvID);
 		ivHeadImg = (CircleImageView) findViewById(R.id.ivHeadImg);
 		tvNickName = (TextView) findViewById(R.id.tvNickName);
 		tvRemark = (TextView) findViewById(R.id.tvRemark);
 		UserInfo friend = Global.map2Friend.get(friendName);
-		tvSex.setText(friend.sex ? "女" : "男");
+		if(friend.sex)
+			ivGender.setImageResource(R.drawable.female);
+		else
+			ivGender.setImageResource(R.drawable.male);
+		tvID.setText("ID: " + friend.username);
 		tvNickName.setText(friend.nickName);
 		if (friend.Ex_remark != null && !friend.Ex_remark.equals(""))
 			tvRemark.setText(friend.Ex_remark);
@@ -218,6 +225,7 @@ public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 				else
 					tvRemark.setText("无备注");
 				new WebTask(null, -1).execute("updateFriendList", 2, "name", Global.mySelf.username, "friendList", jsonStr);
+				MainActivity.handler.sendEmptyMessage(Global.MSG_WHAT.W_REFRESH);
 			}
 		}
 	}

@@ -53,7 +53,7 @@ public class NearbyStrangerAdapter extends BaseAdapter
 		{
 			h = new H();
 			LayoutInflater inflater = LayoutInflater.from(context);
-			view = inflater.inflate(R.layout.tongxunlu, viewGroup, false);
+			view = inflater.inflate(R.layout.item_nearby_stranger, viewGroup, false);
 			h.ivHead = (CircleImageView) view.findViewById(R.id.tx1);
 			h.tvName = (TextView) view.findViewById(R.id.tx2);
 			view.setTag(h);

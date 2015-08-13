@@ -99,7 +99,7 @@ public class FileUtils
 	 * @param filePath     路径
 	 * @param restrictSize 缩放bitmap到该大小,<=0表示不缩放
 	 */
-	public static Bitmap getOptimalBitmap(Context context, String filePath, int restrictSize)
+	public static Bitmap getOptimalBitmap(String filePath, int restrictSize)
 	{
 		BitmapFactory.Options opt = new BitmapFactory.Options();
 		opt.inPreferredConfig = Bitmap.Config.RGB_565;
@@ -110,13 +110,13 @@ public class FileUtils
 		return BitmapFactory.decodeFile(filePath, opt);
 	}
 
-	public static Bitmap scaleBitmap(int inSampleSize, String filePath)
+	public static Bitmap scaleBitmap(int inSampleSize,int restrictSize, String filePath)
 	{
 		BitmapFactory.Options opt = new BitmapFactory.Options();
 		opt.inPreferredConfig = Bitmap.Config.RGB_565;
 		opt.inPurgeable = true;
 		opt.inInputShareable = true;
-		opt.inSampleSize = inSampleSize;
+		opt.inSampleSize = Math.max( inSampleSize,getImageScale(filePath, restrictSize) );
 		return BitmapFactory.decodeFile(filePath, opt);
 	}
 
@@ -165,6 +165,21 @@ public class FileUtils
 			e.printStackTrace();
 		}
 		return base64;
+	}
+	/**
+	 * 将图像从源路径优化并拷贝到目标路径。优化后的图像至少被缩小scaleSize*scaleSize倍,长宽最大不超过strictSize
+	 * @param soucePath 源（全）路径
+	 * @param targetPath 目标（全）路径
+	 * @param scaleSize 缩放比例
+	 * @param strictSize 最大的长/宽
+	 * @param deleteSource 是否删除源文件
+	 * */
+	public static void BitmapCopyAndOpt(String soucePath,String targetPath,int scaleSize,int strictSize,boolean deleteSource)
+	{
+		Bitmap optBitmap = FileUtils.scaleBitmap(scaleSize,strictSize, soucePath);
+		FileUtils.saveToFile(optBitmap, targetPath);
+		if(deleteSource)
+			FileUtils.deleteFile(soucePath);
 	}
 
 	public static void FastCopy(File source, File target)

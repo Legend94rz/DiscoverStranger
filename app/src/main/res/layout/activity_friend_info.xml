@@ -22,7 +22,7 @@
 			<RelativeLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:paddingBottom="30dp">
+				>
 
 				<ImageView
 					android:layout_width="wrap_content"
@@ -41,9 +41,10 @@
 					android:id="@+id/tvRemark"
 					android:textSize="22dp"
 					android:text="无备注"
-					android:layout_alignBottom="@+id/ivHeadImg"
-					android:layout_toLeftOf="@+id/ivHeadImg"
-					android:layout_marginRight="25dp"/>
+					android:layout_alignBottom="@+id/imageView3"
+					android:layout_centerHorizontal="true"
+					android:layout_marginBottom="48dp"
+					android:textColor="@color/white"/>
 
 				<org.helloworld.CircleImageView
 					android:layout_width="64dp"
@@ -60,103 +61,118 @@
 
 			</RelativeLayout>
 
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="1px"
-				android:background="@color/lightgray"
-				android:id="@+id/textView40"/>
-
-			<LinearLayout
+			<RelativeLayout
 				android:orientation="horizontal"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:id="@+id/linearLayout8"
-				android:background="@color/white">
+				android:layout_height="70dp"
+				android:id="@+id/relativeLayout8"
+				android:background="@color/white"
+				android:layout_marginTop="5dp">
 
-				<TextView
+				<ImageView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="昵称"
-					android:id="@+id/textView2"
-					android:textSize="20dp"
-					android:layout_margin="15dp"/>
+					android:id="@+id/ivGender"
+					android:layout_gravity="center_vertical"
+					android:src="@drawable/female"
+					android:layout_alignParentLeft="false"
+					android:layout_alignParentTop="false"
+					android:layout_centerVertical="true"
+					android:layout_marginLeft="18dp"
+					android:layout_marginRight="18dp"/>
 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:id="@+id/tvNickName"
-					android:layout_alignBottom="@+id/ivHeadImg"
-					android:layout_toRightOf="@+id/tvRemark"
-					android:layout_margin="15dp"
-					android:text="未填写"/>
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:paddingLeft="15dp"
+					android:paddingTop="15dp"
+					android:layout_alignParentTop="true"
+					android:layout_toRightOf="@+id/ivGender"
+					android:layout_toEndOf="@+id/ivGender">
 
-			</LinearLayout>
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="ID:XXX"
+						android:id="@+id/tvID"
+						android:layout_below="@+id/tvNickName"
+						android:layout_alignParentLeft="true"
+						android:layout_alignParentStart="true"
+						android:layout_marginTop="3dp"
+						android:textColor="@color/darkgray"/>
 
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="1px"
-				android:background="@color/lightgray"
-				android:id="@+id/textView41"/>
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:id="@+id/tvNickName"
+						android:text="未填写"
+						android:layout_gravity="center_vertical"
+						android:layout_alignParentTop="true"
+						android:layout_alignParentLeft="true"
+						android:layout_alignParentStart="true"
+						android:textSize="18sp"/>
 
-			<LinearLayout
+					<TextView
+						android:layout_width="fill_parent"
+						android:layout_height="1px"
+						android:background="@color/lightgray"
+						android:id="@+id/textView41"
+						android:layout_alignParentBottom="true"
+						android:layout_alignParentLeft="true"
+						android:layout_alignParentStart="true"/>
+
+				</RelativeLayout>
+
+			</RelativeLayout>
+
+			<RelativeLayout
 				android:orientation="horizontal"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
+				android:layout_height="70dp"
 				android:background="#ffffffff"
-				android:id="@+id/linearLayout6">
-
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="性别"
-					android:id="@+id/textView4"
-					android:textSize="20dp"
-					android:layout_margin="15dp"/>
-
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:id="@+id/tvSex"
-					android:layout_margin="15dp"
-					android:text="未填写"/>
-
-			</LinearLayout>
-
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="1px"
-				android:background="@color/lightgray"
-				android:id="@+id/textView42"/>
-
-			<LinearLayout
-				android:orientation="horizontal"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:background="#ffffffff"
-				android:id="@+id/linearLayout7"
+				android:id="@+id/relativeLayout7"
 				>
 
-				<TextView
+				<ImageView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="年龄"
-					android:id="@+id/textView8"
-					android:textSize="20dp"
-					android:layout_margin="15dp"/>
+					android:id="@+id/imageView4"
+					android:src="@drawable/info"
+					android:layout_centerVertical="true"
+					android:layout_marginLeft="18dp"
+					android:layout_marginRight="18dp"/>
 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:id="@+id/tvAge"
-					android:layout_margin="15dp"
-					android:text="未填写"/>
-			</LinearLayout>
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_toRightOf="@+id/imageView4"
+					android:layout_toEndOf="@+id/imageView4"
+					android:paddingLeft="15dp"
+					android:paddingTop="15dp">
 
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="1px"
-				android:background="@color/lightgray"
-				android:id="@+id/textView43"/>
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:id="@+id/tvAge"
+						android:text="未填写"
+						android:layout_below="@+id/textView8"
+						android:layout_alignParentLeft="true"
+						android:layout_alignParentStart="true"
+						android:layout_marginTop="3dp"
+						android:textColor="@color/darkgray"/>
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="年龄"
+						android:id="@+id/textView8"
+						android:layout_alignParentTop="true"
+						android:layout_alignParentLeft="true"
+						android:layout_alignParentStart="true"
+						android:textSize="18sp"/>
+				</RelativeLayout>
+
+			</RelativeLayout>
 
 			<Button
 				android:layout_width="match_parent"
@@ -165,10 +181,10 @@
 				android:id="@+id/btnChatWith"
 				android:onClick="onClick"
 				android:background="@drawable/messagebtn"
-				android:layout_marginLeft="20dp"
-				android:layout_marginRight="20dp"
 				android:textColor="@color/white"
-				android:layout_marginTop="15dp"/>
+				android:layout_marginTop="15dp"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"/>
 
 			<Button
 				android:layout_width="match_parent"
@@ -177,8 +193,8 @@
 				android:id="@+id/btnDel"
 				android:onClick="onClick"
 				android:layout_marginTop="15dp"
-				android:layout_marginLeft="20dp"
-				android:layout_marginRight="20dp"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"
 				android:background="@drawable/deletebtn"
 				android:textColor="#ff646464"
 				android:layout_marginBottom="50dp"/>

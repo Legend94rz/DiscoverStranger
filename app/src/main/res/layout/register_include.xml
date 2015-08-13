@@ -98,7 +98,7 @@
 			android:visibility="gone"
 			android:layout_alignTop="@+id/username"
 			android:layout_alignParentRight="true"
-			android:indeterminateDuration="2000"
+			android:indeterminateDuration="1000"
 			android:indeterminateDrawable="@drawable/progress_circle_anim"/>
 
 		<ImageView

@@ -33,10 +33,11 @@
 			android:layout_height="fill_parent"
 			android:layout_marginLeft="10dp"
 			android:text="圈子"
-			android:textSize="20sp"
+			android:textSize="16sp"
 
 			android:gravity="center"
-			android:textColor="#5bc8ec"/>
+			android:textColor="#5bc8ec"
+			android:textIsSelectable="false"/>
 	</LinearLayout>
 
 	<TextView
@@ -67,10 +68,9 @@
 	              	  android:layout_height="fill_parent"
 	              	  android:layout_marginLeft="10dp"
 	              	  android:text="@string/shake"
-	              	  android:textSize="20sp"
-	              	  android:gravity="center"
+					  android:gravity="center"
 	              	  android:textColor="#ee5a92"
-		              />
+					  android:textSize="16sp"/>
 		      </LinearLayout>
 
 	<TextView
@@ -102,7 +102,7 @@
 			android:layout_height="fill_parent"
 			android:layout_marginLeft="10dp"
 			android:text="@string/nearstranger"
-			android:textSize="20sp"
+			android:textSize="16sp"
 			android:gravity="center"
 			android:textColor="#4d6299"/>
 	</LinearLayout>

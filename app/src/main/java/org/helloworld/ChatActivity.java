@@ -405,7 +405,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 				@Override
 				public void run()
 				{
-					FileUtils.FastCopy(new File(localPath + localName), new File(Global.PATH.ChatPic + entity.text));
+					FileUtils.BitmapCopyAndOpt(localPath+localName,Global.PATH.ChatPic+entity.text,4,500,false);
 					dialog.dismiss();
 				}
 			});
@@ -627,7 +627,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 				{
 					btnRec.setTag("停止");
 					tvTime.setText("00:00");
-					btnRec.setImageResource(R.drawable.media_stop);
+					btnRec.setImageResource(R.drawable.stop);
 					btnSendVoice.setVisibility(View.INVISIBLE);
 					btnCancel.setVisibility(View.INVISIBLE);
 					timeOfRec = 0;
@@ -675,7 +675,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 				{
 					btnRec.setVisibility(View.INVISIBLE);
 					pbPlayRecord.setVisibility(View.VISIBLE);
-					pbPlayRecord.setMax(timeOfRec);
+					pbPlayRecord.setMax(timeOfRec*5);
 					pbPlayRecord.setProgress(0);
 					final Handler h = new Handler();
 					Runnable r = new Runnable()
@@ -686,7 +686,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 							if (pbPlayRecord.getProgress() < pbPlayRecord.getMax())
 							{
 								pbPlayRecord.incrementProgressBy(1);
-								h.postDelayed(this, 1000);
+								h.postDelayed(this, 200);
 							}
 							else
 							{
@@ -695,7 +695,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 							}
 						}
 					};
-					h.postDelayed(r, 1000);
+					h.postDelayed(r, 200);
 
 					playSound(soundFile.getName());
 				}

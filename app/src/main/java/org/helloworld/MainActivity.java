@@ -3,6 +3,7 @@ package org.helloworld;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.AsyncTask;
@@ -11,14 +12,20 @@ import android.os.Vibrator;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,6 +92,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 	SoundPool soundPool;
 	boolean isLoaded = false;
 	int soundId;
+
+	LayoutInflater inflater;
+	View popView;
+	PopupWindow popupWindow;
+	int longClickIndex;
+
 
 	/**
 	 * 处理导航标签的点击事件
@@ -498,6 +511,35 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 				drawerLayout.closeDrawer(drawerContent);
 			}
 		});
+		//Popup window
+		inflater=LayoutInflater.from(this);
+		popView = inflater.inflate(R.layout.popup_window, null);
+		popupWindow = new PopupWindow(popView, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+		popupWindow.setFocusable(true);
+		popupWindow.setOutsideTouchable(true);
+		popupWindow.setBackgroundDrawable(new BitmapDrawable());
+		lvHistory.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+		{
+			@Override
+			public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l)
+			{
+				longClickIndex=i;
+				int[] a = new int[2];
+				view.getLocationOnScreen(a);
+				popupWindow.showAtLocation(lvHistory, Gravity.BOTTOM|Gravity.CENTER,0,Global.screenHeight-a[1]);
+				return false;
+			}
+		});
+		popView.findViewById(R.id.btnDel).setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				Global.historyList.remove(longClickIndex);
+				hisAdapter.notifyDataSetChanged();
+				popupWindow.dismiss();
+			}
+		});
 	}
 
 	public void openDrawer(View view)
@@ -510,9 +552,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
 	private void RefreshMyInfo()
 	{
-		TextView tvNickname = (TextView) drawerContent.findViewById(R.id.tvNickname);
+		TextView tvNickname = (TextView) drawerLayout.findViewById(R.id.tvNickname);
 		tvNickname.setText(Global.mySelf.nickName);
-		CircleImageView ivHeadImg = (CircleImageView) drawerContent.findViewById(R.id.ivHeadImg);
+		CircleImageView ivHeadImg = (CircleImageView) drawerLayout.findViewById(R.id.ivHeadImg);
+		ImageView ivGender = (ImageView) drawerLayout.findViewById(R.id.ivGender);
+		if(Global.mySelf.sex)
+			ivGender.setImageResource(R.drawable.female);
+		else
+			ivGender.setImageResource(R.drawable.male);
 		if (FileUtils.Exist(Global.PATH.HeadImg + Global.mySelf.username + ".png"))
 			ivHeadImg.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg + Global.mySelf.username + ".png"));
 		else

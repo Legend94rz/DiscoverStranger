@@ -14,17 +14,16 @@
 		>
 
 		<org.helloworld.CircleImageView
-			android:layout_width="50dp"
-			android:layout_height="50dp"
+			android:layout_width="64dp"
+			android:layout_height="64dp"
 			android:id="@+id/ivHeadImg"
-			android:layout_marginLeft="30dp"
-			android:layout_marginTop="30dp"
-			android:layout_alignParentTop="true"
-			android:layout_alignParentLeft="true"
+			android:layout_marginTop="26dp"
 			android:src="@drawable/nohead"
 			app:border_width="2dp"
 			app:border_color="@color/white"
-			app:border_overlay="true"/>
+			app:border_overlay="true"
+			android:layout_alignParentTop="true"
+			android:layout_centerHorizontal="true"/>
 
 		<TextView
 			android:layout_width="wrap_content"
@@ -32,10 +31,22 @@
 			android:text="NickName"
 			android:id="@+id/tvNickname"
 			android:textColor="@color/white"
-			android:textSize="25dp"
-			android:layout_alignParentBottom="true"
-			android:layout_alignLeft="@+id/ivHeadImg"
-			android:layout_marginBottom="28dp"/>
+			android:textSize="20sp"
+			android:textIsSelectable="false"
+			android:layout_marginTop="21dp"
+			android:layout_below="@+id/ivHeadImg"
+			android:layout_centerHorizontal="true"/>
+
+		<ImageView
+			android:layout_width="20dp"
+			android:layout_height="20dp"
+			android:id="@+id/ivGender"
+			android:src="@drawable/female"
+			android:layout_marginLeft="27dp"
+			android:layout_marginStart="27dp"
+			android:layout_alignBottom="@+id/tvNickname"
+			android:layout_toRightOf="@+id/tvNickname"
+			android:layout_toEndOf="@+id/tvNickname"/>
 	</RelativeLayout>
 
 	<ListView

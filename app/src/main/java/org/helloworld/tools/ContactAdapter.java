@@ -15,6 +15,9 @@ import org.helloworld.CircleImageView;
 import org.helloworld.R;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * 联系人列表
@@ -26,6 +29,7 @@ public class ContactAdapter extends BaseAdapter implements AbsListView.OnScrollL
 	private boolean isScroll;
 	private ListView listView;
 	private AsyImageLoader loader;
+	Comparator<UserInfo> comparator;
 
 	public ContactAdapter(Context context, ArrayList<UserInfo> list,ListView listView)
 	{
@@ -34,6 +38,23 @@ public class ContactAdapter extends BaseAdapter implements AbsListView.OnScrollL
 		this.listView=listView;
 		loader=new AsyImageLoader(context);
 		this.listView.setOnScrollListener(this);
+		comparator=new Comparator<UserInfo>()
+		{
+			@Override
+			public int compare(UserInfo userInfo, UserInfo t1)
+			{
+				HanziToPinyin.Token token1=HanziToPinyin.getInstance().get(String.valueOf(userInfo.getShowName().charAt(0))).get(0);
+				HanziToPinyin.Token token2=HanziToPinyin.getInstance().get(String.valueOf(t1.getShowName().charAt(0))).get(0);
+				return token1.target.toUpperCase().compareTo(token2.target.toUpperCase());
+			}
+		};
+	}
+
+	@Override
+	public void notifyDataSetChanged()
+	{
+		Collections.sort(list,comparator);
+		super.notifyDataSetChanged();
 	}
 
 	@Override
@@ -65,7 +86,8 @@ public class ContactAdapter extends BaseAdapter implements AbsListView.OnScrollL
 			view = LayoutInflater.from(context).inflate(R.layout.tongxunlu, parent, false);
 			h.pic = (CircleImageView) view.findViewById(R.id.tx1);
 			h.name = (TextView) view.findViewById(R.id.tx2);
-
+			h.seperator= (TextView) view.findViewById(R.id.seprator);
+			h.tvGroupName = (TextView) view.findViewById(R.id.tvGroupName);
 			view.setTag(h);
 		}
 		else
@@ -94,6 +116,23 @@ public class ContactAdapter extends BaseAdapter implements AbsListView.OnScrollL
 			h.pic.setImageBitmap(bitmap);
 
 		h.name.setText(userInfo.getShowName());
+
+		if(position==0 || comparator.compare(list.get(position-1),list.get(position))!=0)
+		{
+			h.tvGroupName.setVisibility(View.VISIBLE);
+			if(position!=0)
+				h.seperator.setVisibility(View.VISIBLE);
+			else
+				h.seperator.setVisibility(View.INVISIBLE);
+			ArrayList<HanziToPinyin.Token> tokens=HanziToPinyin.getInstance().get(list.get(position).getShowName());
+			HanziToPinyin.Token t= tokens.get(0);
+			h.tvGroupName.setText(String.valueOf(t.target.toUpperCase().charAt(0) ));
+		}
+		else
+		{
+			h.tvGroupName.setVisibility(View.INVISIBLE);
+			h.seperator.setVisibility(View.INVISIBLE);
+		}
 		return view;
 	}
 
@@ -119,5 +158,7 @@ public class ContactAdapter extends BaseAdapter implements AbsListView.OnScrollL
 	{
 		CircleImageView pic;
 		TextView name;
+		TextView seperator;
+		TextView tvGroupName;
 	}
 }

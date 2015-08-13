@@ -17,7 +17,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -34,19 +33,13 @@ import org.helloworld.tools.CustomToast;
 import org.helloworld.tools.FaceAdapter;
 import org.helloworld.tools.FaceConversionUtil;
 import org.helloworld.tools.FileUtils;
-import org.helloworld.tools.Fresh;
 import org.helloworld.tools.Global;
-import org.helloworld.tools.UploadTask;
-import org.helloworld.tools.WebService;
 import org.helloworld.tools.emojiAdapter;
-import org.ksoap2.serialization.SoapObject;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -60,7 +53,7 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 	RelativeLayout rl_facechoose;
 	ViewPager vp_face;
 	LinearLayout layout_point;
-	Button btnSend;
+	ImageButton btnSend;
 	EditText etText, etTag;
 	LinearLayout llImages;
 	ImageButton ibAddImage;
@@ -73,7 +66,6 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 	private ArrayList<ImageView> pointViews;
 
 	int PicNum = 0;
-	Fresh fresh;
 	private UUID id;
 	Handler handler;
 
@@ -112,8 +104,6 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_write_fresh);
 		emojis = FaceConversionUtil.getInstace().emojiLists;
-		fresh = new Fresh();
-		id = UUID.randomUUID();
 		InitView();
 		Init_viewPager();
 		Init_Point();
@@ -146,13 +136,34 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 		tbFace = (ToggleButton) findViewById(R.id.tbFace);
 		layout_point = (LinearLayout) findViewById(R.id.iv_image);
 		vp_face = (ViewPager) findViewById(R.id.vp_contains);
-		btnSend = (Button) findViewById(R.id.btnSend);
+		btnSend = (ImageButton) findViewById(R.id.btnSend);
 		llImages = (LinearLayout) findViewById(R.id.llImages);
 		ibAddImage = (ImageButton) findViewById(R.id.ibAddImg);
 		etTag = (EditText) findViewById(R.id.etTag);
 		etText = (EditText) findViewById(R.id.etText);
 		tvHot = (TextView) findViewById(R.id.tvHot);
 		rl_facechoose = (RelativeLayout) findViewById(R.id.ll_facechoose);
+		Intent I = getIntent();
+		if (!I.getBooleanExtra("new", true))
+		{
+			etTag.setText(I.getStringExtra("tag"));
+			SpannableString spannableString = FaceConversionUtil.getInstace().getExpressionString(this, I.getStringExtra("text"));
+			etText.setText(spannableString);
+			ArrayList<String> names = I.getStringArrayListExtra("picNames");
+			for (String fileName : names)
+			{
+				String targetPath = Global.PATH.ChatPic + fileName;
+				Bitmap bitmap = FileUtils.getOptimalBitmap(targetPath, 128 * Global.DPI);
+				addImageView(targetPath, fileName, bitmap);
+			}
+			id = (UUID) I.getSerializableExtra("id");
+			PicNum=I.getIntExtra("picNum",names.size()+10000);
+		}
+		else
+		{
+			id = UUID.randomUUID();
+			PicNum=0;
+		}
 	}
 
 	private void Init_viewPager()
@@ -355,75 +366,19 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 					return;
 				}
 				if (etTag.length() > 4 || etText.length() > 140) return;
-				fresh.username = Global.mySelf.username;
-				fresh.text = etText.getText().toString();
-				fresh.tag = etTag.getText().toString();
-				fresh.picName.clear();
+				Intent data = new Intent();
+				data.putExtra("picNum", PicNum)
+					.putExtra("text", etText.getText().toString())
+					.putExtra("tag", etTag.getText().toString())
+					.putExtra("picCount", llImages.getChildCount());
 				for (int i = 0; i < llImages.getChildCount(); i++)
 				{
-					fresh.picName.add(((String) llImages.getChildAt(i).getTag()));
+					data.putExtra(String.valueOf(i), ((String) llImages.getChildAt(i).getTag()));
 				}
-				fresh.time = Global.getDate();
-				final AtomicBoolean[] flag = new AtomicBoolean[]{new AtomicBoolean(true)};
-				final SweetAlertDialog dialog = new SweetAlertDialog(WriteFreshAct.this, SweetAlertDialog.PROGRESS_TYPE);
-				dialog.setTitleText("请稍候...").setCancelable(false);
-				dialog.show();
-				Thread t = new Thread(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						for (final String fileName : fresh.picName)
-						{
-							Thread thread = new Thread(new Runnable()
-							{
-								@Override
-								public void run()
-								{
-									try
-									{
-										UploadTask uploadTask = new UploadTask(Global.BLOCK_SIZE, Global.PATH.ChatPic + fileName, fileName, "ChatPic");
-										flag[0].set(uploadTask.call() && flag[0].get());
-									}
-									catch (IOException e)
-									{
-										e.printStackTrace();
-										flag[0].set(false);
-									}
-								}
-							});
-							thread.start();
-							try
-							{
-								thread.join();
-							}
-							catch (InterruptedException e)
-							{
-								e.printStackTrace();
-							}
-						}
-						if (flag[0].get())
-						{
-							WebService addFresh = new WebService("addFresh");
-							addFresh.addProperty("username", fresh.username)
-								.addProperty("text", fresh.text)
-								.addProperty("pics", fresh.picNameToString())
-								.addProperty("tag", fresh.tag)
-								.addProperty("time", Global.formatDate(fresh.time, "yyyy-MM-dd HH:mm:ss"));
-							SoapObject SO = addFresh.call();
-							if (SO != null)
-							{
-								flag[0].set(flag[0].get() && Boolean.parseBoolean(SO.getPropertyAsString(0)));
-							}
-						}
-						dialog.dismiss();
-						Message message = new Message();
-						message.what = Global.MSG_WHAT.W_SENDED_REQUEST;
-						message.obj = flag[0].get();
-						handler.sendMessage(message);
-					}
-				});
-				t.start();
+				data.putExtra("time", Global.getDate())
+					.putExtra("id", id);
+				setResult(RESULT_OK, data);
+				finish();
 			}
 		});
 		etText.addTextChangedListener(new TextWatcher()
@@ -441,10 +396,6 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 			@Override
 			public void afterTextChanged(Editable editable)
 			{
-				if (editable.length() > 140)
-					etText.setBackgroundResource(R.drawable.bg_editbox_err);
-				else
-					etText.setBackgroundResource(R.drawable.bg_editbox);
 			}
 		});
 		etTag.addTextChangedListener(new TextWatcher()
@@ -481,11 +432,9 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 			case CAMERA_REQUEST:
 				if (resultCode == -1)
 				{
-					String path = Global.PATH.Cache + "temp.png";
-					Bitmap optBitmap = FileUtils.scaleBitmap(3, path);
-					FileUtils.saveToFile(optBitmap, targetPath);
-					Bitmap bitmap = FileUtils.getOptimalBitmap(this, targetPath, 128 * Global.DPI);
-					FileUtils.deleteFile(path);
+					String temp = Global.PATH.Cache + "temp.png";
+					FileUtils.BitmapCopyAndOpt(temp,targetPath,4,500,true);
+					Bitmap bitmap = FileUtils.getOptimalBitmap(targetPath, 128 * Global.DPI);
 					addImageView(targetPath, name, bitmap);
 				}
 				break;
@@ -493,8 +442,8 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 				if (data != null)
 				{
 					Uri u = data.getData();
-					FileUtils.FastCopy(new File(FileUtils.getRealPathFromURI(this, u)), new File(Global.PATH.ChatPic, name));
-					Bitmap bitmap = FileUtils.getOptimalBitmap(this, Global.PATH.ChatPic + name, 128 * Global.DPI);
+					FileUtils.BitmapCopyAndOpt(FileUtils.getRealPathFromURI(this, u),targetPath,4,500,false);
+					Bitmap bitmap = FileUtils.getOptimalBitmap(targetPath, 128 * Global.DPI);
 					addImageView(targetPath, name, bitmap);
 				}
 				break;

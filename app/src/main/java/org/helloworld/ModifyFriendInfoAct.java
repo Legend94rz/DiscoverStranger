@@ -20,7 +20,7 @@ public class ModifyFriendInfoAct extends BaseActivity
 		btnFinish = (Button) findViewById(R.id.btnFinish);
 		etRemark = (EditText) findViewById(R.id.etRemark);
 		etRemark.setText(getIntent().getStringExtra("oldRemark"));
-		etRemark.setSelection(etRemark.getBottom());
+		etRemark.setSelection(etRemark.length());
 		btnFinish.setOnClickListener(new View.OnClickListener()
 		{
 			@Override

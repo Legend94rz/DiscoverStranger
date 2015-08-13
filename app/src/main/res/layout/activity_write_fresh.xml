@@ -3,7 +3,8 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				tools:context="org.helloworld.WriteFreshAct"
-				android:animateLayoutChanges="true">
+				android:animateLayoutChanges="true"
+				android:background="#ffefeff4">
 
 	<ScrollView
 		android:layout_width="wrap_content"
@@ -19,50 +20,65 @@
 			<RelativeLayout
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:padding="20dp"
 				android:id="@+id/relativeLayout12">
 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="正文:"
-					android:id="@+id/textView19"
-					/>
-
-				<EditText
+				<RelativeLayout
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:id="@+id/etText"
-					android:background="@drawable/bg_editbox"
-					android:layout_below="@+id/textView19"
-					android:layout_alignLeft="@+id/textView19"
-					android:layout_alignStart="@+id/textView19"
-					android:layout_marginTop="10dp"
-					android:layout_marginBottom="5dp"
-					android:minHeight="150dp"
-					android:padding="8dp"
-					android:gravity="top|left"
-					android:hint="不多于140字"/>
+					android:layout_height="match_parent"
+					android:id="@+id/relativeLayout16"
+					android:layout_alignParentTop="true"
+					android:layout_marginTop="30dp"
+					android:background="@color/white">
 
-				<ToggleButton
-					android:layout_width="36dp"
-					android:layout_height="36dp"
-					android:id="@+id/tbFace"
-					android:background="@drawable/face_button"
-					android:textOn=" "
-					android:textOff=" "
-					android:layout_below="@+id/etText"
-					android:layout_alignRight="@+id/etText"
-					android:layout_alignEnd="@+id/etText"
-					android:checked="false"/>
+					<EditText
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:id="@+id/etText"
+						android:layout_alignStart="@+id/textView19"
+						android:minHeight="150dp"
+						android:padding="8dp"
+						android:gravity="top|left"
+						android:hint="说点什么吧(140字以内)..."
+						android:layout_alignParentRight="true"
+						android:layout_alignParentEnd="true"
+						android:autoText="false"
+						android:background="@color/white"
+						android:textAllCaps="false"/>
+
+					<ToggleButton
+						android:layout_width="36dp"
+						android:layout_height="36dp"
+						android:id="@+id/tbFace"
+						android:background="@drawable/face_button"
+						android:textOn=" "
+						android:textOff=" "
+						android:checked="false"
+						android:layout_alignParentBottom="true"
+						android:layout_alignParentRight="true"
+						android:layout_alignParentEnd="true"
+						android:layout_below="@+id/etText"
+						android:layout_marginRight="20dp"/>
+
+				</RelativeLayout>
+
+				<TextView
+					android:layout_width="fill_parent"
+					android:layout_height="1px"
+					android:background="@color/lightgray"
+					android:id="@+id/textView19"
+					android:layout_alignStart="@+id/relativeLayout16"
+					android:layout_below="@+id/relativeLayout16"/>
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="添加图片(最多4张):"
 					android:id="@+id/textView20"
-					android:layout_below="@+id/tbFace"
-					android:layout_alignStart="@+id/etText"/>
+					android:layout_below="@+id/relativeLayout16"
+					android:layout_alignLeft="@+id/relativeLayout16"
+					android:layout_alignStart="@+id/relativeLayout16"
+					android:layout_marginTop="31dp"
+					android:layout_marginLeft="10dp"/>
 
 				<LinearLayout
 					android:orientation="horizontal"
@@ -72,7 +88,8 @@
 					android:id="@+id/llcontet"
 					android:layout_below="@+id/textView20"
 					android:layout_alignLeft="@+id/textView20"
-					android:layout_alignStart="@+id/textView20">
+					android:layout_alignStart="@+id/textView20"
+					>
 
 					<LinearLayout
 						android:orientation="horizontal"
@@ -99,38 +116,45 @@
 					android:layout_below="@+id/llcontet"
 					android:layout_alignLeft="@+id/llcontet"
 					android:layout_alignStart="@+id/llcontet"
-					android:text="添加标签(让其他人更容易发现你~):"/>
+					android:text="添加标签(让其他人更容易发现你~):"
+					/>
+
+				<TextView
+					android:layout_width="fill_parent"
+					android:layout_height="1px"
+					android:background="@color/lightgray"
+					android:id="@+id/textView45"
+					android:layout_alignStart="@+id/relativeLayout16"
+					android:layout_alignTop="@+id/relativeLayout16"/>
 
 				<EditText
-					android:layout_width="match_parent"
+					android:layout_width="wrap_content"
 					android:layout_height="48dp"
 					android:id="@+id/etTag"
-					android:layout_below="@+id/editText2"
-					android:layout_alignLeft="@+id/editText2"
-					android:layout_alignStart="@+id/editText2"
-					android:layout_marginTop="8dp"
-					android:layout_marginBottom="8dp"
-					android:layout_toLeftOf="@+id/tvHot"
-					android:layout_toStartOf="@+id/tvHot"
-					android:layout_marginRight="10dp"
 					android:background="@drawable/bg_editbox"
 					android:hint="不多于4个字"
 					android:padding="8dp"
-					android:singleLine="true"/>
+					android:singleLine="true"
+					android:minWidth="200dp"
+					android:layout_alignLeft="@+id/llcontet"
+					android:layout_alignStart="@+id/llcontet"
+					android:layout_below="@+id/editText2"
+					android:layout_marginTop="10dp"
+					android:maxWidth="200dp"/>
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:id="@+id/tvHot"
 					android:text="他们都在说..."
-					android:layout_alignBottom="@+id/etTag"
-					android:layout_alignRight="@+id/etText"
-					android:layout_alignEnd="@+id/etText"
 					android:textColor="#ff0084ff"
 					android:padding="8dp"
 					android:background="@drawable/img_btn_mask"
 					android:gravity="center"
-					android:clickable="true"/>
+					android:clickable="true"
+					android:layout_alignBottom="@+id/etTag"
+					android:layout_toRightOf="@+id/etTag"
+					android:layout_toEndOf="@+id/etTag"/>
 
 			</RelativeLayout>
 
@@ -213,7 +237,7 @@
 
 		</RelativeLayout>
 
-		<Button
+		<ImageButton
 			android:layout_width="wrap_content"
 			android:layout_height="match_parent"
 			android:text="发表"
@@ -224,7 +248,10 @@
 			android:layout_alignParentRight="true"
 			android:layout_alignParentEnd="true"
 			android:textSize="20dp"
-			android:padding="10dp"/>
+			android:src="@drawable/send"
+			android:paddingLeft="15dp"
+			android:paddingRight="15dp"
+			/>
 	</RelativeLayout>
 
 </RelativeLayout>

@@ -19,13 +19,14 @@ public class SplashAct extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
-		Global.DPI = (int) getApplicationContext().getResources().getDisplayMetrics().density;
 		new Thread(new Runnable()
 		{
 			@Override
 			public void run()
 			{
 				FaceConversionUtil.getInstace().getFileText(getApplication());
+				Global.DPI = (int) getApplicationContext().getResources().getDisplayMetrics().density;
+				Global.screenHeight=getApplicationContext().getResources().getDisplayMetrics().heightPixels;
 			}
 		}).start();
 		new Handler().postDelayed(new Runnable()

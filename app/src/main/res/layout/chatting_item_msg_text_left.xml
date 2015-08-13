@@ -63,7 +63,7 @@
 				android:singleLine="false"
 				android:paddingTop="3dp"
 				android:visibility="visible"
-				/>
+				android:textAllCaps="false"/>
 
 			<ImageView
 				android:layout_width="wrap_content"

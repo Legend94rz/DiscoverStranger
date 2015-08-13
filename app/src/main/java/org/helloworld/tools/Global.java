@@ -57,6 +57,7 @@ public class Global
 	 */
 	public static final int BLOCK_SIZE = 30000;
 	public static int DPI;
+	public static int screenHeight;
 	public static final Game JigsawGame=new Game("","1","","拼图游戏");
 	public static final Game SpeedMatchGame=new Game("","2","","快速匹配");
 	/**
@@ -194,26 +195,6 @@ public class Global
 		map = new HashMap<>();
 		settings = new Settings();
 		Gson g = new Gson();
-
-		//try
-		//{
-		//	BufferedReader reader1 = new BufferedReader(new FileReader(new File(PATH.Cache, mySelf.username + "contact.txt")));
-		//	String line = reader1.readLine();
-		//	while (line != null)
-		//	{
-		//		UserInfo u = g.fromJson(line, UserInfo.class);
-		//		friendList.add(u);
-		//		map2Friend.put(u.username, u);
-		//		line = reader1.readLine();
-		//	}
-		//}
-		//catch (FileNotFoundException ignored)
-		//{
-		//}
-		//catch (IOException e)
-		//{
-		//	e.printStackTrace();
-		//}
 
 		try
 		{

@@ -64,9 +64,9 @@ public class AsyImageLoader
 	{
 		String localPath = localFolder + fileName;
 		if (FileUtils.Exist(localPath))
-			return FileUtils.getOptimalBitmap(context, localPath, restrictSize);
+			return FileUtils.getOptimalBitmap(localPath, restrictSize);
 		else if (DownloadTask.DownloadFile(remoteFolder, fileName, Global.BLOCK_SIZE, localFolder))
-			return FileUtils.getOptimalBitmap(context, localPath, restrictSize);
+			return FileUtils.getOptimalBitmap(localPath, restrictSize);
 		return null;
 	}
 
