@@ -16,7 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.helloworld.tools.CustomToast;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.WebTask;
 import org.ksoap2.serialization.SoapObject;
@@ -199,17 +201,24 @@ public class MyInterestAct extends BaseActivity
 				if (btnOK.getText() == "确定")
 				{
 					Editable s = editText.getText();
-					if (s.length() <= 4 && !Global.settings.interests.contains(s.toString()))
-					{
-						editText.setText("");
-						Global.settings.interests.add(s.toString());
-						if (Global.settings.interests.size() == MAX_INTEREST_COUNT)
-							footview.setVisibility(View.GONE);
-						adapter.notifyDataSetChanged();
-						llInput.setVisibility(View.GONE);
-						llSel.setVisibility(View.VISIBLE);
-						button.setEnabled(true);
-					}
+					if (s.length() <= 4)
+						if(!Global.settings.interests.contains(s.toString()) )
+						{
+							editText.setText("");
+							Global.settings.interests.add(s.toString());
+							if (Global.settings.interests.size() == MAX_INTEREST_COUNT)
+								footview.setVisibility(View.GONE);
+							adapter.notifyDataSetChanged();
+							llInput.setVisibility(View.GONE);
+							llSel.setVisibility(View.VISIBLE);
+							button.setEnabled(true);
+						}
+						else
+						{
+							CustomToast.show(MyInterestAct.this, String.format("标签 %s 已存在",s.toString()), Toast.LENGTH_SHORT);
+						}
+					else
+						CustomToast.show(MyInterestAct.this,"标签不多于4个字符",Toast.LENGTH_SHORT);
 				}
 				else
 				{

@@ -46,18 +46,45 @@
 						android:textAllCaps="false"/>
 
 					<ToggleButton
-						android:layout_width="36dp"
-						android:layout_height="36dp"
+						android:layout_width="48dp"
+						android:layout_height="48dp"
 						android:id="@+id/tbFace"
 						android:background="@drawable/face_button"
 						android:textOn=" "
 						android:textOff=" "
 						android:checked="false"
-						android:layout_alignParentBottom="true"
-						android:layout_alignParentRight="true"
-						android:layout_alignParentEnd="true"
+						android:layout_alignTop="@+id/llcontet"
+						android:layout_alignParentLeft="true"
+						android:layout_alignParentStart="true"
+						android:layout_margin="10dp"/>
+
+					<LinearLayout
+						android:orientation="horizontal"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="10dp"
+						android:id="@+id/llcontet"
 						android:layout_below="@+id/etText"
-						android:layout_marginRight="20dp"/>
+						android:layout_toRightOf="@+id/tbFace"
+						android:layout_toEndOf="@+id/tbFace">
+
+						<LinearLayout
+							android:orientation="horizontal"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:id="@+id/llImages">
+
+						</LinearLayout>
+
+						<ImageButton
+							android:layout_width="48dp"
+							android:layout_height="48dp"
+							android:id="@+id/ibAddImg"
+							android:src="@drawable/plus"
+							android:background="@drawable/img_btn_mask"
+							android:scaleType="fitXY"
+							android:layout_marginBottom="10dp"/>
+					</LinearLayout>
 
 				</RelativeLayout>
 
@@ -72,52 +99,12 @@
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="添加图片(最多4张):"
-					android:id="@+id/textView20"
-					android:layout_below="@+id/relativeLayout16"
-					android:layout_alignLeft="@+id/relativeLayout16"
-					android:layout_alignStart="@+id/relativeLayout16"
-					android:layout_marginTop="31dp"
-					android:layout_marginLeft="10dp"/>
-
-				<LinearLayout
-					android:orientation="horizontal"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:padding="10dp"
-					android:id="@+id/llcontet"
-					android:layout_below="@+id/textView20"
-					android:layout_alignLeft="@+id/textView20"
-					android:layout_alignStart="@+id/textView20"
-					>
-
-					<LinearLayout
-						android:orientation="horizontal"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:id="@+id/llImages">
-
-					</LinearLayout>
-
-					<ImageButton
-						android:layout_width="48dp"
-						android:layout_height="48dp"
-						android:id="@+id/ibAddImg"
-						android:src="@drawable/plus"
-						android:background="@drawable/img_btn_mask"
-						android:scaleType="fitXY"
-						android:layout_marginBottom="10dp"/>
-				</LinearLayout>
-
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
 					android:id="@+id/editText2"
-					android:layout_below="@+id/llcontet"
-					android:layout_alignLeft="@+id/llcontet"
+					android:layout_below="@+id/textView19"
 					android:layout_alignStart="@+id/llcontet"
 					android:text="添加标签(让其他人更容易发现你~):"
-					/>
+					android:layout_marginTop="15dp"
+					android:layout_marginLeft="15dp"/>
 
 				<TextView
 					android:layout_width="fill_parent"
@@ -136,7 +123,7 @@
 					android:padding="8dp"
 					android:singleLine="true"
 					android:minWidth="200dp"
-					android:layout_alignLeft="@+id/llcontet"
+					android:layout_alignLeft="@+id/editText2"
 					android:layout_alignStart="@+id/llcontet"
 					android:layout_below="@+id/editText2"
 					android:layout_marginTop="10dp"

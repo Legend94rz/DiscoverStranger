@@ -76,7 +76,7 @@ public class SetMyGame extends BaseActivity
 				h.ivThumb = (ImageView) view.findViewById(R.id.background_img);
 				h.rlContainer = (RelativeLayout) view.findViewById(R.id.rlContainer);
 				h.textView = (TextView) view.findViewById(R.id.background_name);
-				h.textView = (TextView) view.findViewById(R.id.tvThis);
+				h.tvThis = (TextView) view.findViewById(R.id.tvThis);
 				view.setTag(h);
 			}
 			else
@@ -85,7 +85,9 @@ public class SetMyGame extends BaseActivity
 			}
 			h.textView.setText(g.gameName);
 			if(TextUtils.equals(g.pakageName,Global.settings.game))
-				h.textView.setVisibility(View.VISIBLE);
+				h.tvThis.setVisibility(View.VISIBLE);
+			else
+				h.tvThis.setVisibility(View.GONE);
 			if (TextUtils.equals(g.pakageName, selectGame.pakageName))
 				h.rlContainer.setBackgroundResource(R.drawable.selector1);
 			else

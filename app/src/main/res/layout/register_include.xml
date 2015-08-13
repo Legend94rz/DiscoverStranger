@@ -18,7 +18,7 @@
 			android:layout_width="160dp"
 			android:layout_height="160dp"
 			android:id="@+id/Avatar"
-			android:src="@drawable/head_test"
+			android:src="@drawable/camera"
 			android:layout_below="@+id/relativeLayout2"
 			android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"

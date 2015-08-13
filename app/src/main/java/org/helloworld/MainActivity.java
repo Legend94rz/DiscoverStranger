@@ -570,7 +570,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 	{
 		List<HashMap<String, Object>> data = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("icon", R.drawable.user);
+		map.put("icon", R.drawable.icon_userinfo);
 		map.put("desc", "编辑个人资料");
 		data.add(map);
 		map = new HashMap<String, Object>();

@@ -270,14 +270,12 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 								@Override
 								public void run()
 								{
-									if (DownloadTask.DownloadFile("SoundMsg", fileName, Global.BLOCK_SIZE, Global.PATH.SoundMsg))
-									{
-										android.os.Message message1 = new android.os.Message();
-										message1.obj = pbPlayVoice;
-										message1.what = Global.MSG_WHAT.W_PLAY_SOUND;
-										message1.setData(message.getData());
-										handler.sendMessage(message1);
-									}
+									android.os.Message message1 = new android.os.Message();
+									message1.obj = pbPlayVoice;
+									message1.what = Global.MSG_WHAT.W_PLAY_SOUND;
+									message1.setData(message.getData());
+									message1.getData().putBoolean("result",DownloadTask.DownloadFile("SoundMsg", fileName, Global.BLOCK_SIZE, Global.PATH.SoundMsg));
+									handler.sendMessage(message1);
 								}
 							}).start();
 						}
@@ -405,7 +403,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 				@Override
 				public void run()
 				{
-					FileUtils.BitmapCopyAndOpt(localPath+localName,Global.PATH.ChatPic+entity.text,4,500,false);
+					FileUtils.BitmapCopyAndOpt(localPath+localName,Global.PATH.ChatPic+entity.text,3,800,false);
 					dialog.dismiss();
 				}
 			});

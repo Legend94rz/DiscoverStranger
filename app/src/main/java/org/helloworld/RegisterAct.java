@@ -44,18 +44,13 @@ public class RegisterAct extends BaseActivity
 	private static final int CAMERA_REQUEST = 2;
 	private static final int PHOTO_CLIP = 3;
 	private ImageView ivAvatarimg;
-	private ProgressBar pbcheckname;
 	private EditText etUser_name;
 	private EditText etpasswords;
 	private EditText etconfirmpasswords;
 	private Button btnNext;
 	private RadioButton rbfemale;
 	private Bitmap photo;
-	private ImageView ivUsernameError;
-	private ImageView ivPassError;
-	private TextView tvError_info_username;
-	private TextView tvError_info_password;
-    private SweetAlertDialog dialog;
+	private SweetAlertDialog dialog;
 	public static Handler handler;
 	private Boolean canRegister = true;
 
@@ -144,9 +139,6 @@ public class RegisterAct extends BaseActivity
                                         }
                                     }).show();
 						}
-						else
-						{
-						}
 						break;
 				}
 				return true;
@@ -169,7 +161,7 @@ public class RegisterAct extends BaseActivity
 		if (error_info_password.length() > 0)
 		{
             SweetAlertDialog dialog = new SweetAlertDialog(RegisterAct.this);
-            dialog.setContentText(error_info_password).setConfirmText("确认")
+            dialog.setContentText(error_info_password).setTitleText("提示").setConfirmText("确认")
                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener(){
 
                         public void onClick(SweetAlertDialog sweetAlertDialog)
@@ -202,7 +194,7 @@ public class RegisterAct extends BaseActivity
 		if (error_info_username.length() > 0)
 		{
 
-            dialog.setContentText(error_info_username).setConfirmText("确认")
+            dialog.setContentText(error_info_username).setTitleText("提示").setConfirmText("确认")
                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener(){
 
                         public void onClick(SweetAlertDialog sweetAlertDialog)
@@ -336,6 +328,7 @@ public class RegisterAct extends BaseActivity
 			try
 			{
 				SoapObject result = register.call();
+				if(result==null) return 3;
 				if (!result.getPropertyAsString(0).equals(Global.OPT_SUCCEED)) return 4;
 			}
 			catch (Exception e)
@@ -343,6 +336,33 @@ public class RegisterAct extends BaseActivity
 				e.printStackTrace();
 				return 4;
 			}
+			CustomToast.show(RegisterAct.this, "注册成功", Toast.LENGTH_SHORT);
+			String path = Global.PATH.HeadImg;
+			String filename = Username + ".png";
+			File file = new File(path, filename);
+			FileUtils.mkDir(file.getParentFile());
+			try
+			{
+				file.createNewFile();
+				FileOutputStream fileOutputStream = new FileOutputStream(file);
+				photo.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
+				fileOutputStream.flush();
+				fileOutputStream.close();
+			}
+			catch (FileNotFoundException e)
+			{
+				e.printStackTrace();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+			Global.mySelf = new UserInfo();
+			Global.mySelf.username = Username;
+			Global.mySelf.password = Password;
+			Global.mySelf.nickName = Nickname;
+			Global.mySelf.sex = Gender;
+			Global.InitData();
 			return 1;
 		}
 
@@ -354,33 +374,6 @@ public class RegisterAct extends BaseActivity
 			{
 				case 1:
 				{
-					CustomToast.show(RegisterAct.this, "注册成功", Toast.LENGTH_SHORT);
-					String path = Global.PATH.HeadImg;
-					String filename = Username + ".png";
-					File file = new File(path, filename);
-					FileUtils.mkDir(file.getParentFile());
-					try
-					{
-						file.createNewFile();
-						FileOutputStream fileOutputStream = new FileOutputStream(file);
-						photo.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
-						fileOutputStream.flush();
-						fileOutputStream.close();
-					}
-					catch (FileNotFoundException e)
-					{
-						e.printStackTrace();
-					}
-					catch (IOException e)
-					{
-						e.printStackTrace();
-					}
-					Global.mySelf = new UserInfo();
-					Global.mySelf.username = Username;
-					Global.mySelf.password = Password;
-					Global.mySelf.nickName = Nickname;
-					Global.mySelf.sex = Gender;
-					Global.InitData();
 					Intent i = new Intent(RegisterAct.this, MainActivity.class);
 					startActivity(i);
 					finish();
@@ -392,9 +385,13 @@ public class RegisterAct extends BaseActivity
 					break;
 				}
 				case 3:
+				{
+					CustomToast.show(RegisterAct.this, "注册失败：网络连接失败", Toast.LENGTH_SHORT);
+					break;
+				}
 				case 4:
 				{
-					CustomToast.show(RegisterAct.this, String.format("注册失败，错误%d", aByte), Toast.LENGTH_SHORT);
+					CustomToast.show(RegisterAct.this, "注册失败：已存在的用户名", Toast.LENGTH_SHORT);
 					break;
 				}
 			}

@@ -171,7 +171,7 @@ public class FileUtils
 	 * @param soucePath 源（全）路径
 	 * @param targetPath 目标（全）路径
 	 * @param scaleSize 缩放比例
-	 * @param strictSize 最大的长/宽
+	 * @param strictSize 最大的长/宽，注意：以像素为单位
 	 * @param deleteSource 是否删除源文件
 	 * */
 	public static void BitmapCopyAndOpt(String soucePath,String targetPath,int scaleSize,int strictSize,boolean deleteSource)

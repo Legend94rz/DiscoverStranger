@@ -48,7 +48,7 @@ public class HistoryAdapter extends BaseAdapter implements AbsListView.OnScrollL
 			@Override
 			public int compare(History history, History t1)
 			{
-				return history.lastHistoryMsg.sendTime.compareTo(t1.lastHistoryMsg.sendTime);
+				return -history.lastHistoryMsg.sendTime.compareTo(t1.lastHistoryMsg.sendTime);
 			}
 		});
 		super.notifyDataSetChanged();
@@ -166,14 +166,14 @@ public class HistoryAdapter extends BaseAdapter implements AbsListView.OnScrollL
 				else if (date.getDate() + 1 == now.getDate())
 					return "昨天";
 				else
-					return Global.formatDate(date,"dd");
+					return Global.formatDate(date,"dd日");
 			}
 			else
 			{
-				return Global.formatDate(date,"MM-dd");
+				return Global.formatDate(date,"MM月dd日");
 			}
 		else
-			return Global.formatDate(date,"yyyy-MM-dd");
+			return Global.formatDate(date,"yyyy年MM月dd日");
 	}
 
 	@Override

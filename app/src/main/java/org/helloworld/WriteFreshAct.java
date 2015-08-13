@@ -433,7 +433,7 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 				if (resultCode == -1)
 				{
 					String temp = Global.PATH.Cache + "temp.png";
-					FileUtils.BitmapCopyAndOpt(temp,targetPath,4,500,true);
+					FileUtils.BitmapCopyAndOpt(temp,targetPath,3,800,true);
 					Bitmap bitmap = FileUtils.getOptimalBitmap(targetPath, 128 * Global.DPI);
 					addImageView(targetPath, name, bitmap);
 				}
@@ -442,7 +442,7 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 				if (data != null)
 				{
 					Uri u = data.getData();
-					FileUtils.BitmapCopyAndOpt(FileUtils.getRealPathFromURI(this, u),targetPath,4,500,false);
+					FileUtils.BitmapCopyAndOpt(FileUtils.getRealPathFromURI(this, u),targetPath,3,800,false);
 					Bitmap bitmap = FileUtils.getOptimalBitmap(targetPath, 128 * Global.DPI);
 					addImageView(targetPath, name, bitmap);
 				}

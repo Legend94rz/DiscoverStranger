@@ -385,7 +385,10 @@ public class HanziToPinyin
     protected HanziToPinyin(boolean hasChinaCollator) {
         mHasChinaCollator = hasChinaCollator;
     }
-
+    public boolean isEnable()
+    {
+        return mHasChinaCollator;
+    }
     public static HanziToPinyin getInstance() {
         synchronized (HanziToPinyin.class) {
             if (sInstance != null) {

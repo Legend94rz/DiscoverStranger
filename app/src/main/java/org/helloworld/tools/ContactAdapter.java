@@ -43,9 +43,13 @@ public class ContactAdapter extends BaseAdapter implements AbsListView.OnScrollL
 			@Override
 			public int compare(UserInfo userInfo, UserInfo t1)
 			{
-				HanziToPinyin.Token token1=HanziToPinyin.getInstance().get(String.valueOf(userInfo.getShowName().charAt(0))).get(0);
-				HanziToPinyin.Token token2=HanziToPinyin.getInstance().get(String.valueOf(t1.getShowName().charAt(0))).get(0);
-				return token1.target.toUpperCase().compareTo(token2.target.toUpperCase());
+				if(HanziToPinyin.getInstance().isEnable())
+				{
+					HanziToPinyin.Token token1 = HanziToPinyin.getInstance().get(String.valueOf(userInfo.getShowName().charAt(0))).get(0);
+					HanziToPinyin.Token token2 = HanziToPinyin.getInstance().get(String.valueOf(t1.getShowName().charAt(0))).get(0);
+					return token1.target.toUpperCase().compareTo(token2.target.toUpperCase());
+				}
+				return String.valueOf(userInfo.getShowName().charAt(0)).compareTo(String.valueOf(t1.getShowName().charAt(0)));
 			}
 		};
 	}
@@ -124,9 +128,16 @@ public class ContactAdapter extends BaseAdapter implements AbsListView.OnScrollL
 				h.seperator.setVisibility(View.VISIBLE);
 			else
 				h.seperator.setVisibility(View.INVISIBLE);
-			ArrayList<HanziToPinyin.Token> tokens=HanziToPinyin.getInstance().get(list.get(position).getShowName());
-			HanziToPinyin.Token t= tokens.get(0);
-			h.tvGroupName.setText(String.valueOf(t.target.toUpperCase().charAt(0) ));
+			if(HanziToPinyin.getInstance().isEnable())
+			{
+				ArrayList<HanziToPinyin.Token> tokens = HanziToPinyin.getInstance().get(list.get(position).getShowName());
+				HanziToPinyin.Token t = tokens.get(0);
+				h.tvGroupName.setText(String.valueOf(t.target.toUpperCase().charAt(0)));
+			}
+			else
+			{
+				h.tvGroupName.setText(String.valueOf(list.get(position).getShowName().toUpperCase().charAt(0)));
+			}
 		}
 		else
 		{

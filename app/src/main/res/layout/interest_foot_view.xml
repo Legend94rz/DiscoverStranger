@@ -15,13 +15,13 @@
 		<Button
 			android:layout_width="wrap_content"
 			android:layout_height="48dp"
-			android:text="手动输入Tag"
+			android:text="输入Tag"
 			android:id="@+id/btnCustom"
 			android:layout_weight="1"
 			android:background="@drawable/deletebtn"
 			android:layout_alignParentLeft="true"
 			android:layout_alignParentTop="true"
-			/>
+			android:layout_margin="5dp"/>
 
 		<Button
 			android:layout_width="wrap_content"
@@ -35,7 +35,8 @@
 			android:layout_alignParentRight="true"
 			android:layout_alignParentEnd="true"
 			android:layout_toRightOf="@+id/btnCustom"
-			android:layout_toEndOf="@+id/btnCustom"/>
+			android:layout_toEndOf="@+id/btnCustom"
+			android:layout_margin="5dp"/>
 	</LinearLayout>
 
 	<RelativeLayout
@@ -58,8 +59,7 @@
 			android:layout_alignParentTop="true"
 			android:layout_toLeftOf="@+id/btnOK"
 			android:layout_toStartOf="@+id/btnOK"
-			android:layout_marginRight="8dp"
-			android:layout_marginLeft="8dp"/>
+			android:layout_margin="5dp"/>
 
 		<Button
 			android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
 			android:layout_alignParentEnd="true"
 			android:paddingLeft="16dp"
 			android:paddingRight="16dp"
-			/>
+			android:layout_margin="5dp"/>
 	</RelativeLayout>
 
 </LinearLayout>
