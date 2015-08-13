@@ -163,7 +163,7 @@ public class MomentsAdapter extends BaseAdapter implements AbsListView.OnScrollL
 							if (bitmap != null)
 							{
 								view.setImageBitmap(bitmap);
-								notifyDataSetChanged();
+								//notifyDataSetChanged();
 							}
 							else
 								view.setImageResource(R.drawable.broken);

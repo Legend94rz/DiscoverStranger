@@ -165,6 +165,7 @@ public class ChatMsgAdapter extends BaseAdapter implements AbsListView.OnScrollL
 				{
 					ImageView imageView = (ImageView) listView.findViewWithTag(url);
 					if (imageView != null)
+					{
 						if (bitmap != null)
 						{
 							imageView.setImageBitmap(bitmap);
@@ -172,7 +173,7 @@ public class ChatMsgAdapter extends BaseAdapter implements AbsListView.OnScrollL
 						}
 						else
 							entity.sendState = 2;
-					notifyDataSetChanged();
+					}notifyDataSetChanged();
 				}
 			});
 			if (cacheBitmap != null)

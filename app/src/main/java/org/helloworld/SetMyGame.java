@@ -76,6 +76,7 @@ public class SetMyGame extends BaseActivity
 				h.ivThumb = (ImageView) view.findViewById(R.id.background_img);
 				h.rlContainer = (RelativeLayout) view.findViewById(R.id.rlContainer);
 				h.textView = (TextView) view.findViewById(R.id.background_name);
+				h.textView = (TextView) view.findViewById(R.id.tvThis);
 				view.setTag(h);
 			}
 			else
@@ -83,8 +84,10 @@ public class SetMyGame extends BaseActivity
 				h = (H) view.getTag();
 			}
 			h.textView.setText(g.gameName);
+			if(TextUtils.equals(g.pakageName,Global.settings.game))
+				h.textView.setVisibility(View.VISIBLE);
 			if (TextUtils.equals(g.pakageName, selectGame.pakageName))
-				h.rlContainer.setBackgroundResource(R.drawable.black_round_rect);
+				h.rlContainer.setBackgroundResource(R.drawable.selector1);
 			else
 				h.rlContainer.setBackgroundResource(0);
 			switch (g.pakageName)
@@ -104,10 +107,13 @@ public class SetMyGame extends BaseActivity
 						public void imageLoaded(Bitmap bitmap, String url)
 						{
 							ImageView iv = (ImageView) gvGame.findViewWithTag(url);
-							if (iv != null && bitmap != null)
-							{
-								iv.setImageBitmap(bitmap);
-							}
+							if (iv != null)
+								if(bitmap != null)
+								{
+									iv.setImageBitmap(bitmap);
+								}
+								else
+									iv.setImageResource(R.drawable.broken);
 						}
 					});
 					if (bitmap != null)
@@ -121,6 +127,7 @@ public class SetMyGame extends BaseActivity
 			RelativeLayout rlContainer;
 			ImageView ivThumb;
 			TextView textView;
+			TextView tvThis;
 		}
 	}
 
