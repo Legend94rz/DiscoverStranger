@@ -123,7 +123,7 @@
 			android:id="@+id/tvTag"
 			android:layout_alignParentRight="true"
 			android:layout_alignParentEnd="true"
-			android:background="@drawable/tag"
+			android:background="#ff40b17a"
 			android:textSize="16sp"
 			android:textColor="@android:color/white"
 			android:gravity="left|center_vertical"
