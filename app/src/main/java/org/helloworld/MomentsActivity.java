@@ -283,7 +283,7 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 				fresh.time= (Date) data.getSerializableExtra("time");
 				//Todo 测试
 				fresh.username=Global.mySelf.username;
-				PicNum=data.getIntExtra("picNum",fresh.picNames.size()+10000);
+				PicNum=data.getInExtra("picNum",fresh.picNames.size()+10000);
 				id= (UUID) data.getSerializableExtra("id");
 				t=new sendFreshTask();
 				t.execute();
