@@ -35,7 +35,10 @@ public class BigPicAct extends BaseActivity
 				if(bitmap!=null)
 					ivImg.setImageBitmap(bitmap);
 				else
+				{
+					FileUtils.deleteFile(imgsrc);
 					ivImg.setImageResource(R.drawable.broken);
+				}
 			}
 		}
 		catch (Exception e)

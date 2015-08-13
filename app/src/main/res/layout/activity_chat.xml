@@ -91,22 +91,4 @@
 			android:layout_height="wrap_content"/>
 	</LinearLayout>
 
-	<Button
-		android:id="@+id/btnNewMsg"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_above="@+id/rl_bottom"
-		android:layout_centerHorizontal="true"
-		android:background="#ff55d4eb"
-		android:gravity="left|center_vertical"
-		android:maxLines="1"
-		android:paddingBottom="5dp"
-		android:paddingLeft="15dp"
-		android:paddingRight="15dp"
-		android:singleLine="true"
-		android:textSize="15dp"
-		android:visibility="gone"
-		android:paddingTop="5dp"/>
-
-
 </RelativeLayout>

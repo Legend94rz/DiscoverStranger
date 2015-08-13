@@ -53,7 +53,8 @@ public class AlterBasicInfo extends BaseActivity
 				String nickname = etNickname.getText().toString();
 				String username = Global.mySelf.username;
 				String password = Global.mySelf.password;
-				String birthday = String.format("%4d-%02d-%02d",dpBirthday.getYear(),dpBirthday.getMonth()+1,dpBirthday.getDayOfMonth());
+				if(nickname.trim().equals(""))nickname=Global.mySelf.username;
+				String birthday = String.format("%4d-%02d-%02d",dpBirthday.getYear()>=1900?dpBirthday.getYear():dpBirthday.getYear()+1900,dpBirthday.getMonth()+1,dpBirthday.getDayOfMonth());
 				boolean usergender = rbFemale.isChecked();
 				AlterBasicInfo_online task = new AlterBasicInfo_online(username, password, usergender, nickname, birthday);
 				task.execute();

@@ -53,13 +53,14 @@
 			android:layout_alignTop="@+id/iv_userhead"
 			android:layout_toRightOf="@+id/iv_userhead"
 			android:layout_toEndOf="@+id/iv_userhead"
-			android:layout_marginStart="13dp">
+			android:layout_marginStart="13dp"
+			android:layout_marginTop="10dp">
 
 			<TextView
 				android:id="@+id/tvChatcontent"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:maxWidth="200dp"
+				android:maxWidth="150dp"
 				android:singleLine="false"
 				android:paddingTop="3dp"
 				android:visibility="visible"
@@ -97,21 +98,21 @@
 
 		<ProgressBar
 			style="?android:attr/progressBarStyleSmall"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			android:layout_width="25dp"
+			android:layout_height="25dp"
 			android:id="@+id/pbSendbar"
 			android:indeterminate="false"
 			android:visibility="visible"
 			android:layout_alignBottom="@+id/relativeLayout4"
 			android:layout_toRightOf="@+id/relativeLayout4"
-			android:layout_marginBottom="12dp"
+			android:layout_marginBottom="6dp"
 			android:indeterminateDuration="1000"
 			android:indeterminateDrawable="@drawable/progress_circle_anim"
 			android:layout_marginLeft="8dp"/>
 
 		<ImageButton
-			android:layout_width="15dp"
-			android:layout_height="15dp"
+			android:layout_width="25dp"
+			android:layout_height="25dp"
 			android:id="@+id/ibResendbtn"
 			android:src="@drawable/error"
 			android:scaleType="fitCenter"
@@ -119,7 +120,7 @@
 			android:visibility="visible"
 			android:layout_alignBottom="@+id/relativeLayout4"
 			android:layout_toRightOf="@+id/pbSendbar"
-			android:layout_marginBottom="12dp"
+			android:layout_marginBottom="6dp"
 			android:layout_marginLeft="8dp"/>
 
 	</RelativeLayout>

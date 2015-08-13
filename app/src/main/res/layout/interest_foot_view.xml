@@ -67,7 +67,7 @@
 			android:text="取消"
 			android:id="@+id/btnOK"
 			android:layout_weight="1"
-			android:background="@drawable/btn_rect_blue"
+			android:background="@drawable/btn_round_blue"
 			android:textColor="@color/white"
 			android:layout_alignParentTop="true"
 			android:layout_alignParentRight="true"

@@ -10,12 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ActionMenuView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.baidu.navisdk.model.GeoLocateModel;
 
 import org.helloworld.BigPicAct;
 import org.helloworld.CircleImageView;
@@ -77,7 +81,7 @@ public class MomentsAdapter extends BaseAdapter implements AbsListView.OnScrollL
 			view = inflater.inflate(R.layout.moments_item, viewGroup, false);
 			h.ivHead = (CircleImageView) view.findViewById(R.id.ivHead);
 			h.btnHello = (Button) view.findViewById(R.id.btnHello);
-			h.llImages = (LinearLayout) view.findViewById(R.id.llcontet);
+			h.glImages = (GridLayout) view.findViewById(R.id.glContent);
 			h.tvNickName = (TextView) view.findViewById(R.id.tvNickname);
 			h.tvText = (TextView) view.findViewById(R.id.tvText);
 			h.tvTime = (TextView) view.findViewById(R.id.tvTime);
@@ -140,25 +144,26 @@ public class MomentsAdapter extends BaseAdapter implements AbsListView.OnScrollL
 			});
 			h.tvNickName.setText(fresh.username);
 		}
-		h.llImages.removeAllViews();
+		h.glImages.removeAllViews();
 		if (fresh.picNames != null && fresh.picNames.size() > 0)
 		{
 			for (final String fileName : fresh.picNames)
 			{
 				final ImageView imageView = new ImageView(context);
-				LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(64 * Global.DPI, 64 * Global.DPI);
-				layoutParams.setMargins(0, 0, 5 * Global.DPI, 0);
-				imageView.setLayoutParams(layoutParams);
-				imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+				GridLayout.LayoutParams layoutParams=new GridLayout.LayoutParams();
+				layoutParams.width=120* Global.DPI;
+				layoutParams.height=120* Global.DPI;
+				layoutParams.setMargins(5*Global.DPI,5*Global.DPI,5*Global.DPI,5*Global.DPI);
+				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 				imageView.setTag(Global.PATH.ChatPic + fileName);
-				h.llImages.addView(imageView);
+				h.glImages.addView(imageView,layoutParams);
 				imageView.setImageResource(R.drawable.nopic);
-				Bitmap bitmap = loader.loadDrawable(Global.PATH.ChatPic, "ChatPic", fileName, isScroll, 128 * Global.DPI, new AsyImageLoader.ImageCallback()
+				Bitmap bitmap = loader.loadDrawable(Global.PATH.ChatPic, "ChatPic", fileName, isScroll, 256 * Global.DPI, new AsyImageLoader.ImageCallback()
 				{
 					@Override
 					public void imageLoaded(Bitmap bitmap, String url)
 					{
-						ImageView view = (ImageView) h.llImages.findViewWithTag(Global.PATH.ChatPic + fileName);
+						ImageView view = (ImageView) h.glImages.findViewWithTag(Global.PATH.ChatPic + fileName);
 						if (view != null)
 							if (bitmap != null)
 							{
@@ -182,10 +187,10 @@ public class MomentsAdapter extends BaseAdapter implements AbsListView.OnScrollL
 					}
 				});
 			}
-			h.llImages.setVisibility(View.VISIBLE);
+			h.glImages.setVisibility(View.VISIBLE);
 		}
 		else
-			h.llImages.setVisibility(View.GONE);
+			h.glImages.setVisibility(View.GONE);
 
 		return view;
 	}
@@ -221,6 +226,6 @@ public class MomentsAdapter extends BaseAdapter implements AbsListView.OnScrollL
 		CircleImageView ivHead;
 		TextView tvNickName, tvText, tvTime, tvTag;
 		Button btnHello;
-		LinearLayout llImages;
+		GridLayout glImages;
 	}
 }

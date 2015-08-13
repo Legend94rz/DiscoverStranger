@@ -348,6 +348,7 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 							PicNum++;
 							Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 							// 下面这句指定调用相机拍照后的照片存储的路径
+							FileUtils.mkDir(new File(Global.PATH.Cache));
 							intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Global.PATH.Cache, "temp.png")));
 							startActivityForResult(intent, CAMERA_REQUEST);
 						}

@@ -23,6 +23,8 @@ import org.helloworld.tools.Global;
 import org.helloworld.tools.WebTask;
 import org.ksoap2.serialization.SoapObject;
 
+import java.util.ArrayList;
+
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
@@ -42,26 +44,28 @@ public class MyInterestAct extends BaseActivity
 	View footview;
 	Handler handler;
 	SweetAlertDialog dialog;
+	ArrayList<String> list;
 
 	class InterestAdapter extends BaseAdapter
 	{
 		LayoutInflater inflater;
+		ArrayList<String> list;
 
-		public InterestAdapter()
+		public InterestAdapter(ArrayList<String> list)
 		{
+			this.list = list;
 			inflater = MyInterestAct.this.getLayoutInflater();
 		}
-
 		@Override
 		public int getCount()
 		{
-			return Global.settings.interests.size();
+			return list.size();
 		}
 
 		@Override
 		public Object getItem(int i)
 		{
-			return Global.settings.interests.get(i);
+			return list.get(i);
 		}
 
 		@Override
@@ -91,7 +95,7 @@ public class MyInterestAct extends BaseActivity
 				@Override
 				public void onClick(View view)
 				{
-					Global.settings.interests.remove(s);
+					list.remove(s);
 					if (getCount() < MAX_INTEREST_COUNT) footview.setVisibility(View.VISIBLE);
 					notifyDataSetChanged();
 				}
@@ -125,7 +129,9 @@ public class MyInterestAct extends BaseActivity
 		listView = (ListView) findViewById(R.id.listview);
 		footview = View.inflate(this, R.layout.interest_foot_view, null);
 		listView.addFooterView(footview, null, false);
-		adapter = new InterestAdapter();
+		list=new ArrayList<>();
+		list.addAll(Global.settings.interests);
+		adapter = new InterestAdapter(list);
 		listView.setAdapter(adapter);
 		llInput = (RelativeLayout) footview.findViewById(R.id.llInput);
 		llSel = (LinearLayout) footview.findViewById(R.id.llSel);
@@ -202,11 +208,11 @@ public class MyInterestAct extends BaseActivity
 				{
 					Editable s = editText.getText();
 					if (s.length() <= 4)
-						if(!Global.settings.interests.contains(s.toString()) )
+						if(!list.contains(s.toString()) )
 						{
 							editText.setText("");
-							Global.settings.interests.add(s.toString());
-							if (Global.settings.interests.size() == MAX_INTEREST_COUNT)
+							list.add(s.toString());
+							if (list.size() == MAX_INTEREST_COUNT)
 								footview.setVisibility(View.GONE);
 							adapter.notifyDataSetChanged();
 							llInput.setVisibility(View.GONE);
@@ -252,6 +258,8 @@ public class MyInterestAct extends BaseActivity
 			@Override
 			public void onClick(View view)
 			{
+				Global.settings.interests.clear();
+				Global.settings.interests.addAll(list);
 				dialog = new SweetAlertDialog(MyInterestAct.this, SweetAlertDialog.PROGRESS_TYPE);
 				dialog.setTitleText("请稍候...").setCancelable(false);
 				dialog.show();
@@ -269,10 +277,10 @@ public class MyInterestAct extends BaseActivity
 			if (resultCode == HotKeyActivity.GET_HOT_KEY)
 			{
 				String s = data.getStringExtra("result");
-				if (!Global.settings.interests.contains(s))
+				if (!list.contains(s))
 				{
-					Global.settings.interests.add(s);
-					if (Global.settings.interests.size() == MAX_INTEREST_COUNT)
+					list.add(s);
+					if (list.size() == MAX_INTEREST_COUNT)
 						footview.setVisibility(View.GONE);
 					adapter.notifyDataSetChanged();
 				}

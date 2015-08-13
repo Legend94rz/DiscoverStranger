@@ -55,17 +55,18 @@
 			android:layout_alignTop="@+id/iv_userhead"
 			android:layout_toLeftOf="@+id/iv_userhead"
 			android:layout_toStartOf="@+id/iv_userhead"
-			android:layout_marginEnd="13dp">
+			android:layout_marginTop="10dp">
 
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:id="@+id/tvChatcontent"
-				android:maxWidth="200dp"
+				android:maxWidth="150dp"
 				android:textColor="@color/white"
 				android:visibility="visible"
 				android:paddingTop="3dp"
-				android:textAllCaps="false"/>
+				android:textAllCaps="false"
+				/>
 
 			<ImageView
 				android:layout_width="wrap_content"
@@ -97,21 +98,21 @@
 
 		<ProgressBar
 			style="?android:attr/progressBarStyleSmall"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			android:layout_width="25dp"
+			android:layout_height="25dp"
 			android:id="@+id/pbSendbar"
 			android:indeterminate="false"
 			android:visibility="visible"
 			android:layout_alignBottom="@+id/relativeLayout5"
 			android:layout_toLeftOf="@+id/relativeLayout5"
-			android:layout_marginBottom="12dp"
+			android:layout_marginBottom="6dp"
 			android:indeterminateDuration="1000"
 			android:indeterminateDrawable="@drawable/progress_circle_anim"
 			android:layout_marginRight="8dp"/>
 
 		<ImageButton
-			android:layout_width="15dp"
-			android:layout_height="15dp"
+			android:layout_width="25dp"
+			android:layout_height="25dp"
 			android:id="@+id/ibResendbtn"
 			android:layout_toLeftOf="@+id/pbSendbar"
 			android:layout_alignTop="@+id/pbSendbar"
@@ -119,7 +120,7 @@
 			android:scaleType="fitCenter"
 			android:background="#00008007"
 			android:layout_alignBottom="@+id/relativeLayout5"
-			android:layout_marginBottom="12dp"
+			android:layout_marginBottom="6dp"
 			android:layout_marginRight="8dp"/>
 
 	</RelativeLayout>

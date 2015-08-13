@@ -296,7 +296,7 @@ public class ChatMsgAdapter extends BaseAdapter implements AbsListView.OnScrollL
 						Bundle data = new Bundle();
 						data.putString("content", msg.text.split("~")[0]);
 						String tmp = msg.text.split("    ")[1];
-						data.putString("length", tmp.substring(0, tmp.length() - 1));
+						data.putInt("length", Integer.parseInt(tmp.substring(0, tmp.length() - 1)));
 						m.setData(data);
 						m.obj = pbPlayVoice;
 						ChatActivity.handler.sendMessage(m);

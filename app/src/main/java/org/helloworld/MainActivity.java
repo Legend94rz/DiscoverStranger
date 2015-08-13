@@ -555,11 +555,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		TextView tvNickname = (TextView) drawerLayout.findViewById(R.id.tvNickname);
 		tvNickname.setText(Global.mySelf.nickName);
 		CircleImageView ivHeadImg = (CircleImageView) drawerLayout.findViewById(R.id.ivHeadImg);
-		ImageView ivGender = (ImageView) drawerLayout.findViewById(R.id.ivGender);
-		if(Global.mySelf.sex)
-			ivGender.setImageResource(R.drawable.female);
-		else
-			ivGender.setImageResource(R.drawable.male);
 		if (FileUtils.Exist(Global.PATH.HeadImg + Global.mySelf.username + ".png"))
 			ivHeadImg.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg + Global.mySelf.username + ".png"));
 		else

@@ -68,7 +68,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 	private InputMethodManager manager;
 	private ArrayList<Message> messages;        //记录本次会话所有聊天消息
 	private SwipeRefreshLayout swipeRefreshLayout;
-	private Button btnNewMsg;
 	//翻页相关
 	int curPage, totalPage, totalRec = -1;
 	private final static int PAGE_SIZE = 10;
@@ -196,19 +195,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 						messages.addAll(msgs);
 						mAdapter.notifyDataSetChanged();
 						history.unreadMsg.clear();
-						if (lvMsg.getSelectedItemPosition() != lvMsg.getCount() - 1 && (lvMsg.getLastVisiblePosition()-lvMsg.getFirstVisiblePosition()+1<lvMsg.getCount()) )
-						{
-							btnNewMsg.setText(messages.get(messages.size() - 1).toString());
-							btnNewMsg.setVisibility(View.VISIBLE);
-							btnNewMsg.postDelayed(new Runnable()
-							{
-								@Override
-								public void run()
-								{
-									btnNewMsg.setVisibility(View.GONE);
-								}
-							}, 3000);
-						}
 					}
 					break;
 					case Global.MSG_WHAT.W_REFRESH:
@@ -234,50 +220,48 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 					case Global.MSG_WHAT.W_PLAY_SOUND:
 					{
 						final String fileName = message.getData().getString("content");
+						final int length=message.getData().getInt("length");
 						final ProgressBar pbPlayVoice = (ProgressBar) message.obj;
-						if (FileUtils.Exist(Global.PATH.SoundMsg + fileName))
+						if(!message.getData().containsKey("result"))
 						{
-							pbPlayVoice.setIndeterminate(false);
-							pbPlayVoice.setVisibility(View.VISIBLE);
-							pbPlayVoice.setMax(Integer.parseInt(message.getData().getString("length")) * 5);
-							pbPlayVoice.setProgress(0);
-							final Handler h = new Handler();
-							Runnable r = new Runnable()
+							if (FileUtils.Exist(Global.PATH.SoundMsg + fileName))
 							{
-								@Override
-								public void run()
+								playSoundWithProgress(fileName, length, pbPlayVoice);
+							}
+							else
+							{
+								pbPlayVoice.setIndeterminate(true);
+								pbPlayVoice.setVisibility(View.VISIBLE);
+								new Thread(new Runnable()
 								{
-									if (pbPlayVoice.getProgress() < pbPlayVoice.getMax())
+									@Override
+									public void run()
 									{
-										pbPlayVoice.incrementProgressBy(1);
-										h.postDelayed(this, 200);
+										android.os.Message message1 = new android.os.Message();
+										message1.obj = pbPlayVoice;
+										message1.what = Global.MSG_WHAT.W_PLAY_SOUND;
+										Bundle data=new Bundle();
+										data.putString("content",fileName);
+										data.putInt("length",length);
+										data.putBoolean("result", DownloadTask.DownloadFile("SoundMsg", fileName, Global.BLOCK_SIZE, Global.PATH.SoundMsg));
+										message1.setData(data);
+										handler.sendMessage(message1);
 									}
-									else
-									{
-										pbPlayVoice.setVisibility(View.INVISIBLE);
-									}
-								}
-							};
-							h.postDelayed(r, 200);
-							playSound(fileName);
+								}).start();
+							}
 						}
 						else
 						{
-							pbPlayVoice.setIndeterminate(true);
-							pbPlayVoice.setVisibility(View.VISIBLE);
-							new Thread(new Runnable()
+							boolean sucDownload=message.getData().getBoolean("result");
+							if(sucDownload)
 							{
-								@Override
-								public void run()
-								{
-									android.os.Message message1 = new android.os.Message();
-									message1.obj = pbPlayVoice;
-									message1.what = Global.MSG_WHAT.W_PLAY_SOUND;
-									message1.setData(message.getData());
-									message1.getData().putBoolean("result",DownloadTask.DownloadFile("SoundMsg", fileName, Global.BLOCK_SIZE, Global.PATH.SoundMsg));
-									handler.sendMessage(message1);
-								}
-							}).start();
+								playSoundWithProgress(fileName,length,pbPlayVoice);
+							}
+							else
+							{
+								pbPlayVoice.setVisibility(View.INVISIBLE);
+								CustomToast.show(ChatActivity.this,"下载失败",Toast.LENGTH_SHORT);
+							}
 						}
 						break;
 					}
@@ -303,6 +287,33 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 					break;
 				}
 				return false;
+			}
+
+			public void playSoundWithProgress(String fileName, int length, final ProgressBar pbPlayVoice)
+			{
+				pbPlayVoice.setIndeterminate(false);
+				pbPlayVoice.setVisibility(View.VISIBLE);
+				pbPlayVoice.setMax(length * 5);
+				pbPlayVoice.setProgress(0);
+				final Handler h = new Handler();
+				Runnable r = new Runnable()
+				{
+					@Override
+					public void run()
+					{
+						if (pbPlayVoice.getProgress() < pbPlayVoice.getMax())
+						{
+							pbPlayVoice.incrementProgressBy(1);
+							h.postDelayed(this, 200);
+						}
+						else
+						{
+							pbPlayVoice.setVisibility(View.INVISIBLE);
+						}
+					}
+				};
+				h.postDelayed(r, 200);
+				playSound(fileName);
 			}
 		});
 		MsgPullService.handlers.add(handler);
@@ -418,8 +429,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 		lvMsg = (ListView) findViewById(R.id.lvChatMsg);
 		if (Global.settings.background != 0)
 			lvMsg.setBackgroundResource(Global.settings.background);
-		btnNewMsg = (Button) findViewById(R.id.btnNewMsg);
-		btnNewMsg.setOnClickListener(this);
 		swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
 		swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
 		{
@@ -704,10 +713,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 				break;
 			case R.id.etSendmessage:
 				HideAndReset();
-				break;
-			case R.id.btnNewMsg:
-				btnNewMsg.setVisibility(View.GONE);
-				lvMsg.smoothScrollToPosition(lvMsg.getBottom());
 				break;
 		}
 	}

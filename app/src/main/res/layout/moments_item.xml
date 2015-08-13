@@ -3,7 +3,8 @@
 			  android:orientation="vertical"
 			  android:layout_width="match_parent"
 			  android:layout_height="wrap_content"
-				android:background="@drawable/item_notification_background">
+				android:background="@drawable/item_notification_background"
+	>
 
 	<RelativeLayout
 		android:orientation="horizontal"
@@ -96,15 +97,17 @@
 
 			</RelativeLayout>
 
-			<LinearLayout
+			<GridLayout
 				android:orientation="horizontal"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:padding="10dp"
-				android:id="@+id/llcontet"
-				android:visibility="visible">
+				android:id="@+id/glContent"
+				android:visibility="visible"
+				android:columnCount="2"
+				android:rowCount="2"
+				android:layout_marginTop="5dp">
 
-			</LinearLayout>
+			</GridLayout>
 
 			<TextView
 				android:layout_width="match_parent"
