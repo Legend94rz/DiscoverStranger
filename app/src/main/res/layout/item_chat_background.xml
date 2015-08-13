@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content" android:layout_height="fill_parent"
+    android:layout_width="wrap_content" android:layout_height="match_parent"
     android:layout_gravity="center"
-                android:padding="8dp"
-                android:id="@+id/rlContainer">
+                android:id="@+id/rlContainer"
+    >
 
     <ImageView
         android:layout_width="match_parent"
@@ -23,5 +23,19 @@
         android:layout_below="@+id/background_img"
         android:layout_centerHorizontal="true"
     />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="当前"
+        android:id="@+id/tvThis"
+        android:layout_above="@+id/background_name"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:background="#5d000000"
+        android:textColor="@color/white"
+        android:visibility="gone"/>
 
 </RelativeLayout>
