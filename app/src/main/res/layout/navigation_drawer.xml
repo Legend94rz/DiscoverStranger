@@ -17,13 +17,13 @@
 			android:layout_width="64dp"
 			android:layout_height="64dp"
 			android:id="@+id/ivHeadImg"
-			android:layout_marginTop="26dp"
+			android:layout_marginTop="25dp"
 			android:src="@drawable/nohead"
 			app:border_width="2dp"
 			app:border_color="@color/white"
 			app:border_overlay="true"
 			android:layout_alignParentTop="true"
-			android:layout_centerHorizontal="true"/>
+			android:layout_marginLeft="118dp"/>
 
 		<TextView
 			android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
 			android:textColor="@color/white"
 			android:textSize="20sp"
 			android:textIsSelectable="false"
-			android:layout_marginTop="21dp"
+			android:layout_marginTop="5dp"
 			android:layout_below="@+id/ivHeadImg"
 			android:layout_centerHorizontal="true"/>
 
@@ -42,11 +42,9 @@
 			android:layout_height="20dp"
 			android:id="@+id/ivGender"
 			android:src="@drawable/female"
-			android:layout_marginLeft="27dp"
-			android:layout_marginStart="27dp"
-			android:layout_alignBottom="@+id/tvNickname"
-			android:layout_toRightOf="@+id/tvNickname"
-			android:layout_toEndOf="@+id/tvNickname"/>
+			android:layout_below="@+id/tvNickname"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="5dp"/>
 	</RelativeLayout>
 
 	<ListView

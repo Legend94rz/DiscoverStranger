@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -100,7 +99,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 	private GridView gvMoreInput;
 
 	public static Handler handler;
-	private int soundId;
+	private int beepId,rec_stopId;
 	private boolean isLoaded;
 
 	@Override
@@ -124,7 +123,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 		private Message message;
 		private String remotePath;
 
-		public SendTask(Message message, @Nullable String remotePath)
+		public SendTask(Message message, String remotePath)
 		{
 			this.message = message;
 			this.remotePath = remotePath;
@@ -310,7 +309,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 		});
 		MsgPullService.handlers.add(handler);
 		soundPool = new SoundPool(3, AudioManager.STREAM_ALARM, 0);
-		soundId = soundPool.load(this, R.raw.beep, 1);
+		beepId = soundPool.load(this, R.raw.beep, 1);
+		rec_stopId = soundPool.load(this,R.raw.rec_stop,1);
 		soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener()
 		{
 			@Override
@@ -625,9 +625,11 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 			case R.id.btnRec:
 				if (btnRec.getTag().equals("点击录音"))
 				{
+					if(isLoaded)
+						soundPool.play(rec_stopId,0.2f,0.2f,0,0,1);
 					btnRec.setTag("停止");
 					tvTime.setText("00:00");
-					btnRec.setImageResource(R.drawable.stop);
+					btnRec.setImageResource(R.drawable.btn_stop);
 					btnSendVoice.setVisibility(View.INVISIBLE);
 					btnCancel.setVisibility(View.INVISIBLE);
 					timeOfRec = 0;
@@ -669,11 +671,13 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 				}
 				else if (btnRec.getTag().equals("停止"))
 				{
+					if(isLoaded)
+						soundPool.play(rec_stopId,0.2f,0.2f,0,0,1);
 					stopRec();
 				}
 				else
 				{
-					btnRec.setVisibility(View.INVISIBLE);
+					btnRec.setEnabled(false);
 					pbPlayRecord.setVisibility(View.VISIBLE);
 					pbPlayRecord.setMax(timeOfRec*5);
 					pbPlayRecord.setProgress(0);
@@ -691,7 +695,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 							else
 							{
 								pbPlayRecord.setVisibility(View.INVISIBLE);
-								btnRec.setVisibility(View.VISIBLE);
+								btnRec.setEnabled(true);
 							}
 						}
 					};
@@ -713,7 +717,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 	public void resetRecordView()
 	{
 		btnRec.setTag("点击录音");
-		btnRec.setImageResource(R.drawable.media_record);
+		btnRec.setImageResource(R.drawable.btn_rec);
 		tvTime.setText("00:00");
 		btnCancel.setVisibility(View.INVISIBLE);
 		btnSendVoice.setVisibility(View.INVISIBLE);
@@ -731,7 +735,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 		if (FileUtils.Exist(Global.PATH.SoundMsg + fileName))
 		{
 			if (isLoaded)
-				soundPool.play(soundId, 1, 1, 0, 0, 1);
+				soundPool.play(beepId, 0.2f, 0.2f, 0, 0, 1);
 			MediaPlayer player = new MediaPlayer();
 			player.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
 			{
@@ -739,7 +743,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 				public void onCompletion(MediaPlayer mediaPlayer)
 				{
 					if (isLoaded)
-						soundPool.play(soundId, 0.5f, 0.5f, 0, 0, 1);
+						soundPool.play(beepId, 0.2f, 0.2f, 0, 0, 1);
 				}
 			});
 			try
@@ -767,7 +771,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 		btnSendVoice.setVisibility(View.VISIBLE);
 		btnCancel.setVisibility(View.VISIBLE);
 		btnRec.setTag("试听");
-		btnRec.setImageResource(R.drawable.media_play);
+		btnRec.setImageResource(R.drawable.btn_play);
 		if (recorder != null)
 		{
 			recorder.stop();

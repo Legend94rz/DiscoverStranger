@@ -23,10 +23,11 @@
 		android:background="@drawable/img_btn_mask">
 
 		<ImageView
-			android:layout_width="35dp"
-			android:layout_height="35dp"
+			android:layout_width="32dp"
+			android:layout_height="32dp"
 			android:src="@drawable/earth"
-			android:scaleType="fitCenter"/>
+			android:scaleType="fitCenter"
+			android:padding="5dp"/>
 
 		<TextView
 			android:layout_width="wrap_content"
@@ -58,11 +59,11 @@
 				  android:onClick="llShack_Click"
 				  android:background="@drawable/img_btn_mask">
 		          <ImageView
-		              android:layout_width="35dp"
-	              	  android:layout_height="35dp"
+		              android:layout_width="32dp"
+	              	  android:layout_height="32dp"
 	              	  android:src="@drawable/find_more_friend_shake"
 	              	  android:scaleType="fitCenter"
-		              />
+					  android:padding="5dp"/>
 		          <TextView
 		              android:layout_width="wrap_content"
 	              	  android:layout_height="fill_parent"
@@ -92,10 +93,11 @@
 		android:background="@drawable/img_btn_mask">
 
 		<ImageView
-			android:layout_width="35dp"
-			android:layout_height="35dp"
+			android:layout_width="32dp"
+			android:layout_height="32dp"
 			android:src="@drawable/find_more_friend_near_icon"
-			android:scaleType="fitCenter"/>
+			android:scaleType="fitCenter"
+			android:padding="5dp"/>
 
 		<TextView
 			android:layout_width="wrap_content"

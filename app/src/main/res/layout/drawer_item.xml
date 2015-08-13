@@ -5,17 +5,18 @@
 			  android:layout_height="60dp">
 
 	<ImageView
-		android:layout_width="35dp"
-		android:layout_height="35dp"
+		android:layout_width="32dp"
+		android:layout_height="32dp"
 		android:scaleType="fitCenter"
 		android:id="@+id/ivIcon"
 		android:layout_marginLeft="18dp"
 		android:layout_marginTop="12dp"
-		android:layout_marginRight="12dp"/>
+		android:layout_marginRight="12dp"
+		android:padding="5dp"
+		android:src="@drawable/icon_userinfo"/>
 
 	<RelativeLayout
 		android:orientation="horizontal"
-		android:paddingTop="15dip"
 		android:paddingLeft="5dip"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -29,9 +30,8 @@
 			android:text="text"
 			android:textSize="15sp"
 			android:gravity="center"
-			android:textColor="@color/black"
+			android:textColor="#337857"
 			android:id="@+id/tvDesc"
-			android:paddingBottom="15dp"
 			android:paddingLeft="5dp"/>
 
 		<TextView

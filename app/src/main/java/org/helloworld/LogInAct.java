@@ -157,7 +157,7 @@ public class LogInAct extends BaseActivity
 				}
 				else
 				{
-					ivHeadImg.setImageResource(R.drawable.nohead);
+					ivHeadImg.setImageResource(R.drawable.head_test);
 				}
 			}
 		});

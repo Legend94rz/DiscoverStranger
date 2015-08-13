@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="F:\AndroidStudioProjects\HelloWorld\app\libs\android_api_1.1_forsdk.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="610ab8a4952cfec5cc008a697790e21dec7b8d3a">
+        <dex dex="F:\AndroidStudioProjects\HelloWorld\app\build\intermediates\pre-dexed\debug\android_api_1.1_forsdk-41b259456747b1b84f0174d1ecc9c4514a6b2675.jar" />
+    </item>
+    <item
+        jar="F:\AndroidStudioProjects\HelloWorld\app\libs\galaxy_mini.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="58de9ecfba229dbb2c3eb3f45dbe284ba58100ea">
+        <dex dex="F:\AndroidStudioProjects\HelloWorld\app\build\intermediates\pre-dexed\debug\galaxy_mini-3fc6735ec2d155396fc6e22734da9c63d4b3e543.jar" />
+    </item>
+    <item
+        jar="F:\AndroidStudioProjects\HelloWorld\app\build\intermediates\exploded-aar\com.pnikosis\materialish-progress\1.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="57487745ce450899f9f250d5ae5c092a682cd041">
+        <dex dex="F:\AndroidStudioProjects\HelloWorld\app\build\intermediates\pre-dexed\debug\classes-3664bf44205ae8cd656a1a241baa1de523f97174.jar" />
+    </item>
+    <item
+        jar="D:\Android\android-studio\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="F:\AndroidStudioProjects\HelloWorld\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-5faa9279d418a1a30bd830489b7f92bf7610ccaf.jar" />
+    </item>
+    <item
+        jar="F:\AndroidStudioProjects\HelloWorld\app\libs\ksoap2-android-assembly-3.4.0-jar-with-dependencies.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="45fbaab416fb5cff992e662d1f7a83786f084fc3">
+        <dex dex="F:\AndroidStudioProjects\HelloWorld\app\build\intermediates\pre-dexed\debug\ksoap2-android-assembly-3.4.0-jar-with-dependencies-e64a8e013c07d9a9c3e21693399cf0cba6c32ff2.jar" />
+    </item>
+    <item
+        jar="F:\AndroidStudioProjects\HelloWorld\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="95fd37732ec852e99f07eeb516a3650172f1d136">
+        <dex dex="F:\AndroidStudioProjects\HelloWorld\app\build\intermediates\pre-dexed\debug\classes-493d08416a4cc30377eced18b6c01cbe82cc5994.jar" />
+    </item>
+    <item
+        jar="F:\AndroidStudioProjects\HelloWorld\app\build\intermediates\exploded-aar\cn.pedant.sweetalert\library\1.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0c3529d9491be892952749d252ae1defa9b1f937">
+        <dex dex="F:\AndroidStudioProjects\HelloWorld\app\build\intermediates\pre-dexed\debug\classes-1f38988b75e0c762ed669656d23564496fb15e9d.jar" />
+    </item>
+    <item
+        jar="F:\AndroidStudioProjects\HelloWorld\app\libs\gson-2.3.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="F:\AndroidStudioProjects\HelloWorld\app\build\intermediates\pre-dexed\debug\gson-2.3.1-0207d8c2bc9cb572ea108076047c657bb2295365.jar" />
+    </item>
+    <item
+        jar="F:\AndroidStudioProjects\HelloWorld\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="F:\AndroidStudioProjects\HelloWorld\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-af45e661d36dbcfaca68c4bbd724b5440a4d6b00.jar" />
+    </item>
+    <item
+        jar="F:\AndroidStudioProjects\HelloWorld\app\libs\BaiduLBS_Android.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="24a45241ceec7c261ba2f677266a5009c8a521b1">
+        <dex dex="F:\AndroidStudioProjects\HelloWorld\app\build\intermediates\pre-dexed\debug\BaiduLBS_Android-fc48e3dfbf2d5b080376cb836a68e3d17a03a501.jar" />
+    </item>
+    <item
+        jar="F:\AndroidStudioProjects\HelloWorld\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="F:\AndroidStudioProjects\HelloWorld\app\build\intermediates\pre-dexed\debug\classes-edcea9f3848c027f8beae512e784c138930be110.jar" />
+    </item>
+
+</items>
