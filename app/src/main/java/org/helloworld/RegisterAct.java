@@ -1,5 +1,6 @@
 package org.helloworld;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -54,7 +55,7 @@ public class RegisterAct extends BaseActivity
 	private ImageView ivPassError;
 	private TextView tvError_info_username;
 	private TextView tvError_info_password;
-
+    private SweetAlertDialog dialog;
 	public static Handler handler;
 	private Boolean canRegister = true;
 
@@ -67,14 +68,10 @@ public class RegisterAct extends BaseActivity
 		etUser_name = (EditText) findViewById(R.id.username);
 		etpasswords = (EditText) findViewById(R.id.password);
 		etconfirmpasswords = (EditText) findViewById(R.id.confirmPassword);
-		pbcheckname = (ProgressBar) findViewById(R.id.check_name);
 		final EditText etnick_name = (EditText) findViewById(R.id.nickname);
 		rbfemale = (RadioButton) findViewById(R.id.femaleButton);
 		btnNext = (Button) findViewById(R.id.next);
-		ivPassError = (ImageView) findViewById(R.id.password_error);
-		ivUsernameError = (ImageView) findViewById(R.id.username_error);
-		tvError_info_password = (TextView) findViewById(R.id.error_info_password);
-		tvError_info_username = (TextView) findViewById(R.id.error_info_username);
+         dialog = new SweetAlertDialog(RegisterAct.this);
 		/** To set the user's avatar by choosing image fromm gallery or taking photo
 		 * **/
 		ivAvatarimg.setOnClickListener(new setAvatar());
@@ -135,22 +132,20 @@ public class RegisterAct extends BaseActivity
 				switch (message.what)
 				{
 					case Global.MSG_WHAT.W_CHECKED_USERNAME:
-						pbcheckname.setVisibility(View.GONE);
-						if ((Byte) message.obj == 3)
+
+						if (!((Boolean) message.obj))
 						{
-							ivUsernameError.setVisibility(View.VISIBLE);
-							tvError_info_username.setVisibility(View.VISIBLE);
-							tvError_info_username.setText("用户名已存在");
+                            dialog.setTitleText("用户名已存在").setConfirmText("确认")
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener(){
+
+                                        public void onClick(SweetAlertDialog sweetAlertDialog)
+                                        {
+                                            sweetAlertDialog.dismiss();
+                                        }
+                                    }).show();
 						}
-						else if( ((Byte) message.obj)==1 )
+						else
 						{
-							ivUsernameError.setVisibility(View.GONE);
-							tvError_info_username.setVisibility(View.GONE);
-							tvError_info_username.setText("");
-						}
-						else if(((Byte) message.obj)==2)
-						{
-							Toast.makeText(RegisterAct.this,"网络连接失败",Toast.LENGTH_SHORT).show();
 						}
 						break;
 				}
@@ -173,16 +168,20 @@ public class RegisterAct extends BaseActivity
 			error_info_password += " 密码长度为8~32位";
 		if (error_info_password.length() > 0)
 		{
-			ivPassError.setVisibility(View.VISIBLE);
-			tvError_info_password.setVisibility(View.VISIBLE);
-			tvError_info_password.setText(error_info_password);
+            SweetAlertDialog dialog = new SweetAlertDialog(RegisterAct.this);
+            dialog.setContentText(error_info_password).setConfirmText("确认")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener(){
+
+                        public void onClick(SweetAlertDialog sweetAlertDialog)
+                        {
+                            sweetAlertDialog.dismiss();
+                            etconfirmpasswords.setText("");
+                        }
+                    }).show();
 			canRegister &= false;
 		}
 		else
 		{
-			ivPassError.setVisibility(View.GONE);
-			tvError_info_password.setVisibility(View.GONE);
-			tvError_info_password.setText("");
 			canRegister &= true;
 		}
 	}
@@ -194,27 +193,30 @@ public class RegisterAct extends BaseActivity
 		String error_info_username = "";
 		for (int i = 0; i < urname.length(); i++)
 		{
-			char s = urname.charAt(i);
-			if ( !((s<='9' && s>='0' ) || ( s>='a' && s<='z' ) || (s>='A' && s<='Z') || (s=='_') ))
+			int s = (int) urname.charAt(i);
+			if (!((s > 47) && (s < 58) || ((s > 64) && (s < 91)) || ((s > 96) && (s < 122)) || (s == 95)))
 				isLegal = false;
 		}
 		if (!isLegal) error_info_username += " 用户名只能包含字母数字和下划线 ";
 		if (urname.length() > 16 || urname.length() < 1) error_info_username += "用户名在1-16位之间";
 		if (error_info_username.length() > 0)
 		{
-			ivUsernameError.setVisibility(View.VISIBLE);
-			tvError_info_username.setVisibility(View.VISIBLE);
-			tvError_info_username.setText(error_info_username);
+
+            dialog.setContentText(error_info_username).setConfirmText("确认")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener(){
+
+                        public void onClick(SweetAlertDialog sweetAlertDialog)
+                        {
+                            sweetAlertDialog.dismiss();
+                            etUser_name.setText("");
+                        }
+                    }).show();
 			canRegister &= false;
 			return;
 		}
-		else
-		{
-			ivUsernameError.setVisibility(View.GONE);
-			tvError_info_username.setVisibility(View.GONE);
-			tvError_info_username.setText("");
-		}
-		pbcheckname.setVisibility(View.VISIBLE);
+		else {
+
+        }
 		Check_online task = new Check_online(urname);
 		task.execute();
 	}
@@ -256,7 +258,7 @@ public class RegisterAct extends BaseActivity
 	/**
 	 * To check if the password is the same as the confirmed_password.
 	 */
-	public class Check_online extends AsyncTask<Void, Void, Byte>
+	public class Check_online extends AsyncTask<Void, Void, Boolean>
 	{
 		public String Username;
 
@@ -272,34 +274,31 @@ public class RegisterAct extends BaseActivity
 		}
 
 		@Override
-		protected Byte doInBackground(Void... voids)
+		protected Boolean doInBackground(Void... voids)
 		{
 			WebService check = new WebService("GetUser");
 			check.addProperty("name", Username);
 			try
 			{
 				SoapObject result = check.call();
-				if(result.getPropertyCount() == 0)
-					return 1;	//成功
+				return result.getPropertyCount() == 0;
 			}
 			catch (NullPointerException e)
 			{
 				e.printStackTrace();
-				return 2;	//网络连接失败
 			}
-			return 3;		//用户名已存在
+			return false;
 		}
 
 		@Override
-		protected void onPostExecute(Byte aByte)
+		protected void onPostExecute(Boolean aBoolean)
 		{
 			btnNext.setEnabled(true);
 			Message m = new Message();
 			m.what = Global.MSG_WHAT.W_CHECKED_USERNAME;
-			m.obj = aByte;
-			canRegister &= aByte==1;
+			m.obj = aBoolean;
+			canRegister &= aBoolean;
 			handler.sendMessage(m);
-			pbcheckname.setVisibility(View.GONE);
 		}
 	}
 
@@ -344,32 +343,6 @@ public class RegisterAct extends BaseActivity
 				e.printStackTrace();
 				return 4;
 			}
-			String path = Global.PATH.HeadImg;
-			String filename = Username + ".png";
-			File file = new File(path, filename);
-			FileUtils.mkDir(file.getParentFile());
-			try
-			{
-				file.createNewFile();
-				FileOutputStream fileOutputStream = new FileOutputStream(file);
-				photo.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
-				fileOutputStream.flush();
-				fileOutputStream.close();
-			}
-			catch (FileNotFoundException e)
-			{
-				e.printStackTrace();
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-			Global.mySelf = new UserInfo();
-			Global.mySelf.username = Username;
-			Global.mySelf.password = Password;
-			Global.mySelf.nickName = Nickname;
-			Global.mySelf.sex = Gender;
-			Global.InitData();
 			return 1;
 		}
 
@@ -382,6 +355,32 @@ public class RegisterAct extends BaseActivity
 				case 1:
 				{
 					CustomToast.show(RegisterAct.this, "注册成功", Toast.LENGTH_SHORT);
+					String path = Global.PATH.HeadImg;
+					String filename = Username + ".png";
+					File file = new File(path, filename);
+					FileUtils.mkDir(file.getParentFile());
+					try
+					{
+						file.createNewFile();
+						FileOutputStream fileOutputStream = new FileOutputStream(file);
+						photo.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
+						fileOutputStream.flush();
+						fileOutputStream.close();
+					}
+					catch (FileNotFoundException e)
+					{
+						e.printStackTrace();
+					}
+					catch (IOException e)
+					{
+						e.printStackTrace();
+					}
+					Global.mySelf = new UserInfo();
+					Global.mySelf.username = Username;
+					Global.mySelf.password = Password;
+					Global.mySelf.nickName = Nickname;
+					Global.mySelf.sex = Gender;
+					Global.InitData();
 					Intent i = new Intent(RegisterAct.this, MainActivity.class);
 					startActivity(i);
 					finish();
@@ -393,10 +392,6 @@ public class RegisterAct extends BaseActivity
 					break;
 				}
 				case 3:
-				{
-					CustomToast.show(RegisterAct.this, "失败，网络连接失败", Toast.LENGTH_SHORT);
-					break;
-				}
 				case 4:
 				{
 					CustomToast.show(RegisterAct.this, String.format("注册失败，错误%d", aByte), Toast.LENGTH_SHORT);
