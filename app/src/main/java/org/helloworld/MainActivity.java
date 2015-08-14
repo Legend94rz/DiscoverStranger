@@ -732,12 +732,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		Intent I = new Intent(this, NearbyStrangerAct.class);
 		startActivity(I);
 	}
+	public void llInvite_Click(View view)
+	{
 
-	//public void llSettings_Click(View view)
-	//{
-	//	Intent I = new Intent(this, SettingAct.class);
-	//	startActivity(I);
-	//}
+
+	}
 
 	//按两次退出主界面
 	private long exitTime = 0;

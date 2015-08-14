@@ -115,5 +115,41 @@
 		android:background="@color/lightgray"
 		android:id="@+id/textView33"/>
 
+	<LinearLayout
+		android:orientation="horizontal"
+		android:paddingTop="15dp"
+		android:paddingBottom="15dp"
+		android:paddingLeft="20dp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/llInvite"
+		android:clickable="true"
+		android:onClick="llInvite_Click"
+		android:background="@drawable/img_btn_mask"
+		android:visibility="gone">
+
+		<ImageView
+			android:layout_width="32dp"
+			android:layout_height="32dp"
+			android:scaleType="fitCenter"
+			android:padding="5dp"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:layout_marginLeft="10dp"
+			android:text="约吧"
+			android:textSize="16sp"
+			android:gravity="center"
+			android:textColor="#4d6299"/>
+	</LinearLayout>
+
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="1px"
+		android:background="@color/lightgray"
+		android:id="@+id/textView20"
+		android:visibility="gone"/>
+
 </LinearLayout>
 </LinearLayout>
