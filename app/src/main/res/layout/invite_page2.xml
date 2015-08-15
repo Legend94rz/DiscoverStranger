@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:orientation="vertical"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+				android:padding="16dp">
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="筛选邀请对象："
+		android:id="@+id/textView46"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"/>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/linearLayout3"
+		android:layout_below="@+id/textView46"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"
+		android:layout_marginTop="10dp"
+		android:gravity="center_vertical">
+
+		<CheckBox
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="距离："
+			android:id="@+id/cbDistance"
+			android:layout_below="@+id/textView46"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true"
+			android:checked="false"
+			android:textSize="16sp"
+			android:button="@drawable/checkbox"/>
+
+		<EditText
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/etDistance"
+			android:layout_alignBottom="@+id/cbDistance"
+			android:layout_toRightOf="@+id/cbDistance"
+			android:layout_toEndOf="@+id/cbDistance"
+			android:minWidth="100dp"
+			android:singleLine="true"
+			android:numeric="integer"
+			android:layout_alignTop="@+id/cbDistance"
+			android:enabled="false"
+			android:background="@drawable/edit_bg"
+			android:minHeight="35dp"
+			android:padding="5dp"
+			/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="千米"
+			android:id="@+id/textView47"
+			android:layout_alignTop="@+id/etDistance"
+			android:layout_toRightOf="@+id/etDistance"
+			android:layout_toEndOf="@+id/etDistance"
+			android:layout_alignBottom="@+id/etDistance"
+			android:gravity="center"
+			android:textSize="16sp"/>
+	</LinearLayout>
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="1px"
+		android:id="@+id/textView61"
+		android:layout_below="@+id/textView54"
+		android:background="@color/lightgray"
+		android:layout_marginTop="8dp"
+		android:layout_marginBottom="8dp"/>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/linearLayout4"
+		android:layout_below="@+id/textView61"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"
+		android:gravity="center_vertical">
+
+		<CheckBox
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="性别："
+			android:id="@+id/cbGender"
+			android:checked="false"
+			android:layout_below="@+id/cbDistance"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true"
+			android:button="@drawable/checkbox"/>
+
+		<RadioGroup
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignLeft="@+id/etDistance"
+			android:layout_alignStart="@+id/etDistance"
+			android:layout_alignTop="@+id/cbGender"
+			android:layout_alignBottom="@+id/cbGender"
+			android:orientation="horizontal"
+			>
+
+			<RadioButton
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="男"
+				android:id="@+id/rbMale"
+				android:checked="false"
+				android:layout_weight="1"
+				android:enabled="false"
+				android:button="@drawable/radio_btn"/>
+
+			<RadioButton
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="女"
+				android:id="@+id/rbFemale"
+				android:layout_gravity="center_horizontal"
+				android:checked="false"
+				android:layout_weight="1"
+				android:enabled="false"
+				android:button="@drawable/radio_btn"/>
+
+		</RadioGroup>
+	</LinearLayout>
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="1px"
+		android:id="@+id/textView62"
+		android:layout_below="@+id/linearLayout4"
+		android:background="@color/lightgray"
+		android:layout_marginBottom="8dp"
+		android:layout_marginTop="8dp"/>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentStart="true"
+		android:id="@+id/linearLayout5"
+		android:layout_below="@+id/textView62"
+		android:layout_alignParentLeft="true"
+		android:gravity="center_vertical">
+
+		<CheckBox
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="年龄："
+			android:id="@+id/cbAge"
+			android:checked="false"
+			android:button="@drawable/checkbox"/>
+
+		<EditText
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/etLow"
+			android:layout_weight="1"
+			android:numeric="integer"
+			android:enabled="false"
+			android:background="@drawable/edit_bg"
+			android:minHeight="35dp"
+			android:singleLine="true"
+			android:padding="5dp"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="岁至"
+			android:id="@+id/textView48"/>
+
+		<EditText
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/etHigh"
+			android:layout_weight="1"
+			android:numeric="integer"
+			android:enabled="false"
+			android:background="@drawable/edit_bg"
+			android:minHeight="35dp"
+			android:singleLine="true"
+			android:padding="5dp"
+			/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="岁之间"
+			android:id="@+id/textView49"/>
+
+	</LinearLayout>
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="1px"
+		android:id="@+id/textView63"
+		android:layout_below="@+id/linearLayout5"
+		android:background="@color/lightgray"
+		android:layout_marginTop="8dp"
+		android:layout_marginBottom="8dp"/>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/linearLayout17"
+		android:layout_below="@+id/textView63"
+		android:layout_alignParentLeft="true"
+		android:gravity="center_vertical">
+
+		<CheckBox
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="关系："
+			android:id="@+id/cbRelation"
+			android:checked="false"
+			android:button="@drawable/checkbox"/>
+
+		<RadioGroup
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+
+			<RadioButton
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="仅好友"
+				android:id="@+id/rbOnlyFriend"
+				android:checked="false"
+				android:enabled="false"
+				android:button="@drawable/radio_btn"
+				android:layout_marginRight="10dp"/>
+
+			<RadioButton
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="仅陌生人"
+				android:id="@+id/rbOnlyStranger"
+				android:checked="false"
+				android:enabled="false"
+				android:button="@drawable/radio_btn"/>
+
+		</RadioGroup>
+	</LinearLayout>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"
+		android:id="@+id/linearLayout18">
+
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="40dp"
+			android:text="上一步"
+			android:id="@+id/btnPre"
+			android:layout_weight="1"
+			android:background="@drawable/deletebtn"
+			android:textSize="16sp"
+			/>
+
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="40dp"
+			android:text="筛  选"
+			android:id="@+id/btnNext"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true"
+			android:layout_weight="1"
+			android:textColor="@color/white"
+			android:textSize="16sp"
+			android:background="@drawable/messagebtn"
+			android:layout_marginLeft="8dp"/>
+
+	</LinearLayout>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="注意：距离条件要求你和邀请对象都使用过&quot;附近的人&quot;功能。"
+		android:id="@+id/textView54"
+		android:textColor="#8c8c8c"
+		android:padding="5dp"
+		android:layout_below="@+id/linearLayout3"
+		android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

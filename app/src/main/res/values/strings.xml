@@ -59,6 +59,8 @@
     <string name="title_activity_setting">SettingAct</string>
     <string name="title_activity_set_chat_background">SetChatBackground</string>
     <string name="title_activity_set_my_game">SetMyGame</string>
+	<string name="title_activity_invite">InviteAct</string>
+	<string name="title_activity_detail">DetailAct</string>
 
 
 </resources>

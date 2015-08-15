@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -161,9 +162,14 @@ public class SpeedMatchActivity extends Activity implements View.OnClickListener
 		start = (Button) findViewById(R.id.start);
 		tvHint = (TextView) findViewById(R.id.tvHint);
 		pager = (noTouchPager) findViewById(R.id.view);
-
-		//pager.setOnPageChangeListener(this);
-
+		pager.setOnTouchListener(new View.OnTouchListener()
+		{
+			@Override
+			public boolean onTouch(View view, MotionEvent motionEvent)
+			{
+				return true;
+			}
+		});
 		pages = new ArrayList<>();
 		adapter = new SpeedMatchAdapter(this, pages);
 		last = new ImageView(this);

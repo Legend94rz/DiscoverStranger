@@ -1,0 +1,128 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				xmlns:tools="http://schemas.android.com/tools"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				tools:context="org.helloworld.DetailAct">
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="标题："
+		android:id="@+id/textView58"
+		android:layout_below="@+id/relativeLayout19"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"
+		android:layout_marginLeft="16dp"
+		android:layout_marginTop="16dp"
+		android:textColor="#8d8d8d"/>
+
+	<RelativeLayout
+		android:id="@+id/relativeLayout19"
+		android:layout_width="fill_parent"
+		android:layout_height="67dp"
+		android:layout_alignParentLeft="true"
+		android:background="@drawable/actionbar_bg"
+		android:clickable="false"
+		android:gravity="center_vertical"
+		android:layout_marginBottom="-8dp"
+		android:layout_marginLeft="-8dp"
+		android:layout_marginRight="-8dp"
+		android:layout_marginTop="-2dp">
+
+		<RelativeLayout
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:background="@drawable/img_btn_mask"
+			android:clickable="true"
+			android:onClick="goback"
+			android:paddingRight="15dp">
+
+			<TextView
+				android:id="@+id/textView56"
+				android:layout_width="25dp"
+				android:layout_height="25dp"
+				android:layout_alignParentBottom="false"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="15dp"
+				android:background="@drawable/goback"
+				android:clickable="false"
+				android:textColor="#fff"
+				android:textSize="14sp"/>
+
+			<TextView
+				android:id="@+id/textView57"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="20dp"
+				android:layout_toRightOf="@+id/textView56"
+				android:textColor="#ffffff"
+				android:textSize="20sp"
+				android:text="详情"/>
+		</RelativeLayout>
+	</RelativeLayout>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="正在加载..."
+		android:id="@+id/tvTitle"
+		android:layout_toRightOf="@+id/textView58"
+		android:layout_toEndOf="@+id/textView58"
+		android:layout_marginLeft="20dp"
+		android:layout_alignTop="@+id/textView58"
+		android:textSize="16sp"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="正文："
+		android:id="@+id/textView60"
+		android:layout_marginTop="16dp"
+		android:layout_below="@+id/textView59"
+		android:layout_toLeftOf="@+id/tvTitle"
+		android:layout_toStartOf="@+id/tvTitle"
+		android:textColor="#8d8d8d"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="正在加载..."
+		android:id="@+id/tvText"
+		android:layout_alignTop="@+id/textView60"
+		android:layout_alignLeft="@+id/tvTitle"
+		android:layout_alignStart="@+id/tvTitle"
+		android:textSize="16sp"/>
+
+	<EditText
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/etResponse"
+		android:layout_above="@+id/btnResponse"
+		android:layout_alignLeft="@+id/btnResponse"
+		android:layout_alignStart="@+id/btnResponse"
+		android:hint="捎句话给他..."
+		android:minHeight="48dp"
+		android:background="@drawable/edit_bg"
+		android:paddingLeft="8dp"
+		android:layout_margin="5dp"/>
+
+	<Button
+		android:layout_width="match_parent"
+		android:layout_height="40dp"
+		android:text="回应"
+		android:id="@+id/btnResponse"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true"
+		android:background="@drawable/btn_rect_blue"
+		android:textSize="16sp"
+		android:textColor="@color/white"/>
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="1px"
+		android:id="@+id/textView59"
+		android:layout_below="@+id/tvTitle"
+		android:background="@color/lightgray"
+		android:layout_marginTop="16dp"/>
+</RelativeLayout>

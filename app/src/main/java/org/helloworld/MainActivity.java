@@ -734,8 +734,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 	}
 	public void llInvite_Click(View view)
 	{
-
-
+		Intent I=new Intent(this,InviteAct.class);
+		startActivity(I);
 	}
 
 	//按两次退出主界面

@@ -116,6 +116,8 @@ public class Global
 		public static final byte T_TEXT_MSG = 4;
 		public static final byte T_VOICE_MSG = 8;
 		public static final byte T_PIC_MSG = 16;
+
+		public static final byte T_INVITE_NOTIFICATION = 32;
 	}
 
 	/**

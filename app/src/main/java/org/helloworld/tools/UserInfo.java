@@ -36,10 +36,10 @@ public class UserInfo
 	/**
 	 * 解析UserInfo
 	 */
-	public static UserInfo parse(SoapObject obj)
+	public static UserInfo parse(SoapObject rawM)
 	{
 		UserInfo model = new UserInfo();
-		SoapObject rawM = (SoapObject) obj.getProperty(0);
+		//SoapObject rawM = (SoapObject) obj.getProperty(0);
 		model.username = rawM.getPropertyAsString("username");
 		model.password = rawM.getPropertyAsString("password");
 		model.state = Integer.parseInt(rawM.getPropertyAsString("state"));

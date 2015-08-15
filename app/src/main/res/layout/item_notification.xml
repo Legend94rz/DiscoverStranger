@@ -49,7 +49,8 @@
 				android:layout_alignTop="@+id/ivHeadImg"
 				android:layout_toRightOf="@+id/ivHeadImg"
 				android:layout_toEndOf="@+id/ivHeadImg"
-				android:layout_marginStart="30dp"/>
+				android:layout_marginStart="30dp"
+				android:layout_marginTop="5dp"/>
 
 			<TextView
 				android:layout_width="wrap_content"
@@ -59,6 +60,20 @@
 				android:layout_alignLeft="@+id/tvName"
 				android:layout_marginTop="10dp"
 				android:text="NULL"/>
+
+			<Button
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="查看详情"
+				android:id="@+id/btnDetail"
+				android:layout_below="@+id/tvHint"
+				android:layout_centerHorizontal="true"
+				android:layout_marginTop="16dp"
+				android:visibility="gone"
+				android:background="@drawable/sendbutton"
+				android:padding="8dp"
+				android:textColor="@color/white"/>
+
 		</RelativeLayout>
 
 	</RelativeLayout>

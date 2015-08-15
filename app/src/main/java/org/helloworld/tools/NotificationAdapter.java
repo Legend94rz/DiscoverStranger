@@ -1,14 +1,19 @@
 package org.helloworld.tools;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.baidu.navisdk.model.GeoLocateModel;
+
 import org.helloworld.CircleImageView;
+import org.helloworld.DetailAct;
 import org.helloworld.R;
 
 import java.util.ArrayList;
@@ -48,7 +53,7 @@ public class NotificationAdapter extends BaseAdapter
 	@Override
 	public View getView(int i, View view, ViewGroup viewGroup)
 	{
-		Message m = msglist.get(i);
+		final Message m = msglist.get(i);
 		H h;
 		if (view == null)
 		{
@@ -58,14 +63,37 @@ public class NotificationAdapter extends BaseAdapter
 			h.tvHint = (TextView) view.findViewById(R.id.tvHint);
 			h.tvTime = (TextView) view.findViewById(R.id.tvTime);
 			h.tvName = (TextView) view.findViewById(R.id.tvName);
+			h.btnDetail= (Button) view.findViewById(R.id.btnDetail);
 			view.setTag(h);
 		}
 		else
 			h = (H) view.getTag();
-		h.tvName.setText(m.text.split(" ")[0]);
+		final String[] s=m.text.split(" ");
+		h.tvName.setText(m.fromId);
 		if (FileUtils.Exist(Global.PATH.HeadImg + m.fromId + ".png"))
 			h.ivHeadImg.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg + m.fromId + ".png"));
-		h.tvHint.setText(m.text);
+		if((m.msgType&Global.MSG_TYPE.T_INVITE_NOTIFICATION)==0)
+		{
+			h.tvHint.setText(m.text);
+			h.btnDetail.setVisibility(View.GONE);
+			h.btnDetail.setOnClickListener(null);
+		}
+		else
+		{
+			h.tvHint.setText(s[0]+s[1]);
+			h.btnDetail.setVisibility(View.VISIBLE);
+			h.btnDetail.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View view)
+				{
+					Intent I = new Intent(context, DetailAct.class);
+					I.putExtra("id", s[2]);
+					I.putExtra("username", m.fromId);
+					context.startActivity(I);
+				}
+			});
+		}
 		h.tvTime.setText(m.getDateWithFormat("yyyy-MM-dd HH:mm:ss"));
 		return view;
 	}
@@ -83,6 +111,7 @@ public class NotificationAdapter extends BaseAdapter
 		TextView tvName;
 		TextView tvHint;
 		TextView tvTime;
+		Button btnDetail;
 	}
 
 }

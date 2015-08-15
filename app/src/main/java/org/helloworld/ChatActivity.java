@@ -104,7 +104,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 	@Override
 	public void finish()
 	{
-		//Todo 测试
 		super.finish();
 		totalRec = -1;
 		history.unreadMsg.clear();

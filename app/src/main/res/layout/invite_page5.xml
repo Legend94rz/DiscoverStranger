@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:orientation="vertical"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+				android:padding="16dp">
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="预览"
+		android:id="@+id/textView52"
+		android:layout_alignParentTop="true"
+		android:layout_centerHorizontal="true"
+		android:textSize="20sp"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="标题："
+		android:id="@+id/textView53"
+		android:layout_marginTop="16dp"
+		android:layout_below="@+id/textView52"
+		android:layout_alignLeft="@+id/linearLayout12"
+		android:layout_alignStart="@+id/linearLayout12"
+		android:textColor="#8d8d8d"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="正文:"
+		android:id="@+id/textView55"
+		android:layout_below="@+id/textView65"
+		android:layout_alignLeft="@+id/textView53"
+		android:layout_alignStart="@+id/textView53"
+		android:layout_marginTop="16dp"
+		android:textColor="#8d8d8d"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="一二三四五六七八九十一二三四五六七八九十"
+		android:id="@+id/tvTitle"
+		android:layout_toRightOf="@+id/textView53"
+		android:layout_toEndOf="@+id/textView53"
+		android:layout_alignTop="@+id/textView53"
+		android:textSize="16sp"
+		android:layout_marginLeft="20dp"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="tvText"
+		android:id="@+id/tvText"
+		android:layout_alignTop="@+id/textView55"
+		android:layout_alignLeft="@+id/tvTitle"
+		android:layout_alignStart="@+id/tvTitle"
+		android:textSize="16sp"/>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true"
+		android:id="@+id/linearLayout12">
+
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="40dp"
+			android:text="上一步"
+			android:id="@+id/btnPre"
+			android:layout_weight="1"
+			android:background="@drawable/deletebtn"
+			android:layout_marginRight="4dp"/>
+
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="40dp"
+			android:text="发  送"
+			android:id="@+id/btnNext"
+			android:layout_alignParentBottom="true"
+			android:layout_centerHorizontal="true"
+			android:layout_weight="1"
+			android:background="@drawable/messagebtn"
+			android:layout_marginLeft="4dp"
+			android:textColor="@color/white"/>
+	</LinearLayout>
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="1px"
+		android:id="@+id/textView65"
+		android:layout_below="@+id/tvTitle"
+		android:background="@color/lightgray"
+		android:layout_marginTop="16dp"/>
+
+</RelativeLayout>

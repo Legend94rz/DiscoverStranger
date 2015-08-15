@@ -22,7 +22,7 @@
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="ANDROID.PERMISSION.INSTALL_PACKAGES"/>
+    <uses-permission android:name="ANDROID.PERMISSION.INSTALL_PACKAGES" />
 
     <application
         android:allowBackup="true"
@@ -167,6 +167,18 @@
         <activity
             android:name=".SetChatBackground"
             android:label="@string/title_activity_set_chat_background" >
+        </activity>
+        <activity
+            android:name=".InviteAct"
+            android:label="@string/title_activity_invite"
+            android:parentActivityName=".BaseActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.helloworld.BaseActivity" />
+        </activity>
+        <activity
+            android:name=".DetailAct"
+            android:label="@string/title_activity_detail" >
         </activity>
     </application>
 
