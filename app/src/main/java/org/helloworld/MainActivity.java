@@ -19,10 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -183,7 +180,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 			try
 			{
 				SoapObject result = getUser.addProperty("name", jsonUser.getString("name")).call();
-				UserInfo.parse(result,incompleteUser);
+				UserInfo.parse(result, incompleteUser);
 			}
 			catch (Exception e)
 			{
@@ -252,7 +249,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 							h = Global.map.get(m.fromId);
 							if (h == null)
 								h = new History(m.fromId);
-							if(h.partner.equals("通知"))
+							if (h.partner.equals("通知"))
 							{
 								try
 								{
@@ -300,10 +297,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 							Global.refreshing[0] = false;
 							Global.refreshing.notify();
 						}
-						ArrayList<History> toRemove=new ArrayList<>();
-						for(History h:Global.historyList)
+						ArrayList<History> toRemove = new ArrayList<>();
+						for (History h : Global.historyList)
 						{
-							if(!Global.map2Friend.containsKey(h.partner) && !h.isSystem())
+							if (!Global.map2Friend.containsKey(h.partner) && !h.isSystem())
 							{
 								toRemove.add(h);
 								Global.map.remove(h.partner);
@@ -323,7 +320,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 						break;
 					case Global.MSG_WHAT.W_GOT_USER_SETTING:
 						SoapObject result = (SoapObject) msg.obj;
-						if(result!=null)
+						if (result != null)
 							if (result.getPropertyCount() > 0)
 								Global.settings = Settings.parse((SoapObject) result.getProperty(0));
 						break;
@@ -454,9 +451,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 			}
 		});
 
-		contactAdapter = new ContactAdapter(this, Global.friendList,lvFriends);
+		contactAdapter = new ContactAdapter(this, Global.friendList, lvFriends);
 		lvFriends.setAdapter(contactAdapter);
-		hisAdapter = new HistoryAdapter(Global.historyList, MainActivity.this,lvHistory);
+		hisAdapter = new HistoryAdapter(Global.historyList, MainActivity.this, lvHistory);
 		lvHistory.setAdapter(hisAdapter);
 
 		pages = new ArrayList<View>();
@@ -496,15 +493,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 				Intent I;
 				switch (i)
 				{
-					case 0:	//编辑资料
+					case 0:    //编辑资料
 						I = new Intent(MainActivity.this, Alter.class);
 						startActivity(I);
 						break;
 					case 1:
-						I = new Intent(MainActivity.this, SettingAct.class);
+						I = new Intent(MainActivity.this, ChangeActionBarColorAct.class);
 						startActivity(I);
 						break;
 					case 2:
+						I = new Intent(MainActivity.this, SettingAct.class);
+						startActivity(I);
+						break;
+					case 3:
 						exitWithConfirm();
 						break;
 				}
@@ -512,9 +513,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 			}
 		});
 		//Popup window
-		inflater=LayoutInflater.from(this);
+		inflater = LayoutInflater.from(this);
 		popView = inflater.inflate(R.layout.popup_window, null);
-		popupWindow = new PopupWindow(popView, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+		popupWindow = new PopupWindow(popView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		popupWindow.setFocusable(true);
 		popupWindow.setOutsideTouchable(true);
 		popupWindow.setBackgroundDrawable(new BitmapDrawable());
@@ -523,10 +524,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 			@Override
 			public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l)
 			{
-				longClickIndex=i;
+				longClickIndex = i;
 				int[] a = new int[2];
 				view.getLocationOnScreen(a);
-				popupWindow.showAtLocation(lvHistory, Gravity.BOTTOM|Gravity.CENTER,0,Global.screenHeight-a[1]);
+				popupWindow.showAtLocation(lvHistory, Gravity.BOTTOM | Gravity.CENTER, 0, Global.screenHeight - a[1]);
 				return false;
 			}
 		});
@@ -568,6 +569,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		map.put("icon", R.drawable.icon_userinfo);
 		map.put("desc", "编辑个人资料");
 		data.add(map);
+
+		map = new HashMap<String, Object>();
+		map.put("icon", R.drawable.icon_change_color);
+		map.put("desc", "修改标题栏背景");
+		data.add(map);
+
 		map = new HashMap<String, Object>();
 		map.put("icon", R.drawable.settings);
 		map.put("desc", "设置");
@@ -578,8 +585,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		data.add(map);
 		return data;
 	}
-
-
 
 	void FlushState()
 	{
@@ -664,7 +669,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 					return false;
 				}
 			};
-			Gson gson= new GsonBuilder().setExclusionStrategies(strategy).create();
+			Gson gson = new GsonBuilder().setExclusionStrategies(strategy).create();
 			for (History h : Global.historyList)
 				if (h.headId == -1)
 				{
@@ -732,9 +737,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		Intent I = new Intent(this, NearbyStrangerAct.class);
 		startActivity(I);
 	}
+
 	public void llInvite_Click(View view)
 	{
-		Intent I=new Intent(this,InviteAct.class);
+		Intent I = new Intent(this, InviteAct.class);
 		startActivity(I);
 	}
 

@@ -61,6 +61,7 @@
     <string name="title_activity_set_my_game">SetMyGame</string>
 	<string name="title_activity_invite">InviteAct</string>
 	<string name="title_activity_detail">DetailAct</string>
+	<string name="title_activity_change_action_bar_color">ChangeActionBarColorAct</string>
 
 
 </resources>

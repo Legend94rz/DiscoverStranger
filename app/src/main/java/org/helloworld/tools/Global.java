@@ -1,6 +1,7 @@
 package org.helloworld.tools;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Environment;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -52,6 +53,7 @@ public class Global
 	 */
 	public static ArrayList<UserInfo> friendList;
 	public static final Boolean[] refreshing =new Boolean[]{ false };	//联系人列表正在刷新
+	public static int actionbar_bg=R.drawable.actionbar_bg;
 	/**
 	 * 分块上传 下载的大小
 	 */
@@ -189,7 +191,7 @@ public class Global
 	/**
 	 * 初始化用户数据
 	 */
-	public static void InitData()
+	public static void InitData(Context context)
 	{
 		historyList = new ArrayList<>();
 		friendList = new ArrayList<>();
@@ -228,6 +230,8 @@ public class Global
 		{
 			e.printStackTrace();
 		}
+		SharedPreferences preferences =context.getSharedPreferences(Global.mySelf.username, Context.MODE_PRIVATE);
+		Global.actionbar_bg = preferences.getInt("actionbar_bg",R.drawable.actionbar_bg);
 	}
 
 	public static void Shake(Context context, EditText editText)

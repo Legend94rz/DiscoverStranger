@@ -362,7 +362,7 @@ public class RegisterAct extends BaseActivity
 			Global.mySelf.password = Password;
 			Global.mySelf.nickName = Nickname;
 			Global.mySelf.sex = Gender;
-			Global.InitData();
+			Global.InitData(RegisterAct.this);
 			return 1;
 		}
 

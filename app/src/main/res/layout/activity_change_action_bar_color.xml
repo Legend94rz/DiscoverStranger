@@ -2,22 +2,7 @@
 				xmlns:tools="http://schemas.android.com/tools"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				tools:context="org.helloworld.InviteAct"
-				android:background="#ffefeff4">
-
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:background="@drawable/step1"
-		android:id="@+id/llStep"
-		android:layout_below="@+id/tvStep"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentStart="true"
-		android:layout_marginLeft="16dp"
-		android:layout_marginRight="16dp"
-		>
-	</LinearLayout>
+				tools:context="org.helloworld.ChangeActionBarColorAct">
 
 	<RelativeLayout
 		android:id="@+id/relativeLayout2"
@@ -41,7 +26,7 @@
 			android:paddingRight="15dp">
 
 			<TextView
-				android:id="@+id/textView40"
+				android:id="@+id/textView66"
 				android:layout_width="25dp"
 				android:layout_height="25dp"
 				android:layout_alignParentBottom="false"
@@ -53,38 +38,31 @@
 				android:textSize="14sp"/>
 
 			<TextView
-				android:id="@+id/textView42"
+				android:id="@+id/textView67"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
 				android:layout_marginLeft="20dp"
-				android:layout_toRightOf="@+id/textView40"
+				android:layout_toRightOf="@+id/textView66"
 				android:textColor="#ffffff"
 				android:textSize="20sp"
-				android:text="约吧"/>
-
+				android:text="修改标题栏背景"/>
 		</RelativeLayout>
-
 	</RelativeLayout>
 
-	<org.helloworld.tools.noTouchPager
+	<GridView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:id="@+id/viewpager"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentStart="true"
-		android:layout_below="@+id/llStep"/>
-
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="写一封邀请函来约TA吧"
-		android:id="@+id/tvStep"
+		android:id="@+id/gridView3"
 		android:layout_below="@+id/relativeLayout2"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentStart="true"
-		android:layout_marginLeft="16dp"
-		android:layout_marginTop="16dp"
-		android:layout_marginBottom="10dp"/>
-
+		android:layout_alignParentBottom="true"
+		android:listSelector="@drawable/img_btn_mask"
+		android:stretchMode="spacingWidthUniform"
+		android:numColumns="auto_fit"
+		android:padding="16dp"
+		android:horizontalSpacing="8dp"
+		android:verticalSpacing="8dp"
+		android:columnWidth="64dp"/>
 </RelativeLayout>

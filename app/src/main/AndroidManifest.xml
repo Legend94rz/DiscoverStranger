@@ -180,6 +180,10 @@
             android:name=".DetailAct"
             android:label="@string/title_activity_detail" >
         </activity>
+        <activity
+            android:name=".ChangeActionBarColorAct"
+            android:label="@string/title_activity_change_action_bar_color" >
+        </activity>
     </application>
 
 </manifest>

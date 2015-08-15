@@ -59,7 +59,7 @@ public class LogInAct extends BaseActivity
 					WebService getUser = new WebService("GetUser");
 					result = getUser.addProperty("name", Username).call();
 					Global.mySelf = UserInfo.parse((SoapObject) result.getProperty(0));
-					Global.InitData();
+					Global.InitData(LogInAct.this);
 					return true;
 				}
 				else

@@ -417,7 +417,7 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 				if (editable.length() > 4)
 					etTag.setBackgroundResource(R.drawable.bg_editbox_err);
 				else
-					etTag.setBackgroundResource(R.drawable.bg_editbox);
+					etTag.setBackgroundResource(R.drawable.edit_bg);
 			}
 		});
 	}

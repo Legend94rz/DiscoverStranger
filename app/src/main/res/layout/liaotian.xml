@@ -19,7 +19,7 @@
 				   android:layout_width="wrap_content"
 					  android:layout_height="wrap_content"
 				   android:padding="5dp"
-				   android:id="@+id/relativeLayout17"
+				   android:id="@+id/relativeLayout2"
 				   android:layout_below="@+id/tvDay"
 				   android:layout_alignParentLeft="true"
 				   android:layout_alignParentStart="true">
@@ -37,8 +37,8 @@
 			android:paddingTop="5dp"
 			android:layout_alignParentRight="true"
 			android:layout_alignParentEnd="true"
-			android:layout_toRightOf="@+id/relativeLayout17"
-			android:layout_toEndOf="@+id/relativeLayout17">
+			android:layout_toRightOf="@+id/relativeLayout2"
+			android:layout_toEndOf="@+id/relativeLayout2">
 
 			<RelativeLayout
 				android:orientation="vertical"
@@ -129,7 +129,7 @@
 				android:id="@+id/textView32"
 				android:background="@color/lightgray"
 				android:layout_alignParentTop="false"
-				android:layout_toEndOf="@+id/relativeLayout17"
+				android:layout_toEndOf="@+id/relativeLayout2"
 				android:layout_alignParentBottom="true"/>
 
 		</RelativeLayout>

@@ -196,7 +196,7 @@ public class MyInterestAct extends BaseActivity
 				if (editable.length() > 4)
 					editText.setBackgroundResource(R.drawable.bg_editbox_err);
 				else
-					editText.setBackgroundResource(R.drawable.bg_editbox);
+					editText.setBackgroundResource(R.drawable.edit_bg);
 			}
 		});
 		btnOK.setOnClickListener(new View.OnClickListener()

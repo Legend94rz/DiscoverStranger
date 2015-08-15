@@ -609,6 +609,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 				send(entity);
 				break;
 			case R.id.btnSendVoice:
+				SwicthView(true);
 				entity = new Message();
 				entity.msgType = Global.MSG_TYPE.T_SEND_MSG | Global.MSG_TYPE.T_VOICE_MSG;
 				entity.fromId = Global.mySelf.username;
@@ -624,6 +625,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 				resetRecordView();
 				break;
 			case R.id.btnCancel:
+				SwicthView(true);
 				resetRecordView();
 				if (soundFile != null && soundFile.exists())
 					soundFile.delete();
@@ -631,6 +633,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 			case R.id.btnRec:
 				if (btnRec.getTag().equals("点击录音"))
 				{
+					SwicthView(false);
 					if(isLoaded)
 						soundPool.play(rec_stopId,0.2f,0.2f,0,0,1);
 					btnRec.setTag("停止");
@@ -714,6 +717,14 @@ public class ChatActivity extends BaseActivity implements OnClickListener
 				HideAndReset();
 				break;
 		}
+	}
+
+	private void SwicthView(boolean b)
+	{
+		swiFace.setEnabled(b);
+		swiInput.setEnabled(b);
+		swiMoreInput.setEnabled(b);
+		mEditTextContent.setEnabled(b);
 	}
 
 	public void resetRecordView()

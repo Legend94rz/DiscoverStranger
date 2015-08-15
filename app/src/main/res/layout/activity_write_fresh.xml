@@ -10,7 +10,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="match_parent"
 		android:id="@+id/scrollView2"
-		android:layout_below="@+id/relativeLayout11">
+		android:layout_below="@+id/relativeLayout2">
 
 		<LinearLayout
 			android:orientation="vertical"
@@ -118,7 +118,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="48dp"
 					android:id="@+id/etTag"
-					android:background="@drawable/bg_editbox"
+					android:background="@drawable/edit_bg"
 					android:hint="不多于4个字"
 					android:padding="8dp"
 					android:singleLine="true"
@@ -180,7 +180,7 @@
 	</RelativeLayout>
 
 	<RelativeLayout
-		android:id="@+id/relativeLayout11"
+		android:id="@+id/relativeLayout2"
 		android:layout_width="fill_parent"
 		android:layout_height="67dp"
 		android:background="@drawable/actionbar_bg"

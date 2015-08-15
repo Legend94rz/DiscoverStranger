@@ -53,7 +53,7 @@
 			android:layout_height="48dp"
 			android:id="@+id/editText"
 			android:layout_weight="5"
-			android:background="@drawable/bg_editbox"
+			android:background="@drawable/edit_bg"
 			android:padding="8dp"
 			android:layout_alignParentLeft="true"
 			android:layout_alignParentTop="true"

@@ -84,6 +84,7 @@ public class SetMyGame extends BaseActivity
 				h = (H) view.getTag();
 			}
 			h.textView.setText(g.gameName);
+			h.textView.setVisibility(View.VISIBLE);
 			if(TextUtils.equals(g.pakageName,Global.settings.game))
 				h.tvThis.setVisibility(View.VISIBLE);
 			else

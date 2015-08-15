@@ -3,7 +3,8 @@
     android:layout_width="wrap_content" android:layout_height="wrap_content"
     android:layout_gravity="center"
                 android:id="@+id/rlContainer"
-    >
+				android:paddingTop="8dp"
+				android:paddingBottom="8dp">
 
     <ImageView
         android:layout_width="match_parent"
@@ -22,6 +23,7 @@
         android:id="@+id/background_name"
         android:layout_below="@+id/background_img"
         android:layout_centerHorizontal="true"
+        android:visibility="gone"
     />
 
     <TextView

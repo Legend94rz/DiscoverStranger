@@ -5,7 +5,7 @@
 				tools:context="org.helloworld.MyInterestAct">
 
 	<RelativeLayout
-		android:id="@+id/relativeLayout14"
+		android:id="@+id/relativeLayout2"
 		android:layout_width="fill_parent"
 		android:layout_height="67dp"
 		android:layout_alignParentLeft="true"
@@ -55,7 +55,7 @@
 		android:layout_height="wrap_content"
 		android:text="将只接收含有以下Tag的动态:"
 		android:id="@+id/textView25"
-		android:layout_below="@+id/relativeLayout14"
+		android:layout_below="@+id/relativeLayout2"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentStart="true"
 		android:padding="8dp"

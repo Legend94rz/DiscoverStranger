@@ -18,7 +18,7 @@
 			android:layout_height="wrap_content"
 			android:id="@+id/lllayout"
 			android:baselineAligned="false"
-			android:layout_below="@+id/relativeLayout15"
+			android:layout_below="@+id/relativeLayout2"
 			android:layout_alignParentLeft="true"
 			android:layout_alignParentStart="true">
 
@@ -93,7 +93,7 @@
 			android:keepScreenOn="false"
 			android:clipToPadding="false"
 			android:layout_marginTop="-2dp"
-			android:id="@+id/relativeLayout15"
+			android:id="@+id/relativeLayout2"
 			>
 
 			<LinearLayout

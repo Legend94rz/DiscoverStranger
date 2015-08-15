@@ -11,7 +11,7 @@
 		android:orientation="horizontal"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_below="@+id/relativeLayout9"
+		android:layout_below="@+id/relativeLayout2"
 		android:layout_centerHorizontal="true"
 		android:id="@+id/llTabhost"
 		android:background="#F5F5F5">
@@ -65,7 +65,7 @@
 		android:background="@drawable/actionbar_bg"
 		android:gravity="center_vertical"
 		android:layout_alignParentLeft="true"
-		android:id="@+id/relativeLayout9"
+		android:id="@+id/relativeLayout2"
 		android:clickable="false"
 		android:layout_marginLeft="-8dp"
 		android:layout_marginRight="-8dp"
