@@ -88,6 +88,7 @@ public class DetailAct extends BaseActivity
 				{
 					dialogInterface.dismiss();
 					cancel(true);
+					btnResponse.setEnabled(true);
 				}
 			});
 			dialog.show();

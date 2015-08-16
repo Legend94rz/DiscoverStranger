@@ -41,7 +41,7 @@ public class MsgPullService extends Service
 					for (int i = 0; i < T; i++)
 					{
 						Message m = Message.parse((SoapObject) result.getProperty(i));
-						if (m.fromId.equals("cmd"))
+						if (m.fromId.equals("$cmd"))
 						{
 							listOfCmd.add(m);
 						}

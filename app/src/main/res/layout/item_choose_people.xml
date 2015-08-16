@@ -32,6 +32,10 @@
 		android:layout_centerVertical="true"
 		android:layout_alignParentRight="true"
 		android:layout_alignParentEnd="true"
-		android:layout_marginRight="16dp"/>
+		android:layout_marginRight="16dp"
+		android:button="@drawable/checkbox"
+		android:focusable="false"
+		android:clickable="false"
+		android:focusableInTouchMode="false"/>
 
 </RelativeLayout>

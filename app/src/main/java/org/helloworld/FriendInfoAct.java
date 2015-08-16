@@ -154,7 +154,7 @@ public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 						JSONArray params = new JSONArray();
 						params.put(Global.mySelf.username);
 						j.put("param", params);
-						new WebTask(null, -1).execute("pushMsg", 5, "from", "cmd", "to", friendName, "msg", j.toString(), "time", Global.formatDate(Global.getDate(), "yyyy-MM-dd HH:mm:ss"), "msgType", String.valueOf(Global.MSG_TYPE.T_TEXT_MSG));
+						new WebTask(null, -1).execute("pushMsg", 5, "from", "$cmd", "to", friendName, "msg", j.toString(), "time", Global.formatDate(Global.getDate(), "yyyy-MM-dd HH:mm:ss"), "msgType", String.valueOf(Global.MSG_TYPE.T_TEXT_MSG));
 					}
 					catch (JSONException e)
 					{

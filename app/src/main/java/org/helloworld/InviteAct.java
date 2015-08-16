@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -74,7 +75,7 @@ public class InviteAct extends BaseActivity implements View.OnClickListener
 		Context context;
 		ListView listView;
 		boolean isScroll;
-		private HashMap<Integer,Boolean> map;
+		public HashMap<Integer,Boolean> map;
 		public Adapter(Context context,ArrayList<UserInfo> list,ListView listView)
 		{
 			this.context=context;
@@ -99,13 +100,11 @@ public class InviteAct extends BaseActivity implements View.OnClickListener
 		{
 			for(int i=0;i<list.size();i++)
 				map.put(i,true);
-			notifyDataSetChanged();
 		}
 		public void ReverseSelect()
 		{
 			for(int i=0;i<list.size();i++)
 				map.put(i,!map.get(i));
-			notifyDataSetChanged();
 		}
 		@Override
 		public int getCount()
@@ -167,14 +166,6 @@ public class InviteAct extends BaseActivity implements View.OnClickListener
 				h.etName.setText(u.username);
 			}
 			h.checkBox.setChecked(map.get(i));
-			h.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-			{
-				@Override
-				public void onCheckedChanged(CompoundButton compoundButton, boolean b)
-				{
-					map.put(i, b);
-				}
-			});
 			return view;
 		}
 
@@ -195,7 +186,7 @@ public class InviteAct extends BaseActivity implements View.OnClickListener
 		{
 		}
 
-		class H
+		public class H
 		{
 			CircleImageView ivHead;
 			TextView etName;
@@ -250,6 +241,7 @@ public class InviteAct extends BaseActivity implements View.OnClickListener
 				{
 					dialogInterface.dismiss();
 					cancel(true);
+					button.setEnabled(true);
 				}
 			});
 			dialog.show();
@@ -290,6 +282,16 @@ public class InviteAct extends BaseActivity implements View.OnClickListener
 						}
 						listViewAdapter = new Adapter(InviteAct.this, list, listView);
 						listView.setAdapter(listViewAdapter);
+						listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+						{
+							@Override
+							public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+							{
+								Adapter.H h= (Adapter.H) view.getTag();
+								h.checkBox.toggle();
+								listViewAdapter.map.put(i,h.checkBox.isChecked());
+							}
+						});
 						llStep.setBackgroundResource(background[2]);
 						viewpager.setCurrentItem(2, true);
 					}
@@ -343,6 +345,7 @@ public class InviteAct extends BaseActivity implements View.OnClickListener
 				{
 					dialogInterface.dismiss();
 					cancel(true);
+					button.setEnabled(true);
 				}
 			});
 			dialog.show();
@@ -447,6 +450,7 @@ public class InviteAct extends BaseActivity implements View.OnClickListener
 			public void onClick(View view)
 			{
 				listViewAdapter.SelectAll();
+				listViewAdapter.notifyDataSetChanged();
 			}
 		});
 		btnRevAll= (Button) pages.get(2).findViewById(R.id.btnRevAll);
@@ -456,6 +460,7 @@ public class InviteAct extends BaseActivity implements View.OnClickListener
 			public void onClick(View view)
 			{
 				listViewAdapter.ReverseSelect();
+				listViewAdapter.notifyDataSetChanged();
 			}
 		});
 		listView= (ListView) pages.get(2).findViewById(R.id.listView);

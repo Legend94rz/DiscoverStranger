@@ -127,19 +127,27 @@ public class RegisterAct extends BaseActivity
 				switch (message.what)
 				{
 					case Global.MSG_WHAT.W_CHECKED_USERNAME:
-
-						if (!((Boolean) message.obj))
+					{
+						Byte b= ((Byte) message.obj);
+						if (b==1)
 						{
-                            dialog.setTitleText("用户名已存在").setConfirmText("确认")
-                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener(){
+							dialog.setTitleText("无效的用户名").setConfirmText("确认")
+								.setContentText("该用户已存在")
+								.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
+								{
 
-                                        public void onClick(SweetAlertDialog sweetAlertDialog)
-                                        {
-                                            sweetAlertDialog.dismiss();
-                                        }
-                                    }).show();
+									public void onClick(SweetAlertDialog sweetAlertDialog)
+									{
+										sweetAlertDialog.dismiss();
+									}
+								}).show();
 						}
-						break;
+						else if(b==2)
+						{
+							CustomToast.show(RegisterAct.this,"网络连接失败",Toast.LENGTH_SHORT);
+						}
+					}
+					break;
 				}
 				return true;
 			}
@@ -250,7 +258,7 @@ public class RegisterAct extends BaseActivity
 	/**
 	 * To check if the password is the same as the confirmed_password.
 	 */
-	public class Check_online extends AsyncTask<Void, Void, Boolean>
+	public class Check_online extends AsyncTask<Void, Void, Byte>
 	{
 		public String Username;
 
@@ -266,30 +274,30 @@ public class RegisterAct extends BaseActivity
 		}
 
 		@Override
-		protected Boolean doInBackground(Void... voids)
+		protected Byte doInBackground(Void... voids)
 		{
 			WebService check = new WebService("GetUser");
 			check.addProperty("name", Username);
 			try
 			{
 				SoapObject result = check.call();
-				return result.getPropertyCount() == 0;
+				if(result.getPropertyCount() == 0)return 0;else return 1;
 			}
 			catch (NullPointerException e)
 			{
 				e.printStackTrace();
 			}
-			return false;
+			return 2;
 		}
 
 		@Override
-		protected void onPostExecute(Boolean aBoolean)
+		protected void onPostExecute(Byte aByte)
 		{
 			btnNext.setEnabled(true);
 			Message m = new Message();
 			m.what = Global.MSG_WHAT.W_CHECKED_USERNAME;
-			m.obj = aBoolean;
-			canRegister &= aBoolean;
+			m.obj = aByte;
+			canRegister &= (aByte==0);
 			handler.sendMessage(m);
 		}
 	}
@@ -310,6 +318,8 @@ public class RegisterAct extends BaseActivity
 			Password = password;
 			Gender = gender;
 			Nickname = nickname;
+			if(Nickname.trim().equals(""))
+				Nickname=username;
 		}
 
 		@Override
@@ -336,7 +346,7 @@ public class RegisterAct extends BaseActivity
 				e.printStackTrace();
 				return 4;
 			}
-			CustomToast.show(RegisterAct.this, "注册成功", Toast.LENGTH_SHORT);
+
 			String path = Global.PATH.HeadImg;
 			String filename = Username + ".png";
 			File file = new File(path, filename);
@@ -374,6 +384,7 @@ public class RegisterAct extends BaseActivity
 			{
 				case 1:
 				{
+					CustomToast.show(RegisterAct.this, "注册成功", Toast.LENGTH_SHORT);
 					Intent i = new Intent(RegisterAct.this, MainActivity.class);
 					startActivity(i);
 					finish();

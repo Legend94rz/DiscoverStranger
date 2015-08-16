@@ -22,7 +22,12 @@ public class SetChatBackground extends BaseActivity
 	private GridView gView;
 	private List<Map<String, Object>> data_list;
 	private SimpleAdapter sim_adapter;
-	private int[] background = {R.drawable.background_blank,R.drawable.background1, R.drawable.background2};
+	private int[] background = {R.drawable.background_blank,
+								   R.drawable.background1,
+								   R.drawable.background2,
+								   R.drawable.background3,
+								   R.drawable.background4,
+								   R.drawable.background5};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)

@@ -55,7 +55,8 @@
 		android:id="@+id/listView"
 		android:layout_centerHorizontal="true"
 		android:layout_above="@+id/linearLayout6"
-		android:layout_below="@+id/linearLayout13"/>
+		android:layout_below="@+id/linearLayout13"
+		android:listSelector="@drawable/img_btn_mask"/>
 
 	<LinearLayout
 		android:orientation="horizontal"

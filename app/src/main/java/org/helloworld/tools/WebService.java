@@ -16,7 +16,7 @@ public class WebService
 	HttpTransportSE ht;
 	SoapSerializationEnvelope sse;
 	SoapObject so;
-	private final static String SERVICE_URL = "http://legend94rz.gear.host/";
+	private final static String SERVICE_URL = "http://www.legend94rz.top/default.asmx";
 	private final static String SERVICE_NS = "http://legendsService/";
 
 	/**
