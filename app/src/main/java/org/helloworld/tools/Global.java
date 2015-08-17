@@ -57,7 +57,7 @@ public class Global
 	/**
 	 * 分块上传 下载的大小
 	 */
-	public static final int BLOCK_SIZE = 30000;
+	public static final int BLOCK_SIZE = 60000;
 	public static int DPI;
 	public static int screenHeight;
 	public static final Game JigsawGame=new Game("","1","","拼图游戏");

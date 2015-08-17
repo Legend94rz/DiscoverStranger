@@ -193,8 +193,8 @@ public class RegisterAct extends BaseActivity
 		String error_info_username = "";
 		for (int i = 0; i < urname.length(); i++)
 		{
-			int s = (int) urname.charAt(i);
-			if (!((s > 47) && (s < 58) || ((s > 64) && (s < 91)) || ((s > 96) && (s < 122)) || (s == 95)))
+			char s = urname.charAt(i);
+			if (!((s >= '0') && (s <= '9') || ((s >= 'A') && (s <= 'Z')) || ((s >= 'a') && (s <= 'z')) || (s == '_')))
 				isLegal = false;
 		}
 		if (!isLegal) error_info_username += " 用户名只能包含字母数字和下划线 ";
