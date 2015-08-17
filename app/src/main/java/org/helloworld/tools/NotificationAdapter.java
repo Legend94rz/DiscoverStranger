@@ -72,6 +72,8 @@ public class NotificationAdapter extends BaseAdapter
 		h.tvName.setText(m.fromId);
 		if (FileUtils.Exist(Global.PATH.HeadImg + m.fromId + ".png"))
 			h.ivHeadImg.setImageBitmap(BitmapFactory.decodeFile(Global.PATH.HeadImg + m.fromId + ".png"));
+		else
+			h.ivHeadImg.setImageResource(R.drawable.nohead);
 		if((m.msgType&Global.MSG_TYPE.T_INVITE_NOTIFICATION)==0)
 		{
 			h.tvHint.setText(m.text);

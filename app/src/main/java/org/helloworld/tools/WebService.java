@@ -24,7 +24,7 @@ public class WebService
 	 */
 	public WebService(String serviceName)
 	{
-		ht = new HttpTransportSE(SERVICE_URL, 10000);
+		ht = new HttpTransportSE(SERVICE_URL, 15000);
 		sse = new SoapSerializationEnvelope(SoapEnvelope.VER12);
 		so = new SoapObject(SERVICE_NS, serviceName);
 		sse.bodyOut = so;

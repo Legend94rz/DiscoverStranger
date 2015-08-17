@@ -151,6 +151,8 @@ public class HistoryAdapter extends BaseAdapter implements AbsListView.OnScrollL
 		h.tvDay.setText(day(list.get(i).lastHistoryMsg.sendTime));
 		if (i == 0 || !day(list.get(i).lastHistoryMsg.sendTime).equals(day(list.get(i - 1).lastHistoryMsg.sendTime)))
 			h.tvDay.setVisibility(View.VISIBLE);
+		else
+			h.tvDay.setVisibility(View.GONE);
 
 		return view;
 	}

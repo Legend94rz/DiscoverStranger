@@ -92,12 +92,10 @@ public class MomentsAdapter extends BaseAdapter implements AbsListView.OnScrollL
 			h = (H) view.getTag();
 		h.tvTime.setText(Global.getShowDate(fresh.time));
 		h.tvTag.setText(fresh.tag);
-		if(fresh.tag.equals(""))
-			h.tvTag.setVisibility(View.GONE);
-		if (fresh.tag.length() == 0)
+		if(fresh.tag.trim().equals(""))
 			h.tvTag.setVisibility(View.GONE);
 		else
-			h.tvText.setVisibility(View.VISIBLE);
+			h.tvTag.setVisibility(View.VISIBLE);
 		SpannableString spannableString = FaceConversionUtil.getInstace().getExpressionString(context, fresh.text);
 		h.tvText.setText(spannableString);
 		h.ivHead.setImageResource(R.drawable.nohead);
@@ -111,7 +109,7 @@ public class MomentsAdapter extends BaseAdapter implements AbsListView.OnScrollL
 			}
 			else
 			{
-				h.btnHello.setVisibility(View.GONE);
+				h.btnHello.setVisibility(View.INVISIBLE);
 				h.tvNickName.setText(Global.mySelf.nickName);
 			}
 			Bitmap bitmap = loader.loadDrawable(Global.PATH.HeadImg, "HeadImg", fresh.username + ".png", isScroll, 48 * Global.DPI, new AsyImageLoader.ImageCallback()
@@ -134,6 +132,7 @@ public class MomentsAdapter extends BaseAdapter implements AbsListView.OnScrollL
 		}
 		else
 		{
+			h.btnHello.setVisibility(View.VISIBLE);
 			h.btnHello.setOnClickListener(new View.OnClickListener()
 			{
 				@Override

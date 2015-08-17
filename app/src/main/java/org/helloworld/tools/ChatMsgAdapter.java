@@ -173,7 +173,7 @@ public class ChatMsgAdapter extends BaseAdapter implements AbsListView.OnScrollL
 						}
 						else
 							entity.sendState = 2;
-						notifyDataSetChanged();
+						//notifyDataSetChanged();
 					}
 				}
 			});
