@@ -109,7 +109,6 @@ public class RegisterAct extends BaseActivity
 				checkUserName();
 				checkPassword();
 				if (!canRegister) return;
-				btnNext.setEnabled(false);
 				String Username = etUser_name.getText().toString();
 				String psw = etpasswords.getText().toString();
 				boolean usergender = rbfemale.isChecked();
@@ -311,6 +310,15 @@ public class RegisterAct extends BaseActivity
 		public String Password;
 		public boolean Gender;
 		public String Nickname;
+		SweetAlertDialog dialog;
+		@Override
+		protected void onPreExecute()
+		{
+			btnNext.setEnabled(false);
+			dialog=new SweetAlertDialog(RegisterAct.this,SweetAlertDialog.PROGRESS_TYPE);
+			dialog.setTitleText("请稍候");
+			dialog.show();
+		}
 
 		public Register_online(String username, String password, boolean gender, String nickname)
 		{
@@ -380,6 +388,7 @@ public class RegisterAct extends BaseActivity
 		protected void onPostExecute(Byte aByte)
 		{
 			btnNext.setEnabled(true);
+			dialog.dismiss();
 			switch (aByte)
 			{
 				case 1:

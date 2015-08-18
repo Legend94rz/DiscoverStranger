@@ -54,6 +54,7 @@ public class Global
 	public static ArrayList<UserInfo> friendList;
 	public static final Boolean[] refreshing =new Boolean[]{ false };	//联系人列表正在刷新
 	public static int actionbar_bg=R.drawable.actionbar_bg;
+	public static String IMEI;
 	/**
 	 * 分块上传 下载的大小
 	 */
