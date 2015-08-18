@@ -323,7 +323,7 @@ public class InviteAct extends BaseActivity implements View.OnClickListener
 			if(tolist.size()>0)
 			{
 				this.tolist=tolist.get(0).username;
-				for(int i=0;i<tolist.size();i++)
+				for(int i=1;i<tolist.size();i++)
 				{
 					this.tolist+=","+tolist.get(i).username;
 				}
