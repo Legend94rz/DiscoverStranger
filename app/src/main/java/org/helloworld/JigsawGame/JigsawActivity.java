@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.ToggleButton;
 
 import org.helloworld.R;
+import org.helloworld.tools.Global;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,6 +39,7 @@ public class JigsawActivity extends Activity
 	PicItem TheLastPiece;
 	ImageView Iv;
 	ToggleButton tbSwith;
+	int step=0;
 
 	class GridViewAdapter extends BaseAdapter
 	{
@@ -163,6 +165,8 @@ public class JigsawActivity extends Activity
 	{
 		Intent intent = new Intent();
 		intent.putExtra("result", state);
+		intent.putExtra("score",step);
+		intent.putExtra("pakageName", Global.JigsawGame.pakageName);
 		setResult(RESULT_OK, intent);
 		finish();
 	}
@@ -277,6 +281,7 @@ public class JigsawActivity extends Activity
 				break;
 		}
 		if (pos2 == -1) return;
+		step++;
 		PicItem temp = PicList.get(pos);
 		PicList.set(pos, PicList.get(pos2));
 		PicList.set(pos2, temp);
@@ -311,7 +316,7 @@ public class JigsawActivity extends Activity
 			@Override
 			public void onClick(SweetAlertDialog sweetAlertDialog)
 			{
-				dialog.dismiss();
+				sweetAlertDialog.dismiss();
 				FinishAct(true);
 			}
 		});
@@ -333,6 +338,7 @@ public class JigsawActivity extends Activity
 	void GeneratorData()
 	{
 		boolean flag = false;
+		step=0;
 		while (!flag)
 		{
 			for (PicItem i : PicList)

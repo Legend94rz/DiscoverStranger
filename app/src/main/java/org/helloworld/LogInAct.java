@@ -169,7 +169,7 @@ public class LogInAct extends BaseActivity
 		pbLogInBar = (ProgressBar) findViewById(R.id.pbLoginProgress);
 		etName = (EditText) findViewById(R.id.etName);
 		etPassword = (EditText) findViewById(R.id.etPassword);
-		ivHeadImg = (CircleImageView) findViewById(R.id.ivHeadImg);
+		ivHeadImg = (CircleImageView) findViewById(R.id.ivHead);
 	}
 
 }

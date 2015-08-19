@@ -21,4 +21,16 @@
         android:textColor="@color/white"
         android:textSize="24sp"/>
 
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="46dp"
+        android:text="排行榜"
+        android:id="@+id/btnRank"
+        android:layout_alignTop="@+id/button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="68dp"
+        android:background="@drawable/round_rect_button"
+        android:textColor="@color/white"
+        android:textSize="24sp"/>
+
 </RelativeLayout>

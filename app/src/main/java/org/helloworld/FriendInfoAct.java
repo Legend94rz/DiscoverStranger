@@ -77,7 +77,7 @@ public class FriendInfoAct extends BaseActivity implements View.OnClickListener
 		tvAge = (TextView) findViewById(R.id.tvAge);
 		ivGender = (ImageView) findViewById(R.id.ivGender);
 		tvID = (TextView) findViewById(R.id.tvID);
-		ivHeadImg = (CircleImageView) findViewById(R.id.ivHeadImg);
+		ivHeadImg = (CircleImageView) findViewById(R.id.ivHead);
 		tvNickName = (TextView) findViewById(R.id.tvNickName);
 		tvRemark = (TextView) findViewById(R.id.tvRemark);
 		UserInfo friend = Global.map2Friend.get(friendName);

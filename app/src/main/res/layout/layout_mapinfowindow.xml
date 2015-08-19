@@ -23,7 +23,7 @@
 		<org.helloworld.CircleImageView
 			android:layout_width="48dp"
 			android:layout_height="48dp"
-			android:id="@+id/ivHeadImg"
+			android:id="@+id/ivHead"
 			android:src="@drawable/nohead"/>
 
 		<RelativeLayout

@@ -10,8 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.baidu.navisdk.model.GeoLocateModel;
-
 import org.helloworld.CircleImageView;
 import org.helloworld.DetailAct;
 import org.helloworld.R;
@@ -59,7 +57,7 @@ public class NotificationAdapter extends BaseAdapter
 		{
 			h = new H();
 			view = LayoutInflater.from(context).inflate(R.layout.item_notification, viewGroup, false);
-			h.ivHeadImg = (CircleImageView) view.findViewById(R.id.ivHeadImg);
+			h.ivHeadImg = (CircleImageView) view.findViewById(R.id.ivHead);
 			h.tvHint = (TextView) view.findViewById(R.id.tvHint);
 			h.tvTime = (TextView) view.findViewById(R.id.tvTime);
 			h.tvName = (TextView) view.findViewById(R.id.tvName);

@@ -23,7 +23,7 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="ANDROID.PERMISSION.INSTALL_PACKAGES" />
-    <uses-permission android:name="ANDROID.PERMISSION.READ_PHONE_STATE"/>
+    <uses-permission android:name="ANDROID.PERMISSION.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -184,6 +184,10 @@
         <activity
             android:name=".ChangeActionBarColorAct"
             android:label="@string/title_activity_change_action_bar_color" >
+        </activity>
+        <activity
+            android:name=".JigsawGame.RankAct"
+            android:label="@string/title_activity_jigsaw_rank" >
         </activity>
     </application>
 

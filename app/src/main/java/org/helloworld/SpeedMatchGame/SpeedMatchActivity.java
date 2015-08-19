@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.helloworld.R;
+import org.helloworld.tools.Global;
 import org.helloworld.tools.noTouchPager;
 
 import java.util.ArrayList;
@@ -231,6 +232,8 @@ public class SpeedMatchActivity extends Activity implements View.OnClickListener
 	{
 		Intent intent = new Intent();
 		intent.putExtra("result", _grade > 0);
+		intent.putExtra("score",Integer.valueOf(grade.getText().toString()));
+		intent.putExtra("pakageName", Global.SpeedMatchGame.pakageName);
 		SpeedMatchActivity.this.setResult(RESULT_OK, intent);
 		SpeedMatchActivity.this.finish();
 	}

@@ -127,7 +127,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 		TextView tvDistance = (TextView) windowView.findViewById(R.id.tvDistance);
 		tvDistance.setText(extraInfo.getString("distance"));
 		Button btnSayHello = (Button) windowView.findViewById(R.id.btnSayHello);
-		CircleImageView ivHeadImg = (CircleImageView) windowView.findViewById(R.id.ivHeadImg);
+		CircleImageView ivHeadImg = (CircleImageView) windowView.findViewById(R.id.ivHead);
 		if (Global.map2Friend.containsKey(strangerName))
 		{
 			btnSayHello.setEnabled(false);
@@ -835,6 +835,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 			if (resultCode == RESULT_OK && data.getBooleanExtra("result", false))
 			{
 				SuccessFinishGame(context, handler, data.getStringExtra("strangerName"));
+				new WebTask(null,-1).execute("addRank", 3, "username", Global.mySelf.username, "pakageName", data.getStringExtra("pakageName"), "score", data.getIntExtra("score", 0));
 			}
 			else
 			{

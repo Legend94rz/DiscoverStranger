@@ -31,7 +31,7 @@
 			android:padding="20dp">
 
 			<org.helloworld.CircleImageView
-				android:id="@+id/ivHeadImg"
+				android:id="@+id/ivHead"
 				android:layout_width="52dp"
 				android:layout_height="52dp"
 				android:clickable="true"
@@ -46,9 +46,9 @@
 				android:layout_marginLeft="30dp"
 				android:text="NULL"
 				android:autoText="false"
-				android:layout_alignTop="@+id/ivHeadImg"
-				android:layout_toRightOf="@+id/ivHeadImg"
-				android:layout_toEndOf="@+id/ivHeadImg"
+				android:layout_alignTop="@+id/ivHead"
+				android:layout_toRightOf="@+id/ivHead"
+				android:layout_toEndOf="@+id/ivHead"
 				android:layout_marginStart="30dp"
 				android:layout_marginTop="5dp"/>
 
