@@ -228,6 +228,7 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 									freshs.add(f);
 								}
 								if(f.id<minID)minID=f.id;
+								if(f.id>maxID)maxID=f.id;
 							}
 							adapter.notifyDataSetChanged();
 							if ( C ==0 )
@@ -252,8 +253,8 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 									Boolean b=Global.map2Friend.containsKey(f.username);
 									if(f.type==Fresh.TYPE_NORMAL || f.username.equals(Global.mySelf.username) || (f.type==Fresh.TYPE_ONLY_FRIENDS&&b ) ||(f.type==Fresh.TYPE_ONLY_STRANGER&&!b))
 										tmp.add(f);
-									if(f.id>maxID)
-										maxID=f.id;
+									if(f.id>maxID)maxID=f.id;
+									if(f.id<minID)minID=f.id;
 								}
 								freshs.addAll(0, tmp);
 								adapter.notifyDataSetChanged();

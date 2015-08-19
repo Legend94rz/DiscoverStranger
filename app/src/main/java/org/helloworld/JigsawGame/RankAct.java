@@ -197,7 +197,7 @@ public class RankAct extends Activity
 				try
 				{
 					jobj.put("userName", Global.mySelf.username);
-					jobj.put("Text", String.format("%s 在游戏 %s 中赞了你。", Global.mySelf.username, GameName));
+					jobj.put("Text", String.format("%s(ID:%s) 在游戏 %s 中赞了你。",Global.mySelf.nickName, Global.mySelf.username, GameName));
 				}
 				catch (JSONException e)
 				{
@@ -221,7 +221,7 @@ public class RankAct extends Activity
 				try
 				{
 					jobj.put("userName",Global.mySelf.username);
-					jobj.put("Text",String.format("%s 在游戏 %s 中踩了你。",Global.mySelf.username, GameName));
+					jobj.put("Text",String.format("%s(ID:%s) 在游戏 %s 中踩了你。",Global.mySelf.nickName,Global.mySelf.username, GameName));
 				}
 				catch (JSONException e)
 				{
