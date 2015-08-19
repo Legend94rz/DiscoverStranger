@@ -506,6 +506,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 						startActivity(I);
 						break;
 					case 3:
+						I=new Intent(MainActivity.this,ReportAct.class);
+						startActivity(I);
+						break;
+					case 4:
 						exitWithConfirm();
 						break;
 				}
@@ -579,6 +583,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 		map.put("icon", R.drawable.settings);
 		map.put("desc", "设置");
 		data.add(map);
+
+		map = new HashMap<>();
+		map.put("icon", R.drawable.report);
+		map.put("desc","举报用户");
+		data.add(map);
+
 		map = new HashMap<String, Object>();
 		map.put("icon", R.drawable.exit);
 		map.put("desc", "退出");

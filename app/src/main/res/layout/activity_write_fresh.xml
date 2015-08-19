@@ -145,6 +145,47 @@
 
 			</RelativeLayout>
 
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="42dp"
+				android:layout_marginLeft="15dp"
+				android:layout_marginTop="10dp">
+
+				<CheckBox
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:text="可见："
+					android:id="@+id/cbVis"
+					android:checked="false"
+					android:button="@drawable/checkbox"/>
+
+				<RadioGroup
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:orientation="horizontal">
+
+					<RadioButton
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:text="仅好友"
+						android:id="@+id/rbOnlyFriend"
+						android:checked="false"
+						android:button="@drawable/radio_btn"
+						android:enabled="false"/>
+
+					<RadioButton
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:text="仅陌生人"
+						android:id="@+id/rbOnlyStranger"
+						android:checked="false"
+						android:button="@drawable/radio_btn"
+						android:layout_marginLeft="15dp"
+						android:enabled="false"/>
+				</RadioGroup>
+			</LinearLayout>
+
 		</LinearLayout>
 	</ScrollView>
 

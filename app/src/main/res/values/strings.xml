@@ -63,6 +63,8 @@
 	<string name="title_activity_detail">DetailAct</string>
 	<string name="title_activity_change_action_bar_color">ChangeActionBarColorAct</string>
 	<string name="title_activity_jigsaw_rank">JigsawRankAct</string>
+	<string name="title_activity_report">ReportAct</string>
+	<string name="title_activity_his_freshes">HisFreshesAct</string>
 
 
 </resources>

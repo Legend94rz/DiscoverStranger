@@ -15,12 +15,16 @@ import java.util.Date;
  */
 public class Fresh
 {
+	public static final int TYPE_ONLY_FRIENDS = 1;
+	public static final int TYPE_ONLY_STRANGER = 2;
+	public static final int TYPE_NORMAL = 0;
 	public int id;
 	public String username;
 	public String text;
 	public ArrayList<String> picNames;
 	public String tag;
 	public Date time;
+	public int type;
 
 	public Fresh()
 	{
@@ -39,9 +43,10 @@ public class Fresh
 		fresh.id = Integer.parseInt(soapObject.getPropertyAsString("id"));
 		fresh.username = soapObject.getPropertyAsString("username");
 		fresh.text = soapObject.getPropertyAsString("text");
-		fresh.tag = soapObject.getProperty("tag").toString();
-		if(fresh.tag.equals("anyType{}"))
-			fresh.tag="";
+		fresh.tag = soapObject.getPropertyAsString("tag");
+		fresh.type = Integer.parseInt(soapObject.getPropertyAsString("type"));
+		if (fresh.tag.equals("anyType{}"))
+			fresh.tag = "";
 		try
 		{
 			fresh.picNames = new Gson().fromJson(soapObject.getPropertyAsString("pics"), new TypeToken<ArrayList<String>>()

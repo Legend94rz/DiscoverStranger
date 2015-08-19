@@ -17,12 +17,14 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +35,7 @@ import org.helloworld.tools.CustomToast;
 import org.helloworld.tools.FaceAdapter;
 import org.helloworld.tools.FaceConversionUtil;
 import org.helloworld.tools.FileUtils;
+import org.helloworld.tools.Fresh;
 import org.helloworld.tools.Global;
 import org.helloworld.tools.emojiAdapter;
 
@@ -68,6 +71,9 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 	int PicNum = 0;
 	private UUID id;
 	Handler handler;
+
+	CheckBox checkBox;
+	RadioButton rbOnlyFriends,rbOnlyStranger;
 
 	@Override
 	public void goback(final View v)
@@ -143,6 +149,10 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 		etText = (EditText) findViewById(R.id.etText);
 		tvHot = (TextView) findViewById(R.id.tvHot);
 		rl_facechoose = (RelativeLayout) findViewById(R.id.ll_facechoose);
+		checkBox= (CheckBox) findViewById(R.id.cbVis);
+		rbOnlyFriends= (RadioButton) findViewById(R.id.rbOnlyFriend);
+		rbOnlyStranger= (RadioButton) findViewById(R.id.rbOnlyStranger);
+
 		Intent I = getIntent();
 		if (!I.getBooleanExtra("new", true))
 		{
@@ -158,12 +168,32 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 			}
 			id = (UUID) I.getSerializableExtra("id");
 			PicNum=I.getIntExtra("picNum",names.size()+10000);
+			int type=I.getIntExtra("type",0);
+			if(type>0)
+			{
+				checkBox.setChecked(true);
+				rbOnlyFriends.setEnabled(true);
+				rbOnlyStranger.setEnabled(true);
+				if(type==Fresh.TYPE_ONLY_FRIENDS)
+					rbOnlyFriends.setChecked(true);
+				else
+					rbOnlyStranger.setChecked(true);
+			}
 		}
 		else
 		{
 			id = UUID.randomUUID();
 			PicNum=0;
 		}
+		checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(CompoundButton compoundButton, boolean b)
+			{
+				rbOnlyFriends.setEnabled(b);
+				rbOnlyStranger.setEnabled(b);
+			}
+		});
 	}
 
 	private void Init_viewPager()
@@ -367,11 +397,19 @@ public class WriteFreshAct extends BaseActivity implements AdapterView.OnItemCli
 					return;
 				}
 				if (etTag.length() > 4 || etText.length() > 140) return;
+				int type=0;
+				if(checkBox.isChecked())
+					if(rbOnlyStranger.isChecked())
+						type= Fresh.TYPE_ONLY_STRANGER;
+					else
+						type=Fresh.TYPE_ONLY_FRIENDS;
+
 				Intent data = new Intent();
 				data.putExtra("picNum", PicNum)
 					.putExtra("text", etText.getText().toString())
 					.putExtra("tag", etTag.getText().toString())
-					.putExtra("picCount", llImages.getChildCount());
+					.putExtra("picCount", llImages.getChildCount())
+					.putExtra("type",type);
 				for (int i = 0; i < llImages.getChildCount(); i++)
 				{
 					data.putExtra(String.valueOf(i), ((String) llImages.getChildAt(i).getTag()));

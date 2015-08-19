@@ -189,6 +189,14 @@
             android:name=".JigsawGame.RankAct"
             android:label="@string/title_activity_jigsaw_rank" >
         </activity>
+        <activity
+            android:name=".ReportAct"
+            android:label="@string/title_activity_report" >
+        </activity>
+        <activity
+            android:name=".HisFreshesAct"
+            android:label="@string/title_activity_his_freshes" >
+        </activity>
     </application>
 
 </manifest>

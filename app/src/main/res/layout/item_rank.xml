@@ -15,9 +15,26 @@
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:text="用户："
+		android:id="@+id/textView74"
+		android:layout_gravity="center_vertical"
+		android:textColor="#919191"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
 		android:text="Name"
 		android:id="@+id/tvName"
-		android:layout_marginLeft="34dp"/>
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="20dp"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="得分："
+		android:id="@+id/textView75"
+		android:layout_gravity="center_vertical"
+		android:textColor="#919191"/>
 
 	<TextView
 		android:layout_width="wrap_content"
@@ -25,5 +42,5 @@
 		android:text="Score"
 		android:id="@+id/tvScore"
 		android:layout_gravity="center_vertical"
-		android:layout_marginLeft="34dp"/>
+		android:layout_marginLeft="10dp"/>
 </LinearLayout>

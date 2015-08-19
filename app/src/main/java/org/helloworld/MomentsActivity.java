@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -49,6 +50,7 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 	private static final int COUNT = 15;
 	static sendFreshTask t;
 	static Fresh fresh;
+	int maxID,minID;
 	UUID id;
 	int PicNum;
 	class sendFreshTask extends AsyncTask<Void,Void,Boolean>
@@ -73,7 +75,8 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 				.addProperty("text", fresh.text)
 				.addProperty("pics", fresh.picNameToString())
 				.addProperty("tag", fresh.tag)
-				.addProperty("time", Global.formatDate(fresh.time, "yyyy-MM-dd HH:mm:ss"));
+				.addProperty("time", Global.formatDate(fresh.time, "yyyy-MM-dd HH:mm:ss"))
+				.addProperty("type",fresh.type);
 			SoapObject SO = addFresh.call();
 			try
 			{
@@ -120,10 +123,10 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 			String where = "";
 			if (Global.settings.interests.size() > 0)
 				where = "tag in" + Global.settings.getInterestList();
-			if (freshs.size() > 0)
+			if (minID!=Integer.MAX_VALUE)
 			{
 				if (where.length() > 0) where += " and ";
-				where += String.format("id<%d", freshs.get(freshs.size() - 1).id);
+				where += String.format("id<%d", minID);
 			}
 			new WebTask(handler, Global.MSG_WHAT.W_GOT_FRESHES_OLD).execute("getFreshBy", 2, "count", COUNT, "where", where);
 		}
@@ -139,6 +142,8 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_moments);
+		maxID=Integer.MIN_VALUE;
+		minID=Integer.MAX_VALUE;
 		btnShare = (Button) findViewById(R.id.btnShare);
 		btnShare.setOnClickListener(new View.OnClickListener()
 		{
@@ -150,18 +155,26 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 				I.putExtra("new", fresh == null);
 				if (fresh != null)
 				{
-					I.putExtra("picNum",PicNum);
+					I.putExtra("picNum", PicNum);
 					I.putExtra("tag", fresh.tag);
 					I.putExtra("text", fresh.text);
 					I.putExtra("picNames", fresh.picNames);
-					I.putExtra("id",id);
+					I.putExtra("type",fresh.type);
+					I.putExtra("id", id);
 				}
 				startActivityForResult(I, WRITE_FRESH);
 			}
 		});
 		if(t==null || t.getStatus()== AsyncTask.Status.FINISHED)
 		{
-			btnShare.setText("分享新鲜事");
+			if(fresh==null)
+			{
+				btnShare.setText("分享新鲜事");
+			}
+			else
+			{
+				btnShare.setText("点击编辑");
+			}
 			btnShare.setEnabled(true);
 		}
 		else
@@ -205,13 +218,19 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 						if (message.obj != null)
 						{
 							SoapObject soapObject = (SoapObject) ((SoapObject) message.obj).getProperty(0);
-							int count = soapObject.getPropertyCount();
-							for (int i = 0; i < count; i++)
+							int C = soapObject.getPropertyCount();
+							for (int i = 0; i < C; i++)
 							{
-								freshs.add(Fresh.parse((SoapObject) soapObject.getProperty(i)));
+								Fresh f=Fresh.parse((SoapObject) soapObject.getProperty(i));
+								Boolean b=Global.map2Friend.containsKey(f.username);
+								if(f.type==Fresh.TYPE_NORMAL || f.username.equals(Global.mySelf.username) || (f.type==Fresh.TYPE_ONLY_FRIENDS&&b ) ||(f.type==Fresh.TYPE_ONLY_STRANGER&&!b))
+								{
+									freshs.add(f);
+								}
+								if(f.id<minID)minID=f.id;
 							}
 							adapter.notifyDataSetChanged();
-							if (count < COUNT)
+							if ( C ==0 )
 							{
 								tvMore.setEnabled(false);
 								tvMore.setText("没有更多了");
@@ -229,7 +248,12 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 								ArrayList<Fresh> tmp = new ArrayList<>();
 								for (int i = 0; i < count; i++)
 								{
-									tmp.add(Fresh.parse((SoapObject) soapObject.getProperty(i)));
+									Fresh f=Fresh.parse((SoapObject) soapObject.getProperty(i));
+									Boolean b=Global.map2Friend.containsKey(f.username);
+									if(f.type==Fresh.TYPE_NORMAL || f.username.equals(Global.mySelf.username) || (f.type==Fresh.TYPE_ONLY_FRIENDS&&b ) ||(f.type==Fresh.TYPE_ONLY_STRANGER&&!b))
+										tmp.add(f);
+									if(f.id>maxID)
+										maxID=f.id;
 								}
 								freshs.addAll(0, tmp);
 								adapter.notifyDataSetChanged();
@@ -242,6 +266,19 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 		});
 		adapter = new MomentsAdapter(this, freshs, listView, handler);
 		listView.setAdapter(adapter);
+
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+		{
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+			{
+				Fresh f = ((Fresh) adapterView.getItemAtPosition(i));
+				Intent I = new Intent(MomentsActivity.this,HisFreshesAct.class);
+				I.putExtra("username",f.username);
+				startActivity(I);
+			}
+		});
+
 		swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.pullrefresh);
 		swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
 		{
@@ -251,10 +288,10 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 				String where = "";
 				if (Global.settings.interests.size() > 0)
 					where = "tag in" + Global.settings.getInterestList();
-				if (freshs.size() > 0)
+				if (maxID!=Integer.MIN_VALUE)
 				{
 					if (where.length() > 0) where += " and ";
-					where += String.format("id>%d", freshs.get(0).id);
+					where += String.format("id>%d", maxID);
 				}
 				new WebTask(handler, Global.MSG_WHAT.W_GOT_FRESHES_NEW).execute("getFreshBy", 2, "count", COUNT, "where", where);
 			}
@@ -282,6 +319,7 @@ public class MomentsActivity extends BaseActivity implements View.OnClickListene
 				fresh.text=data.getStringExtra("text");
 				fresh.time= (Date) data.getSerializableExtra("time");
 				fresh.username=Global.mySelf.username;
+				fresh.type=data.getIntExtra("type",0);
 				PicNum=data.getIntExtra("picNum",fresh.picNames.size()+10000);
 				id= (UUID) data.getSerializableExtra("id");
 				t=new sendFreshTask();

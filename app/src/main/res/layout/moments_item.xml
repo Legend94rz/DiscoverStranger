@@ -55,7 +55,8 @@
 				android:paddingTop="5dp"
 				android:paddingBottom="5dp"
 				android:paddingRight="2dp"
-				android:paddingLeft="1dp"/>
+				android:paddingLeft="1dp"
+				android:focusable="false"/>
 		</RelativeLayout>
 
 		<LinearLayout

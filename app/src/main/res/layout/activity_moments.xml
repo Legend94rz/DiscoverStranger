@@ -17,7 +17,7 @@
 			android:layout_below="@+id/ivHead"
 			android:layout_alignParentLeft="true"
 			android:layout_alignParentStart="true"
-			android:listSelector="@null"
+			android:listSelector="@drawable/img_btn_mask"
 			android:divider="@null"
 			/>
 	</view>

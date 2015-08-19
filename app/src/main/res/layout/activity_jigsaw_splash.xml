@@ -15,10 +15,9 @@
         android:id="@+id/button"
         android:background="@drawable/round_rect_button"
         android:textColor="@color/white"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/btnRank"
-        android:layout_alignStart="@+id/btnRank"/>
+        android:layout_centerHorizontal="true"/>
 
     <Button
         android:layout_width="120dp"
@@ -30,5 +29,6 @@
         android:textSize="24sp"
         android:textColor="@color/white"
         android:layout_below="@+id/button"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        />
 </RelativeLayout>

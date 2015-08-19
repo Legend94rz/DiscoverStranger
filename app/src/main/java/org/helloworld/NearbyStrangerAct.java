@@ -377,28 +377,32 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 			public void onReceiveLocation(BDLocation bdLocation)
 			{
 				// map view 销毁后不在处理新接收的位置
-				if (bdLocation == null || mMapView == null)
-					return;
-				latitude = bdLocation.getLatitude();
-				longitude = bdLocation.getLongitude();
-				position = new LatLng(latitude, longitude);
-
-				MyLocationData locData = new MyLocationData.Builder()
-											 .accuracy(bdLocation.getRadius())
-												  // 此处设置开发者获取到的方向信息，顺时针0-360
-											 .direction(bdLocation.getDirection()).latitude(latitude)
-											 .longitude(longitude).build();
-				if(map!=null)
-					map.setMyLocationData(locData);
-				if (isFirstLoc)
+				try
 				{
-					isFirstLoc = false;
-					MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(position);
-					if(map!=null)
-						map.animateMapStatus(u);
-					UpdateLocationTask updateMyPosition = new UpdateLocationTask(latitude, longitude);
-					updateMyPosition.execute();
+					if (bdLocation == null || mMapView == null)
+						return;
+					latitude = bdLocation.getLatitude();
+					longitude = bdLocation.getLongitude();
+					position = new LatLng(latitude, longitude);
+
+					MyLocationData locData = new MyLocationData.Builder()
+												 .accuracy(bdLocation.getRadius())
+													  // 此处设置开发者获取到的方向信息，顺时针0-360
+												 .direction(bdLocation.getDirection()).latitude(latitude)
+												 .longitude(longitude).build();
+					if (map != null)
+						map.setMyLocationData(locData);
+					if (isFirstLoc)
+					{
+						isFirstLoc = false;
+						MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(position);
+						if (map != null)
+							map.animateMapStatus(u);
+						UpdateLocationTask updateMyPosition = new UpdateLocationTask(latitude, longitude);
+						updateMyPosition.execute();
+					}
 				}
+				catch (Exception igored){}
 			}
 		});
 		locationClient.start();
@@ -832,7 +836,7 @@ public class NearbyStrangerAct extends BaseActivity implements BaiduMap.OnMarker
 	{
 		if (requestCode == PLAY_GAME)
 		{
-			if (resultCode == RESULT_OK && data.getBooleanExtra("result", false))
+			if (resultCode == RESULT_OK && data!=null && data.getBooleanExtra("result", false))
 			{
 				SuccessFinishGame(context, handler, data.getStringExtra("strangerName"));
 				new WebTask(null,-1).execute("addRank", 3, "username", Global.mySelf.username, "pakageName", data.getStringExtra("pakageName"), "score", data.getIntExtra("score", 0));

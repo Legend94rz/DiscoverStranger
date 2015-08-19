@@ -132,15 +132,20 @@ public class MomentsAdapter extends BaseAdapter implements AbsListView.OnScrollL
 		}
 		else
 		{
-			h.btnHello.setVisibility(View.VISIBLE);
-			h.btnHello.setOnClickListener(new View.OnClickListener()
+			if(handler!=null)
 			{
-				@Override
-				public void onClick(View view)
+				h.btnHello.setVisibility(View.VISIBLE);
+				h.btnHello.setOnClickListener(new View.OnClickListener()
 				{
-					NearbyStrangerAct.SayHello(context, fresh.username, handler);
-				}
-			});
+					@Override
+					public void onClick(View view)
+					{
+						NearbyStrangerAct.SayHello(context, fresh.username, handler);
+					}
+				});
+			}
+			else
+				h.btnHello.setVisibility(View.INVISIBLE);
 			h.tvNickName.setText(fresh.username);
 		}
 		h.glImages.removeAllViews();
@@ -155,6 +160,7 @@ public class MomentsAdapter extends BaseAdapter implements AbsListView.OnScrollL
 				layoutParams.setMargins(5*Global.DPI,5*Global.DPI,5*Global.DPI,5*Global.DPI);
 				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 				imageView.setTag(Global.PATH.ChatPic + fileName);
+				imageView.setFocusable(false);
 				h.glImages.addView(imageView,layoutParams);
 				imageView.setImageResource(R.drawable.nopic);
 				Bitmap bitmap = loader.loadDrawable(Global.PATH.ChatPic, "ChatPic", fileName, isScroll, 256 * Global.DPI, new AsyImageLoader.ImageCallback()
@@ -210,16 +216,7 @@ public class MomentsAdapter extends BaseAdapter implements AbsListView.OnScrollL
 	public void onScroll(AbsListView absListView, int i, int i1, int i2)
 	{
 	}
-	@Override
-	public boolean areAllItemsEnabled()
-	{
-		return false;
-	}
-	@Override
-	public boolean isEnabled(int position)
-	{
-		return false;
-	}
+
 	class H
 	{
 		CircleImageView ivHead;

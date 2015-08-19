@@ -262,7 +262,7 @@ public class SetMyGame extends BaseActivity
 					{
 						Global.settings.game = selectGame.pakageName;
 						adapter.notifyDataSetChanged();
-						SweetAlertDialog dialog=new SweetAlertDialog(SetMyGame.this,SweetAlertDialog.SUCCESS_TYPE);
+						SweetAlertDialog dialog = new SweetAlertDialog(SetMyGame.this, SweetAlertDialog.SUCCESS_TYPE);
 						dialog.setTitleText("设置成功").show();
 					}
 				}
@@ -270,7 +270,7 @@ public class SetMyGame extends BaseActivity
 				{
 					Global.settings.game = selectGame.pakageName;
 					adapter.notifyDataSetChanged();
-					SweetAlertDialog dialog=new SweetAlertDialog(SetMyGame.this,SweetAlertDialog.SUCCESS_TYPE);
+					SweetAlertDialog dialog = new SweetAlertDialog(SetMyGame.this, SweetAlertDialog.SUCCESS_TYPE);
 					dialog.setTitleText("设置成功").show();
 				}
 			}
@@ -295,6 +295,7 @@ public class SetMyGame extends BaseActivity
 				}
 			}
 		});
+		btnPlay.setEnabled(selectGame.pakageName.equals("1") || selectGame.pakageName.equals("2") || APKUtils.isPakageInstalled(SetMyGame.this, selectGame.pakageName));
 
 		gvGame.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{

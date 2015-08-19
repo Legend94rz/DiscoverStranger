@@ -28,5 +28,6 @@
 		android:layout_height="wrap_content"
 		android:id="@+id/listView"
 		android:layout_below="@+id/relativeLayout"
-		android:layout_centerHorizontal="true"/>
+		android:layout_centerHorizontal="true"
+		android:listSelector="@drawable/img_btn_mask"/>
 </RelativeLayout>
